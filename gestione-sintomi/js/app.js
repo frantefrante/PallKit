@@ -77,7 +77,8 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   };
   const sintomi = ["Dolore", ...Object.keys(altriSintomi),"Sedazione Palliativa","Altro" ];
-  let terapie = [], editingIndex = null;
+  window.terapie = window.terapie || [];
+  let editingIndex = null;
 
   // Riferimenti al DOM
   const sintomoSelect      = document.getElementById('sintomo-home');
@@ -93,6 +94,7 @@ document.addEventListener("DOMContentLoaded", function() {
   const posologiaInput     = document.getElementById('posologia-home');
   const frequenzaInput     = document.getElementById('frequenza-home');
   const tbody              = document.querySelector('#table-terapie-home tbody');
+  const formCol            = document.getElementById('form-col-home');
 
   // Popola Sintomi
   sintomoSelect.innerHTML = '<option value="">-- Seleziona --</option>';
@@ -125,25 +127,23 @@ document.addEventListener("DOMContentLoaded", function() {
   // Nascondi tutte le sezioni di sintomo
   document.querySelectorAll('.sintomo-section').forEach(sec => sec.style.display = 'none');
   const s = sintomoSelect.value;
-  if (s !== 'Sedazione Palliativa' && typeof window.resetSedationUI === 'function') {
+  if (typeof window.resetSedationUI === 'function' && s !== 'Sedazione Palliativa') {
     window.resetSedationUI();
   }
-  // Mostra gestione sintomi se non Sedazione Palliativa
-  if (s && s !== 'Sedazione Palliativa') {
-    const homeSec = document.querySelector('.sintomo-section[data-sintomo="gestione-home"]');
-    if (homeSec) homeSec.style.display = 'block';
-  }
-  if (s === 'Dolore') {
+  const homeSec = document.querySelector('.sintomo-section[data-sintomo="gestione-home"]');
+  if (homeSec) homeSec.style.display = 'block';
+  if (formCol) formCol.style.display = s === 'Sedazione Palliativa' ? 'none' : '';
+  if (s === 'Sedazione Palliativa') {
+    const sec = document.querySelector('.sintomo-section[data-sintomo="Sedazione Palliativa"]');
+    if (sec) sec.style.display = 'block';
+    if (typeof window.moveTableToSedation === 'function') window.moveTableToSedation();
+  } else if (s === 'Dolore') {
     populate(farmacoSelect, Object.keys(dolore));
     farmacoSelect.disabled = false;
     formulazioneGroup.style.display = 'block';
   } else if (s === 'Altro') {
     customSintomoGroup.style.display = 'block';
     customFarmacoInput.style.display = 'block';
-  } else if (s === 'Sedazione Palliativa') {
-    // Mostra solo la sezione selezionata
-    const sec = document.querySelector(`.sintomo-section[data-sintomo="${s}"]`);
-    if (sec) sec.style.display = 'block';
   } else if (s) {
     populate(farmacoSelect, Object.keys(altriSintomi[s]));
     farmacoSelect.disabled = false;
@@ -190,18 +190,19 @@ document.addEventListener("DOMContentLoaded", function() {
       if (!farm) return alert('Seleziona farmaco');
     }
     const rec = { sintomo:sint, farmaco:frm||farm, via:viaInput.value, dose:doseInput.value, poso:posologiaInput.value, freq:frequenzaInput.value };
-    if (editingIndex!==null) terapie[editingIndex]=rec; else terapie.push(rec);
+    if (editingIndex!==null) window.terapie[editingIndex]=rec; else window.terapie.push(rec);
     resetFormHome(); renderTableHome();
   }
   function renderTableHome() {
     tbody.innerHTML = '';
-    terapie.forEach((t,i)=>{
+    window.terapie.forEach((t,i)=>{
       const tr = document.createElement('tr');
       tr.innerHTML = `<td>${t.sintomo}</td><td>${t.farmaco}</td><td>${t.via}</td><td>${t.dose}</td><td>${t.poso}</td><td>${t.freq}</td><td><button class="btn btn-sm btn-secondary del-btn" data-i="${i}"><i class="fas fa-trash"></i></button></td>`;
       tbody.appendChild(tr);
     });
-    tbody.querySelectorAll('.del-btn').forEach(b=>b.onclick=e=>{terapie.splice(+e.currentTarget.dataset.i,1);resetFormHome();renderTableHome();});
+    tbody.querySelectorAll('.del-btn').forEach(b=>b.onclick=e=>{window.terapie.splice(+e.currentTarget.dataset.i,1);resetFormHome();renderTableHome();});
   }
+  window.renderTableHome = renderTableHome;
   sintomoSelect.onchange       = onSintomoChangeHome;
   farmacoSelect.onchange       = onFarmacoChangeHome;
   formulazioneSelect.onchange  = onFormulazioneChangeHome;
@@ -284,7 +285,7 @@ document.addEventListener("DOMContentLoaded", function() {
       const th = document.createElement('th'); th.textContent = txt; theadRow.appendChild(th);
     });
     const tb = tbl.createTBody();
-    terapie.forEach(t => {
+    window.terapie.forEach(t => {
       const r = tb.insertRow();
       [t.sintomo,t.farmaco,t.via,t.dose,t.poso,t.freq].forEach(v => { const c = r.insertCell(); c.textContent = v; });
     });
@@ -312,7 +313,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const rows = [];
     rows.push(new TableRow({ children: ['Sintomo','Farmaco','Via','Dose','Posologia','Frequenza'].map(t => new TableCell({ children:[new Paragraph({ text: t })] })) }));
-    terapie.forEach(t => {
+    window.terapie.forEach(t => {
       rows.push(new TableRow({ children: [t.sintomo, t.farmaco, t.via, t.dose, t.poso, t.freq].map(v => new TableCell({ children:[new Paragraph({ text: v })] })) }));
     });
     const table = new Table({ rows });
@@ -323,6 +324,7 @@ document.addEventListener("DOMContentLoaded", function() {
   }
   const exportHomeBtn = document.getElementById('btn-export-home');
   if (exportHomeBtn) exportHomeBtn.addEventListener('click', exportWordHome);
+  window.exportWordHome = exportWordHome;
 
   // ──────────────────────────────
   // 8) POPUP NEC PAL

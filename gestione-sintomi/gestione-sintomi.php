@@ -4,7 +4,7 @@
 <section id="gestione-home" class="sintomo-section container p-4" data-sintomo="gestione-home" style="display:none;">
   <div class="row">
     <!-- Form Card -->
-    <div class="col-12 col-md-6 col-lg-4 mb-4">
+    <div class="col-12 col-md-6 col-lg-4 mb-4" id="form-col-home">
       <div class="form-card p-3 bg-white rounded shadow-sm">
         <h6>Gestione Sintomi</h6>
         <div class="mb-3">
@@ -56,8 +56,8 @@
     </div>
 
     <!-- Table Card -->
-    <div class="col-12 col-md-6 col-lg-8">
-      <div class="bg-white p-3 rounded shadow-sm">
+    <div class="col-12 col-md-6 col-lg-8" id="terapie-container-home-wrapper">
+      <div class="bg-white p-3 rounded shadow-sm" id="terapie-container-home">
         <h6>Elenco Terapie</h6>
         <table class="table table-striped mt-3" id="table-terapie-home">
           <thead>
