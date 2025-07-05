@@ -3,6 +3,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const tbodyInd = document.querySelector("#table-induzione tbody");
   const tbodyMan = document.querySelector("#table-mantenimento tbody");
+  // Exit if the sedation tables are not present (e.g. section hidden)
   if (!tbodyInd || !tbodyMan) return;
 
   const data = window.schemiSedazione || [];
@@ -16,7 +17,6 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   // 1) Popola Induzione
-  const tbodyInd = document.querySelector("#table-induzione tbody");
   data.forEach(item => {
     if (!item.induzione) return;
     const tr = document.createElement("tr");
@@ -32,7 +32,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // 2) Popola Mantenimento
-  const tbodyMan = document.querySelector("#table-mantenimento tbody");
   data.forEach(item => {
     if (!item.mantenimento) return;
     const tr = document.createElement("tr");
