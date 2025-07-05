@@ -118,13 +118,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     formPlan.reset();
     planDrug.value = select.value;
-    // torna alla schermata principale
+    // torna alla schermata principale e riabilita il form
+    if (typeof window.resetSedationUI === "function") window.resetSedationUI();
     document.getElementById("gestione-sedazione").style.display = "none";
     const home = document.getElementById("gestione-home");
     if (home) home.style.display = "block";
     const sintSelect = document.getElementById("sintomo-home");
-    if (sintSelect) sintSelect.value = "";
-    moveTableToHome();
+    if (sintSelect) {
+      sintSelect.value = "";
+      sintSelect.dispatchEvent(new Event("change"));
+    }
   });
 
 
