@@ -1,0 +1,354 @@
+<?php
+// index.php
+?>
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Progetto Pepe 2 – Dashboard Cure Palliative</title>
+  <!-- CSS di Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- FontAwesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" rel="stylesheet">
+  <!-- Avada compatibility styles -->
+  <link href="/css/avada-compat.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="d-flex flex-wrap">
+  <!-- Sidebar -->
+  <nav class="sidebar p-3">
+    <h4 class="text-white mb-4"><i class="fas fa-notes-medical me-2"></i>Cure Palliative</h4>
+    <ul class="nav flex-column">
+      <li class="nav-item mb-2">
+        <a href="#" class="nav-link active" data-target="dashboard-home">
+          <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+        </a>
+      </li>
+      <li class="nav-item mb-2">
+        <a href="#" class="nav-link" data-target="gestione-home">
+          <i class="fas fa-pills me-2"></i>Gestione Sintomi
+        </a>
+      </li>
+      <li class="nav-item mb-2">
+        <a href="#" class="nav-link" data-target="equianalgesia-section">
+          <i class="fas fa-balance-scale me-2"></i>Calcolo Equianalgesia
+        </a>
+      </li>
+      <li class="nav-item mb-2">
+        <a href="#" class="nav-link" data-target="rescue-section">
+          <i class="fas fa-syringe me-2"></i>Calcola Dose Rescue
+        </a>
+      </li>
+
+      <li class="nav-item mb-2">
+        <a href="#" class="nav-link" data-target="identificazione-home">
+          <i class="fas fa-id-card me-2"></i>Identificazione
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#medico-modal-home">
+          <i class="fas fa-user-md me-2"></i>Dati Medico
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Main content -->
+  <div class="content-wrapper flex-grow-1">
+
+
+    <!-- SEZIONE Dashboard -->
+    <div id="dashboard-home" class="p-4">
+      <h4>Benvenuto nella dashboard</h4>
+      <p>Da qui puoi accedere a Gestione Sintomi o Identificazione.</p>
+    </div>
+
+    <!-- SEZIONE Gestione Sintomi -->
+    <?php include __DIR__ . '/gestione-sintomi.php'; ?>
+
+     <!-- SEZIONE Sedazione Palliativa -->
+     <section id="gestione-sedazione"
+              class="sintomo-section p-4"
+              data-sintomo="Sedazione Palliativa"
+              style="display:none;">
+       <?php include __DIR__ . '/gestione-sedazione.php'; ?>
+     </section>
+
+    <!-- SEZIONE Calcolo Equianalgesia -->
+    <section id="equianalgesia-section" class="p-4" style="display:none;">
+      <div class="card card-body">
+        <div id="drug-list-home">
+          <div class="row mb-2 drug-entry">
+            <div class="col-md-5">
+              <select class="form-select drug-select">
+                <option value="morfina_orale">Morfina orale</option>
+                <option value="ossicodone_orale">Ossicodone orale</option>
+                <option value="fentanil_tts">Fentanil cerotto</option>
+              </select>
+            </div>
+            <div class="col-md-4">
+              <input type="number" class="form-control dose-input" placeholder="Dose/24h (mg)">
+            </div>
+            <div class="col-md-2">
+              <button class="btn btn-danger remove-drug" type="button">−</button>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn btn-secondary mb-3" id="add-drug-home" type="button">Aggiungi oppioide</button>
+
+        <div class="mb-3">
+          <label for="conversion-target-home">Converti in:</label>
+          <select class="form-select" id="conversion-target-home">
+            <option value="ossicodone_orale">Ossicodone orale</option>
+            <option value="morfina_ev">Morfina EV</option>
+            <option value="fentanil_tts">Fentanil cerotto</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label>Riduzione per tolleranza crociata:</label>
+          <input type="number" id="tolleranza-home" value="25" class="form-control" /> %
+        </div>
+
+        <button class="btn btn-primary" type="button" onclick="calcolaEquianalgesiaHome()">Calcola</button>
+
+        <div class="mt-3" id="result-home"></div>
+      </div>
+    </section>
+
+    <!-- SEZIONE Calcolo Dose Rescue -->
+    <section id="rescue-section" class="p-4" style="display:none;">
+      <div class="card">
+        <div class="card-header">Calcolatore Dose Rescue</div>
+        <div class="card-body">
+          <div class="mb-3">
+            <label class="form-label">Dose giornaliera totale (mg)</label>
+            <input type="number" class="form-control" id="rescue-total">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Tipo oppioide</label>
+            <select class="form-select" id="rescue-type">
+              <option>Morfina orale</option>
+              <option>Morfina SC</option>
+              <option>Ossicodone orale</option>
+              <option>Fentanil TTS</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Dose rescue</label>
+            <input type="text" class="form-control" id="rescue-result" readonly>
+          </div>
+          <button type="button" id="calculate-rescue-btn" class="btn btn-primary">Calcola</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEZIONE Identificazione -->
+    <?php include __DIR__ . '/identificazione.php'; ?>
+  </div>
+</div>
+
+<!-- POPUP: Cancro -->
+<div id="popup-indicatore-cancro" class="popup-indicatore">
+  <div class="popup-indicatore-contenuto">
+    <button class="btn-close close-popup mb-2"></button>
+    <h5>Cancro</h5>
+    <ul>
+      <li>Metastatico o avanzato a livello locoregionale</li>
+      <li>Cancro in progressione (tumori solidi)</li>
+      <li>Sintomi persistenti, non controllati o refrattari nonostante l’ottimizzazione del trattamento specifico</li>
+    </ul>
+  </div>
+</div>
+
+<!-- POPUP: Patologie polmonari croniche -->
+<div id="popup-indicatore-bpco" class="popup-indicatore">
+  <div class="popup-indicatore-contenuto">
+    <button class="btn-close close-popup mb-2"></button>
+    <h5>Patologie polmonari croniche</h5>
+    <ul>
+      <li>Dispnea per minimi sforzi</li>
+      <li>Paziente confinato a casa con gravi limitazioni</li>
+      <li>Criteri spirometrici di ostruzione grave (VEMS &lt; 30%) o di restrizione severa (CV &lt; 40% / DLCO &lt; 40%)</li>
+      <li>Criteri emogasanalitici predisponenti per O₂ terapia domiciliare</li>
+      <li>Necessità di terapia corticosteroidea continuativa</li>
+      <li>Insufficienza cardiaca sintomatica associata</li>
+    </ul>
+  </div>
+</div>
+
+<!-- POPUP: Patologie cardiache croniche -->
+<div id="popup-indicatore-cardiache" class="popup-indicatore">
+  <div class="popup-indicatore-contenuto">
+    <button class="btn-close close-popup mb-2"></button>
+    <h5>Patologie cardiache croniche</h5>
+    <ul>
+      <li>Dispnea a riposo o per minimi sforzi</li>
+      <li>Insufficienza cardiaca NYHA stadio III o IV, malattia valvolare grave non operabile o malattia coronarica avanzata non operabile</li>
+      <li>Ecocardiografia basale: FE &lt; 30% o HTPA grave (PAPs &gt; 60)</li>
+      <li>Insufficienza renale associata (FG &lt; 30 ml/min)</li>
+      <li>Associazione con insufficienza renale e iponatriemia persistente</li>
+    </ul>
+  </div>
+</div>
+
+<!-- POPUP: Demenza -->
+<div id="popup-indicatore-demenza" class="popup-indicatore">
+  <div class="popup-indicatore-contenuto">
+    <button class="btn-close close-popup mb-2"></button>
+    <h5>Demenza</h5>
+    <ul>
+      <li>GDS ≥ 6c</li>
+      <li>Progressione del declino funzionale, nutrizionale e/o cognitivo</li>
+    </ul>
+  </div>
+</div>
+
+<!-- POPUP: Fragilità -->
+<div id="popup-indicatore-fragilita" class="popup-indicatore">
+  <div class="popup-indicatore-contenuto">
+    <button class="btn-close close-popup mb-2"></button>
+    <h5>Fragilità</h5>
+    <ul>
+      <li>Indice di fragilità ≥ 0,5 (Rockwood K et al, 2005)</li>
+      <li>CGA (comprehensive geriatric assessment) suggestiva di fragilità avanzata (Stuck A et al, 2011)</li>
+    </ul>
+  </div>
+</div>
+
+<!-- POPUP: Patologie neurovascolari croniche (ictus) -->
+<div id="popup-indicatore-ictus" class="popup-indicatore">
+  <div class="popup-indicatore-contenuto">
+    <button class="btn-close close-popup mb-2"></button>
+    <h5>Patologie neurovascolari croniche (ictus)</h5>
+    <ul>
+      <li>In fase acuta e subacuta (&lt; 3 mesi post-ictus): stato vegetativo o livello minimo di coscienza</li>
+      <li>In fase cronica (&gt; 3 mesi post-ictus): complicanze mediche ripetute (o grave demenza post-ictale)</li>
+    </ul>
+  </div>
+</div>
+
+<!-- POPUP: Patologie neurologiche croniche (SM/SLA/Parkinson) -->
+<div id="popup-indicatore-neuro" class="popup-indicatore">
+  <div class="popup-indicatore-contenuto">
+    <button class="btn-close close-popup mb-2"></button>
+    <h5>Patologie neurologiche croniche: SM/SLA/Parkinson</h5>
+    <ul>
+      <li>Declino progressivo delle funzionalità fisiche e/o cognitive</li>
+      <li>Sintomi complessi o refrattari</li>
+      <li>Disfagia persistente</li>
+      <li>Aumento delle difficoltà di comunicazione</li>
+      <li>Frequenti polmoniti ab ingestis, dispnea o insufficienza respiratoria</li>
+    </ul>
+  </div>
+</div>
+
+<!-- POPUP: Patologie epatiche croniche -->
+<div id="popup-indicatore-epatiche" class="popup-indicatore">
+  <div class="popup-indicatore-contenuto">
+    <button class="btn-close close-popup mb-2"></button>
+    <h5>Patologie epatiche croniche</h5>
+    <ul>
+      <li>Cirrosi avanzata: stadio Child C, MELD-Na score &gt; 30 o con complicanze refrattarie</li>
+      <li>Epatocarcinoma stadio C o D</li>
+    </ul>
+  </div>
+</div>
+
+<!-- POPUP: Patologia renale cronica -->
+<div id="popup-indicatore-renale" class="popup-indicatore">
+  <div class="popup-indicatore-contenuto">
+    <button class="btn-close close-popup mb-2"></button>
+    <h5>Patologia renale cronica</h5>
+    <ul>
+      <li>Insufficienza renale grave (FG &lt; 15 ml/min) in pazienti non candidabili o che rifiutino trapianto/dialisi</li>
+      <li>Sospensione della dialisi o fallimento del trapianto</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Modale: Dati Medico -->
+<div class="modal fade" id="medico-modal-home" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Dati Medico</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="form-medico" class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label">Nome e Cognome</label>
+            <input type="text" class="form-control" id="medico-nome-input">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Studio/Ente</label>
+            <input type="text" class="form-control" id="medico-studio-input">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Codice Reg.</label>
+            <input type="text" class="form-control" id="medico-codice-input">
+          </div>
+          <div class="col-md-8">
+            <label class="form-label">Affiliazione</label>
+            <input type="text" class="form-control" id="medico-aff-input">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Indirizzo</label>
+            <input type="text" class="form-control" id="medico-indirizzo-input">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Telefono</label>
+            <input type="text" class="form-control" id="medico-tel-input">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Luogo</label>
+            <input type="text" class="form-control" id="medico-luogo-input">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="save-medico-btn" class="btn btn-primary">Salva</button>
+      </div>
+    </div>
+  </div>
+</div>
+    </div>
+  </div></div>
+</div>
+
+
+<!-- Modale: Anteprima -->
+<div class="modal fade" id="preview-modal-home" tabindex="-1">
+  <div class="modal-dialog modal-xl"><div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">Anteprima Documento</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+    </div>
+    <div class="modal-body" id="preview-content-home"></div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+    </div>
+  </div></div>
+</div>
+
+<!-- JS: Bootstrap, Docx, script custom -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/js/all.min.js"></script>
+<script src="/js/bootstrap.bundle.min.js"></script>
+<script src="/js/app.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/docx@7.1.2"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+<script src="/js/sedazione.data.js"></script>
+<script src="/js/sedazione.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const d = document.getElementById("today-date-home");
+    if (d) d.textContent = new Date().toLocaleDateString("it-IT");
+  });
+</script>
+</body>
+</html>
