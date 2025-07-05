@@ -52,11 +52,6 @@
           <i class="fas fa-user-md me-2"></i>Dati Medico
         </a>
       </li>
-      <li class="nav-item mt-2">
-        <a href="about.php" class="nav-link">
-          <i class="fas fa-info-circle me-2"></i>About
-        </a>
-      </li>
     </ul>
   </nav>
 
