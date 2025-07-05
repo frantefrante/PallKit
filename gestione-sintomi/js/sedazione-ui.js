@@ -85,6 +85,14 @@ document.addEventListener("DOMContentLoaded", () => {
   // 4. Aggiungi al piano
   formPlan.addEventListener("submit", e => {
     e.preventDefault();
+    const rec = {
+      sintomo: "Sedazione Palliativa",
+      farmaco: planDrug.value,
+      via: planVia.value,
+      dose: planDose.value,
+      poso: "",
+      freq: planNote.value
+    };
     const tr = document.createElement("tr");
     tr.innerHTML = `
       <td>${planDrug.value}</td>
@@ -93,16 +101,31 @@ document.addEventListener("DOMContentLoaded", () => {
       <td>${planNote.value}</td>
       <td><button class="btn btn-sm btn-danger btn-remove">×</button></td>
     `;
+    tr._rec = rec;
     tablePlan.appendChild(tr);
-    tr.querySelector(".btn-remove").onclick = () => tr.remove();
+    tr.querySelector(".btn-remove").onclick = () => {
+      tr.remove();
+      if (window.terapie) {
+        const i = window.terapie.indexOf(tr._rec);
+        if (i > -1) {
+          window.terapie.splice(i, 1);
+          if (typeof window.renderTableHome === "function") window.renderTableHome();
+        }
+      }
+    };
+    if (window.terapie) {
+      window.terapie.push(rec);
+      if (typeof window.renderTableHome === "function") window.renderTableHome();
+    }
     formPlan.reset();
     planDrug.value = select.value;
   });
 
-  // 5. Export (integra nel tuo app.js)
+  // 5. Export tramite la funzione principale di gestione sintomi
   exportBtn.onclick = () => {
-    // in app.js estrae già le tabelle, aggiungi anche #table-plan
-    // oppure fai tu: html2pdf o docx qui sopra tablePlan.parentElement
+    if (typeof window.exportWordHome === "function") {
+      window.exportWordHome();
+    }
   };
 
   // Funzione globale per resettare lo stato della UI di sedazione
@@ -118,5 +141,9 @@ document.addEventListener("DOMContentLoaded", () => {
     formPlan.reset();
     planDrug.value = '';
     tablePlan.innerHTML = '';
+    if (window.terapie) {
+      window.terapie = window.terapie.filter(t => t.sintomo !== 'Sedazione Palliativa');
+      if (typeof window.renderTableHome === 'function') window.renderTableHome();
+    }
   };
 });

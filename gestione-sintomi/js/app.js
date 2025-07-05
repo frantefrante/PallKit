@@ -78,6 +78,7 @@ document.addEventListener("DOMContentLoaded", function() {
   };
   const sintomi = ["Dolore", ...Object.keys(altriSintomi),"Sedazione Palliativa","Altro" ];
   let terapie = [], editingIndex = null;
+  window.terapie = terapie;
 
   // Riferimenti al DOM
   const sintomoSelect      = document.getElementById('sintomo-home');
@@ -202,6 +203,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
     tbody.querySelectorAll('.del-btn').forEach(b=>b.onclick=e=>{terapie.splice(+e.currentTarget.dataset.i,1);resetFormHome();renderTableHome();});
   }
+  window.renderTableHome = renderTableHome;
   sintomoSelect.onchange       = onSintomoChangeHome;
   farmacoSelect.onchange       = onFarmacoChangeHome;
   formulazioneSelect.onchange  = onFormulazioneChangeHome;
@@ -323,6 +325,7 @@ document.addEventListener("DOMContentLoaded", function() {
   }
   const exportHomeBtn = document.getElementById('btn-export-home');
   if (exportHomeBtn) exportHomeBtn.addEventListener('click', exportWordHome);
+  window.exportWordHome = exportWordHome;
 
   // ──────────────────────────────
   // 8) POPUP NEC PAL
