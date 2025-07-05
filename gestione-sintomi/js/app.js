@@ -94,6 +94,7 @@ document.addEventListener("DOMContentLoaded", function() {
   const posologiaInput     = document.getElementById('posologia-home');
   const frequenzaInput     = document.getElementById('frequenza-home');
   const tbody              = document.querySelector('#table-terapie-home tbody');
+  const formCol            = document.getElementById('form-col-home');
 
   // Popola Sintomi
   sintomoSelect.innerHTML = '<option value="">-- Seleziona --</option>';
@@ -126,25 +127,23 @@ document.addEventListener("DOMContentLoaded", function() {
   // Nascondi tutte le sezioni di sintomo
   document.querySelectorAll('.sintomo-section').forEach(sec => sec.style.display = 'none');
   const s = sintomoSelect.value;
-  if (s !== 'Sedazione Palliativa' && typeof window.resetSedationUI === 'function') {
+  if (typeof window.resetSedationUI === 'function' && s !== 'Sedazione Palliativa') {
     window.resetSedationUI();
   }
-  // Mostra gestione sintomi se non Sedazione Palliativa
-  if (s && s !== 'Sedazione Palliativa') {
-    const homeSec = document.querySelector('.sintomo-section[data-sintomo="gestione-home"]');
-    if (homeSec) homeSec.style.display = 'block';
-  }
-  if (s === 'Dolore') {
+  const homeSec = document.querySelector('.sintomo-section[data-sintomo="gestione-home"]');
+  if (homeSec) homeSec.style.display = 'block';
+  if (formCol) formCol.style.display = s === 'Sedazione Palliativa' ? 'none' : '';
+  if (s === 'Sedazione Palliativa') {
+    const sec = document.querySelector('.sintomo-section[data-sintomo="Sedazione Palliativa"]');
+    if (sec) sec.style.display = 'block';
+    if (typeof window.renderSedationTable === 'function') window.renderSedationTable();
+  } else if (s === 'Dolore') {
     populate(farmacoSelect, Object.keys(dolore));
     farmacoSelect.disabled = false;
     formulazioneGroup.style.display = 'block';
   } else if (s === 'Altro') {
     customSintomoGroup.style.display = 'block';
     customFarmacoInput.style.display = 'block';
-  } else if (s === 'Sedazione Palliativa') {
-    // Mostra solo la sezione selezionata
-    const sec = document.querySelector(`.sintomo-section[data-sintomo="${s}"]`);
-    if (sec) sec.style.display = 'block';
   } else if (s) {
     populate(farmacoSelect, Object.keys(altriSintomi[s]));
     farmacoSelect.disabled = false;

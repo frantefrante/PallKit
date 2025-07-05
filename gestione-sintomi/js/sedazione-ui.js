@@ -23,6 +23,33 @@ document.addEventListener("DOMContentLoaded", () => {
   const tablePlan = document.querySelector("#table-plan tbody");
   const exportBtn = document.getElementById("export-plan");
 
+  function renderPlanTable() {
+    tablePlan.innerHTML = "";
+    if (!window.terapie) return;
+    window.terapie
+      .filter(t => t.sintomo === "Sedazione Palliativa")
+      .forEach(rec => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${rec.farmaco}</td>
+          <td>${rec.dose}</td>
+          <td>${rec.via}</td>
+          <td>${rec.freq}</td>
+          <td><button class="btn btn-sm btn-danger btn-remove">×</button></td>
+        `;
+        tr.querySelector(".btn-remove").onclick = () => {
+          const i = window.terapie.indexOf(rec);
+          if (i > -1) {
+            window.terapie.splice(i, 1);
+            if (typeof window.renderTableHome === "function") window.renderTableHome();
+            renderPlanTable();
+          }
+        };
+        tablePlan.appendChild(tr);
+      });
+  }
+  window.renderSedationTable = renderPlanTable;
+
   // Move sedation sections into the main page content
   const mainContent = document.querySelector("main");
   if (mainContent) {
@@ -93,30 +120,11 @@ document.addEventListener("DOMContentLoaded", () => {
       poso: "",
       freq: planNote.value
     };
-    const tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td>${planDrug.value}</td>
-      <td>${planDose.value}</td>
-      <td>${planVia.value}</td>
-      <td>${planNote.value}</td>
-      <td><button class="btn btn-sm btn-danger btn-remove">×</button></td>
-    `;
-    tr._rec = rec;
-    tablePlan.appendChild(tr);
-    tr.querySelector(".btn-remove").onclick = () => {
-      tr.remove();
-      if (window.terapie) {
-        const i = window.terapie.indexOf(tr._rec);
-        if (i > -1) {
-          window.terapie.splice(i, 1);
-          if (typeof window.renderTableHome === "function") window.renderTableHome();
-        }
-      }
-    };
     if (window.terapie) {
       window.terapie.push(rec);
       if (typeof window.renderTableHome === "function") window.renderTableHome();
     }
+    renderPlanTable();
     formPlan.reset();
     planDrug.value = select.value;
   });
@@ -141,9 +149,6 @@ document.addEventListener("DOMContentLoaded", () => {
     formPlan.reset();
     planDrug.value = '';
     tablePlan.innerHTML = '';
-    if (window.terapie) {
-      window.terapie = window.terapie.filter(t => t.sintomo !== 'Sedazione Palliativa');
-      if (typeof window.renderTableHome === 'function') window.renderTableHome();
-    }
+    if (typeof window.renderTableHome === 'function') window.renderTableHome();
   };
 });
