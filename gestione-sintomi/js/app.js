@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function() {
   document.querySelectorAll('.sidebar .nav-link[data-target]').forEach(link => {
     link.addEventListener('click', function(e) {
       e.preventDefault();
-      ['dashboard-home','gestione-home','identificazione-home','equianalgesia-section','rescue-section'].forEach(id => {
+      ['dashboard-home','gestione-home','gestione-sedazione','identificazione-home','equianalgesia-section','rescue-section'].forEach(id => {
         const sec = document.getElementById(id);
         if (sec) sec.style.display = 'none';
       });
