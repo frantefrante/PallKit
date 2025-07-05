@@ -1,6 +1,10 @@
 // js/sedazione.js
 
 document.addEventListener("DOMContentLoaded", () => {
+  const tbodyInd = document.querySelector("#table-induzione tbody");
+  const tbodyMan = document.querySelector("#table-mantenimento tbody");
+  if (!tbodyInd || !tbodyMan) return;
+
   const data = window.schemiSedazione || [];
   console.log("schemiSedazione:", data);
 
