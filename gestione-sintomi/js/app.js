@@ -228,15 +228,31 @@ document.addEventListener("DOMContentLoaded", function() {
   // ──────────────────────────────
   // 5) DATI MEDICO
   // ──────────────────────────────
+  // Dati del medico, inizialmente vuoti. Verranno compilati tramite la modale
+  // "Dati Medico" e usati nell'anteprima e nell'esportazione Word.
   let medicoData = {
-    nome:         "Dott. Francesco Magnante",
-    studio:       "Medico di Medicina Generale",
-    codice:       "Cod Reg 257477",
-    affiliazione: "c/o Casa delle Salute 'Le Piagge'",
-    indirizzo:    "Via dell'Osteria 18",
-    telefono:     "055 6934223",
-    luogo:        "Firenze"
+    nome:         '',
+    studio:       '',
+    codice:       '',
+    affiliazione: '',
+    indirizzo:    '',
+    telefono:     '',
+    luogo:        ''
   };
+
+  // Popola i campi della modale con i valori correnti quando viene aperta
+  const medicoModal = document.getElementById('medico-modal-home');
+  if (medicoModal) {
+    medicoModal.addEventListener('shown.bs.modal', () => {
+      document.getElementById('medico-nome-input').value      = medicoData.nome;
+      document.getElementById('medico-studio-input').value    = medicoData.studio;
+      document.getElementById('medico-codice-input').value    = medicoData.codice;
+      document.getElementById('medico-aff-input').value       = medicoData.affiliazione;
+      document.getElementById('medico-indirizzo-input').value = medicoData.indirizzo;
+      document.getElementById('medico-tel-input').value       = medicoData.telefono;
+      document.getElementById('medico-luogo-input').value     = medicoData.luogo;
+    });
+  }
   function saveMedicoHome() {
     medicoData.nome         = document.getElementById('medico-nome-input').value;
     medicoData.studio       = document.getElementById('medico-studio-input').value;
@@ -246,10 +262,7 @@ document.addEventListener("DOMContentLoaded", function() {
     medicoData.telefono     = document.getElementById('medico-tel-input').value;
     medicoData.luogo        = document.getElementById('medico-luogo-input').value;
 
-    document.getElementById('medico-name-home').textContent   = medicoData.nome;
-    document.getElementById('medico-studio-home').textContent = medicoData.studio;
-    document.getElementById('location-date-home').textContent = medicoData.luogo + ', ' + new Date().toLocaleDateString('it-IT');
-
+    // Chiude la modale dopo il salvataggio
     bootstrap.Modal.getInstance(document.getElementById('medico-modal-home')).hide();
   }
   const saveMedicoBtn = document.getElementById('save-medico-btn');
@@ -285,8 +298,26 @@ document.addEventListener("DOMContentLoaded", function() {
   // 7) EXPORT WORD
   // ──────────────────────────────
   async function exportWordHome() {
-    const { Document,Packer,Paragraph,Table,TableRow,TableCell,TextRun,AlignmentType,BorderStyle } = docx;
-    const doc = new Document({ sections:[{ children: [] }] });
+    const { Document, Packer, Paragraph, Table, TableRow, TableCell, AlignmentType } = docx;
+
+    const header = [];
+    if (medicoData.nome)      header.push(new Paragraph({ text: medicoData.nome, heading: 'Heading1' }));
+    if (medicoData.studio)    header.push(new Paragraph({ text: medicoData.studio }));
+    const r1 = [medicoData.codice, medicoData.affiliazione].filter(Boolean).join('  |  ');
+    if (r1) header.push(new Paragraph({ text: r1 }));
+    const r2 = [medicoData.indirizzo, medicoData.telefono].filter(Boolean).join('  |  ');
+    if (r2) header.push(new Paragraph({ text: r2 }));
+    const locDate = (medicoData.luogo ? medicoData.luogo + ', ' : '') + new Date().toLocaleDateString('it-IT');
+    header.push(new Paragraph({ text: locDate, alignment: AlignmentType.RIGHT, italics: true }));
+
+    const rows = [];
+    rows.push(new TableRow({ children: ['Sintomo','Farmaco','Via','Dose','Posologia','Frequenza'].map(t => new TableCell({ children:[new Paragraph({ text: t })] })) }));
+    terapie.forEach(t => {
+      rows.push(new TableRow({ children: [t.sintomo, t.farmaco, t.via, t.dose, t.poso, t.freq].map(v => new TableCell({ children:[new Paragraph({ text: v })] })) }));
+    });
+    const table = new Table({ rows });
+
+    const doc = new Document({ sections:[{ children: [...header, table] }] });
     const blob = await Packer.toBlob(doc);
     saveAs(blob, 'riepilogo.docx');
   }
