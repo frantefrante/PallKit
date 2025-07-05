@@ -15,6 +15,8 @@ document.addEventListener("DOMContentLoaded", function() {
       });
       if (this.dataset.target !== 'gestione-sedazione' && typeof window.resetSedationUI === 'function') {
         window.resetSedationUI();
+        const sintSelect = document.getElementById('sintomo-home');
+        if (sintSelect) sintSelect.value = '';
       }
       const tgt = this.dataset.target;
       const targetEl = document.getElementById(tgt);
