@@ -16,6 +16,9 @@ document.addEventListener("DOMContentLoaded", function() {
       document.getElementById(tgt).style.display = 'block';
       document.querySelectorAll('.sidebar .nav-link').forEach(x=>x.classList.remove('active'));
       this.classList.add('active');
+      if (tgt === 'gestione-home') {
+        onSintomoChangeHome();
+      }
     });
   });
   document.getElementById('dashboard-home').style.display = 'block';
