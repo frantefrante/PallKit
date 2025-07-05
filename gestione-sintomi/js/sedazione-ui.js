@@ -23,13 +23,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const tablePlan = document.querySelector("#table-plan tbody");
   const exportBtn = document.getElementById("export-plan");
 
-  // Move sedation sections into the main page content
-  const mainContent = document.querySelector("main");
-  if (mainContent) {
-    mainContent.appendChild(schemaDiv);
-    mainContent.appendChild(calcDiv);
-    mainContent.appendChild(addDiv);
-  }
+  // Container section for sedation interface
+  const sedSection = document.getElementById("gestione-sedazione");
 
   // 1. Popola dropdown
   data.forEach(item => {
@@ -38,14 +33,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // 2. On change: render schema
   select.onchange = async () => {
-    // ––––––––––––––––––––––––––––––––––––––––––––––––––––––
-    // Assicura che le sezioni di sedazione siano sempre nel <main>
-    if (mainContent) {
-      mainContent.appendChild(schemaDiv);
-      mainContent.appendChild(calcDiv);
-      mainContent.appendChild(addDiv);
+    // Ensure the dynamic subsections stay inside the sedation section
+    if (sedSection) {
+      sedSection.appendChild(schemaDiv);
+      sedSection.appendChild(calcDiv);
+      sedSection.appendChild(addDiv);
     }
-    // ––––––––––––––––––––––––––––––––––––––––––––––––––––––
 
     const nome = select.value.toLowerCase().replace(/\s+/g, '_');
     if (!nome) {
