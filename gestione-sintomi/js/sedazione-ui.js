@@ -104,4 +104,19 @@ document.addEventListener("DOMContentLoaded", () => {
     // in app.js estrae già le tabelle, aggiungi anche #table-plan
     // oppure fai tu: html2pdf o docx qui sopra tablePlan.parentElement
   };
+
+  // Funzione globale per resettare lo stato della UI di sedazione
+  window.resetSedationUI = function() {
+    select.value = '';
+    schemaDiv.innerHTML = '';
+    schemaDiv.style.display = 'none';
+    calcDiv.style.display = 'none';
+    addDiv.style.display = 'none';
+    calcP.value = '';
+    calcW.value = '';
+    calcRes.textContent = '';
+    formPlan.reset();
+    planDrug.value = '';
+    tablePlan.innerHTML = '';
+  };
 });

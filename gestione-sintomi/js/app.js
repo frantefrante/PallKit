@@ -8,12 +8,20 @@ document.addEventListener("DOMContentLoaded", function() {
   document.querySelectorAll('.sidebar .nav-link[data-target]').forEach(link => {
     link.addEventListener('click', function(e) {
       e.preventDefault();
-      ['dashboard-home','gestione-home','identificazione-home','equianalgesia-section','rescue-section'].forEach(id => {
+      const sections = ['dashboard-home','gestione-home','gestione-sedazione','identificazione-home','equianalgesia-section','rescue-section'];
+      sections.forEach(id => {
         const sec = document.getElementById(id);
         if (sec) sec.style.display = 'none';
       });
+      if (this.dataset.target !== 'gestione-sedazione' && typeof window.resetSedationUI === 'function') {
+        window.resetSedationUI();
+      }
       const tgt = this.dataset.target;
-      document.getElementById(tgt).style.display = 'block';
+      const targetEl = document.getElementById(tgt);
+      if (targetEl) {
+        targetEl.style.display = 'block';
+        targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
       document.querySelectorAll('.sidebar .nav-link').forEach(x=>x.classList.remove('active'));
       this.classList.add('active');
     });
@@ -115,6 +123,9 @@ document.addEventListener("DOMContentLoaded", function() {
   // Nascondi tutte le sezioni di sintomo
   document.querySelectorAll('.sintomo-section').forEach(sec => sec.style.display = 'none');
   const s = sintomoSelect.value;
+  if (s !== 'Sedazione Palliativa' && typeof window.resetSedationUI === 'function') {
+    window.resetSedationUI();
+  }
   // Mostra gestione sintomi se non Sedazione Palliativa
   if (s && s !== 'Sedazione Palliativa') {
     const homeSec = document.querySelector('.sintomo-section[data-sintomo="gestione-home"]');
