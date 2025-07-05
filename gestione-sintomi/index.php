@@ -343,7 +343,6 @@
 <script src="https://cdn.jsdelivr.net/npm/docx@7.1.2"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
 <script src="/js/sedazione.data.js"></script>
-<script src="/js/sedazione.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     const d = document.getElementById("today-date-home");
