@@ -56,8 +56,8 @@
     </div>
 
     <!-- Table Card -->
-    <div class="col-12 col-md-6 col-lg-8">
-      <div class="bg-white p-3 rounded shadow-sm">
+    <div class="col-12 col-md-6 col-lg-8" id="terapie-container-home-wrapper">
+      <div class="bg-white p-3 rounded shadow-sm" id="terapie-container-home">
         <h6>Elenco Terapie</h6>
         <table class="table table-striped mt-3" id="table-terapie-home">
           <thead>

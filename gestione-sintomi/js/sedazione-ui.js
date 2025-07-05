@@ -17,38 +17,30 @@ document.addEventListener("DOMContentLoaded", () => {
   const addDiv = document.getElementById("add-to-plan");
   const formPlan = document.getElementById("form-add-plan");
   const planDrug = document.getElementById("plan-drug");
-  const planDose = document.getElementById("plan-dose");
+  const planForm = document.getElementById("plan-formulazione");
   const planVia = document.getElementById("plan-via");
-  const planNote = document.getElementById("plan-note");
-  const tablePlan = document.querySelector("#table-plan tbody");
-  const exportBtn = document.getElementById("export-plan");
+  const planDose = document.getElementById("plan-dose");
+  const planPoso = document.getElementById("plan-posologia");
+  const planFreq = document.getElementById("plan-frequenza");
 
-  function renderPlanTable() {
-    tablePlan.innerHTML = "";
-    if (!window.terapie) return;
-    window.terapie
-      .filter(t => t.sintomo === "Sedazione Palliativa")
-      .forEach(rec => {
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td>${rec.farmaco}</td>
-          <td>${rec.dose}</td>
-          <td>${rec.via}</td>
-          <td>${rec.freq}</td>
-          <td><button class="btn btn-sm btn-danger btn-remove">×</button></td>
-        `;
-        tr.querySelector(".btn-remove").onclick = () => {
-          const i = window.terapie.indexOf(rec);
-          if (i > -1) {
-            window.terapie.splice(i, 1);
-            if (typeof window.renderTableHome === "function") window.renderTableHome();
-            renderPlanTable();
-          }
-        };
-        tablePlan.appendChild(tr);
-      });
+  const tableContainer = document.getElementById("terapie-container-home");
+  const tableOrigParent = tableContainer ? tableContainer.parentElement : null;
+  const sedWrapper = document.getElementById("sedation-table-wrapper");
+
+  function moveTableToSedation() {
+    if (sedWrapper && tableContainer && tableContainer.parentElement !== sedWrapper) {
+      sedWrapper.appendChild(tableContainer);
+    }
   }
-  window.renderSedationTable = renderPlanTable;
+
+  function moveTableToHome() {
+    if (tableOrigParent && tableContainer && tableContainer.parentElement !== tableOrigParent) {
+      tableOrigParent.appendChild(tableContainer);
+    }
+  }
+
+  window.moveTableToSedation = moveTableToSedation;
+  window.moveTableToHome = moveTableToHome;
 
   // Move sedation sections into the main page content
   const mainContent = document.querySelector("main");
@@ -114,27 +106,27 @@ document.addEventListener("DOMContentLoaded", () => {
     e.preventDefault();
     const rec = {
       sintomo: "Sedazione Palliativa",
-      farmaco: planDrug.value,
+      farmaco: planDrug.value + (planForm.value ? " " + planForm.value : ""),
       via: planVia.value,
       dose: planDose.value,
-      poso: "",
-      freq: planNote.value
+      poso: planPoso.value,
+      freq: planFreq.value
     };
     if (window.terapie) {
       window.terapie.push(rec);
       if (typeof window.renderTableHome === "function") window.renderTableHome();
     }
-    renderPlanTable();
     formPlan.reset();
     planDrug.value = select.value;
+    // torna alla schermata principale
+    document.getElementById("gestione-sedazione").style.display = "none";
+    const home = document.getElementById("gestione-home");
+    if (home) home.style.display = "block";
+    const sintSelect = document.getElementById("sintomo-home");
+    if (sintSelect) sintSelect.value = "";
+    moveTableToHome();
   });
 
-  // 5. Export tramite la funzione principale di gestione sintomi
-  exportBtn.onclick = () => {
-    if (typeof window.exportWordHome === "function") {
-      window.exportWordHome();
-    }
-  };
 
   // Funzione globale per resettare lo stato della UI di sedazione
   window.resetSedationUI = function() {
@@ -148,7 +140,7 @@ document.addEventListener("DOMContentLoaded", () => {
     calcRes.textContent = '';
     formPlan.reset();
     planDrug.value = '';
-    tablePlan.innerHTML = '';
+    moveTableToHome();
     if (typeof window.renderTableHome === 'function') window.renderTableHome();
   };
 });

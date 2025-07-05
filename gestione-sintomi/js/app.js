@@ -136,7 +136,7 @@ document.addEventListener("DOMContentLoaded", function() {
   if (s === 'Sedazione Palliativa') {
     const sec = document.querySelector('.sintomo-section[data-sintomo="Sedazione Palliativa"]');
     if (sec) sec.style.display = 'block';
-    if (typeof window.renderSedationTable === 'function') window.renderSedationTable();
+    if (typeof window.moveTableToSedation === 'function') window.moveTableToSedation();
   } else if (s === 'Dolore') {
     populate(farmacoSelect, Object.keys(dolore));
     farmacoSelect.disabled = false;
