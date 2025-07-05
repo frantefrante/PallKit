@@ -77,8 +77,8 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   };
   const sintomi = ["Dolore", ...Object.keys(altriSintomi),"Sedazione Palliativa","Altro" ];
-  let terapie = [], editingIndex = null;
-  window.terapie = terapie;
+  window.terapie = window.terapie || [];
+  let editingIndex = null;
 
   // Riferimenti al DOM
   const sintomoSelect      = document.getElementById('sintomo-home');
@@ -191,17 +191,17 @@ document.addEventListener("DOMContentLoaded", function() {
       if (!farm) return alert('Seleziona farmaco');
     }
     const rec = { sintomo:sint, farmaco:frm||farm, via:viaInput.value, dose:doseInput.value, poso:posologiaInput.value, freq:frequenzaInput.value };
-    if (editingIndex!==null) terapie[editingIndex]=rec; else terapie.push(rec);
+    if (editingIndex!==null) window.terapie[editingIndex]=rec; else window.terapie.push(rec);
     resetFormHome(); renderTableHome();
   }
   function renderTableHome() {
     tbody.innerHTML = '';
-    terapie.forEach((t,i)=>{
+    window.terapie.forEach((t,i)=>{
       const tr = document.createElement('tr');
       tr.innerHTML = `<td>${t.sintomo}</td><td>${t.farmaco}</td><td>${t.via}</td><td>${t.dose}</td><td>${t.poso}</td><td>${t.freq}</td><td><button class="btn btn-sm btn-secondary del-btn" data-i="${i}"><i class="fas fa-trash"></i></button></td>`;
       tbody.appendChild(tr);
     });
-    tbody.querySelectorAll('.del-btn').forEach(b=>b.onclick=e=>{terapie.splice(+e.currentTarget.dataset.i,1);resetFormHome();renderTableHome();});
+    tbody.querySelectorAll('.del-btn').forEach(b=>b.onclick=e=>{window.terapie.splice(+e.currentTarget.dataset.i,1);resetFormHome();renderTableHome();});
   }
   window.renderTableHome = renderTableHome;
   sintomoSelect.onchange       = onSintomoChangeHome;
@@ -286,7 +286,7 @@ document.addEventListener("DOMContentLoaded", function() {
       const th = document.createElement('th'); th.textContent = txt; theadRow.appendChild(th);
     });
     const tb = tbl.createTBody();
-    terapie.forEach(t => {
+    window.terapie.forEach(t => {
       const r = tb.insertRow();
       [t.sintomo,t.farmaco,t.via,t.dose,t.poso,t.freq].forEach(v => { const c = r.insertCell(); c.textContent = v; });
     });
@@ -314,7 +314,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const rows = [];
     rows.push(new TableRow({ children: ['Sintomo','Farmaco','Via','Dose','Posologia','Frequenza'].map(t => new TableCell({ children:[new Paragraph({ text: t })] })) }));
-    terapie.forEach(t => {
+    window.terapie.forEach(t => {
       rows.push(new TableRow({ children: [t.sintomo, t.farmaco, t.via, t.dose, t.poso, t.freq].map(v => new TableCell({ children:[new Paragraph({ text: v })] })) }));
     });
     const table = new Table({ rows });
