@@ -90,6 +90,7 @@ p {
     font-size: 11pt;
     border-collapse: collapse;
     width: 100%;
+    margin-top: 1rem;
 }
 .summary-table th {
     font-weight: bold;
@@ -117,6 +118,10 @@ p {
 #preview-content-home h5,
 #preview-content-home h6 {
     color: #000;
+}
+
+.header-center {
+    text-align: center;
 }
 
 @media (max-width: 768px) {

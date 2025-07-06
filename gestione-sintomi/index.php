@@ -302,7 +302,13 @@
           </div>
           <div class="col-md-6">
             <label class="form-label">Specializzazione</label>
-            <input type="text" class="form-control" id="medico-spec-input">
+            <div id="spec-list">
+              <div class="row mb-2 spec-entry">
+                <div class="col-10"><input type="text" class="form-control spec-input"></div>
+                <div class="col-2"><button class="btn btn-danger remove-spec" type="button">−</button></div>
+              </div>
+            </div>
+            <button class="btn btn-secondary btn-sm mb-2" id="add-spec" type="button">+</button>
           </div>
           <div class="col-md-4">
             <label class="form-label">Codice Reg.</label>
@@ -310,15 +316,41 @@
           </div>
           <div class="col-md-8">
             <label class="form-label">Indirizzo</label>
-            <input type="text" class="form-control" id="medico-indirizzo-input">
+            <div id="indirizzo-list">
+              <div class="row mb-2 indirizzo-entry">
+                <div class="col-10"><input type="text" class="form-control indirizzo-input"></div>
+                <div class="col-2"><button class="btn btn-danger remove-indirizzo" type="button">−</button></div>
+              </div>
+            </div>
+            <button class="btn btn-secondary btn-sm mb-2" id="add-indirizzo" type="button">+</button>
           </div>
           <div class="col-md-6">
             <label class="form-label">Telefono</label>
-            <input type="text" class="form-control" id="medico-tel-input">
+            <div id="tel-list">
+              <div class="row mb-2 tel-entry">
+                <div class="col-10"><input type="text" class="form-control tel-input"></div>
+                <div class="col-2"><button class="btn btn-danger remove-tel" type="button">−</button></div>
+              </div>
+            </div>
+            <button class="btn btn-secondary btn-sm mb-2" id="add-tel" type="button">+</button>
           </div>
           <div class="col-md-6">
             <label class="form-label">Luogo</label>
             <input type="text" class="form-control" id="medico-luogo-input">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Email</label>
+            <div id="mail-list">
+              <div class="row mb-2 mail-entry">
+                <div class="col-10"><input type="email" class="form-control mail-input"></div>
+                <div class="col-2"><button class="btn btn-danger remove-mail" type="button">−</button></div>
+              </div>
+            </div>
+            <button class="btn btn-secondary btn-sm mb-2" id="add-mail" type="button">+</button>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Data</label>
+            <input type="date" class="form-control" id="medico-data-input">
           </div>
         </form>
       </div>

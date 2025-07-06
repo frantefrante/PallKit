@@ -235,17 +235,23 @@ document.addEventListener("DOMContentLoaded", function() {
     titolo:       '',
     nome:         '',
     studio:       '',
-    specializzazione: '',
+    specializzazioni: [],
     codice:       '',
-    indirizzo:    '',
-    telefono:     '',
-    luogo:        ''
+    indirizzi:    [],
+    telefoni:     [],
+    mails:        [],
+    luogo:        '',
+    data:         ''
   };
 
   // Popola i campi della modale con i valori correnti quando viene aperta
   const medicoModal = document.getElementById('medico-modal-home');
   const titoloSelect = document.getElementById('medico-titolo-select');
   const titoloCustom = document.getElementById('medico-titolo-custom');
+  const specList = document.getElementById('spec-list');
+  const indirizzoList = document.getElementById('indirizzo-list');
+  const telList = document.getElementById('tel-list');
+  const mailList = document.getElementById('mail-list');
   function updateTitoloVisibility() {
     if (!titoloSelect) return;
     if (titoloSelect.value === 'custom') {
@@ -255,6 +261,21 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
   if (titoloSelect) titoloSelect.addEventListener('change', updateTitoloVisibility);
+  function fillList(container, values, inputSelector) {
+    if (!container) return;
+    const template = container.querySelector(':scope > div');
+    container.innerHTML = '';
+    (values && values.length ? values : ['']).forEach(v => {
+      const clone = template.cloneNode(true);
+      const input = clone.querySelector('input');
+      if (input) input.value = v;
+      container.appendChild(clone);
+    });
+  }
+  function getListValues(container, selector) {
+    if (!container) return [];
+    return Array.from(container.querySelectorAll(selector)).map(i => i.value.trim()).filter(Boolean);
+  }
   if (medicoModal) {
     medicoModal.addEventListener('shown.bs.modal', () => {
       const titoliPredef = ['Dott.','Dott.ssa','Prof.','Prof.ssa'];
@@ -266,24 +287,28 @@ document.addEventListener("DOMContentLoaded", function() {
         titoloCustom.value = medicoData.titolo;
       }
       updateTitoloVisibility();
-      document.getElementById('medico-nome-input').value      = medicoData.nome;
-      document.getElementById('medico-studio-input').value    = medicoData.studio;
-      document.getElementById('medico-spec-input').value      = medicoData.specializzazione;
-      document.getElementById('medico-codice-input').value    = medicoData.codice;
-      document.getElementById('medico-indirizzo-input').value = medicoData.indirizzo;
-      document.getElementById('medico-tel-input').value       = medicoData.telefono;
-      document.getElementById('medico-luogo-input').value     = medicoData.luogo;
+      document.getElementById('medico-nome-input').value   = medicoData.nome;
+      document.getElementById('medico-studio-input').value = medicoData.studio;
+      fillList(specList, medicoData.specializzazioni, '.spec-input');
+      document.getElementById('medico-codice-input').value = medicoData.codice;
+      fillList(indirizzoList, medicoData.indirizzi, '.indirizzo-input');
+      fillList(telList, medicoData.telefoni, '.tel-input');
+      fillList(mailList, medicoData.mails, '.mail-input');
+      document.getElementById('medico-luogo-input').value = medicoData.luogo;
+      document.getElementById('medico-data-input').value  = medicoData.data || new Date().toISOString().split('T')[0];
     });
   }
   function saveMedicoHome() {
     medicoData.titolo = (titoloSelect.value === 'custom') ? titoloCustom.value.trim() : titoloSelect.value;
-    medicoData.nome         = document.getElementById('medico-nome-input').value;
-    medicoData.studio       = document.getElementById('medico-studio-input').value;
-    medicoData.specializzazione = document.getElementById('medico-spec-input').value;
-    medicoData.codice       = document.getElementById('medico-codice-input').value;
-    medicoData.indirizzo    = document.getElementById('medico-indirizzo-input').value;
-    medicoData.telefono     = document.getElementById('medico-tel-input').value;
-    medicoData.luogo        = document.getElementById('medico-luogo-input').value;
+    medicoData.nome     = document.getElementById('medico-nome-input').value;
+    medicoData.studio   = document.getElementById('medico-studio-input').value;
+    medicoData.specializzazioni = getListValues(specList, '.spec-input');
+    medicoData.codice   = document.getElementById('medico-codice-input').value;
+    medicoData.indirizzi= getListValues(indirizzoList, '.indirizzo-input');
+    medicoData.telefoni = getListValues(telList, '.tel-input');
+    medicoData.mails    = getListValues(mailList, '.mail-input');
+    medicoData.luogo    = document.getElementById('medico-luogo-input').value;
+    medicoData.data     = document.getElementById('medico-data-input').value;
 
     // Chiude la modale dopo il salvataggio
     bootstrap.Modal.getInstance(document.getElementById('medico-modal-home')).hide();
@@ -296,19 +321,20 @@ document.addEventListener("DOMContentLoaded", function() {
   // ──────────────────────────────
   function showPreviewHome() {
     const pc = document.getElementById('preview-content-home'); pc.innerHTML = '';
-    const h1 = document.createElement('h5'); h1.textContent = `${medicoData.titolo} ${medicoData.nome}`.trim(); h1.style.color = '#000'; pc.appendChild(h1);
-    const h2 = document.createElement('h6'); h2.textContent = 'Medico Chirurgo'; h2.style.color = '#000'; pc.appendChild(h2);
-    if (medicoData.specializzazione) {
-      const h3 = document.createElement('h6'); h3.textContent = medicoData.specializzazione; h3.style.color = '#000'; pc.appendChild(h3);
-    }
-    if (medicoData.studio) {
-      const pStudio = document.createElement('p'); pStudio.textContent = medicoData.studio; pc.appendChild(pStudio);
-    }
-    if (medicoData.codice) {
-      const pCod = document.createElement('p'); pCod.textContent = `Cod. Reg.: ${medicoData.codice}`; pc.appendChild(pCod);
-    }
-    const p2 = document.createElement('p'); p2.textContent = [medicoData.indirizzo, medicoData.telefono].filter(Boolean).join('  |  '); pc.appendChild(p2);
-    const pDate = document.createElement('p'); pDate.textContent = `${medicoData.luogo}, ${new Date().toLocaleDateString('it-IT')}`; pDate.classList.add('text-end'); pDate.style.fontStyle='italic'; pc.appendChild(pDate);
+    const header = document.createElement('div'); header.className = 'header-center';
+    const h1 = document.createElement('h5'); h1.textContent = `${medicoData.titolo} ${medicoData.nome}`.trim(); h1.style.color = '#000'; header.appendChild(h1);
+    const h2 = document.createElement('h6'); h2.textContent = 'Medico Chirurgo'; h2.style.fontStyle = 'italic'; h2.style.color = '#000'; header.appendChild(h2);
+    medicoData.specializzazioni.forEach(sp => { const h = document.createElement('h6'); h.textContent = sp; h.style.color='#000'; header.appendChild(h); });
+    if (medicoData.studio) { const p = document.createElement('p'); p.textContent = medicoData.studio; header.appendChild(p); }
+    if (medicoData.codice) { const p = document.createElement('p'); p.textContent = `Cod. Reg.: ${medicoData.codice}`; header.appendChild(p); }
+    medicoData.indirizzi.forEach(a => { const p = document.createElement('p'); p.textContent = a; header.appendChild(p); });
+    medicoData.telefoni.forEach(t => { const p = document.createElement('p'); p.textContent = `Tel. ${t}`; header.appendChild(p); });
+    medicoData.mails.forEach(m => { const p = document.createElement('p'); p.textContent = m; header.appendChild(p); });
+    pc.appendChild(header);
+    const pDate = document.createElement('p');
+    const loc = medicoData.luogo ? medicoData.luogo + ', ' : '';
+    pDate.textContent = loc + (medicoData.data || new Date().toLocaleDateString('it-IT'));
+    pDate.classList.add('text-end'); pDate.style.fontStyle='italic'; pc.appendChild(pDate);
     const tbl = document.createElement('table'); tbl.className = 'summary-table';
     const theadRow = tbl.createTHead().insertRow();
     ['Sintomo','Farmaco','Via','Dose','Posologia','Frequenza'].forEach(txt => {
@@ -321,7 +347,7 @@ document.addEventListener("DOMContentLoaded", function() {
       const sep = tb.insertRow(); sep.className = 'separator-row'; for(let i=0;i<6;i++) sep.insertCell();
     });
     pc.appendChild(tbl);
-    const psal = document.createElement('p'); psal.textContent = 'Cordiali saluti'; pc.appendChild(psal);
+    const psal = document.createElement('p'); psal.textContent = 'Cordiali saluti'; psal.style.marginTop='1rem'; pc.appendChild(psal);
     const pfirma = document.createElement('p'); pfirma.textContent = `${medicoData.titolo} ${medicoData.nome}`.trim(); pc.appendChild(pfirma);
     new bootstrap.Modal(document.getElementById('preview-modal-home')).show();
   }
@@ -337,22 +363,23 @@ document.addEventListener("DOMContentLoaded", function() {
     const { BorderStyle, WidthType, TextRun, VerticalAlign } = docx;
     const header = [];
     if (medicoData.nome || medicoData.titolo) {
-      header.push(new Paragraph({ children:[new TextRun({ text:`${medicoData.titolo} ${medicoData.nome}`.trim(), bold:true, color:'000000' })] }));
+      header.push(new Paragraph({ alignment: AlignmentType.CENTER, children:[new TextRun({ text:`${medicoData.titolo} ${medicoData.nome}`.trim(), bold:true })] }));
     }
-    header.push(new Paragraph({ text:'Medico Chirurgo', color:'000000' }));
-    if (medicoData.specializzazione) header.push(new Paragraph({ text: medicoData.specializzazione, color:'000000' }));
-    if (medicoData.studio) header.push(new Paragraph({ text: medicoData.studio, color:'000000' }));
-    if (medicoData.codice) header.push(new Paragraph({ text:`Cod. Reg.: ${medicoData.codice}`, color:'000000' }));
-    const r2 = [medicoData.indirizzo, medicoData.telefono].filter(Boolean).join('  |  ');
-    if (r2) header.push(new Paragraph({ text: r2, color:'000000' }));
-    const locDate = (medicoData.luogo ? medicoData.luogo + ', ' : '') + new Date().toLocaleDateString('it-IT');
-    header.push(new Paragraph({ text: locDate, alignment: AlignmentType.RIGHT, italics: true }));
+    header.push(new Paragraph({ text:'Medico Chirurgo', alignment: AlignmentType.CENTER, italics:true }));
+    medicoData.specializzazioni.forEach(sp => header.push(new Paragraph({ text: sp, alignment: AlignmentType.CENTER })));
+    if (medicoData.studio) header.push(new Paragraph({ text: medicoData.studio, alignment: AlignmentType.CENTER }));
+    if (medicoData.codice) header.push(new Paragraph({ text:`Cod. Reg.: ${medicoData.codice}`, alignment: AlignmentType.CENTER }));
+    medicoData.indirizzi.forEach(a => header.push(new Paragraph({ text:a, alignment: AlignmentType.CENTER })));
+    medicoData.telefoni.forEach(t => header.push(new Paragraph({ text:`Tel. ${t}`, alignment: AlignmentType.CENTER })));
+    medicoData.mails.forEach(m => header.push(new Paragraph({ text:m, alignment: AlignmentType.CENTER })));
+    const locDate = (medicoData.luogo ? medicoData.luogo + ', ' : '') + (medicoData.data || new Date().toLocaleDateString('it-IT'));
+    header.push(new Paragraph({ text: locDate, alignment: AlignmentType.RIGHT, italics: true, spacing:{ after:200 } }));
 
     const rows = [];
     const headCells = ['Sintomo','Farmaco','Via','Dose','Posologia','Frequenza'].map(t => new TableCell({ children:[new Paragraph({ text:t, bold:true })], verticalAlign:VerticalAlign.CENTER }));
     rows.push(new TableRow({ children: headCells }));
     window.terapie.forEach(t => {
-      rows.push(new TableRow({ children: [t.sintomo, t.farmaco, t.via, t.dose, t.poso, t.freq].map(v => new TableCell({ children:[new Paragraph({ text:v })], verticalAlign:VerticalAlign.CENTER })) }));
+      rows.push(new TableRow({ children: [t.sintomo, t.farmaco, t.via, t.dose, t.poso, t.freq].map((v,i) => new TableCell({ children:[new Paragraph({ text:v, bold:i===0 })], verticalAlign:VerticalAlign.CENTER })) }));
       rows.push(new TableRow({ children: Array(6).fill(0).map(()=> new TableCell({ children:[], shading:{fill:'f0f0f0'} })) }));
     });
     const table = new Table({
@@ -475,12 +502,33 @@ if (savePdfBtn) {
     });
   }
 
+  function addEntry(list, entryClass) {
+    if (!list) return;
+    const base = list.querySelector('.' + entryClass);
+    const clone = base.cloneNode(true);
+    const input = clone.querySelector('input');
+    if (input) input.value = '';
+    list.appendChild(clone);
+  }
+
+  document.getElementById('add-spec')?.addEventListener('click', () => addEntry(specList, 'spec-entry'));
+  document.getElementById('add-indirizzo')?.addEventListener('click', () => addEntry(indirizzoList, 'indirizzo-entry'));
+  document.getElementById('add-tel')?.addEventListener('click', () => addEntry(telList, 'tel-entry'));
+  document.getElementById('add-mail')?.addEventListener('click', () => addEntry(mailList, 'mail-entry'));
 
   document.addEventListener('click', function (e) {
     if (e.target.classList.contains('remove-drug')) {
       const entry = e.target.closest('.drug-entry');
       if (document.querySelectorAll('#drug-list-home .drug-entry').length > 1) entry.remove();
     }
+    ['spec','indirizzo','tel','mail'].forEach(cls => {
+      if (e.target.classList.contains('remove-' + cls)) {
+        const lists = {spec:specList, indirizzo:indirizzoList, tel:telList, mail:mailList};
+        const list = lists[cls];
+        const entry = e.target.closest('.' + cls + '-entry');
+        if (list && list.querySelectorAll('.' + cls + '-entry').length > 1) entry.remove();
+      }
+    });
   });
 
 });
