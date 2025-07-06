@@ -280,6 +280,10 @@
       </div>
       <div class="modal-body">
         <form id="form-medico" class="row g-3">
+          <div class="col-12 form-check">
+            <input class="form-check-input" type="checkbox" id="medico-use-test">
+            <label class="form-check-label" for="medico-use-test">Usa dati di test</label>
+          </div>
           <div class="col-md-3">
             <label class="form-label">Titolo</label>
             <select class="form-select" id="medico-titolo-select">

@@ -244,6 +244,19 @@ document.addEventListener("DOMContentLoaded", function() {
     data:         ''
   };
 
+  const medicoTestData = {
+    titolo: 'Dott.',
+    nome: 'Mario Rossi',
+    studio: 'ASL Roma 1',
+    specializzazioni: ['Medico di medicina generale'],
+    codice: '123456',
+    indirizzi: ['via delle Rose 10 - Roma'],
+    telefoni: ['3331234567'],
+    mails: ['mario.rossi@example.com'],
+    luogo: 'Roma',
+    data: '2025-07-06'
+  };
+
   // Popola i campi della modale con i valori correnti quando viene aperta
   const medicoModal = document.getElementById('medico-modal-home');
   const titoloSelect = document.getElementById('medico-titolo-select');
@@ -252,6 +265,41 @@ document.addEventListener("DOMContentLoaded", function() {
   const indirizzoList = document.getElementById('indirizzo-list');
   const telList = document.getElementById('tel-list');
   const mailList = document.getElementById('mail-list');
+  const useTestCheckbox = document.getElementById('medico-use-test');
+
+  function setMedicoFormValues(data) {
+    const titoliPredef = ['Dott.','Dott.ssa','Prof.','Prof.ssa'];
+    if (data.titolo && titoliPredef.includes(data.titolo)) {
+      titoloSelect.value = data.titolo;
+      titoloCustom.value = '';
+    } else if (data.titolo) {
+      titoloSelect.value = 'custom';
+      titoloCustom.value = data.titolo;
+    } else {
+      titoloSelect.value = '';
+      titoloCustom.value = '';
+    }
+    updateTitoloVisibility();
+    document.getElementById('medico-nome-input').value   = data.nome || '';
+    document.getElementById('medico-studio-input').value = data.studio || '';
+    fillList(specList, data.specializzazioni || [], '.spec-input');
+    document.getElementById('medico-codice-input').value = data.codice || '';
+    fillList(indirizzoList, data.indirizzi || [], '.indirizzo-input');
+    fillList(telList, data.telefoni || [], '.tel-input');
+    fillList(mailList, data.mails || [], '.mail-input');
+    document.getElementById('medico-luogo-input').value  = data.luogo || '';
+    document.getElementById('medico-data-input').value   = data.data || '';
+  }
+
+  function toggleMedicoTestData() {
+    if (useTestCheckbox && useTestCheckbox.checked) {
+      setMedicoFormValues(medicoTestData);
+    } else {
+      setMedicoFormValues({titolo:'',nome:'',studio:'',specializzazioni:[],codice:'',indirizzi:[],telefoni:[],mails:[],luogo:'',data:''});
+    }
+  }
+
+  if (useTestCheckbox) useTestCheckbox.addEventListener('change', toggleMedicoTestData);
   function updateTitoloVisibility() {
     if (!titoloSelect) return;
     if (titoloSelect.value === 'custom') {
@@ -306,6 +354,7 @@ document.addEventListener("DOMContentLoaded", function() {
       fillList(mailList, medicoData.mails, '.mail-input');
       document.getElementById('medico-luogo-input').value = medicoData.luogo;
       document.getElementById('medico-data-input').value  = medicoData.data || new Date().toISOString().split('T')[0];
+      if (useTestCheckbox && useTestCheckbox.checked) toggleMedicoTestData();
     });
   }
   function saveMedicoHome() {
