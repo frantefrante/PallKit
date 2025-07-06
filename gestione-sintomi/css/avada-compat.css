@@ -90,7 +90,7 @@ p {
     font-size: 11pt;
     border-collapse: collapse;
     width: 100%;
-    margin-top: 2rem;
+    margin-top: 4rem;
 }
 .summary-table th {
     font-weight: bold;
@@ -127,7 +127,17 @@ p {
     font-size: 1.25rem;
 }
 .header-left h6 {
-    font-size: 1.1rem;
+    font-size: 1rem;
+}
+
+.doc-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.doc-footer {
+    margin-top: auto;
 }
 
 @media (max-width: 768px) {

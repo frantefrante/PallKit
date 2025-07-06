@@ -331,6 +331,7 @@ document.addEventListener("DOMContentLoaded", function() {
 // 6) GENERAZIONE CONTENUTO DOCUMENTO
 function buildPreviewContent() {
   const cont = document.createElement('div');
+  cont.className = 'doc-container';
   const header = document.createElement('div');
   header.className = 'header-left';
   const h1 = document.createElement('h5');
@@ -356,7 +357,7 @@ function buildPreviewContent() {
   pDate.style.fontStyle = 'italic';
   cont.appendChild(pDate);
   const tbl = document.createElement('table'); tbl.className = 'summary-table';
-  tbl.style.marginTop = '2rem';
+  tbl.style.marginTop = '4rem';
   const theadRow = tbl.createTHead().insertRow();
   ['Sintomo','Farmaco','Via','Dose','Posologia','Frequenza'].forEach(txt => { const th = document.createElement('th'); th.textContent = txt; theadRow.appendChild(th); });
   const tb = tbl.createTBody();
@@ -366,8 +367,11 @@ function buildPreviewContent() {
     const sep = tb.insertRow(); sep.className = 'separator-row'; for(let i=0;i<6;i++) sep.insertCell();
   });
   cont.appendChild(tbl);
-  const psal = document.createElement('p'); psal.textContent = 'Cordiali saluti'; psal.style.marginTop = '3rem'; cont.appendChild(psal);
-  const pfirma = document.createElement('p'); pfirma.textContent = `${medicoData.titolo} ${medicoData.nome}`.trim(); cont.appendChild(pfirma);
+  const footer = document.createElement('div');
+  footer.className = 'doc-footer';
+  const psal = document.createElement('p'); psal.textContent = 'Cordiali saluti'; footer.appendChild(psal);
+  const pfirma = document.createElement('p'); pfirma.textContent = `${medicoData.titolo} ${medicoData.nome}`.trim(); footer.appendChild(pfirma);
+  cont.appendChild(footer);
   return cont;
 }
 
@@ -388,7 +392,7 @@ function showPreviewHome() {
     if (medicoData.nome || medicoData.titolo) {
       header.push(new Paragraph({ alignment: AlignmentType.LEFT, children:[new TextRun({ text:`${medicoData.titolo} ${medicoData.nome}`.trim(), bold:true, size:26 })] }));
     }
-    header.push(new Paragraph({ alignment: AlignmentType.LEFT, children:[new TextRun({ text:'Medico Chirurgo', italics:true, size:24 })] }));
+    header.push(new Paragraph({ alignment: AlignmentType.LEFT, children:[new TextRun({ text:'Medico Chirurgo', italics:true, size:22 })] }));
     medicoData.specializzazioni.forEach(sp => header.push(new Paragraph({ text: sp }))); 
     if (medicoData.studio) header.push(new Paragraph({ text: medicoData.studio }));
     if (medicoData.codice) header.push(new Paragraph({ text:`Cod. Reg.: ${medicoData.codice}` }));
@@ -435,12 +439,14 @@ function exportPdfHome() {
   const element = buildPreviewContent();
   const opt = {
     margin: 0.5,
-    filename: 'riepilogo.pdf',
     image: { type: 'jpeg', quality: 0.98 },
     html2canvas: { scale: 2 },
     jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
   };
-  html2pdf().set(opt).from(element).save();
+  html2pdf().set(opt).from(element).toPdf().get('pdf').then(pdf => {
+    const url = pdf.output('bloburl');
+    window.open(url, '_blank');
+  });
 }
 const exportPdfBtn = document.getElementById('btn-export-pdf-home');
 if (exportPdfBtn) exportPdfBtn.addEventListener('click', exportPdfHome);
