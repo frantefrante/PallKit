@@ -280,7 +280,11 @@
       </div>
       <div class="modal-body">
         <form id="form-medico" class="row g-3">
-          <div class="col-md-6">
+          <div class="col-md-3">
+            <label class="form-label">Titolo</label>
+            <input type="text" class="form-control" id="medico-titolo-input" placeholder="Dott.">
+          </div>
+          <div class="col-md-9">
             <label class="form-label">Nome e Cognome</label>
             <input type="text" class="form-control" id="medico-nome-input">
           </div>
@@ -288,15 +292,15 @@
             <label class="form-label">Studio/Ente</label>
             <input type="text" class="form-control" id="medico-studio-input">
           </div>
+          <div class="col-md-6">
+            <label class="form-label">Specializzazione</label>
+            <input type="text" class="form-control" id="medico-spec-input">
+          </div>
           <div class="col-md-4">
             <label class="form-label">Codice Reg.</label>
             <input type="text" class="form-control" id="medico-codice-input">
           </div>
           <div class="col-md-8">
-            <label class="form-label">Affiliazione</label>
-            <input type="text" class="form-control" id="medico-aff-input">
-          </div>
-          <div class="col-md-6">
             <label class="form-label">Indirizzo</label>
             <input type="text" class="form-control" id="medico-indirizzo-input">
           </div>

@@ -232,10 +232,11 @@ document.addEventListener("DOMContentLoaded", function() {
   // Dati del medico, inizialmente vuoti. Verranno compilati tramite la modale
   // "Dati Medico" e usati nell'anteprima e nell'esportazione Word.
   let medicoData = {
+    titolo:       '',
     nome:         '',
     studio:       '',
+    specializzazione: '',
     codice:       '',
-    affiliazione: '',
     indirizzo:    '',
     telefono:     '',
     luogo:        ''
@@ -245,20 +246,22 @@ document.addEventListener("DOMContentLoaded", function() {
   const medicoModal = document.getElementById('medico-modal-home');
   if (medicoModal) {
     medicoModal.addEventListener('shown.bs.modal', () => {
+      document.getElementById('medico-titolo-input').value   = medicoData.titolo;
       document.getElementById('medico-nome-input').value      = medicoData.nome;
       document.getElementById('medico-studio-input').value    = medicoData.studio;
+      document.getElementById('medico-spec-input').value      = medicoData.specializzazione;
       document.getElementById('medico-codice-input').value    = medicoData.codice;
-      document.getElementById('medico-aff-input').value       = medicoData.affiliazione;
       document.getElementById('medico-indirizzo-input').value = medicoData.indirizzo;
       document.getElementById('medico-tel-input').value       = medicoData.telefono;
       document.getElementById('medico-luogo-input').value     = medicoData.luogo;
     });
   }
   function saveMedicoHome() {
+    medicoData.titolo       = document.getElementById('medico-titolo-input').value;
     medicoData.nome         = document.getElementById('medico-nome-input').value;
     medicoData.studio       = document.getElementById('medico-studio-input').value;
+    medicoData.specializzazione = document.getElementById('medico-spec-input').value;
     medicoData.codice       = document.getElementById('medico-codice-input').value;
-    medicoData.affiliazione = document.getElementById('medico-aff-input').value;
     medicoData.indirizzo    = document.getElementById('medico-indirizzo-input').value;
     medicoData.telefono     = document.getElementById('medico-tel-input').value;
     medicoData.luogo        = document.getElementById('medico-luogo-input').value;
@@ -274,12 +277,20 @@ document.addEventListener("DOMContentLoaded", function() {
   // ──────────────────────────────
   function showPreviewHome() {
     const pc = document.getElementById('preview-content-home'); pc.innerHTML = '';
-    const h1 = document.createElement('h5'); h1.textContent = medicoData.nome; pc.appendChild(h1);
-    const h2 = document.createElement('h6'); h2.textContent = medicoData.studio; pc.appendChild(h2);
-    const p1 = document.createElement('p'); p1.textContent = `${medicoData.codice}  |  ${medicoData.affiliazione}`; pc.appendChild(p1);
-    const p2 = document.createElement('p'); p2.textContent = `${medicoData.indirizzo}  |  ${medicoData.telefono}`; pc.appendChild(p2);
+    const h1 = document.createElement('h5'); h1.textContent = `${medicoData.titolo} ${medicoData.nome}`.trim(); h1.style.color = '#000'; pc.appendChild(h1);
+    const h2 = document.createElement('h6'); h2.textContent = 'Medico Chirurgo'; h2.style.color = '#000'; pc.appendChild(h2);
+    if (medicoData.specializzazione) {
+      const h3 = document.createElement('h6'); h3.textContent = medicoData.specializzazione; h3.style.color = '#000'; pc.appendChild(h3);
+    }
+    if (medicoData.studio) {
+      const pStudio = document.createElement('p'); pStudio.textContent = medicoData.studio; pc.appendChild(pStudio);
+    }
+    if (medicoData.codice) {
+      const pCod = document.createElement('p'); pCod.textContent = `Cod. Reg.: ${medicoData.codice}`; pc.appendChild(pCod);
+    }
+    const p2 = document.createElement('p'); p2.textContent = [medicoData.indirizzo, medicoData.telefono].filter(Boolean).join('  |  '); pc.appendChild(p2);
     const pDate = document.createElement('p'); pDate.textContent = `${medicoData.luogo}, ${new Date().toLocaleDateString('it-IT')}`; pDate.classList.add('text-end'); pDate.style.fontStyle='italic'; pc.appendChild(pDate);
-    const tbl = document.createElement('table'); tbl.className = 'table table-bordered';
+    const tbl = document.createElement('table'); tbl.className = 'summary-table';
     const theadRow = tbl.createTHead().insertRow();
     ['Sintomo','Farmaco','Via','Dose','Posologia','Frequenza'].forEach(txt => {
       const th = document.createElement('th'); th.textContent = txt; theadRow.appendChild(th);
@@ -287,9 +298,12 @@ document.addEventListener("DOMContentLoaded", function() {
     const tb = tbl.createTBody();
     window.terapie.forEach(t => {
       const r = tb.insertRow();
-      [t.sintomo,t.farmaco,t.via,t.dose,t.poso,t.freq].forEach(v => { const c = r.insertCell(); c.textContent = v; });
+      [t.sintomo,t.farmaco,t.via,t.dose,t.poso,t.freq].forEach((v,i) => { const c = r.insertCell(); c.textContent = v; if(i===0) c.style.fontWeight='bold'; });
+      const sep = tb.insertRow(); sep.className = 'separator-row'; for(let i=0;i<6;i++) sep.insertCell();
     });
     pc.appendChild(tbl);
+    const psal = document.createElement('p'); psal.textContent = 'Cordiali saluti'; pc.appendChild(psal);
+    const pfirma = document.createElement('p'); pfirma.textContent = `${medicoData.titolo} ${medicoData.nome}`.trim(); pc.appendChild(pfirma);
     new bootstrap.Modal(document.getElementById('preview-modal-home')).show();
   }
   const previewHomeBtn = document.getElementById('btn-preview-home');
@@ -301,24 +315,46 @@ document.addEventListener("DOMContentLoaded", function() {
   async function exportWordHome() {
     const { Document, Packer, Paragraph, Table, TableRow, TableCell, AlignmentType } = docx;
 
+    const { BorderStyle, WidthType, TextRun, VerticalAlign } = docx;
     const header = [];
-    if (medicoData.nome)      header.push(new Paragraph({ text: medicoData.nome, heading: 'Heading1' }));
-    if (medicoData.studio)    header.push(new Paragraph({ text: medicoData.studio }));
-    const r1 = [medicoData.codice, medicoData.affiliazione].filter(Boolean).join('  |  ');
-    if (r1) header.push(new Paragraph({ text: r1 }));
+    if (medicoData.nome || medicoData.titolo) {
+      header.push(new Paragraph({ children:[new TextRun({ text:`${medicoData.titolo} ${medicoData.nome}`.trim(), bold:true, color:'000000' })] }));
+    }
+    header.push(new Paragraph({ text:'Medico Chirurgo', color:'000000' }));
+    if (medicoData.specializzazione) header.push(new Paragraph({ text: medicoData.specializzazione, color:'000000' }));
+    if (medicoData.studio) header.push(new Paragraph({ text: medicoData.studio, color:'000000' }));
+    if (medicoData.codice) header.push(new Paragraph({ text:`Cod. Reg.: ${medicoData.codice}`, color:'000000' }));
     const r2 = [medicoData.indirizzo, medicoData.telefono].filter(Boolean).join('  |  ');
-    if (r2) header.push(new Paragraph({ text: r2 }));
+    if (r2) header.push(new Paragraph({ text: r2, color:'000000' }));
     const locDate = (medicoData.luogo ? medicoData.luogo + ', ' : '') + new Date().toLocaleDateString('it-IT');
     header.push(new Paragraph({ text: locDate, alignment: AlignmentType.RIGHT, italics: true }));
 
     const rows = [];
-    rows.push(new TableRow({ children: ['Sintomo','Farmaco','Via','Dose','Posologia','Frequenza'].map(t => new TableCell({ children:[new Paragraph({ text: t })] })) }));
+    const headCells = ['Sintomo','Farmaco','Via','Dose','Posologia','Frequenza'].map(t => new TableCell({ children:[new Paragraph({ text:t, bold:true })], verticalAlign:VerticalAlign.CENTER }));
+    rows.push(new TableRow({ children: headCells }));
     window.terapie.forEach(t => {
-      rows.push(new TableRow({ children: [t.sintomo, t.farmaco, t.via, t.dose, t.poso, t.freq].map(v => new TableCell({ children:[new Paragraph({ text: v })] })) }));
+      rows.push(new TableRow({ children: [t.sintomo, t.farmaco, t.via, t.dose, t.poso, t.freq].map(v => new TableCell({ children:[new Paragraph({ text:v })], verticalAlign:VerticalAlign.CENTER })) }));
+      rows.push(new TableRow({ children: Array(6).fill(0).map(()=> new TableCell({ children:[], shading:{fill:'f0f0f0'} })) }));
     });
-    const table = new Table({ rows });
+    const table = new Table({
+      rows,
+      width:{ size:100, type:WidthType.PERCENTAGE },
+      borders:{
+        top:{style:BorderStyle.NONE, size:0, color:'FFFFFF'},
+        bottom:{style:BorderStyle.NONE, size:0, color:'FFFFFF'},
+        left:{style:BorderStyle.NONE, size:0, color:'FFFFFF'},
+        right:{style:BorderStyle.NONE, size:0, color:'FFFFFF'},
+        insideH:{style:BorderStyle.SINGLE, size:1, color:'CCCCCC'},
+        insideV:{style:BorderStyle.NONE, size:0, color:'FFFFFF'}
+      }
+    });
 
-    const doc = new Document({ sections:[{ children: [...header, table] }] });
+    const closing = [
+      new Paragraph({ text:'Cordiali saluti', spacing:{ before:300 } }),
+      new Paragraph({ text:`${medicoData.titolo} ${medicoData.nome}`.trim() })
+    ];
+
+    const doc = new Document({ sections:[{ children: [...header, table, ...closing] }] });
     const blob = await Packer.toBlob(doc);
     saveAs(blob, 'riepilogo.docx');
   }
