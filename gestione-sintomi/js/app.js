@@ -466,7 +466,7 @@ function showPreviewHome() {
     );
     rows.push(new TableRow({ children: headCells }));
     window.terapie.forEach(t => {
-      rows.push(new TableRow({ children: [t.sintomo, t.farmaco, t.via, t.dose, t.poso, t.freq].map((v,i) => new TableCell({ children:[new Paragraph({ text:v, bold:i===0 })], verticalAlign:VerticalAlign.CENTER })) }));
+      rows.push(new TableRow({ children: [t.sintomo, t.farmaco, t.via, t.dose, t.poso, t.freq].map((v,i) => new TableCell({ children:[new Paragraph({ children:[ new TextRun({ text:v, bold:i===0 }) ] })], verticalAlign:VerticalAlign.CENTER })) }));
       rows.push(new TableRow({ children: Array(6).fill(0).map(()=> new TableCell({ children:[], shading:{fill:'f0f0f0'} })) }));
     });
     const table = new Table({
