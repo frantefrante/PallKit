@@ -488,7 +488,7 @@ function showPreviewHome() {
         {
           id: 'FooterText',
           name: 'FooterText',
-          run: { size: 22 },
+          run: { size: 24 },
           paragraph: { spacing: { line: 360 } }
         }
       ]
