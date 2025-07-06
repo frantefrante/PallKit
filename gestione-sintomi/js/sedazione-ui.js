@@ -17,11 +17,30 @@ document.addEventListener("DOMContentLoaded", () => {
   const addDiv = document.getElementById("add-to-plan");
   const formPlan = document.getElementById("form-add-plan");
   const planDrug = document.getElementById("plan-drug");
-  const planDose = document.getElementById("plan-dose");
+  const planForm = document.getElementById("plan-formulazione");
   const planVia = document.getElementById("plan-via");
-  const planNote = document.getElementById("plan-note");
-  const tablePlan = document.querySelector("#table-plan tbody");
-  const exportBtn = document.getElementById("export-plan");
+  const planDose = document.getElementById("plan-dose");
+  const planPoso = document.getElementById("plan-posologia");
+  const planFreq = document.getElementById("plan-frequenza");
+
+  const tableContainer = document.getElementById("terapie-container-home");
+  const tableOrigParent = tableContainer ? tableContainer.parentElement : null;
+  const sedWrapper = document.getElementById("sedation-table-wrapper");
+
+  function moveTableToSedation() {
+    if (sedWrapper && tableContainer && tableContainer.parentElement !== sedWrapper) {
+      sedWrapper.appendChild(tableContainer);
+    }
+  }
+
+  function moveTableToHome() {
+    if (tableOrigParent && tableContainer && tableContainer.parentElement !== tableOrigParent) {
+      tableOrigParent.appendChild(tableContainer);
+    }
+  }
+
+  window.moveTableToSedation = moveTableToSedation;
+  window.moveTableToHome = moveTableToHome;
 
   // Move sedation sections into the main page content
   const mainContent = document.querySelector("main");
@@ -85,23 +104,46 @@ document.addEventListener("DOMContentLoaded", () => {
   // 4. Aggiungi al piano
   formPlan.addEventListener("submit", e => {
     e.preventDefault();
-    const tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td>${planDrug.value}</td>
-      <td>${planDose.value}</td>
-      <td>${planVia.value}</td>
-      <td>${planNote.value}</td>
-      <td><button class="btn btn-sm btn-danger btn-remove">×</button></td>
-    `;
-    tablePlan.appendChild(tr);
-    tr.querySelector(".btn-remove").onclick = () => tr.remove();
+    const rec = {
+      sintomo: "Sedazione Palliativa",
+      farmaco: planDrug.value + (planForm.value ? " " + planForm.value : ""),
+      via: planVia.value,
+      dose: planDose.value,
+      poso: planPoso.value,
+      freq: planFreq.value
+    };
+    if (window.terapie) {
+      window.terapie.push(rec);
+      if (typeof window.renderTableHome === "function") window.renderTableHome();
+    }
     formPlan.reset();
     planDrug.value = select.value;
+    // torna alla schermata principale e riabilita il form
+    if (typeof window.resetSedationUI === "function") window.resetSedationUI();
+    document.getElementById("gestione-sedazione").style.display = "none";
+    const home = document.getElementById("gestione-home");
+    if (home) home.style.display = "block";
+    const sintSelect = document.getElementById("sintomo-home");
+    if (sintSelect) {
+      sintSelect.value = "";
+      sintSelect.dispatchEvent(new Event("change"));
+    }
   });
 
-  // 5. Export (integra nel tuo app.js)
-  exportBtn.onclick = () => {
-    // in app.js estrae già le tabelle, aggiungi anche #table-plan
-    // oppure fai tu: html2pdf o docx qui sopra tablePlan.parentElement
+
+  // Funzione globale per resettare lo stato della UI di sedazione
+  window.resetSedationUI = function() {
+    select.value = '';
+    schemaDiv.innerHTML = '';
+    schemaDiv.style.display = 'none';
+    calcDiv.style.display = 'none';
+    addDiv.style.display = 'none';
+    calcP.value = '';
+    calcW.value = '';
+    calcRes.textContent = '';
+    formPlan.reset();
+    planDrug.value = '';
+    moveTableToHome();
+    if (typeof window.renderTableHome === 'function') window.renderTableHome();
   };
 });

@@ -50,16 +50,24 @@
               <input type="text" id="plan-drug" class="form-control" readonly>
             </div>
             <div class="col-md-6">
-              <label class="form-label">Dose (mg)</label>
-              <input type="number" id="plan-dose" class="form-control">
+              <label class="form-label">Formulazione</label>
+              <input type="text" id="plan-formulazione" class="form-control">
             </div>
             <div class="col-md-6">
               <label class="form-label">Via</label>
               <input type="text" id="plan-via" class="form-control">
             </div>
             <div class="col-md-6">
-              <label class="form-label">Note</label>
-              <input type="text" id="plan-note" class="form-control">
+              <label class="form-label">Dosaggio</label>
+              <input type="text" id="plan-dose" class="form-control">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Posologia</label>
+              <input type="text" id="plan-posologia" class="form-control">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Frequenza</label>
+              <input type="text" id="plan-frequenza" class="form-control">
             </div>
             <div class="col-12">
               <button id="btn-add-plan" class="btn btn-success w-100">+ Aggiungi</button>
@@ -70,17 +78,8 @@
     </div>
   </div>
 
-  <!-- 5. Riepilogo e esportazione -->
-  <div class="mt-4">
-    <h5>Riepilogo Sedazione</h5>
-    <table class="table table-striped" id="table-plan">
-      <thead>
-        <tr><th>Farmaco</th><th>Dose</th><th>Via</th><th>Note</th><th>Azioni</th></tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-    <button id="export-plan" class="btn btn-primary">Esporta in Word</button>
-  </div>
+  <!-- 5. Elenco Terapie -->
+  <div class="mt-4" id="sedation-table-wrapper"></div>
 
 <!-- Script: dati + logica -->
 <script src="js/sedazione.data.js"></script>

@@ -280,7 +280,23 @@
       </div>
       <div class="modal-body">
         <form id="form-medico" class="row g-3">
-          <div class="col-md-6">
+          <div class="col-12 form-check">
+            <input class="form-check-input" type="checkbox" id="medico-use-test">
+            <label class="form-check-label" for="medico-use-test">Usa dati di test</label>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Titolo</label>
+            <select class="form-select" id="medico-titolo-select">
+              <option value="">--</option>
+              <option>Dott.</option>
+              <option>Dott.ssa</option>
+              <option>Prof.</option>
+              <option>Prof.ssa</option>
+              <option value="custom">Altro…</option>
+            </select>
+            <input type="text" class="form-control mt-2 d-none" id="medico-titolo-custom" placeholder="Titolo personalizzato">
+          </div>
+          <div class="col-md-9">
             <label class="form-label">Nome e Cognome</label>
             <input type="text" class="form-control" id="medico-nome-input">
           </div>
@@ -288,25 +304,65 @@
             <label class="form-label">Studio/Ente</label>
             <input type="text" class="form-control" id="medico-studio-input">
           </div>
+          <div class="col-md-6">
+            <label class="form-label">Specializzazione</label>
+            <div id="spec-list">
+              <div class="row mb-2 spec-entry align-items-center">
+                <div class="col-10"><input type="text" class="form-control spec-input"></div>
+                <div class="col-2 d-flex justify-content-end gap-1">
+                  <button class="btn btn-secondary btn-sm add-spec" type="button">+</button>
+                  <button class="btn btn-danger btn-sm remove-spec" type="button">−</button>
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="col-md-4">
             <label class="form-label">Codice Reg.</label>
             <input type="text" class="form-control" id="medico-codice-input">
           </div>
           <div class="col-md-8">
-            <label class="form-label">Affiliazione</label>
-            <input type="text" class="form-control" id="medico-aff-input">
-          </div>
-          <div class="col-md-6">
             <label class="form-label">Indirizzo</label>
-            <input type="text" class="form-control" id="medico-indirizzo-input">
+            <div id="indirizzo-list">
+              <div class="row mb-2 indirizzo-entry align-items-center">
+                <div class="col-10"><input type="text" class="form-control indirizzo-input"></div>
+                <div class="col-2 d-flex justify-content-end gap-1">
+                  <button class="btn btn-secondary btn-sm add-indirizzo" type="button">+</button>
+                  <button class="btn btn-danger btn-sm remove-indirizzo" type="button">−</button>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="col-md-6">
             <label class="form-label">Telefono</label>
-            <input type="text" class="form-control" id="medico-tel-input">
+            <div id="tel-list">
+              <div class="row mb-2 tel-entry align-items-center">
+                <div class="col-10"><input type="text" class="form-control tel-input"></div>
+                <div class="col-2 d-flex justify-content-end gap-1">
+                  <button class="btn btn-secondary btn-sm add-tel" type="button">+</button>
+                  <button class="btn btn-danger btn-sm remove-tel" type="button">−</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Email</label>
+            <div id="mail-list">
+              <div class="row mb-2 mail-entry align-items-center">
+                <div class="col-10"><input type="email" class="form-control mail-input"></div>
+                <div class="col-2 d-flex justify-content-end gap-1">
+                  <button class="btn btn-secondary btn-sm add-mail" type="button">+</button>
+                  <button class="btn btn-danger btn-sm remove-mail" type="button">−</button>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="col-md-6">
             <label class="form-label">Luogo</label>
             <input type="text" class="form-control" id="medico-luogo-input">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Data</label>
+            <input type="date" class="form-control" id="medico-data-input">
           </div>
         </form>
       </div>
