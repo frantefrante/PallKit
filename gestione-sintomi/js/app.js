@@ -244,9 +244,28 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // Popola i campi della modale con i valori correnti quando viene aperta
   const medicoModal = document.getElementById('medico-modal-home');
+  const titoloSelect = document.getElementById('medico-titolo-select');
+  const titoloCustom = document.getElementById('medico-titolo-custom');
+  function updateTitoloVisibility() {
+    if (!titoloSelect) return;
+    if (titoloSelect.value === 'custom') {
+      titoloCustom.classList.remove('d-none');
+    } else {
+      titoloCustom.classList.add('d-none');
+    }
+  }
+  if (titoloSelect) titoloSelect.addEventListener('change', updateTitoloVisibility);
   if (medicoModal) {
     medicoModal.addEventListener('shown.bs.modal', () => {
-      document.getElementById('medico-titolo-input').value   = medicoData.titolo;
+      const titoliPredef = ['Dott.','Dott.ssa','Prof.','Prof.ssa'];
+      if (titoliPredef.includes(medicoData.titolo)) {
+        titoloSelect.value = medicoData.titolo;
+        titoloCustom.value = '';
+      } else {
+        titoloSelect.value = 'custom';
+        titoloCustom.value = medicoData.titolo;
+      }
+      updateTitoloVisibility();
       document.getElementById('medico-nome-input').value      = medicoData.nome;
       document.getElementById('medico-studio-input').value    = medicoData.studio;
       document.getElementById('medico-spec-input').value      = medicoData.specializzazione;
@@ -257,7 +276,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
   function saveMedicoHome() {
-    medicoData.titolo       = document.getElementById('medico-titolo-input').value;
+    medicoData.titolo = (titoloSelect.value === 'custom') ? titoloCustom.value.trim() : titoloSelect.value;
     medicoData.nome         = document.getElementById('medico-nome-input').value;
     medicoData.studio       = document.getElementById('medico-studio-input').value;
     medicoData.specializzazione = document.getElementById('medico-spec-input').value;

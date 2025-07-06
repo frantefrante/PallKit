@@ -282,7 +282,15 @@
         <form id="form-medico" class="row g-3">
           <div class="col-md-3">
             <label class="form-label">Titolo</label>
-            <input type="text" class="form-control" id="medico-titolo-input" placeholder="Dott.">
+            <select class="form-select" id="medico-titolo-select">
+              <option value="">--</option>
+              <option>Dott.</option>
+              <option>Dott.ssa</option>
+              <option>Prof.</option>
+              <option>Prof.ssa</option>
+              <option value="custom">Altro…</option>
+            </select>
+            <input type="text" class="form-control mt-2 d-none" id="medico-titolo-custom" placeholder="Titolo personalizzato">
           </div>
           <div class="col-md-9">
             <label class="form-label">Nome e Cognome</label>
