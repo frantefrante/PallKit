@@ -86,7 +86,8 @@ p {
 
 /* Stili per anteprima tabella riepilogo */
 .summary-table {
-    font-family: Calibri, sans-serif;
+    /* Usa Open Sans come font di base per l'anteprima e l'export */
+    font-family: 'Open Sans', Calibri, sans-serif;
     font-size: 11pt;
     border-collapse: collapse;
     width: 100%;
@@ -122,6 +123,7 @@ p {
 
 .header-left {
     text-align: left;
+    font-family: 'Open Sans', Arial, sans-serif;
 }
 .header-left h5 {
     font-size: 1.25rem;
@@ -131,9 +133,12 @@ p {
 }
 
 .doc-container {
-    min-height: 100vh;
+    /* Enough vertical space for the footer but short enough to avoid
+       spilling onto a second page when exporting to PDF with 0.5in margins */
+    min-height: 27cm; /* A4 height minus default pdf margins */
     display: flex;
     flex-direction: column;
+    font-family: 'Open Sans', Arial, sans-serif;
 }
 
 /* Riduce l'interlinea nei paragrafi del documento esportato */
@@ -144,6 +149,16 @@ p {
 
 .doc-footer {
     margin-top: auto;
+    font-family: 'Open Sans', Arial, sans-serif;
+}
+
+/* Aumenta dimensione e spaziatura del testo di chiusura */
+.doc-footer p {
+    font-size: 12pt;
+}
+
+.doc-footer p:first-child {
+    margin-bottom: 0.75rem;
 }
 
 @media (max-width: 768px) {
