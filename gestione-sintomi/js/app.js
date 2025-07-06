@@ -276,10 +276,20 @@ document.addEventListener("DOMContentLoaded", function() {
     if (!container) return [];
     return Array.from(container.querySelectorAll(selector)).map(i => i.value.trim()).filter(Boolean);
   }
+
+  function formatDateIt(dateStr) {
+    if (!dateStr) return new Date().toLocaleDateString('it-IT');
+    const d = new Date(dateStr);
+    if (isNaN(d)) return dateStr;
+    return d.toLocaleDateString('it-IT');
+  }
   if (medicoModal) {
     medicoModal.addEventListener('shown.bs.modal', () => {
       const titoliPredef = ['Dott.','Dott.ssa','Prof.','Prof.ssa'];
-      if (titoliPredef.includes(medicoData.titolo)) {
+      if (!medicoData.titolo) {
+        titoloSelect.value = '';
+        titoloCustom.value = '';
+      } else if (titoliPredef.includes(medicoData.titolo)) {
         titoloSelect.value = medicoData.titolo;
         titoloCustom.value = '';
       } else {
@@ -321,21 +331,22 @@ document.addEventListener("DOMContentLoaded", function() {
   // ──────────────────────────────
   function showPreviewHome() {
     const pc = document.getElementById('preview-content-home'); pc.innerHTML = '';
-    const header = document.createElement('div'); header.className = 'header-center';
-    const h1 = document.createElement('h5'); h1.textContent = `${medicoData.titolo} ${medicoData.nome}`.trim(); h1.style.color = '#000'; header.appendChild(h1);
-    const h2 = document.createElement('h6'); h2.textContent = 'Medico Chirurgo'; h2.style.fontStyle = 'italic'; h2.style.color = '#000'; header.appendChild(h2);
-    medicoData.specializzazioni.forEach(sp => { const h = document.createElement('h6'); h.textContent = sp; h.style.color='#000'; header.appendChild(h); });
-    if (medicoData.studio) { const p = document.createElement('p'); p.textContent = medicoData.studio; header.appendChild(p); }
-    if (medicoData.codice) { const p = document.createElement('p'); p.textContent = `Cod. Reg.: ${medicoData.codice}`; header.appendChild(p); }
-    medicoData.indirizzi.forEach(a => { const p = document.createElement('p'); p.textContent = a; header.appendChild(p); });
-    medicoData.telefoni.forEach(t => { const p = document.createElement('p'); p.textContent = `Tel. ${t}`; header.appendChild(p); });
-    medicoData.mails.forEach(m => { const p = document.createElement('p'); p.textContent = m; header.appendChild(p); });
-    pc.appendChild(header);
+    const headerCenter = document.createElement('div'); headerCenter.className = 'header-center';
+    const h1 = document.createElement('h5'); h1.textContent = `${medicoData.titolo} ${medicoData.nome}`.trim(); h1.style.color = '#000'; headerCenter.appendChild(h1);
+    const h2 = document.createElement('h6'); h2.textContent = 'Medico Chirurgo'; h2.style.fontStyle = 'italic'; h2.style.color = '#000'; headerCenter.appendChild(h2);
+    pc.appendChild(headerCenter);
+    medicoData.specializzazioni.forEach(sp => { const p = document.createElement('p'); p.textContent = sp; pc.appendChild(p); });
+    if (medicoData.studio) { const p = document.createElement('p'); p.textContent = medicoData.studio; pc.appendChild(p); }
+    if (medicoData.codice) { const p = document.createElement('p'); p.textContent = `Cod. Reg.: ${medicoData.codice}`; pc.appendChild(p); }
+    medicoData.indirizzi.forEach(a => { const p = document.createElement('p'); p.textContent = a; pc.appendChild(p); });
+    medicoData.telefoni.forEach(t => { const p = document.createElement('p'); p.textContent = `Tel. ${t}`; pc.appendChild(p); });
+    medicoData.mails.forEach(m => { const p = document.createElement('p'); p.textContent = m; pc.appendChild(p); });
     const pDate = document.createElement('p');
     const loc = medicoData.luogo ? medicoData.luogo + ', ' : '';
-    pDate.textContent = loc + (medicoData.data || new Date().toLocaleDateString('it-IT'));
+    pDate.textContent = loc + formatDateIt(medicoData.data);
     pDate.classList.add('text-end'); pDate.style.fontStyle='italic'; pc.appendChild(pDate);
     const tbl = document.createElement('table'); tbl.className = 'summary-table';
+    tbl.style.marginTop = '2rem';
     const theadRow = tbl.createTHead().insertRow();
     ['Sintomo','Farmaco','Via','Dose','Posologia','Frequenza'].forEach(txt => {
       const th = document.createElement('th'); th.textContent = txt; theadRow.appendChild(th);
@@ -347,7 +358,7 @@ document.addEventListener("DOMContentLoaded", function() {
       const sep = tb.insertRow(); sep.className = 'separator-row'; for(let i=0;i<6;i++) sep.insertCell();
     });
     pc.appendChild(tbl);
-    const psal = document.createElement('p'); psal.textContent = 'Cordiali saluti'; psal.style.marginTop='1rem'; pc.appendChild(psal);
+    const psal = document.createElement('p'); psal.textContent = 'Cordiali saluti'; psal.style.marginTop='3rem'; pc.appendChild(psal);
     const pfirma = document.createElement('p'); pfirma.textContent = `${medicoData.titolo} ${medicoData.nome}`.trim(); pc.appendChild(pfirma);
     new bootstrap.Modal(document.getElementById('preview-modal-home')).show();
   }
@@ -366,13 +377,13 @@ document.addEventListener("DOMContentLoaded", function() {
       header.push(new Paragraph({ alignment: AlignmentType.CENTER, children:[new TextRun({ text:`${medicoData.titolo} ${medicoData.nome}`.trim(), bold:true })] }));
     }
     header.push(new Paragraph({ text:'Medico Chirurgo', alignment: AlignmentType.CENTER, italics:true }));
-    medicoData.specializzazioni.forEach(sp => header.push(new Paragraph({ text: sp, alignment: AlignmentType.CENTER })));
-    if (medicoData.studio) header.push(new Paragraph({ text: medicoData.studio, alignment: AlignmentType.CENTER }));
-    if (medicoData.codice) header.push(new Paragraph({ text:`Cod. Reg.: ${medicoData.codice}`, alignment: AlignmentType.CENTER }));
-    medicoData.indirizzi.forEach(a => header.push(new Paragraph({ text:a, alignment: AlignmentType.CENTER })));
-    medicoData.telefoni.forEach(t => header.push(new Paragraph({ text:`Tel. ${t}`, alignment: AlignmentType.CENTER })));
-    medicoData.mails.forEach(m => header.push(new Paragraph({ text:m, alignment: AlignmentType.CENTER })));
-    const locDate = (medicoData.luogo ? medicoData.luogo + ', ' : '') + (medicoData.data || new Date().toLocaleDateString('it-IT'));
+    medicoData.specializzazioni.forEach(sp => header.push(new Paragraph({ text: sp }))); 
+    if (medicoData.studio) header.push(new Paragraph({ text: medicoData.studio }));
+    if (medicoData.codice) header.push(new Paragraph({ text:`Cod. Reg.: ${medicoData.codice}` }));
+    medicoData.indirizzi.forEach(a => header.push(new Paragraph({ text:a }))); 
+    medicoData.telefoni.forEach(t => header.push(new Paragraph({ text:`Tel. ${t}` }))); 
+    medicoData.mails.forEach(m => header.push(new Paragraph({ text:m }))); 
+    const locDate = (medicoData.luogo ? medicoData.luogo + ', ' : '') + formatDateIt(medicoData.data);
     header.push(new Paragraph({ text: locDate, alignment: AlignmentType.RIGHT, italics: true, spacing:{ after:200 } }));
 
     const rows = [];
@@ -396,7 +407,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     const closing = [
-      new Paragraph({ text:'Cordiali saluti', spacing:{ before:300 } }),
+      new Paragraph({ text:'Cordiali saluti', spacing:{ before:400 } }),
       new Paragraph({ text:`${medicoData.titolo} ${medicoData.nome}`.trim() })
     ];
 
@@ -511,10 +522,7 @@ if (savePdfBtn) {
     list.appendChild(clone);
   }
 
-  document.getElementById('add-spec')?.addEventListener('click', () => addEntry(specList, 'spec-entry'));
-  document.getElementById('add-indirizzo')?.addEventListener('click', () => addEntry(indirizzoList, 'indirizzo-entry'));
-  document.getElementById('add-tel')?.addEventListener('click', () => addEntry(telList, 'tel-entry'));
-  document.getElementById('add-mail')?.addEventListener('click', () => addEntry(mailList, 'mail-entry'));
+
 
   document.addEventListener('click', function (e) {
     if (e.target.classList.contains('remove-drug')) {
@@ -527,6 +535,10 @@ if (savePdfBtn) {
         const list = lists[cls];
         const entry = e.target.closest('.' + cls + '-entry');
         if (list && list.querySelectorAll('.' + cls + '-entry').length > 1) entry.remove();
+      }
+      if (e.target.classList.contains('add-' + cls)) {
+        const lists = {spec:specList, indirizzo:indirizzoList, tel:telList, mail:mailList};
+        addEntry(lists[cls], cls + '-entry');
       }
     });
   });

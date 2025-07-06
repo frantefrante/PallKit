@@ -303,12 +303,14 @@
           <div class="col-md-6">
             <label class="form-label">Specializzazione</label>
             <div id="spec-list">
-              <div class="row mb-2 spec-entry">
+              <div class="row mb-2 spec-entry align-items-center">
                 <div class="col-10"><input type="text" class="form-control spec-input"></div>
-                <div class="col-2"><button class="btn btn-danger remove-spec" type="button">−</button></div>
+                <div class="col-2 d-flex justify-content-end gap-1">
+                  <button class="btn btn-secondary btn-sm add-spec" type="button">+</button>
+                  <button class="btn btn-danger btn-sm remove-spec" type="button">−</button>
+                </div>
               </div>
             </div>
-            <button class="btn btn-secondary btn-sm mb-2" id="add-spec" type="button">+</button>
           </div>
           <div class="col-md-4">
             <label class="form-label">Codice Reg.</label>
@@ -317,36 +319,42 @@
           <div class="col-md-8">
             <label class="form-label">Indirizzo</label>
             <div id="indirizzo-list">
-              <div class="row mb-2 indirizzo-entry">
+              <div class="row mb-2 indirizzo-entry align-items-center">
                 <div class="col-10"><input type="text" class="form-control indirizzo-input"></div>
-                <div class="col-2"><button class="btn btn-danger remove-indirizzo" type="button">−</button></div>
+                <div class="col-2 d-flex justify-content-end gap-1">
+                  <button class="btn btn-secondary btn-sm add-indirizzo" type="button">+</button>
+                  <button class="btn btn-danger btn-sm remove-indirizzo" type="button">−</button>
+                </div>
               </div>
             </div>
-            <button class="btn btn-secondary btn-sm mb-2" id="add-indirizzo" type="button">+</button>
           </div>
           <div class="col-md-6">
             <label class="form-label">Telefono</label>
             <div id="tel-list">
-              <div class="row mb-2 tel-entry">
+              <div class="row mb-2 tel-entry align-items-center">
                 <div class="col-10"><input type="text" class="form-control tel-input"></div>
-                <div class="col-2"><button class="btn btn-danger remove-tel" type="button">−</button></div>
+                <div class="col-2 d-flex justify-content-end gap-1">
+                  <button class="btn btn-secondary btn-sm add-tel" type="button">+</button>
+                  <button class="btn btn-danger btn-sm remove-tel" type="button">−</button>
+                </div>
               </div>
             </div>
-            <button class="btn btn-secondary btn-sm mb-2" id="add-tel" type="button">+</button>
-          </div>
-          <div class="col-md-6">
-            <label class="form-label">Luogo</label>
-            <input type="text" class="form-control" id="medico-luogo-input">
           </div>
           <div class="col-md-6">
             <label class="form-label">Email</label>
             <div id="mail-list">
-              <div class="row mb-2 mail-entry">
+              <div class="row mb-2 mail-entry align-items-center">
                 <div class="col-10"><input type="email" class="form-control mail-input"></div>
-                <div class="col-2"><button class="btn btn-danger remove-mail" type="button">−</button></div>
+                <div class="col-2 d-flex justify-content-end gap-1">
+                  <button class="btn btn-secondary btn-sm add-mail" type="button">+</button>
+                  <button class="btn btn-danger btn-sm remove-mail" type="button">−</button>
+                </div>
               </div>
             </div>
-            <button class="btn btn-secondary btn-sm mb-2" id="add-mail" type="button">+</button>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Luogo</label>
+            <input type="text" class="form-control" id="medico-luogo-input">
           </div>
           <div class="col-md-6">
             <label class="form-label">Data</label>
