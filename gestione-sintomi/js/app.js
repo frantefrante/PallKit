@@ -232,36 +232,93 @@ document.addEventListener("DOMContentLoaded", function() {
   // Dati del medico, inizialmente vuoti. Verranno compilati tramite la modale
   // "Dati Medico" e usati nell'anteprima e nell'esportazione Word.
   let medicoData = {
+    titolo:       '',
     nome:         '',
     studio:       '',
+    specializzazioni: [],
     codice:       '',
-    affiliazione: '',
-    indirizzo:    '',
-    telefono:     '',
-    luogo:        ''
+    indirizzi:    [],
+    telefoni:     [],
+    mails:        [],
+    luogo:        '',
+    data:         ''
   };
 
   // Popola i campi della modale con i valori correnti quando viene aperta
   const medicoModal = document.getElementById('medico-modal-home');
+  const titoloSelect = document.getElementById('medico-titolo-select');
+  const titoloCustom = document.getElementById('medico-titolo-custom');
+  const specList = document.getElementById('spec-list');
+  const indirizzoList = document.getElementById('indirizzo-list');
+  const telList = document.getElementById('tel-list');
+  const mailList = document.getElementById('mail-list');
+  function updateTitoloVisibility() {
+    if (!titoloSelect) return;
+    if (titoloSelect.value === 'custom') {
+      titoloCustom.classList.remove('d-none');
+    } else {
+      titoloCustom.classList.add('d-none');
+    }
+  }
+  if (titoloSelect) titoloSelect.addEventListener('change', updateTitoloVisibility);
+  function fillList(container, values, inputSelector) {
+    if (!container) return;
+    const template = container.querySelector(':scope > div');
+    container.innerHTML = '';
+    (values && values.length ? values : ['']).forEach(v => {
+      const clone = template.cloneNode(true);
+      const input = clone.querySelector('input');
+      if (input) input.value = v;
+      container.appendChild(clone);
+    });
+  }
+  function getListValues(container, selector) {
+    if (!container) return [];
+    return Array.from(container.querySelectorAll(selector)).map(i => i.value.trim()).filter(Boolean);
+  }
+
+  function formatDateIt(dateStr) {
+    if (!dateStr) return new Date().toLocaleDateString('it-IT');
+    const d = new Date(dateStr);
+    if (isNaN(d)) return dateStr;
+    return d.toLocaleDateString('it-IT');
+  }
   if (medicoModal) {
     medicoModal.addEventListener('shown.bs.modal', () => {
-      document.getElementById('medico-nome-input').value      = medicoData.nome;
-      document.getElementById('medico-studio-input').value    = medicoData.studio;
-      document.getElementById('medico-codice-input').value    = medicoData.codice;
-      document.getElementById('medico-aff-input').value       = medicoData.affiliazione;
-      document.getElementById('medico-indirizzo-input').value = medicoData.indirizzo;
-      document.getElementById('medico-tel-input').value       = medicoData.telefono;
-      document.getElementById('medico-luogo-input').value     = medicoData.luogo;
+      const titoliPredef = ['Dott.','Dott.ssa','Prof.','Prof.ssa'];
+      if (!medicoData.titolo) {
+        titoloSelect.value = '';
+        titoloCustom.value = '';
+      } else if (titoliPredef.includes(medicoData.titolo)) {
+        titoloSelect.value = medicoData.titolo;
+        titoloCustom.value = '';
+      } else {
+        titoloSelect.value = 'custom';
+        titoloCustom.value = medicoData.titolo;
+      }
+      updateTitoloVisibility();
+      document.getElementById('medico-nome-input').value   = medicoData.nome;
+      document.getElementById('medico-studio-input').value = medicoData.studio;
+      fillList(specList, medicoData.specializzazioni, '.spec-input');
+      document.getElementById('medico-codice-input').value = medicoData.codice;
+      fillList(indirizzoList, medicoData.indirizzi, '.indirizzo-input');
+      fillList(telList, medicoData.telefoni, '.tel-input');
+      fillList(mailList, medicoData.mails, '.mail-input');
+      document.getElementById('medico-luogo-input').value = medicoData.luogo;
+      document.getElementById('medico-data-input').value  = medicoData.data || new Date().toISOString().split('T')[0];
     });
   }
   function saveMedicoHome() {
-    medicoData.nome         = document.getElementById('medico-nome-input').value;
-    medicoData.studio       = document.getElementById('medico-studio-input').value;
-    medicoData.codice       = document.getElementById('medico-codice-input').value;
-    medicoData.affiliazione = document.getElementById('medico-aff-input').value;
-    medicoData.indirizzo    = document.getElementById('medico-indirizzo-input').value;
-    medicoData.telefono     = document.getElementById('medico-tel-input').value;
-    medicoData.luogo        = document.getElementById('medico-luogo-input').value;
+    medicoData.titolo = (titoloSelect.value === 'custom') ? titoloCustom.value.trim() : titoloSelect.value;
+    medicoData.nome     = document.getElementById('medico-nome-input').value;
+    medicoData.studio   = document.getElementById('medico-studio-input').value;
+    medicoData.specializzazioni = getListValues(specList, '.spec-input');
+    medicoData.codice   = document.getElementById('medico-codice-input').value;
+    medicoData.indirizzi= getListValues(indirizzoList, '.indirizzo-input');
+    medicoData.telefoni = getListValues(telList, '.tel-input');
+    medicoData.mails    = getListValues(mailList, '.mail-input');
+    medicoData.luogo    = document.getElementById('medico-luogo-input').value;
+    medicoData.data     = document.getElementById('medico-data-input').value;
 
     // Chiude la modale dopo il salvataggio
     bootstrap.Modal.getInstance(document.getElementById('medico-modal-home')).hide();
@@ -270,55 +327,107 @@ document.addEventListener("DOMContentLoaded", function() {
   if (saveMedicoBtn) saveMedicoBtn.addEventListener('click', saveMedicoHome);
 
   // ──────────────────────────────
-  // 6) ANTEPRIMA DOCUMENTO
-  // ──────────────────────────────
-  function showPreviewHome() {
-    const pc = document.getElementById('preview-content-home'); pc.innerHTML = '';
-    const h1 = document.createElement('h5'); h1.textContent = medicoData.nome; pc.appendChild(h1);
-    const h2 = document.createElement('h6'); h2.textContent = medicoData.studio; pc.appendChild(h2);
-    const p1 = document.createElement('p'); p1.textContent = `${medicoData.codice}  |  ${medicoData.affiliazione}`; pc.appendChild(p1);
-    const p2 = document.createElement('p'); p2.textContent = `${medicoData.indirizzo}  |  ${medicoData.telefono}`; pc.appendChild(p2);
-    const pDate = document.createElement('p'); pDate.textContent = `${medicoData.luogo}, ${new Date().toLocaleDateString('it-IT')}`; pDate.classList.add('text-end'); pDate.style.fontStyle='italic'; pc.appendChild(pDate);
-    const tbl = document.createElement('table'); tbl.className = 'table table-bordered';
-    const theadRow = tbl.createTHead().insertRow();
-    ['Sintomo','Farmaco','Via','Dose','Posologia','Frequenza'].forEach(txt => {
-      const th = document.createElement('th'); th.textContent = txt; theadRow.appendChild(th);
-    });
-    const tb = tbl.createTBody();
-    window.terapie.forEach(t => {
-      const r = tb.insertRow();
-      [t.sintomo,t.farmaco,t.via,t.dose,t.poso,t.freq].forEach(v => { const c = r.insertCell(); c.textContent = v; });
-    });
-    pc.appendChild(tbl);
-    new bootstrap.Modal(document.getElementById('preview-modal-home')).show();
-  }
-  const previewHomeBtn = document.getElementById('btn-preview-home');
-  if (previewHomeBtn) previewHomeBtn.addEventListener('click', showPreviewHome);
 
+// 6) GENERAZIONE CONTENUTO DOCUMENTO
+function buildPreviewContent() {
+  const cont = document.createElement('div');
+  cont.className = 'doc-container';
+  const header = document.createElement('div');
+  header.className = 'header-left';
+  const h1 = document.createElement('h5');
+  h1.textContent = `${medicoData.titolo} ${medicoData.nome}`.trim();
+  h1.style.color = '#000';
+  header.appendChild(h1);
+  const h2 = document.createElement('h6');
+  h2.textContent = 'Medico Chirurgo';
+  h2.style.fontStyle = 'italic';
+  h2.style.color = '#000';
+  header.appendChild(h2);
+  cont.appendChild(header);
+  medicoData.specializzazioni.forEach(sp => { const p = document.createElement('p'); p.textContent = sp; cont.appendChild(p); });
+  if (medicoData.studio) { const p = document.createElement('p'); p.textContent = medicoData.studio; cont.appendChild(p); }
+  if (medicoData.codice) { const p = document.createElement('p'); p.textContent = `Cod. Reg.: ${medicoData.codice}`; cont.appendChild(p); }
+  medicoData.indirizzi.forEach(a => { const p = document.createElement('p'); p.textContent = a; cont.appendChild(p); });
+  medicoData.telefoni.forEach(t => { const p = document.createElement('p'); p.textContent = `Tel. ${t}`; cont.appendChild(p); });
+  medicoData.mails.forEach(m => { const p = document.createElement('p'); p.textContent = m; cont.appendChild(p); });
+  const pDate = document.createElement('p');
+  const loc = medicoData.luogo ? medicoData.luogo + ', ' : '';
+  pDate.textContent = loc + formatDateIt(medicoData.data);
+  pDate.classList.add('text-end');
+  pDate.style.fontStyle = 'italic';
+  cont.appendChild(pDate);
+  const tbl = document.createElement('table'); tbl.className = 'summary-table';
+  tbl.style.marginTop = '4rem';
+  const theadRow = tbl.createTHead().insertRow();
+  ['Sintomo','Farmaco','Via','Dose','Posologia','Frequenza'].forEach(txt => { const th = document.createElement('th'); th.textContent = txt; theadRow.appendChild(th); });
+  const tb = tbl.createTBody();
+  window.terapie.forEach(t => {
+    const r = tb.insertRow();
+    [t.sintomo,t.farmaco,t.via,t.dose,t.poso,t.freq].forEach((v,i) => { const c = r.insertCell(); c.textContent = v; if(i===0) c.style.fontWeight = 'bold'; });
+    const sep = tb.insertRow(); sep.className = 'separator-row'; for(let i=0;i<6;i++) sep.insertCell();
+  });
+  cont.appendChild(tbl);
+  const footer = document.createElement('div');
+  footer.className = 'doc-footer';
+  const psal = document.createElement('p'); psal.textContent = 'Cordiali saluti'; footer.appendChild(psal);
+  const pfirma = document.createElement('p'); pfirma.textContent = `${medicoData.titolo} ${medicoData.nome}`.trim(); footer.appendChild(pfirma);
+  cont.appendChild(footer);
+  return cont;
+}
+
+function showPreviewHome() {
+  const pc = document.getElementById('preview-content-home');
+  pc.innerHTML = '';
+  pc.appendChild(buildPreviewContent());
+  new bootstrap.Modal(document.getElementById('preview-modal-home')).show();
+}
   // ──────────────────────────────
   // 7) EXPORT WORD
   // ──────────────────────────────
   async function exportWordHome() {
     const { Document, Packer, Paragraph, Table, TableRow, TableCell, AlignmentType } = docx;
 
+    const { BorderStyle, WidthType, TextRun, VerticalAlign } = docx;
     const header = [];
-    if (medicoData.nome)      header.push(new Paragraph({ text: medicoData.nome, heading: 'Heading1' }));
-    if (medicoData.studio)    header.push(new Paragraph({ text: medicoData.studio }));
-    const r1 = [medicoData.codice, medicoData.affiliazione].filter(Boolean).join('  |  ');
-    if (r1) header.push(new Paragraph({ text: r1 }));
-    const r2 = [medicoData.indirizzo, medicoData.telefono].filter(Boolean).join('  |  ');
-    if (r2) header.push(new Paragraph({ text: r2 }));
-    const locDate = (medicoData.luogo ? medicoData.luogo + ', ' : '') + new Date().toLocaleDateString('it-IT');
-    header.push(new Paragraph({ text: locDate, alignment: AlignmentType.RIGHT, italics: true }));
+    if (medicoData.nome || medicoData.titolo) {
+      header.push(new Paragraph({ alignment: AlignmentType.LEFT, children:[new TextRun({ text:`${medicoData.titolo} ${medicoData.nome}`.trim(), bold:true, size:26 })] }));
+    }
+    header.push(new Paragraph({ alignment: AlignmentType.LEFT, children:[new TextRun({ text:'Medico Chirurgo', italics:true, size:22 })] }));
+    medicoData.specializzazioni.forEach(sp => header.push(new Paragraph({ text: sp }))); 
+    if (medicoData.studio) header.push(new Paragraph({ text: medicoData.studio }));
+    if (medicoData.codice) header.push(new Paragraph({ text:`Cod. Reg.: ${medicoData.codice}` }));
+    medicoData.indirizzi.forEach(a => header.push(new Paragraph({ text:a }))); 
+    medicoData.telefoni.forEach(t => header.push(new Paragraph({ text:`Tel. ${t}` }))); 
+    medicoData.mails.forEach(m => header.push(new Paragraph({ text:m }))); 
+    const locDate = (medicoData.luogo ? medicoData.luogo + ', ' : '') + formatDateIt(medicoData.data);
+    header.push(new Paragraph({ text: locDate, alignment: AlignmentType.RIGHT, italics: true, spacing:{ after:200 } }));
 
     const rows = [];
-    rows.push(new TableRow({ children: ['Sintomo','Farmaco','Via','Dose','Posologia','Frequenza'].map(t => new TableCell({ children:[new Paragraph({ text: t })] })) }));
+    const headCells = ['Sintomo','Farmaco','Via','Dose','Posologia','Frequenza'].map(t => new TableCell({ children:[new Paragraph({ text:t, bold:true })], verticalAlign:VerticalAlign.CENTER }));
+    rows.push(new TableRow({ children: headCells }));
     window.terapie.forEach(t => {
-      rows.push(new TableRow({ children: [t.sintomo, t.farmaco, t.via, t.dose, t.poso, t.freq].map(v => new TableCell({ children:[new Paragraph({ text: v })] })) }));
+      rows.push(new TableRow({ children: [t.sintomo, t.farmaco, t.via, t.dose, t.poso, t.freq].map((v,i) => new TableCell({ children:[new Paragraph({ text:v, bold:i===0 })], verticalAlign:VerticalAlign.CENTER })) }));
+      rows.push(new TableRow({ children: Array(6).fill(0).map(()=> new TableCell({ children:[], shading:{fill:'f0f0f0'} })) }));
     });
-    const table = new Table({ rows });
+    const table = new Table({
+      rows,
+      width:{ size:100, type:WidthType.PERCENTAGE },
+      borders:{
+        top:{style:BorderStyle.NONE, size:0, color:'FFFFFF'},
+        bottom:{style:BorderStyle.NONE, size:0, color:'FFFFFF'},
+        left:{style:BorderStyle.NONE, size:0, color:'FFFFFF'},
+        right:{style:BorderStyle.NONE, size:0, color:'FFFFFF'},
+        insideH:{style:BorderStyle.SINGLE, size:1, color:'CCCCCC'},
+        insideV:{style:BorderStyle.NONE, size:0, color:'FFFFFF'}
+      }
+    });
 
-    const doc = new Document({ sections:[{ children: [...header, table] }] });
+    const closing = [
+      new Paragraph({ text:'Cordiali saluti', spacing:{ before:400 } }),
+      new Paragraph({ text:`${medicoData.titolo} ${medicoData.nome}`.trim() })
+    ];
+
+    const doc = new Document({ sections:[{ children: [...header, table, ...closing] }] });
     const blob = await Packer.toBlob(doc);
     saveAs(blob, 'riepilogo.docx');
   }
@@ -326,6 +435,21 @@ document.addEventListener("DOMContentLoaded", function() {
   if (exportHomeBtn) exportHomeBtn.addEventListener('click', exportWordHome);
   window.exportWordHome = exportWordHome;
 
+function exportPdfHome() {
+  const element = buildPreviewContent();
+  const opt = {
+    margin: 0.5,
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { scale: 2 },
+    jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+  };
+  html2pdf().set(opt).from(element).toPdf().get('pdf').then(pdf => {
+    const url = pdf.output('bloburl');
+    window.open(url, '_blank');
+  });
+}
+const exportPdfBtn = document.getElementById('btn-export-pdf-home');
+if (exportPdfBtn) exportPdfBtn.addEventListener('click', exportPdfHome);
   // ──────────────────────────────
   // 8) POPUP NEC PAL
   // ──────────────────────────────
@@ -420,12 +544,34 @@ if (savePdfBtn) {
     });
   }
 
+  function addEntry(list, entryClass) {
+    if (!list) return;
+    const base = list.querySelector('.' + entryClass);
+    const clone = base.cloneNode(true);
+    const input = clone.querySelector('input');
+    if (input) input.value = '';
+    list.appendChild(clone);
+  }
+
+
 
   document.addEventListener('click', function (e) {
     if (e.target.classList.contains('remove-drug')) {
       const entry = e.target.closest('.drug-entry');
       if (document.querySelectorAll('#drug-list-home .drug-entry').length > 1) entry.remove();
     }
+    ['spec','indirizzo','tel','mail'].forEach(cls => {
+      if (e.target.classList.contains('remove-' + cls)) {
+        const lists = {spec:specList, indirizzo:indirizzoList, tel:telList, mail:mailList};
+        const list = lists[cls];
+        const entry = e.target.closest('.' + cls + '-entry');
+        if (list && list.querySelectorAll('.' + cls + '-entry').length > 1) entry.remove();
+      }
+      if (e.target.classList.contains('add-' + cls)) {
+        const lists = {spec:specList, indirizzo:indirizzoList, tel:telList, mail:mailList};
+        addEntry(lists[cls], cls + '-entry');
+      }
+    });
   });
 
 });

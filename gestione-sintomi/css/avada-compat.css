@@ -84,6 +84,62 @@ p {
     line-height: 1.6;
 }
 
+/* Stili per anteprima tabella riepilogo */
+.summary-table {
+    font-family: Calibri, sans-serif;
+    font-size: 11pt;
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 4rem;
+}
+.summary-table th {
+    font-weight: bold;
+    padding: 4px;
+    border-bottom: 1px solid #CCCCCC;
+}
+.summary-table td {
+    padding: 4px;
+    vertical-align: middle;
+    border: none;
+}
+.summary-table td:first-child {
+    font-weight: bold;
+}
+.summary-table tr.separator-row td {
+    background-color: #f0f0f0;
+    height: 4px;
+    padding: 0;
+    border-bottom: none;
+}
+.summary-table tr:not(.separator-row) td {
+    border-bottom: 1px solid #CCCCCC;
+}
+
+#preview-content-home h5,
+#preview-content-home h6 {
+    color: #000;
+}
+
+.header-left {
+    text-align: left;
+}
+.header-left h5 {
+    font-size: 1.25rem;
+}
+.header-left h6 {
+    font-size: 1rem;
+}
+
+.doc-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.doc-footer {
+    margin-top: auto;
+}
+
 @media (max-width: 768px) {
     .sidebar {
         width: 100%;
