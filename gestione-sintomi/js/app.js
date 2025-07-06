@@ -452,7 +452,18 @@ function showPreviewHome() {
     header.push(new Paragraph({ text: locDate, alignment: AlignmentType.RIGHT, italics: true, spacing:{ after:200 } }));
 
     const rows = [];
-    const headCells = ['Sintomo','Farmaco','Via','Dose','Posologia','Frequenza'].map(t => new TableCell({ children:[new Paragraph({ text:t, bold:true })], verticalAlign:VerticalAlign.CENTER }));
+    const headCells = ['Sintomo','Farmaco','Via','Dose','Posologia','Frequenza'].map(t =>
+      new TableCell({
+        children: [
+          new Paragraph({
+            children: [
+              new TextRun({ text: t, bold: true })
+            ]
+          })
+        ],
+        verticalAlign: VerticalAlign.CENTER
+      })
+    );
     rows.push(new TableRow({ children: headCells }));
     window.terapie.forEach(t => {
       rows.push(new TableRow({ children: [t.sintomo, t.farmaco, t.via, t.dose, t.poso, t.freq].map((v,i) => new TableCell({ children:[new Paragraph({ text:v, bold:i===0 })], verticalAlign:VerticalAlign.CENTER })) }));
