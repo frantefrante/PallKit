@@ -472,11 +472,32 @@ function showPreviewHome() {
     });
 
     const closing = [
-      new Paragraph({ text:'Cordiali saluti', spacing:{ before:400 } }),
-      new Paragraph({ text:`${medicoData.titolo} ${medicoData.nome}`.trim() })
+      new Paragraph({
+        text: 'Cordiali saluti',
+        spacing: { before: 400, after: 100 },
+        style: 'FooterText'
+      }),
+      new Paragraph({
+        text: `${medicoData.titolo} ${medicoData.nome}`.trim(),
+        style: 'FooterText'
+      })
     ];
 
-    const doc = new Document({ sections:[{ children: [...header, table, ...closing] }] });
+    const docStyles = {
+      paragraphStyles: [
+        {
+          id: 'FooterText',
+          name: 'FooterText',
+          run: { size: 22 },
+          paragraph: { spacing: { line: 360 } }
+        }
+      ]
+    };
+
+    const doc = new Document({
+      styles: docStyles,
+      sections: [{ children: [...header, table, ...closing] }]
+    });
     const blob = await Packer.toBlob(doc);
     saveAs(blob, 'riepilogo.docx');
   }

@@ -148,6 +148,15 @@ p {
     margin-top: auto;
 }
 
+/* Aumenta dimensione e spaziatura del testo di chiusura */
+.doc-footer p {
+    font-size: 11pt;
+}
+
+.doc-footer p:first-child {
+    margin-bottom: 0.75rem;
+}
+
 @media (max-width: 768px) {
     .sidebar {
         width: 100%;
