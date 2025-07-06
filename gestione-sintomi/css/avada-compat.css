@@ -131,9 +131,9 @@ p {
 }
 
 .doc-container {
-    /* Ensure enough vertical space so the footer can stick to the bottom
-       when exporting to PDF */
-    min-height: 29.7cm; /* approximate height of an A4 page */
+    /* Enough vertical space for the footer but short enough to avoid
+       spilling onto a second page when exporting to PDF with 0.5in margins */
+    min-height: 27cm; /* A4 height minus default pdf margins */
     display: flex;
     flex-direction: column;
 }
