@@ -390,6 +390,8 @@ function buildPreviewContent() {
   const h2 = document.createElement('h6');
   h2.textContent = 'Medico Chirurgo';
   h2.style.fontStyle = 'italic';
+  h2.style.fontWeight = 'normal';
+  h2.style.marginBottom = '0.25rem';
   h2.style.color = '#000';
   header.appendChild(h2);
   cont.appendChild(header);

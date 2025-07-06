@@ -135,6 +135,10 @@ p {
     display: flex;
     flex-direction: column;
 }
+.doc-container p {
+    margin-bottom: 0.25rem;
+    line-height: 1.2;
+}
 
 .doc-footer {
     margin-top: auto;
