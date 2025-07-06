@@ -74,8 +74,8 @@
           <tbody></tbody>
         </table>
         <div class="d-flex justify-content-end">
-          <button id="btn-preview-home" class="btn btn-outline-secondary me-2">
-            <i class="fas fa-eye me-1"></i>Anteprima
+          <button id="btn-export-pdf-home" class="btn btn-outline-secondary me-2">
+            <i class="fas fa-file-pdf me-1"></i>Esporta PDF
           </button>
           <button id="btn-export-home" class="btn btn-success">
             <i class="fas fa-file-export me-1"></i>Esporta Word

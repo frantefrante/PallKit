@@ -327,44 +327,56 @@ document.addEventListener("DOMContentLoaded", function() {
   if (saveMedicoBtn) saveMedicoBtn.addEventListener('click', saveMedicoHome);
 
   // ──────────────────────────────
-  // 6) ANTEPRIMA DOCUMENTO
-  // ──────────────────────────────
-  function showPreviewHome() {
-    const pc = document.getElementById('preview-content-home'); pc.innerHTML = '';
-    const headerCenter = document.createElement('div'); headerCenter.className = 'header-center';
-    const h1 = document.createElement('h5'); h1.textContent = `${medicoData.titolo} ${medicoData.nome}`.trim(); h1.style.color = '#000'; headerCenter.appendChild(h1);
-    const h2 = document.createElement('h6'); h2.textContent = 'Medico Chirurgo'; h2.style.fontStyle = 'italic'; h2.style.color = '#000'; headerCenter.appendChild(h2);
-    pc.appendChild(headerCenter);
-    medicoData.specializzazioni.forEach(sp => { const p = document.createElement('p'); p.textContent = sp; pc.appendChild(p); });
-    if (medicoData.studio) { const p = document.createElement('p'); p.textContent = medicoData.studio; pc.appendChild(p); }
-    if (medicoData.codice) { const p = document.createElement('p'); p.textContent = `Cod. Reg.: ${medicoData.codice}`; pc.appendChild(p); }
-    medicoData.indirizzi.forEach(a => { const p = document.createElement('p'); p.textContent = a; pc.appendChild(p); });
-    medicoData.telefoni.forEach(t => { const p = document.createElement('p'); p.textContent = `Tel. ${t}`; pc.appendChild(p); });
-    medicoData.mails.forEach(m => { const p = document.createElement('p'); p.textContent = m; pc.appendChild(p); });
-    const pDate = document.createElement('p');
-    const loc = medicoData.luogo ? medicoData.luogo + ', ' : '';
-    pDate.textContent = loc + formatDateIt(medicoData.data);
-    pDate.classList.add('text-end'); pDate.style.fontStyle='italic'; pc.appendChild(pDate);
-    const tbl = document.createElement('table'); tbl.className = 'summary-table';
-    tbl.style.marginTop = '2rem';
-    const theadRow = tbl.createTHead().insertRow();
-    ['Sintomo','Farmaco','Via','Dose','Posologia','Frequenza'].forEach(txt => {
-      const th = document.createElement('th'); th.textContent = txt; theadRow.appendChild(th);
-    });
-    const tb = tbl.createTBody();
-    window.terapie.forEach(t => {
-      const r = tb.insertRow();
-      [t.sintomo,t.farmaco,t.via,t.dose,t.poso,t.freq].forEach((v,i) => { const c = r.insertCell(); c.textContent = v; if(i===0) c.style.fontWeight='bold'; });
-      const sep = tb.insertRow(); sep.className = 'separator-row'; for(let i=0;i<6;i++) sep.insertCell();
-    });
-    pc.appendChild(tbl);
-    const psal = document.createElement('p'); psal.textContent = 'Cordiali saluti'; psal.style.marginTop='3rem'; pc.appendChild(psal);
-    const pfirma = document.createElement('p'); pfirma.textContent = `${medicoData.titolo} ${medicoData.nome}`.trim(); pc.appendChild(pfirma);
-    new bootstrap.Modal(document.getElementById('preview-modal-home')).show();
-  }
-  const previewHomeBtn = document.getElementById('btn-preview-home');
-  if (previewHomeBtn) previewHomeBtn.addEventListener('click', showPreviewHome);
 
+// 6) GENERAZIONE CONTENUTO DOCUMENTO
+function buildPreviewContent() {
+  const cont = document.createElement('div');
+  const header = document.createElement('div');
+  header.className = 'header-left';
+  const h1 = document.createElement('h5');
+  h1.textContent = `${medicoData.titolo} ${medicoData.nome}`.trim();
+  h1.style.color = '#000';
+  header.appendChild(h1);
+  const h2 = document.createElement('h6');
+  h2.textContent = 'Medico Chirurgo';
+  h2.style.fontStyle = 'italic';
+  h2.style.color = '#000';
+  header.appendChild(h2);
+  cont.appendChild(header);
+  medicoData.specializzazioni.forEach(sp => { const p = document.createElement('p'); p.textContent = sp; cont.appendChild(p); });
+  if (medicoData.studio) { const p = document.createElement('p'); p.textContent = medicoData.studio; cont.appendChild(p); }
+  if (medicoData.codice) { const p = document.createElement('p'); p.textContent = `Cod. Reg.: ${medicoData.codice}`; cont.appendChild(p); }
+  medicoData.indirizzi.forEach(a => { const p = document.createElement('p'); p.textContent = a; cont.appendChild(p); });
+  medicoData.telefoni.forEach(t => { const p = document.createElement('p'); p.textContent = `Tel. ${t}`; cont.appendChild(p); });
+  medicoData.mails.forEach(m => { const p = document.createElement('p'); p.textContent = m; cont.appendChild(p); });
+  const pDate = document.createElement('p');
+  const loc = medicoData.luogo ? medicoData.luogo + ', ' : '';
+  pDate.textContent = loc + formatDateIt(medicoData.data);
+  pDate.classList.add('text-end');
+  pDate.style.fontStyle = 'italic';
+  cont.appendChild(pDate);
+  const tbl = document.createElement('table'); tbl.className = 'summary-table';
+  tbl.style.marginTop = '2rem';
+  const theadRow = tbl.createTHead().insertRow();
+  ['Sintomo','Farmaco','Via','Dose','Posologia','Frequenza'].forEach(txt => { const th = document.createElement('th'); th.textContent = txt; theadRow.appendChild(th); });
+  const tb = tbl.createTBody();
+  window.terapie.forEach(t => {
+    const r = tb.insertRow();
+    [t.sintomo,t.farmaco,t.via,t.dose,t.poso,t.freq].forEach((v,i) => { const c = r.insertCell(); c.textContent = v; if(i===0) c.style.fontWeight = 'bold'; });
+    const sep = tb.insertRow(); sep.className = 'separator-row'; for(let i=0;i<6;i++) sep.insertCell();
+  });
+  cont.appendChild(tbl);
+  const psal = document.createElement('p'); psal.textContent = 'Cordiali saluti'; psal.style.marginTop = '3rem'; cont.appendChild(psal);
+  const pfirma = document.createElement('p'); pfirma.textContent = `${medicoData.titolo} ${medicoData.nome}`.trim(); cont.appendChild(pfirma);
+  return cont;
+}
+
+function showPreviewHome() {
+  const pc = document.getElementById('preview-content-home');
+  pc.innerHTML = '';
+  pc.appendChild(buildPreviewContent());
+  new bootstrap.Modal(document.getElementById('preview-modal-home')).show();
+}
   // ──────────────────────────────
   // 7) EXPORT WORD
   // ──────────────────────────────
@@ -374,9 +386,9 @@ document.addEventListener("DOMContentLoaded", function() {
     const { BorderStyle, WidthType, TextRun, VerticalAlign } = docx;
     const header = [];
     if (medicoData.nome || medicoData.titolo) {
-      header.push(new Paragraph({ alignment: AlignmentType.CENTER, children:[new TextRun({ text:`${medicoData.titolo} ${medicoData.nome}`.trim(), bold:true })] }));
+      header.push(new Paragraph({ alignment: AlignmentType.LEFT, children:[new TextRun({ text:`${medicoData.titolo} ${medicoData.nome}`.trim(), bold:true, size:26 })] }));
     }
-    header.push(new Paragraph({ text:'Medico Chirurgo', alignment: AlignmentType.CENTER, italics:true }));
+    header.push(new Paragraph({ alignment: AlignmentType.LEFT, children:[new TextRun({ text:'Medico Chirurgo', italics:true, size:24 })] }));
     medicoData.specializzazioni.forEach(sp => header.push(new Paragraph({ text: sp }))); 
     if (medicoData.studio) header.push(new Paragraph({ text: medicoData.studio }));
     if (medicoData.codice) header.push(new Paragraph({ text:`Cod. Reg.: ${medicoData.codice}` }));
@@ -419,6 +431,19 @@ document.addEventListener("DOMContentLoaded", function() {
   if (exportHomeBtn) exportHomeBtn.addEventListener('click', exportWordHome);
   window.exportWordHome = exportWordHome;
 
+function exportPdfHome() {
+  const element = buildPreviewContent();
+  const opt = {
+    margin: 0.5,
+    filename: 'riepilogo.pdf',
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { scale: 2 },
+    jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+  };
+  html2pdf().set(opt).from(element).save();
+}
+const exportPdfBtn = document.getElementById('btn-export-pdf-home');
+if (exportPdfBtn) exportPdfBtn.addEventListener('click', exportPdfHome);
   // ──────────────────────────────
   // 8) POPUP NEC PAL
   // ──────────────────────────────

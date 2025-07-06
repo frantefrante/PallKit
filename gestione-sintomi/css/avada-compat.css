@@ -120,8 +120,14 @@ p {
     color: #000;
 }
 
-.header-center {
-    text-align: center;
+.header-left {
+    text-align: left;
+}
+.header-left h5 {
+    font-size: 1.25rem;
+}
+.header-left h6 {
+    font-size: 1.1rem;
 }
 
 @media (max-width: 768px) {
