@@ -410,10 +410,16 @@ function buildPreviewContent() {
   const theadRow = tbl.createTHead().insertRow();
   ['Sintomo','Farmaco','Via','Dose','Posologia','Frequenza'].forEach(txt => { const th = document.createElement('th'); th.textContent = txt; theadRow.appendChild(th); });
   const tb = tbl.createTBody();
-  window.terapie.forEach(t => {
+  window.terapie.forEach((t, idx) => {
     const r = tb.insertRow();
-    [t.sintomo,t.farmaco,t.via,t.dose,t.poso,t.freq].forEach((v,i) => { const c = r.insertCell(); c.textContent = v; if(i===0) c.style.fontWeight = 'bold'; });
-    const sep = tb.insertRow(); sep.className = 'separator-row'; for(let i=0;i<6;i++) sep.insertCell();
+    [t.sintomo, t.farmaco, t.via, t.dose, t.poso, t.freq].forEach((v, i) => {
+      const c = r.insertCell();
+      c.textContent = v;
+      if (idx === 0 || i === 0) c.style.fontWeight = 'bold';
+    });
+    const sep = tb.insertRow();
+    sep.className = 'separator-row';
+    for (let i = 0; i < 6; i++) sep.insertCell();
   });
   cont.appendChild(tbl);
   const footer = document.createElement('div');
@@ -454,9 +460,16 @@ function showPreviewHome() {
     const rows = [];
     const headCells = ['Sintomo','Farmaco','Via','Dose','Posologia','Frequenza'].map(t => new TableCell({ children:[new Paragraph({ text:t, bold:true })], verticalAlign:VerticalAlign.CENTER }));
     rows.push(new TableRow({ children: headCells }));
-    window.terapie.forEach(t => {
-      rows.push(new TableRow({ children: [t.sintomo, t.farmaco, t.via, t.dose, t.poso, t.freq].map((v,i) => new TableCell({ children:[new Paragraph({ text:v, bold:i===0 })], verticalAlign:VerticalAlign.CENTER })) }));
-      rows.push(new TableRow({ children: Array(6).fill(0).map(()=> new TableCell({ children:[], shading:{fill:'f0f0f0'} })) }));
+    window.terapie.forEach((t, idx) => {
+      rows.push(new TableRow({
+        children: [t.sintomo, t.farmaco, t.via, t.dose, t.poso, t.freq].map((v, i) =>
+          new TableCell({
+            children: [new Paragraph({ text: v, bold: idx === 0 || i === 0 })],
+            verticalAlign: VerticalAlign.CENTER
+          })
+        )
+      }));
+      rows.push(new TableRow({ children: Array(6).fill(0).map(() => new TableCell({ children: [], shading: { fill: 'f0f0f0' } })) }));
     });
     const table = new Table({
       rows,
