@@ -12,7 +12,7 @@
   <!-- FontAwesome -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" rel="stylesheet">
   <!-- Avada compatibility styles -->
-  <link href="/css/avada-compat.css" rel="stylesheet">
+  <link href="css/avada-compat.css" rel="stylesheet">
 </head>
 <body>
 
@@ -393,13 +393,13 @@
 
 <!-- JS: Bootstrap, Docx, script custom -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/js/all.min.js"></script>
-<script src="/js/bootstrap.bundle.min.js"></script>
-<script src="/js/app.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/app.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/docx@7.1.2"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
-<script src="/js/sedazione.data.js"></script>
-<script src="/js/sedazione.js"></script>
+<script src="js/sedazione.data.js"></script>
+<script src="js/sedazione.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     const d = document.getElementById("today-date-home");
