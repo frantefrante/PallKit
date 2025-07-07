@@ -418,7 +418,11 @@ document.addEventListener("DOMContentLoaded", function() {
       setPazienteFormValues({nome:'',codFiscale:'',dataNascita:'',luogoNascita:'',indirizzo:'',telefono:'',mail:''});
     }
   }
-  if (pazienteUseTest) pazienteUseTest.addEventListener('change', togglePazienteTestData);
+  if (pazienteUseTest) {
+    pazienteUseTest.addEventListener('change', togglePazienteTestData);
+    // Some browsers only update checkbox state on click, so listen for both
+    pazienteUseTest.addEventListener('click', togglePazienteTestData);
+  }
 
   if (pazienteModal) {
     pazienteModal.addEventListener('shown.bs.modal', () => {
