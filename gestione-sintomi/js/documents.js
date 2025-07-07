@@ -91,13 +91,56 @@ document.addEventListener('DOMContentLoaded', function () {
 
   const savePdfBtn = document.getElementById('btn-save-pdf');
   if (savePdfBtn) {
-    savePdfBtn.addEventListener('click', () => {
-      addPatientDoc({
-        title: 'NECPAL',
-        date: new Date().toLocaleDateString('it-IT'),
-        desc: 'Score NEC PAL completo',
-        type: 'necpal'
-      });
+    savePdfBtn.addEventListener('click', downloadNecpalPdf);
+  }
+
+  const necpalForm = document.getElementById('necpal-form');
+  const resultBox = document.getElementById('necpal-result');
+  const previewBox = document.getElementById('necpal-preview');
+  const viewBtn = document.getElementById('btn-view-necpal');
+
+  function buildNecpalPreview(fd) {
+    const q = fd.get('radio_1') === 'one' ? 'Sì' : 'No';
+    return `
+      <div class="card card-body">
+        <p><strong>Data compilazione:</strong> ${fd.get('date_1')}</p>
+        <p><strong>Nome e Cognome:</strong> ${fd.get('text_1')}</p>
+        <p><strong>Data di nascita:</strong> ${fd.get('date_2')}</p>
+        <p><strong>Surprise question:</strong> ${q}</p>
+      </div>`;
+  }
+
+  if (necpalForm) {
+    necpalForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const fd = new FormData(necpalForm);
+      fd.append('ajax', '1');
+      fetch('process-necpal.php', { method: 'POST', body: fd })
+        .then(r => r.ok ? r.json() : Promise.reject())
+        .then(res => {
+          if (res.success) {
+            if (resultBox) resultBox.style.display = 'block';
+            if (previewBox) {
+              previewBox.innerHTML = buildNecpalPreview(fd);
+              previewBox.style.display = 'block';
+            }
+            addPatientDoc({
+              title: 'NECPAL',
+              date: new Date().toLocaleDateString('it-IT'),
+              desc: 'Score NEC PAL completo',
+              type: 'necpal'
+            });
+          } else {
+            alert('Errore durante il salvataggio');
+          }
+        })
+        .catch(() => alert('Errore durante il salvataggio'));
+    });
+  }
+
+  if (viewBtn && previewBox) {
+    viewBtn.addEventListener('click', () => {
+      previewBox.style.display = previewBox.style.display === 'none' ? 'block' : 'none';
     });
   }
 });

@@ -130,6 +130,14 @@
         </button>
       </div>
     </form>
+    <!-- Risultato salvataggio -->
+    <div id="necpal-result" class="mt-4" style="display:none;">
+      <div class="mb-2">
+        <button type="button" id="btn-view-necpal" class="btn btn-outline-secondary me-2">Visualizza</button>
+        <button type="button" id="btn-save-pdf" class="btn btn-success">Scarica PDF</button>
+      </div>
+      <div id="necpal-preview" class="mt-2" style="display:none;"></div>
+    </div>
   </div>
 </section>
 
