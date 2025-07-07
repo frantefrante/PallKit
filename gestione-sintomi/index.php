@@ -13,6 +13,8 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" rel="stylesheet">
   <!-- Avada compatibility styles -->
   <link href="/css/avada-compat.css" rel="stylesheet">
+  <!-- Document cards styles -->
+  <link href="/css/documents.css" rel="stylesheet">
 </head>
 <body>
 
@@ -68,6 +70,9 @@
     <div id="dashboard-home" class="p-4">
       <h4>Benvenuto nella dashboard</h4>
       <p>Da qui puoi accedere a Gestione Sintomi o Identificazione.</p>
+
+      <h5 class="mt-4 mb-3">Documenti paziente</h5>
+      <div id="documenti-container" class="dashboard-cards"></div>
     </div>
 
     <!-- SEZIONE Gestione Sintomi -->
@@ -455,6 +460,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
 <script src="/js/sedazione.data.js"></script>
 <script src="/js/sedazione.js"></script>
+<script src="/js/documents.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     const d = document.getElementById("today-date-home");
