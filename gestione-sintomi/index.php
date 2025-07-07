@@ -52,6 +52,11 @@
           <i class="fas fa-user-md me-2"></i>Dati Medico
         </a>
       </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#paziente-modal-home">
+          <i class="fas fa-user me-2"></i>Dati Paziente
+        </a>
+      </li>
     </ul>
   </nav>
 
@@ -372,10 +377,60 @@
     </div>
   </div>
 </div>
-    </div>
-  </div></div>
+</div>
+    </div></div>
 </div>
 
+<!-- Modale: Dati Paziente -->
+<div class="modal fade" id="paziente-modal-home" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Dati Paziente</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="form-paziente" class="row g-3">
+          <div class="col-12 form-check">
+            <input class="form-check-input" type="checkbox" id="paziente-use-test">
+            <label class="form-check-label" for="paziente-use-test">Usa dati di test</label>
+          </div>
+          <div class="col-md-8">
+            <label class="form-label">Nome e Cognome</label>
+            <input type="text" class="form-control" id="paziente-nome-input">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Cod. Fiscale</label>
+            <input type="text" class="form-control" id="paziente-cf-input">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Data di nascita</label>
+            <input type="date" class="form-control" id="paziente-data-input">
+          </div>
+          <div class="col-md-8">
+            <label class="form-label">Luogo di nascita</label>
+            <input type="text" class="form-control" id="paziente-luogo-input">
+          </div>
+          <div class="col-md-8">
+            <label class="form-label">Indirizzo</label>
+            <input type="text" class="form-control" id="paziente-indirizzo-input">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Telefono</label>
+            <input type="text" class="form-control" id="paziente-tel-input">
+          </div>
+          <div class="col-12">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-control" id="paziente-mail-input">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="save-paziente-btn" class="btn btn-primary">Salva</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- Modale: Anteprima -->
 <div class="modal fade" id="preview-modal-home" tabindex="-1">
