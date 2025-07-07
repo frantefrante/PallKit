@@ -17,13 +17,13 @@
       <!-- Nome e Cognome -->
       <div class="mb-3">
         <label for="text-1" class="form-label">Nome e Cognome <span class="text-danger">*</span></label>
-        <input type="text" id="text-1" name="text_1" class="form-control" placeholder="Inserisci nome e cognome" required>
+        <input type="text" id="text-1" name="text_1" class="form-control" readonly required>
       </div>
 
       <!-- Data di nascita -->
       <div class="mb-3">
         <label for="date-2" class="form-label">Data di nascita <span class="text-danger">*</span></label>
-        <input type="date" id="date-2" name="date_2" class="form-control" required>
+        <input type="date" id="date-2" name="date_2" class="form-control" readonly required>
       </div>
 
       <!-- Surprise question -->

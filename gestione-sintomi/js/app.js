@@ -376,6 +376,81 @@ document.addEventListener("DOMContentLoaded", function() {
   if (saveMedicoBtn) saveMedicoBtn.addEventListener('click', saveMedicoHome);
 
   // ──────────────────────────────
+  // 5b) DATI PAZIENTE
+  // ──────────────────────────────
+  let pazienteData = {
+    nome: '',
+    codFiscale: '',
+    dataNascita: '',
+    luogoNascita: '',
+    indirizzo: '',
+    telefono: '',
+    mail: ''
+  };
+
+  const pazienteTestData = {
+    nome: 'Mario Rossi',
+    codFiscale: 'rssmra45t22d612h',
+    dataNascita: '1945-06-04',
+    luogoNascita: 'Firenze (FI)',
+    indirizzo: 'via La rocca n.12',
+    telefono: '347823432',
+    mail: 'mariorossi@palkit.it'
+  };
+
+  const pazienteModal = document.getElementById('paziente-modal-home');
+  const pazienteUseTest = document.getElementById('paziente-use-test');
+
+  function setPazienteFormValues(data) {
+    document.getElementById('paziente-nome-input').value = data.nome || '';
+    document.getElementById('paziente-cf-input').value   = data.codFiscale || '';
+    document.getElementById('paziente-data-input').value = data.dataNascita || '';
+    document.getElementById('paziente-luogo-input').value = data.luogoNascita || '';
+    document.getElementById('paziente-indirizzo-input').value = data.indirizzo || '';
+    document.getElementById('paziente-tel-input').value  = data.telefono || '';
+    document.getElementById('paziente-mail-input').value = data.mail || '';
+  }
+
+  function togglePazienteTestData() {
+    if (pazienteUseTest && pazienteUseTest.checked) {
+      setPazienteFormValues(pazienteTestData);
+    } else {
+      setPazienteFormValues({nome:'',codFiscale:'',dataNascita:'',luogoNascita:'',indirizzo:'',telefono:'',mail:''});
+    }
+  }
+  if (pazienteUseTest) pazienteUseTest.addEventListener('change', togglePazienteTestData);
+
+  if (pazienteModal) {
+    pazienteModal.addEventListener('shown.bs.modal', () => {
+      setPazienteFormValues(pazienteData);
+      if (pazienteUseTest && pazienteUseTest.checked) togglePazienteTestData();
+    });
+  }
+
+  function savePazienteHome() {
+    pazienteData.nome        = document.getElementById('paziente-nome-input').value;
+    pazienteData.codFiscale  = document.getElementById('paziente-cf-input').value;
+    pazienteData.dataNascita = document.getElementById('paziente-data-input').value;
+    pazienteData.luogoNascita= document.getElementById('paziente-luogo-input').value;
+    pazienteData.indirizzo   = document.getElementById('paziente-indirizzo-input').value;
+    pazienteData.telefono    = document.getElementById('paziente-tel-input').value;
+    pazienteData.mail        = document.getElementById('paziente-mail-input').value;
+
+    bootstrap.Modal.getInstance(pazienteModal).hide();
+    updatePazienteFields();
+  }
+  const savePazienteBtn = document.getElementById('save-paziente-btn');
+  if (savePazienteBtn) savePazienteBtn.addEventListener('click', savePazienteHome);
+
+  function updatePazienteFields() {
+    const nameEl = document.getElementById('text-1');
+    const dateEl = document.getElementById('date-2');
+    if (nameEl) nameEl.value = pazienteData.nome || '';
+    if (dateEl) dateEl.value = pazienteData.dataNascita || '';
+  }
+  updatePazienteFields();
+
+  // ──────────────────────────────
 
 // 6) GENERAZIONE CONTENUTO DOCUMENTO
 function buildPreviewContent() {
