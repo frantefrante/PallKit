@@ -1,0 +1,77 @@
+.dashboard-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: flex-start;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.doc-card {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 3px 10px rgba(60,60,60,0.07);
+  width: 330px;
+  padding: 28px 24px 18px 24px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  min-height: 170px;
+}
+.doc-card .delete-btn {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  background: transparent;
+  border: none;
+  color: #888;
+  font-size: 1.2em;
+  cursor: pointer;
+}
+.doc-card .delete-btn:hover {
+  color: #c00;
+}
+.doc-card .doc-type {
+  font-weight: bold;
+  font-size: 1.1em;
+  color: #388e3c;
+  margin-bottom: 8px;
+  letter-spacing: 0.2px;
+}
+.doc-card .doc-date {
+  font-size: 0.97em;
+  color: #666;
+  margin-bottom: 12px;
+}
+.doc-card .doc-desc {
+  font-size: 1.05em;
+  color: #222;
+  flex-grow: 1;
+  margin-bottom: 18px;
+}
+.doc-card .card-actions {
+  display: flex;
+  gap: 10px;
+}
+.doc-card .card-actions button {
+  background: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 18px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background 0.18s;
+}
+.doc-card .card-actions .pdf-btn {
+  background: #1976d2;
+}
+.doc-card .card-actions button:hover {
+  background: #2e7d32;
+}
+.doc-card .card-actions .pdf-btn:hover {
+  background: #135ba1;
+}
+@media (max-width: 900px) {
+  .dashboard-cards { flex-direction: column; gap: 20px; }
+  .doc-card { width: 97%; }
+}

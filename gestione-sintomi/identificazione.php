@@ -11,7 +11,7 @@
       <!-- Data compilazione -->
       <div class="mb-3">
         <label for="date-1" class="form-label">Data compilazione <span class="text-danger">*</span></label>
-        <input type="date" id="date-1" name="date_1" class="form-control" required>
+        <input type="date" id="date-1" name="date_1" class="form-control" required value="<?php echo date('Y-m-d'); ?>">
       </div>
 
       <!-- Nome e Cognome -->
@@ -130,6 +130,14 @@
         </button>
       </div>
     </form>
+    <!-- Risultato salvataggio -->
+    <div id="necpal-result" class="mt-4" style="display:none;">
+      <div class="mb-2">
+        <button type="button" id="btn-view-necpal" class="btn btn-outline-secondary me-2">Visualizza</button>
+        <button type="button" id="btn-save-pdf" class="btn btn-success">Scarica PDF</button>
+      </div>
+      <div id="necpal-preview" class="mt-2" style="display:none;"></div>
+    </div>
   </div>
 </section>
 

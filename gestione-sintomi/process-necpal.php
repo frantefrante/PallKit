@@ -32,12 +32,20 @@ if (!in_array($radio1, ['one','two'], true)) {
     $errors[] = 'Risposta sorprendere non valida';
 }
 
+$isAjax = isset($_POST['ajax']) ||
+    (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest');
+
 if ($errors) {
-    echo "<h3>Errore:</h3><ul>";
-    foreach ($errors as $e) {
-        echo "<li>" . sanitize($e) . "</li>";
+    if ($isAjax) {
+        header('Content-Type: application/json');
+        echo json_encode(['success' => false, 'errors' => $errors]);
+    } else {
+        echo "<h3>Errore:</h3><ul>";
+        foreach ($errors as $e) {
+            echo "<li>" . sanitize($e) . "</li>";
+        }
+        echo "</ul><p><a href=\"index.php\">Torna indietro</a></p>";
     }
-    echo "</ul><p><a href=\"index.php\">Torna indietro</a></p>";
     exit;
 }
 
@@ -67,11 +75,20 @@ try {
         ':specifici' => $indicatori_specifici,
     ]);
 
-    // Redirect alla pagina di ringraziamento
-    header('Location: grazie.php');
+    if ($isAjax) {
+        header('Content-Type: application/json');
+        echo json_encode(['success' => true]);
+    } else {
+        header('Location: grazie.php');
+    }
     exit;
 
 } catch (PDOException $ex) {
-    echo "<h3>Errore server:</h3><p>" . sanitize($ex->getMessage()) . "</p>";
+    if ($isAjax) {
+        header('Content-Type: application/json');
+        echo json_encode(['success' => false, 'error' => $ex->getMessage()]);
+    } else {
+        echo "<h3>Errore server:</h3><p>" . sanitize($ex->getMessage()) . "</p>";
+    }
     exit;
 }
