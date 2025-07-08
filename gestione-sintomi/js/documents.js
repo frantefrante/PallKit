@@ -147,24 +147,22 @@ function downloadNecpalPdf() {
 }
 window.downloadNecpalPdf = downloadNecpalPdf;
 
-document.addEventListener('DOMContentLoaded', function () {
-  const exportPdfBtn = document.getElementById('btn-export-pdf-home');
-  if (exportPdfBtn) {
-    exportPdfBtn.addEventListener('click', () => {
-      let html = '';
-      if (window.buildPreviewContent) {
-        const el = window.buildPreviewContent();
-        html = el.outerHTML || '';
-      }
-      addPatientDoc({
-        title: 'Riepilogo farmaci',
-        date: formatDateIt(new Date().toISOString().slice(0,10)),
-        desc: 'Farmaci sintomatici attuali',
-        type: 'riepilogo',
-        html: html
-      });
-    });
+window.saveRiepilogoDoc = function() {
+  let html = '';
+  if (window.buildPreviewContent) {
+    const el = window.buildPreviewContent();
+    html = el.outerHTML || '';
   }
+  addPatientDoc({
+    title: 'Riepilogo farmaci',
+    date: formatDateIt(new Date().toISOString().slice(0,10)),
+    desc: 'Farmaci sintomatici attuali',
+    type: 'riepilogo',
+    html: html
+  });
+};
+
+document.addEventListener('DOMContentLoaded', function () {
 
   const savePdfBtn = document.getElementById('btn-save-pdf');
   if (savePdfBtn) {

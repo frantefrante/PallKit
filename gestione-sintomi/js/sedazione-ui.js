@@ -116,6 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
       window.terapie.push(rec);
       if (typeof window.renderTableHome === "function") window.renderTableHome();
     }
+    if (typeof window.saveRiepilogoDoc === 'function') window.saveRiepilogoDoc();
     formPlan.reset();
     planDrug.value = select.value;
     // torna alla schermata principale e riabilita il form
