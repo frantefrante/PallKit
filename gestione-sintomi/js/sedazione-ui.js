@@ -1,8 +1,4 @@
 // js/sedazione-ui.js
-function initializePopovers(){
-  document.querySelectorAll('[data-bs-toggle="popover"]')
-    .forEach(el => new bootstrap.Popover(el));
-}
 
 document.addEventListener("DOMContentLoaded", () => {
   const data = window.schemiSedazione || [];
@@ -77,7 +73,6 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!response.ok) throw new Error('Partial non trovato');
       const html = await response.text();
       schemaDiv.innerHTML = html;
-      initializePopovers();
       schemaDiv.style.display = 'block';
       calcDiv.style.display = addDiv.style.display = '';
       planDrug.value = select.value;

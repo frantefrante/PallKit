@@ -1,17 +1,12 @@
        <!-- Tabella Induzione -->
-        <h5>Induzione</h5>
-        <table class="table table-bordered mb-4" id="schema-induzione">
+        <h5>Propofol – Induzione</h5>
+        <div class="sedation-table-wrapper">
+        <table class="sedation-table" id="schema-induzione">
           <thead>
             <tr>
-              <th colspan="2">
-                <span style="cursor:pointer; text-decoration: underline dashed; color: #007bff;" tabindex="0" data-bs-toggle="popover" data-bs-trigger="focus" title="Definizione" data-bs-content="Somministrazione di un farmaco per via parenterale in un unico atto della durata di qualche secondi, non superiore a qualche decina di secondi, per raggiungere una concentrazione efficace.">Bolo</span>
-              </th>
-              <th colspan="2">
-                <span style="cursor:pointer; text-decoration: underline dashed; color: #007bff;" tabindex="0" data-bs-toggle="popover" data-bs-trigger="focus" title="Definizione" data-bs-content="Somministrazione di boli caratterizzata dalla discontinuità temporale (minuti, ore) fino al controllo della sofferenza; nella modalità a orari fissi somministrato nelle 24 ore a orari definiti dal medico.">Bolo refratto (ripetuto)</span>
-              </th>
-              <th colspan="2">
-                <span style="cursor:pointer; text-decoration: underline dashed; color: #007bff;" tabindex="0" data-bs-toggle="popover" data-bs-trigger="focus" title="Definizione" data-bs-content="Somministrazione continuativa di farmaco, con velocità di infusione controllata, per mantenimento dello stato di sedazione.">Infusione Continua</span>
-              </th>
+              <th colspan="2">Bolo<span class="info">ⓘ<div class="tooltip">Somministrazione di un farmaco per via parenterale in un unico atto della durata di pochi secondi, per raggiungere rapidamente la concentrazione efficace.</div></span></th>
+              <th colspan="2">Bolo refratto (ripetuto)<span class="info">ⓘ<div class="tooltip">Somministrazione di boli a intervalli definiti fino al controllo della sofferenza.</div></span></th>
+              <th colspan="2">Infusione Continua<span class="info">ⓘ<div class="tooltip">Somministrazione continuativa di farmaco con velocità di infusione controllata per mantenere uno stato di sedazione costante.</div></span></th>
             </tr>
             <tr>
               <th>dosi medie</th>
@@ -24,9 +19,12 @@
           </thead>
           <tbody></tbody>
         </table>
-        <!-- Tabella Mantenimento -->
+</div>
+<!-- Tabella Mantenimento -->
+<h5>Propofol – Mantenimento</h5>
+<div class="sedation-table-wrapper">
         <h5>Mantenimento</h5>
-        <table class="table table-bordered" id="schema-mantenimento">
+        <table class="sedation-table" id="schema-mantenimento">
           <thead>
             <tr>
               <th rowspan="2">
@@ -39,7 +37,7 @@
                   Infusione Continua
                 </span>
               </th>
-              <th colspan="2">Bolo ripetuto ad orari fissi</th>
+              <th colspan="2">Bolo ripetuto ad orari fissi<span class="info">ⓘ<div class="tooltip">Bolo ripetuto a intervalli regolari.</div></span></th>
               <th colspan="2" class="bg-danger text-white">
                 <span style="cursor:pointer; text-decoration: underline dashed; color: #fff; text-decoration: underline dashed;"
                       data-bs-toggle="popover"
@@ -60,3 +58,5 @@
           </thead>
           <tbody></tbody>
         </table>
+</div>
+
