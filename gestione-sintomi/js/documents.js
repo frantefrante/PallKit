@@ -255,7 +255,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
   if (viewBtn && previewBox) {
     viewBtn.addEventListener('click', () => {
-      previewBox.style.display = previewBox.style.display === 'none' ? 'block' : 'none';
+      const html = previewBox.innerHTML.trim();
+      if (!html) return alert('Anteprima non disponibile.');
+      const modalBody = document.getElementById('preview-content-home');
+      if (!modalBody) return alert('Anteprima non disponibile.');
+      modalBody.innerHTML = html;
+      new bootstrap.Modal(document.getElementById('preview-modal-home')).show();
     });
   }
 });
