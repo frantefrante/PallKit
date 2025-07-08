@@ -28,6 +28,16 @@ const SPECIFICI = [
     "Patologia renale cronica"
   ];
 
+function formatDateIt(str) {
+  if (!str) return '';
+  if (str.includes('/')) return str;
+  const parts = str.split('-');
+  if (parts.length === 3) {
+    return `${parts[2].padStart(2,'0')}/${parts[1].padStart(2,'0')}/${parts[0]}`;
+  }
+  return str;
+}
+
 document.addEventListener('DOMContentLoaded', function () {
   const container = document.getElementById('documenti-container');
   if (!container) return;
@@ -141,11 +151,17 @@ document.addEventListener('DOMContentLoaded', function () {
   const exportPdfBtn = document.getElementById('btn-export-pdf-home');
   if (exportPdfBtn) {
     exportPdfBtn.addEventListener('click', () => {
+      let html = '';
+      if (window.buildPreviewContent) {
+        const el = window.buildPreviewContent();
+        html = el.outerHTML || '';
+      }
       addPatientDoc({
         title: 'Riepilogo farmaci',
-        date: new Date().toLocaleDateString('it-IT'),
+        date: formatDateIt(new Date().toISOString().slice(0,10)),
         desc: 'Farmaci sintomatici attuali',
-        type: 'riepilogo'
+        type: 'riepilogo',
+        html: html
       });
     });
   }
@@ -161,9 +177,9 @@ document.addEventListener('DOMContentLoaded', function () {
   const viewBtn = document.getElementById('btn-view-necpal');
 
   function buildNecpalHtml(fd) {
-    const date1 = fd.get('date_1');
+    const date1 = formatDateIt(fd.get('date_1'));
     const name  = fd.get('text_1');
-    const dob   = fd.get('date_2');
+    const dob   = formatDateIt(fd.get('date_2'));
     const q     = fd.get('radio_1');
     const cb1   = fd.get('checkbox_1') ? true : false;
     const cb2   = fd.get('checkbox_2') ? true : false;
@@ -222,7 +238,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
             addPatientDoc({
               title: 'NECPAL',
-              date: new Date().toLocaleDateString('it-IT'),
+              date: formatDateIt(new Date().toISOString().slice(0,10)),
               desc: 'Score NECPAL completo',
               type: 'necpal',
               html: html
