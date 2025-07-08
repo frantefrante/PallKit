@@ -1,11 +1,7 @@
 // documents.js
 // Gestione dinamica dei documenti del paziente
 
-document.addEventListener('DOMContentLoaded', function () {
-  const container = document.getElementById('documenti-container');
-  if (!container) return;
-
-  const CLINICI = [
+const CLINICI = [
     "Perdita di peso > 10%",
     "Declino funzionale: Australian Karnofsky riduzione > 30%",
     "Declino funzionale: ADL riduzione > 2 funzioni",
@@ -20,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
     "Utilizzo risorse: Aumento domanda/interventi"
   ];
 
-  const SPECIFICI = [
+const SPECIFICI = [
     "Cancro",
     "Patologie polmonari croniche",
     "Patologie cardiache croniche",
@@ -31,6 +27,10 @@ document.addEventListener('DOMContentLoaded', function () {
     "Patologie epatiche croniche",
     "Patologia renale cronica"
   ];
+
+document.addEventListener('DOMContentLoaded', function () {
+  const container = document.getElementById('documenti-container');
+  if (!container) return;
 
   window.patientDocs = [];
 
