@@ -209,7 +209,8 @@ document.addEventListener('DOMContentLoaded', function () {
       e.preventDefault();
       const fd = new FormData(necpalForm);
       fd.append('ajax', '1');
-      fetch('process-necpal.php', { method: 'POST', body: fd })
+      const url = necpalForm.getAttribute('action') || 'process-necpal.php';
+      fetch(url, { method: 'POST', body: fd })
         .then(r => r.ok ? r.json() : Promise.reject())
         .then(res => {
           if (res.success) {
@@ -227,10 +228,14 @@ document.addEventListener('DOMContentLoaded', function () {
               html: html
             });
           } else {
-            alert('Errore durante il salvataggio');
+            const msg = res.errors ? res.errors.join('\n') : (res.error || 'Errore durante il salvataggio');
+            alert(msg);
           }
         })
-        .catch(() => alert('Errore durante il salvataggio'));
+        .catch(err => {
+          alert('Errore durante il salvataggio');
+          console.error('NECPAL save error', err);
+        });
     });
   }
 
