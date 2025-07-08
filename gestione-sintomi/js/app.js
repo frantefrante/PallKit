@@ -502,6 +502,7 @@ function buildPreviewContent() {
   cont.appendChild(footer);
   return cont;
 }
+window.buildPreviewContent = buildPreviewContent;
 
 function showPreviewHome() {
   const pc = document.getElementById('preview-content-home');
@@ -509,6 +510,7 @@ function showPreviewHome() {
   pc.appendChild(buildPreviewContent());
   new bootstrap.Modal(document.getElementById('preview-modal-home')).show();
 }
+window.showPreviewHome = showPreviewHome;
   // ──────────────────────────────
   // 7) EXPORT WORD
   // ──────────────────────────────
@@ -608,6 +610,7 @@ function exportPdfHome() {
     window.open(url, '_blank');
   });
 }
+window.exportPdfHome = exportPdfHome;
 const exportPdfBtn = document.getElementById('btn-export-pdf-home');
 if (exportPdfBtn) exportPdfBtn.addEventListener('click', exportPdfHome);
   // ──────────────────────────────
