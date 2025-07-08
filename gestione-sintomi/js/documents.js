@@ -5,6 +5,33 @@ document.addEventListener('DOMContentLoaded', function () {
   const container = document.getElementById('documenti-container');
   if (!container) return;
 
+  const CLINICI = [
+    "Perdita di peso > 10%",
+    "Declino funzionale: Australian Karnofsky riduzione > 30%",
+    "Declino funzionale: ADL riduzione > 2 funzioni",
+    "Declino cognitivo: Perdita ≥ 5 punti MMSE",
+    "Dipendenza grave: Australian Karnofsky (AKPS) < 50",
+    "Sindromi geriatriche ≥ 2 (cadute, disfagia, delirium, ulcere da decubito, infezioni)",
+    "Sintomi persistenti: Dolore, Astenia, Anoressia o ESAS/IPOS ≥ 2 sintomi",
+    "Aspetti psico-sociali: DME > 9 o 2 items IPOS ≥ 3",
+    "Vulnerabilità sociale grave (valutazione sociale/familiare)",
+    "Comorbidità > 2 malattie croniche",
+    "Utilizzo risorse: > 2 ricoveri urgenti/non pianificati ultimi 6 mesi",
+    "Utilizzo risorse: Aumento domanda/interventi"
+  ];
+
+  const SPECIFICI = [
+    "Cancro",
+    "Patologie polmonari croniche",
+    "Patologie cardiache croniche",
+    "Demenza",
+    "Fragilità",
+    "Patologie neurovascolari croniche (ictus)",
+    "Patologie neurologiche croniche: SM/SLA/Parkinson",
+    "Patologie epatiche croniche",
+    "Patologia renale cronica"
+  ];
+
   window.patientDocs = [];
 
   function render() {
@@ -20,6 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const card = document.createElement('div');
       card.className = 'doc-card';
       card.innerHTML = `
+        <button class="delete-btn" data-index="${idx}">&times;</button>
         <div class="doc-type">${doc.title}</div>
         <div class="doc-date">${doc.date}</div>
         <div class="doc-desc">${doc.desc}</div>
@@ -78,6 +106,14 @@ document.addEventListener('DOMContentLoaded', function () {
     } else if (e.target.classList.contains('pdf-btn')) {
       const doc = patientDocs[e.target.dataset.index];
       if (doc) downloadDoc(doc);
+    } else if (e.target.classList.contains('delete-btn')) {
+      const idx = parseInt(e.target.dataset.index, 10);
+      if (!isNaN(idx)) {
+        if (confirm('Eliminare il documento?')) {
+          patientDocs.splice(idx, 1);
+          render();
+        }
+      }
     }
   });
 
@@ -131,13 +167,13 @@ document.addEventListener('DOMContentLoaded', function () {
     const q     = fd.get('radio_1');
     const cb1   = fd.get('checkbox_1') ? true : false;
     const cb2   = fd.get('checkbox_2') ? true : false;
-    const cb3   = fd.getAll('checkbox_3[]');
-    const cb4   = fd.getAll('checkbox_4[]');
+    const cb3Sel = new Set(fd.getAll('checkbox_3[]'));
+    const cb4Sel = new Set(fd.getAll('checkbox_4[]'));
     const items = [];
     items.push(['Scelta/Richiesta approccio palliativo', cb1]);
     items.push(['Bisogni identificati dai sanitari', cb2]);
-    cb3.forEach(t => items.push([t, true]));
-    cb4.forEach(t => items.push([t, true]));
+    CLINICI.forEach(l => items.push([l, cb3Sel.has(l)]));
+    SPECIFICI.forEach(l => items.push([l, cb4Sel.has(l)]));
     const rows = items.map((it, i) => {
       const bg = i % 2 ? '#f2f2f2' : '#ffffff';
       return `<tr style="background:${bg};">
@@ -146,11 +182,15 @@ document.addEventListener('DOMContentLoaded', function () {
               </tr>`;
     }).join('');
     const positive = q === 'two' && items.some(i => i[1]) ? 'POSITIVO' : 'NEGATIVO';
+    const medicoName = (window.medicoData && (medicoData.nome || medicoData.titolo))
+      ? `${medicoData.titolo || ''} ${medicoData.nome || ''}`.trim()
+      : '';
+    const header = medicoName ?
+        `<div style="background:#e0e0e0; padding:6px; text-align:center; font-weight:bold;">Ambulatorio MMG – ${medicoName}</div>`
+        : '';
     return `
       <div style="font-family: Helvetica, Arial, sans-serif; font-size:11pt;">
-        <div style="background:#e0e0e0; padding:6px; text-align:center; font-weight:bold;">
-          Ambulatorio MMG – Dr. Francesco Magnante
-        </div>
+        ${header}
         <div style="background:#f7f7f7; padding:8px; margin-top:10px;">
           <strong>Nome paziente:</strong> ${name}<br>
           <strong>Data di nascita:</strong> ${dob}<br>

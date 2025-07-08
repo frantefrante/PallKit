@@ -618,27 +618,6 @@ if (exportPdfBtn) exportPdfBtn.addEventListener('click', exportPdfHome);
   }));
   document.querySelectorAll('.popup-indicatore .close-popup').forEach(b => b.addEventListener('click', () => b.closest('.popup-indicatore').style.display='none'));
   document.querySelectorAll('.popup-indicatore').forEach(ov => ov.addEventListener('click', e => { if (e.target===ov) ov.style.display='none'; }));
-// Genera PDF per la sezione Identificazione
-const savePdfBtn = document.getElementById('btn-save-pdf');
-if (savePdfBtn) {
-  savePdfBtn.addEventListener('click', () => {
-    // Seleziona l'intera sezione di Identificazione
-    const element = document.getElementById('identificazione-home');
-    if (!element) return alert('Sezione identificazione non trovata.');
-
-    // Opzioni PDF
-    const opt = {
-      margin:       0.5,               // margini in pollici
-      filename:     'identificazione.pdf',
-      image:        { type: 'jpeg', quality: 0.98 },
-      html2canvas:  { scale: 2 },       // migliore risoluzione
-      jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
-    };
-
-    // Genera e avvia il download
-    html2pdf().set(opt).from(element).save();
-  });
-}
 
   // ──────────────────────────────
   // 9) EQUIANALGESIA

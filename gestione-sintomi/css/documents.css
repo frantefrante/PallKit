@@ -17,6 +17,19 @@
   position: relative;
   min-height: 170px;
 }
+.doc-card .delete-btn {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  background: transparent;
+  border: none;
+  color: #888;
+  font-size: 1.2em;
+  cursor: pointer;
+}
+.doc-card .delete-btn:hover {
+  color: #c00;
+}
 .doc-card .doc-type {
   font-weight: bold;
   font-size: 1.1em;
