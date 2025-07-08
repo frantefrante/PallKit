@@ -36,22 +36,45 @@ document.addEventListener('DOMContentLoaded', function () {
     render();
   };
 
+  function pdfFromHtml(html, filename) {
+    const tmp = document.createElement('div');
+    tmp.innerHTML = html;
+    const opt = {
+      margin: 0.5,
+      filename: filename,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+    };
+    html2pdf().set(opt).from(tmp).save();
+  }
+
   function downloadDoc(doc) {
     switch(doc.type) {
       case 'riepilogo':
         if (window.exportPdfHome) window.exportPdfHome();
         break;
       case 'necpal':
-        if (window.downloadNecpalPdf) window.downloadNecpalPdf();
+        if (doc.html) pdfFromHtml(doc.html, 'NECPAL.pdf');
+        else if (window.downloadNecpalPdf) window.downloadNecpalPdf();
         break;
       default:
         alert('Download non disponibile');
     }
   }
 
+  function showDoc(doc) {
+    if (!doc.html) return alert('Anteprima non disponibile.');
+    const modalBody = document.getElementById('preview-content-home');
+    if (!modalBody) return alert('Anteprima non disponibile.');
+    modalBody.innerHTML = doc.html;
+    new bootstrap.Modal(document.getElementById('preview-modal-home')).show();
+  }
+
   container.addEventListener('click', function(e) {
     if (e.target.classList.contains('view-btn')) {
-      alert('Anteprima non disponibile.');
+      const doc = patientDocs[e.target.dataset.index];
+      if (doc) showDoc(doc);
     } else if (e.target.classList.contains('pdf-btn')) {
       const doc = patientDocs[e.target.dataset.index];
       if (doc) downloadDoc(doc);
@@ -63,16 +86,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Funzione per scaricare nuovamente il PDF NECPAL
 function downloadNecpalPdf() {
-  const element = document.getElementById('identificazione-home');
-  if (!element) return alert('Sezione identificazione non trovata.');
+  const preview = document.getElementById('necpal-preview');
+  if (!preview || !preview.innerHTML.trim()) return alert('Anteprima non disponibile.');
+  const tmp = document.createElement('div');
+  tmp.innerHTML = preview.innerHTML;
   const opt = {
     margin: 0.5,
-    filename: 'identificazione.pdf',
+    filename: 'NECPAL.pdf',
     image: { type: 'jpeg', quality: 0.98 },
     html2canvas: { scale: 2 },
     jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
   };
-  html2pdf().set(opt).from(element).save();
+  html2pdf().set(opt).from(tmp).save();
 }
 window.downloadNecpalPdf = downloadNecpalPdf;
 
@@ -99,14 +124,43 @@ document.addEventListener('DOMContentLoaded', function () {
   const previewBox = document.getElementById('necpal-preview');
   const viewBtn = document.getElementById('btn-view-necpal');
 
-  function buildNecpalPreview(fd) {
-    const q = fd.get('radio_1') === 'one' ? 'Sì' : 'No';
+  function buildNecpalHtml(fd) {
+    const date1 = fd.get('date_1');
+    const name  = fd.get('text_1');
+    const dob   = fd.get('date_2');
+    const q     = fd.get('radio_1');
+    const cb1   = fd.get('checkbox_1') ? true : false;
+    const cb2   = fd.get('checkbox_2') ? true : false;
+    const cb3   = fd.getAll('checkbox_3[]');
+    const cb4   = fd.getAll('checkbox_4[]');
+    const items = [];
+    items.push(['Scelta/Richiesta approccio palliativo', cb1]);
+    items.push(['Bisogni identificati dai sanitari', cb2]);
+    cb3.forEach(t => items.push([t, true]));
+    cb4.forEach(t => items.push([t, true]));
+    const rows = items.map((it, i) => {
+      const bg = i % 2 ? '#f2f2f2' : '#ffffff';
+      return `<tr style="background:${bg};">
+                <td style="width:40px;text-align:center;border:1px solid #ccc;">${it[1] ? 'X' : ''}</td>
+                <td style="border:1px solid #ccc;padding:4px 6px;">${it[0]}</td>
+              </tr>`;
+    }).join('');
+    const positive = q === 'two' && items.some(i => i[1]) ? 'POSITIVO' : 'NEGATIVO';
     return `
-      <div class="card card-body">
-        <p><strong>Data compilazione:</strong> ${fd.get('date_1')}</p>
-        <p><strong>Nome e Cognome:</strong> ${fd.get('text_1')}</p>
-        <p><strong>Data di nascita:</strong> ${fd.get('date_2')}</p>
-        <p><strong>Surprise question:</strong> ${q}</p>
+      <div style="font-family: Helvetica, Arial, sans-serif; font-size:11pt;">
+        <div style="background:#e0e0e0; padding:6px; text-align:center; font-weight:bold;">
+          Ambulatorio MMG – Dr. Francesco Magnante
+        </div>
+        <div style="background:#f7f7f7; padding:8px; margin-top:10px;">
+          <strong>Nome paziente:</strong> ${name}<br>
+          <strong>Data di nascita:</strong> ${dob}<br>
+          <strong>Data di compilazione:</strong> ${date1}
+        </div>
+        <h4 style="background:#e0e0e0; padding:4px; margin-top:20px; font-size:1rem;">Item NECPAL</h4>
+        <table style="width:100%; border-collapse:collapse; font-size:11pt;">${rows}</table>
+        <div style="background:#cccccc; padding:6px; margin-top:20px; font-weight:bold;">
+          Esito finale: ${positive}
+        </div>
       </div>`;
   }
 
@@ -119,16 +173,18 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(r => r.ok ? r.json() : Promise.reject())
         .then(res => {
           if (res.success) {
+            const html = buildNecpalHtml(fd);
             if (resultBox) resultBox.style.display = 'block';
             if (previewBox) {
-              previewBox.innerHTML = buildNecpalPreview(fd);
+              previewBox.innerHTML = html;
               previewBox.style.display = 'block';
             }
             addPatientDoc({
               title: 'NECPAL',
               date: new Date().toLocaleDateString('it-IT'),
-              desc: 'Score NEC PAL completo',
-              type: 'necpal'
+              desc: 'Score NECPAL completo',
+              type: 'necpal',
+              html: html
             });
           } else {
             alert('Errore durante il salvataggio');
