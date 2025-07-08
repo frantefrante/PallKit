@@ -8,7 +8,7 @@
   border-collapse: collapse;
   font-size: 0.95rem;
   border-radius: 6px;
-  overflow: hidden;
+  overflow: visible;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
@@ -18,8 +18,15 @@
   padding: 6px 8px;
 }
 
-.sedation-table thead th {
+.sedation-table thead tr:first-child th {
   background: #e0e0e0;
+  font-weight: bold;
+  text-align: center;
+  border-color: #bdbdbd;
+}
+
+.sedation-table thead tr:nth-child(2) th {
+  background: #f0f0f0;
   font-weight: bold;
   text-align: center;
   border-color: #bdbdbd;
@@ -33,16 +40,15 @@
   background: #e3f2fd;
 }
 
-.info {
+.def-term {
   position: relative;
   display: inline-block;
   cursor: pointer;
-  font-size: 0.8em;
-  line-height: 1;
-  margin-left: 2px;
+  color: #007bff;
+  text-decoration: underline dashed;
 }
 
-.info .tooltip {
+.def-term .tooltip {
   display: none;
   position: absolute;
   top: 1.2em;
@@ -58,7 +64,7 @@
   white-space: normal;
 }
 
-.info:focus .tooltip,
-.info:hover .tooltip {
+.def-term:focus .tooltip,
+.def-term:hover .tooltip {
   display: block;
 }
