@@ -44,10 +44,13 @@
   position: relative;
   display: inline-block;
   cursor: pointer;
+  color: inherit;
+}
+
+.info sup {
   font-size: 0.8em;
   vertical-align: super;
   margin-left: 2px;
-  color: inherit;
 }
 
 .info .tooltip {
