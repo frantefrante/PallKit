@@ -16,7 +16,7 @@
   <!-- Document cards styles -->
   <link href="/css/documents.css" rel="stylesheet">
   <!-- Sedation tables styles -->
-  <link href="/css/sedazione.css" rel="stylesheet">
+  <link href="css/sedazione.css" rel="stylesheet">
 </head>
 <body>
 

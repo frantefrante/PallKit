@@ -44,10 +44,10 @@
   position: relative;
   display: inline-block;
   cursor: pointer;
-  color: #007bff;
   font-size: 0.8em;
   vertical-align: super;
   margin-left: 2px;
+  color: inherit;
 }
 
 .info .tooltip {
@@ -67,7 +67,8 @@
 }
 
 .info:focus .tooltip,
-.info:hover .tooltip {
+.info:hover .tooltip,
+.info.active .tooltip {
   display: block;
 }
 

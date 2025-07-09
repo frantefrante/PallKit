@@ -84,7 +84,7 @@
 <!-- Script: dati + logica -->
 <script src="js/sedazione.data.js"></script>
 <script src="js/sedazione-ui.js"></script>
+<script src="js/sedation-tooltips.js"></script>
 <script>
   document.addEventListener("DOMContentLoaded", function() {
-    console.log("⚙️ gestione-sedazione initialized");
-  });</script>
+    console.log("⚙️ gestione-sedazione initialized");  });</script>
