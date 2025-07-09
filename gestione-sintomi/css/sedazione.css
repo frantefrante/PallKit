@@ -40,15 +40,17 @@
   background: #e3f2fd;
 }
 
-.def-term {
+.info {
   position: relative;
   display: inline-block;
   cursor: pointer;
   color: #007bff;
-  text-decoration: underline dashed;
+  font-size: 0.8em;
+  vertical-align: super;
+  margin-left: 2px;
 }
 
-.def-term .tooltip {
+.info .tooltip {
   display: none;
   position: absolute;
   top: 1.2em;
@@ -64,7 +66,8 @@
   white-space: normal;
 }
 
-.def-term:focus .tooltip,
-.def-term:hover .tooltip {
+.info:focus .tooltip,
+.info:hover .tooltip {
   display: block;
 }
+
