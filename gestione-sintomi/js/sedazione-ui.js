@@ -110,16 +110,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (typeof window.saveSedazioneDoc === 'function') window.saveSedazioneDoc();
     formPlan.reset();
     planDrug.value = select.value;
-    // torna alla schermata principale e riabilita il form
+    // reset UI for next entry but remain in sedazione section
     if (typeof window.resetSedationUI === "function") window.resetSedationUI();
-    document.getElementById("sedazione-home").style.display = "none";
-    const home = document.getElementById("gestione-home");
-    if (home) home.style.display = "block";
-    const sintSelect = document.getElementById("sintomo-home");
-    if (sintSelect) {
-      sintSelect.value = "";
-      sintSelect.dispatchEvent(new Event("change"));
-    }
   });
 
 
