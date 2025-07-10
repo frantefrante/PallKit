@@ -102,6 +102,9 @@ document.addEventListener("DOMContentLoaded", function() {
     const o = document.createElement('option'); o.value = s; o.textContent = s;
     sintomoSelect.appendChild(o);
   });
+  // Ensure Sedazione Palliativa is not present in the dropdown
+  const sedOpt = sintomoSelect.querySelector('option[value="Sedazione Palliativa"]');
+  if (sedOpt) sedOpt.remove();
 
   // Funzioni di gestione form
   function populate(sel, items) {
