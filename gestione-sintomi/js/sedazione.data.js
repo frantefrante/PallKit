@@ -4,6 +4,7 @@
 window.schemiSedazione = [
   {
     nome: "Midazolam",
+    visibile: true,
     vie: ["EV", "SC"],
     induzione: {
       bolo_per_via: {
@@ -54,6 +55,7 @@ window.schemiSedazione = [
   },
   {
     nome: "Levomepromazina",
+    visibile: false,
     vie: ["SC"],
     induzione: {
       bolo_per_via: {
@@ -96,6 +98,7 @@ window.schemiSedazione = [
   },
   {
     nome: "Fenobarbital",
+    visibile: false,
     vie: ["IV", "SC", "IM"],
     induzione: {
       bolo_per_via: {
@@ -150,6 +153,7 @@ window.schemiSedazione = [
   },
   {
     nome: "Propofol",
+    visibile: false,
     vie: ["IV"],
     induzione: {
       bolo_per_via: {
@@ -192,6 +196,7 @@ window.schemiSedazione = [
   },
   {
     nome: "Clorpromazina",
+    visibile: true,
     vie: ["IV", "IM"],
     induzione: {
       bolo_per_via: {
@@ -240,6 +245,7 @@ window.schemiSedazione = [
   },
   {
     nome: "Lorazepam",
+    visibile: true,
     vie: ["IV", "SC"],
     induzione: {
       bolo_per_via: {
@@ -288,6 +294,7 @@ window.schemiSedazione = [
   },
   {
     nome: "Diazepam",
+    visibile: true,
     vie: ["IV", "IM"],
     induzione: {
       bolo_per_via: {
@@ -336,6 +343,7 @@ window.schemiSedazione = [
   },
   {
     nome: "Aloperidolo",
+    visibile: true,
     vie: ["IV", "SC", "IM"],
     induzione: {
       bolo_per_via: {
@@ -390,6 +398,7 @@ window.schemiSedazione = [
   },
   {
     nome: "Droperidolo",
+    visibile: false,
     vie: ["IV", "IM"],
     induzione: {
       bolo_per_via: {
@@ -438,6 +447,7 @@ window.schemiSedazione = [
   },
   {
     nome: "Morfina",
+    visibile: true,
     vie: ["IV", "SC", "EV"],
     induzione: {
       bolo_per_via: {
@@ -492,6 +502,7 @@ window.schemiSedazione = [
   },
   {
     nome: "Fentanyl",
+    visibile: false,
     vie: ["IV", "SC", "EV"],
     induzione: {
       bolo_per_via: {
@@ -546,6 +557,7 @@ window.schemiSedazione = [
   },
   {
     nome: "Dexmedetomidina",
+    visibile: false,
     vie: ["IV"],
     induzione: {
       bolo_per_via: {},

@@ -1,35 +1,12 @@
-
-<h5>Fentanyl</h5>
-
-<!-- Tabella Induzione -->
+<h4>Fentanyl</h4>
 <h5>Induzione</h5>
-<table class="table table-bordered mb-4" id="schema-induzione">
+<div class="sedation-table-wrapper">
+<table class="sedation-table" id="schema-induzione">
   <thead>
     <tr>
-      <th colspan="2">
-        <span tabindex="0" style="cursor:pointer; text-decoration: underline dashed; color: #007bff;"
-              data-bs-toggle="popover" data-bs-trigger="focus"
-              title="Bolo"
-              data-bs-content="Somministrazione di un farmaco per via parenterale in un unico atto per raggiungere una concentrazione efficace.">
-          Bolo
-        </span>
-      </th>
-      <th colspan="2">
-        <span tabindex="0" style="cursor:pointer; text-decoration: underline dashed; color: #007bff;"
-              data-bs-toggle="popover" data-bs-trigger="focus"
-              title="Bolo refratto (ripetuto)"
-              data-bs-content="Somministrazione di boli a intervalli definiti fino al controllo della sofferenza.">
-          Bolo refratto (ripetuto)
-        </span>
-      </th>
-      <th colspan="2">
-        <span tabindex="0" style="cursor:pointer; text-decoration: underline dashed; color: #007bff;"
-              data-bs-toggle="popover" data-bs-trigger="focus"
-              title="Infusione Continua"
-              data-bs-content="Somministrazione continuativa di farmaco con velocità di infusione controllata per mantenimento dello stato di sedazione.">
-          Infusione Continua
-        </span>
-      </th>
+      <th colspan="2">Bolo<span class="info" tabindex="0"><sup>ⓘ</sup><span class="tooltip">Somministrazione di un farmaco per via parenterale in un unico atto della durata di pochi secondi, per raggiungere rapidamente la concentrazione efficace.</span></span></th>
+      <th colspan="2">Bolo refratto (ripetuto)<span class="info" tabindex="0"><sup>ⓘ</sup><span class="tooltip">Somministrazione di boli a intervalli definiti fino al controllo della sofferenza.</span></span></th>
+      <th colspan="2">Infusione Continua<span class="info" tabindex="0"><sup>ⓘ</sup><span class="tooltip">Somministrazione continuativa di farmaco con velocità di infusione controllata per mantenere uno stato di sedazione costante.</span></span></th>
     </tr>
     <tr>
       <th>dosi medie</th>
@@ -51,29 +28,17 @@
     </tr>
   </tbody>
 </table>
+</div>
 
 <!-- Tabella Mantenimento -->
 <h5>Mantenimento</h5>
-<table class="table table-bordered mb-4" id="schema-mantenimento">
+<div class="sedation-table-wrapper">
+<table class="sedation-table" id="schema-mantenimento">
   <thead>
     <tr>
-      <th rowspan="2">
-        <span tabindex="0" style="cursor:pointer; text-decoration: underline dashed; color: #007bff;"
-              data-bs-toggle="popover" data-bs-trigger="focus"
-              title="Infusione Continua"
-              data-bs-content="Somministrazione continuativa di farmaco con velocità di infusione controllata per mantenimento dello stato di sedazione.">
-          Infusione Continua
-        </span>
-      </th>
+      <th rowspan="2">Infusione Continua<span class="info" tabindex="0"><sup>ⓘ</sup><span class="tooltip">Somministrazione continuativa di farmaco con velocità di infusione controllata per mantenere uno stato di sedazione costante.</span></span></th>
       <th colspan="2">Bolo ripetuto ad orari fissi</th>
-      <th colspan="2" class="bg-danger text-white">
-        <span tabindex="0" style="cursor:pointer; text-decoration: underline dashed; color: #fff;"
-              data-bs-toggle="popover" data-bs-trigger="focus"
-              title="Bolo Rescue"
-              data-bs-content="Bolo estemporaneo per ripristinare il controllo della sofferenza in corso di terapia continua.">
-          Bolo Rescue
-        </span>
-      </th>
+      <th colspan="2" class="bg-danger text-white">Bolo Rescue<span class="info" tabindex="0" style="color:#fff"><sup>ⓘ</sup><span class="tooltip">Bolo estemporaneo per ripristinare il controllo della sofferenza in corso di terapia continua.</span></span></th>
     </tr>
     <tr>
       <th>dosi medie</th>
@@ -90,5 +55,5 @@
       <td>25–100 mcg SC/EV<br>0,3–1,5 mcg/kg</td>
       <td>2–5 minuti EV</td>
     </tr>
-  </tbody>
-</table>
+</div>
+  </tbody></table>

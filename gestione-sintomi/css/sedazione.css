@@ -1,0 +1,80 @@
+
+.sedation-table-wrapper {
+  overflow-x: auto;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+.sedation-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  background: #fff;
+}
+
+.sedation-table th,
+.sedation-table td {
+  border: 1px solid #ccc;
+  padding: 6px 8px;
+}
+
+.sedation-table thead tr:first-child th {
+  background: #e0e0e0;
+  font-weight: bold;
+  text-align: center;
+  border-color: #bdbdbd;
+}
+
+.sedation-table thead tr:nth-child(2) th {
+  background: #f0f0f0;
+  font-weight: bold;
+  text-align: center;
+  border-color: #bdbdbd;
+}
+
+.sedation-table tbody tr:nth-child(even) {
+  background: #f9f9f9;
+}
+
+.sedation-table tbody tr:hover {
+  background: #e3f2fd;
+}
+
+.info {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  color: inherit;
+}
+
+.info sup {
+  font-size: 0.8em;
+  vertical-align: super;
+  margin-left: 2px;
+}
+
+.info .tooltip {
+  display: none;
+  position: absolute;
+  top: 1.2em;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  max-width: 240px;
+  z-index: 1000;
+  white-space: normal;
+}
+
+.info:focus .tooltip,
+.info:hover .tooltip,
+.info.active .tooltip {
+  display: block;
+}
+

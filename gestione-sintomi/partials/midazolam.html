@@ -1,37 +1,18 @@
-<h5>Midazolam</h5>
-
-<!-- Tabella Induzione -->
+<h4>Midazolam</h4>
 <h5>Induzione</h5>
-<table class="table table-bordered mb-4" id="schema-induzione">
+<div class="sedation-table-wrapper">
+<table class="sedation-table" id="schema-induzione">
   <thead>
     <tr>
-      <th rowspan="2">
-        <span style="cursor:pointer; text-decoration: underline dashed; color: #007bff;"
-              tabindex="0" data-bs-toggle="popover" data-bs-trigger="focus"
-              title="Via" data-bs-content="Via di somministrazione del farmaco.">
-          Via
-        </span>
+      <th rowspan="2">Via</th>
+      <th colspan="2">
+        Bolo<span class="info" tabindex="0"><sup>ⓘ</sup><span class="tooltip">Somministrazione di un farmaco per via parenterale in un unico atto della durata di pochi secondi, per raggiungere rapidamente la concentrazione efficace.</span></span>
       </th>
       <th colspan="2">
-        <span style="cursor:pointer; text-decoration: underline dashed; color: #007bff;"
-              tabindex="0" data-bs-toggle="popover" data-bs-trigger="focus"
-              title="Bolo" data-bs-content="Somministrazione di un farmaco per via parenterale in un unico atto per raggiungere una concentrazione efficace.">
-          Bolo
-        </span>
+        Bolo refratto (ripetuto)<span class="info" tabindex="0"><sup>ⓘ</sup><span class="tooltip">Somministrazione di boli a intervalli definiti fino al controllo della sofferenza.</span></span>
       </th>
       <th colspan="2">
-        <span style="cursor:pointer; text-decoration: underline dashed; color: #007bff;"
-              tabindex="0" data-bs-toggle="popover" data-bs-trigger="focus"
-              title="Bolo refratto (ripetuto)" data-bs-content="Somministrazione di boli ripetuti a intervalli definiti fino al controllo della sofferenza.">
-          Bolo refratto (ripetuto)
-        </span>
-      </th>
-      <th colspan="2">
-        <span style="cursor:pointer; text-decoration: underline dashed; color: #007bff;"
-              tabindex="0" data-bs-toggle="popover" data-bs-trigger="focus"
-              title="Infusione Continua" data-bs-content="Somministrazione continuativa di farmaco, con velocità di infusione controllata, per mantenimento dello stato di sedazione.">
-          Infusione Continua
-        </span>
+        Infusione Continua<span class="info" tabindex="0"><sup>ⓘ</sup><span class="tooltip">Somministrazione continuativa di farmaco con velocità di infusione controllata per mantenere uno stato di sedazione costante.</span></span>
       </th>
     </tr>
     <tr>
@@ -64,30 +45,18 @@
     </tr>
   </tbody>
 </table>
+</div>
 
 <!-- Tabella Mantenimento -->
 <h5>Mantenimento</h5>
-<table id="schema-mantenimento" class="table table-bordered mb-4">
+<div class="sedation-table-wrapper">
+<table id="schema-mantenimento" class="sedation-table">
   <thead>
     <tr>
       <th rowspan="2">Via</th>
-      <th rowspan="2">
-        <span style="cursor:pointer; text-decoration: underline dashed; color: #007bff;"
-              tabindex="0" data-bs-toggle="popover" data-bs-trigger="focus"
-              title="Infusione Continua"
-              data-bs-content="Somministrazione continuativa di farmaco, con velocità di infusione controllata, per mantenimento dello stato di sedazione.">
-          Infusione Continua
-        </span>
-      </th>
+      <th rowspan="2">Infusione Continua<span class="info" tabindex="0"><sup>ⓘ</sup><span class="tooltip">Somministrazione continuativa di farmaco con velocità di infusione controllata per mantenere uno stato di sedazione costante.</span></span></th>
       <th colspan="2">Bolo ripetuto ad orari fissi</th>
-      <th colspan="2" class="bg-danger text-white">
-        <span style="cursor:pointer; text-decoration: underline dashed; color: #fff;"
-              tabindex="0" data-bs-toggle="popover" data-bs-trigger="focus"
-              title="Bolo Rescue"
-              data-bs-content="Somministrazione estemporanea di un farmaco ad una dose predefinita per ripristinare il controllo della sofferenza in corso di terapia continua.">
-          Bolo Rescue
-        </span>
-      </th>
+      <th colspan="2" class="bg-danger text-white">Bolo Rescue<span class="info" tabindex="0" style="color:#fff"><sup>ⓘ</sup><span class="tooltip">Somministrazione estemporanea di un farmaco ad una dose predefinita per ripristinare il controllo della sofferenza in corso di terapia continua.</span></span></th>
     </tr>
     <tr>
       <th>dosi medie</th>
@@ -113,5 +82,6 @@
       <td>1–5 mg (max 10 mg)</td>
       <td>10–15 minuti</td>
     </tr>
-  </tbody>
-</table>
+</div>
+  </tbody></table>
+

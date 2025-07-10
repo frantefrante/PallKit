@@ -1,11 +1,8 @@
 // js/sedazione-ui.js
-function initializePopovers(){
-  document.querySelectorAll('[data-bs-toggle="popover"]')
-    .forEach(el => new bootstrap.Popover(el));
-}
 
 document.addEventListener("DOMContentLoaded", () => {
   const data = window.schemiSedazione || [];
+  const visibleData = data.filter(item => item.visibile !== false);
   const select = document.getElementById("select-drug");
   const schemaDiv = document.getElementById("drug-schema");
   const calcDiv = document.getElementById("dose-calculator");
@@ -50,8 +47,8 @@ document.addEventListener("DOMContentLoaded", () => {
     mainContent.appendChild(addDiv);
   }
 
-  // 1. Popola dropdown
-  data.forEach(item => {
+  // 1. Popola dropdown solo con farmaci visibili
+  visibleData.forEach(item => {
     select.add(new Option(item.nome, item.nome));
   });
 
@@ -77,7 +74,6 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!response.ok) throw new Error('Partial non trovato');
       const html = await response.text();
       schemaDiv.innerHTML = html;
-      initializePopovers();
       schemaDiv.style.display = 'block';
       calcDiv.style.display = addDiv.style.display = '';
       planDrug.value = select.value;

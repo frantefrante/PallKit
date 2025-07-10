@@ -84,12 +84,7 @@
 <!-- Script: dati + logica -->
 <script src="js/sedazione.data.js"></script>
 <script src="js/sedazione-ui.js"></script>
+<script src="js/sedation-tooltips.js"></script>
 <script>
   document.addEventListener("DOMContentLoaded", function() {
-    var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
-    popoverTriggerList.forEach(function (el) {
-      new bootstrap.Popover(el);
-    });
-    console.log("⚙️ gestione-sedazione initialized");
-  });
-</script>
+    console.log("⚙️ gestione-sedazione initialized");  });</script>
