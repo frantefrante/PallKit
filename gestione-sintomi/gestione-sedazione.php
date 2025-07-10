@@ -79,7 +79,24 @@
   </div>
 
   <!-- 5. Elenco Terapie -->
-  <div class="mt-4" id="sedation-table-wrapper"></div>
+  <div class="mt-4 sedation-table-wrapper" id="sedation-table-wrapper">
+    <div class="bg-white p-3 rounded shadow-sm">
+      <h6>Elenco Sedazione</h6>
+      <table class="table table-striped mt-3" id="table-sedazione">
+        <thead>
+          <tr>
+            <th>Farmaco</th>
+            <th>Via</th>
+            <th>Dose</th>
+            <th>Posologia</th>
+            <th>Freq.</th>
+            <th>Azioni</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
 
 <!-- Script: dati + logica -->
 <script src="js/sedazione.data.js"></script>

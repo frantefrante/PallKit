@@ -40,20 +40,23 @@ function formatDateIt(str) {
 
 document.addEventListener('DOMContentLoaded', function () {
   const container = document.getElementById('documenti-container');
-  if (!container) return;
+  const sedContainer = document.getElementById('documenti-sedazione');
+  if (!container && !sedContainer) return;
 
   window.patientDocs = [];
+  window.sedationDocs = [];
 
-  function render() {
-    container.innerHTML = '';
-    if (patientDocs.length === 0) {
+  function renderList(el, docs) {
+    if (!el) return;
+    el.innerHTML = '';
+    if (docs.length === 0) {
       const p = document.createElement('p');
       p.className = 'text-muted';
       p.textContent = 'Nessun documento disponibile.';
-      container.appendChild(p);
+      el.appendChild(p);
       return;
     }
-    patientDocs.forEach((doc, idx) => {
+    docs.forEach((doc, idx) => {
       const card = document.createElement('div');
       card.className = 'doc-card';
       card.innerHTML = `
@@ -65,12 +68,21 @@ document.addEventListener('DOMContentLoaded', function () {
           <button class="view-btn" data-index="${idx}">Visualizza</button>
           <button class="pdf-btn" data-index="${idx}">Scarica PDF</button>
         </div>`;
-      container.appendChild(card);
+      el.appendChild(card);
     });
   }
 
+  function render() {
+    renderList(container, patientDocs);
+    renderList(sedContainer, sedationDocs);
+  }
+
   window.addPatientDoc = function(doc) {
-    patientDocs.push(doc);
+    if (doc.type === 'sedazione') {
+      sedationDocs.push(doc);
+    } else {
+      patientDocs.push(doc);
+    }
     render();
   };
 
@@ -96,6 +108,9 @@ document.addEventListener('DOMContentLoaded', function () {
         if (doc.html) pdfFromHtml(doc.html, 'NECPAL.pdf');
         else if (window.downloadNecpalPdf) window.downloadNecpalPdf();
         break;
+      case 'sedazione':
+        if (doc.html) pdfFromHtml(doc.html, 'sedazione.pdf');
+        break;
       default:
         alert('Download non disponibile');
     }
@@ -109,23 +124,29 @@ document.addEventListener('DOMContentLoaded', function () {
     new bootstrap.Modal(document.getElementById('preview-modal-home')).show();
   }
 
-  container.addEventListener('click', function(e) {
-    if (e.target.classList.contains('view-btn')) {
-      const doc = patientDocs[e.target.dataset.index];
-      if (doc) showDoc(doc);
-    } else if (e.target.classList.contains('pdf-btn')) {
-      const doc = patientDocs[e.target.dataset.index];
-      if (doc) downloadDoc(doc);
-    } else if (e.target.classList.contains('delete-btn')) {
-      const idx = parseInt(e.target.dataset.index, 10);
-      if (!isNaN(idx)) {
-        if (confirm('Eliminare il documento?')) {
-          patientDocs.splice(idx, 1);
-          render();
+  function attachHandlers(el, list) {
+    if (!el) return;
+    el.addEventListener('click', function(e) {
+      if (e.target.classList.contains('view-btn')) {
+        const doc = list[e.target.dataset.index];
+        if (doc) showDoc(doc);
+      } else if (e.target.classList.contains('pdf-btn')) {
+        const doc = list[e.target.dataset.index];
+        if (doc) downloadDoc(doc);
+      } else if (e.target.classList.contains('delete-btn')) {
+        const idx = parseInt(e.target.dataset.index, 10);
+        if (!isNaN(idx)) {
+          if (confirm('Eliminare il documento?')) {
+            list.splice(idx, 1);
+            render();
+          }
         }
       }
-    }
-  });
+    });
+  }
+
+  attachHandlers(container, patientDocs);
+  attachHandlers(sedContainer, sedationDocs);
 
   render();
 });
@@ -158,6 +179,21 @@ window.saveRiepilogoDoc = function() {
     date: formatDateIt(new Date().toISOString().slice(0,10)),
     desc: 'Farmaci sintomatici attuali',
     type: 'riepilogo',
+    html: html
+  });
+};
+
+window.saveSedazioneDoc = function() {
+  let html = '';
+  if (window.buildSedazioneContent) {
+    const el = window.buildSedazioneContent();
+    html = el.outerHTML || '';
+  }
+  addPatientDoc({
+    title: 'Riepilogo sedazione',
+    date: formatDateIt(new Date().toISOString().slice(0,10)),
+    desc: 'Sedazione palliativa',
+    type: 'sedazione',
     html: html
   });
 };

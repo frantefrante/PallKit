@@ -8,12 +8,12 @@ document.addEventListener("DOMContentLoaded", function() {
   document.querySelectorAll('.sidebar .nav-link[data-target]').forEach(link => {
     link.addEventListener('click', function(e) {
       e.preventDefault();
-      const sections = ['dashboard-home','gestione-home','gestione-sedazione','identificazione-home','equianalgesia-section','rescue-section'];
+      const sections = ['dashboard-home','gestione-home','sedazione-home','identificazione-home','equianalgesia-section','rescue-section'];
       sections.forEach(id => {
         const sec = document.getElementById(id);
         if (sec) sec.style.display = 'none';
       });
-      if (this.dataset.target !== 'gestione-sedazione' && typeof window.resetSedationUI === 'function') {
+      if (this.dataset.target !== 'sedazione-home' && typeof window.resetSedationUI === 'function') {
         window.resetSedationUI();
         const sintSelect = document.getElementById('sintomo-home');
         if (sintSelect) sintSelect.value = '';
@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function() {
       "Senna":    ["OS", "2–4 cp",      "La sera"]
     }
   };
-  const sintomi = ["Dolore", ...Object.keys(altriSintomi),"Sedazione Palliativa","Altro" ];
+  const sintomi = ["Dolore", ...Object.keys(altriSintomi), "Altro" ];
   window.terapie = window.terapie || [];
   let editingIndex = null;
 
@@ -102,6 +102,9 @@ document.addEventListener("DOMContentLoaded", function() {
     const o = document.createElement('option'); o.value = s; o.textContent = s;
     sintomoSelect.appendChild(o);
   });
+  // Ensure Sedazione Palliativa is not present in the dropdown
+  const sedOpt = sintomoSelect.querySelector('option[value="Sedazione Palliativa"]');
+  if (sedOpt) sedOpt.remove();
 
   // Funzioni di gestione form
   function populate(sel, items) {
@@ -127,17 +130,13 @@ document.addEventListener("DOMContentLoaded", function() {
   // Nascondi tutte le sezioni di sintomo
   document.querySelectorAll('.sintomo-section').forEach(sec => sec.style.display = 'none');
   const s = sintomoSelect.value;
-  if (typeof window.resetSedationUI === 'function' && s !== 'Sedazione Palliativa') {
+  if (typeof window.resetSedationUI === 'function') {
     window.resetSedationUI();
   }
   const homeSec = document.querySelector('.sintomo-section[data-sintomo="gestione-home"]');
   if (homeSec) homeSec.style.display = 'block';
-  if (formCol) formCol.style.display = s === 'Sedazione Palliativa' ? 'none' : '';
-  if (s === 'Sedazione Palliativa') {
-    const sec = document.querySelector('.sintomo-section[data-sintomo="Sedazione Palliativa"]');
-    if (sec) sec.style.display = 'block';
-    if (typeof window.moveTableToSedation === 'function') window.moveTableToSedation();
-  } else if (s === 'Dolore') {
+  if (formCol) formCol.style.display = '';
+  if (s === 'Dolore') {
     populate(farmacoSelect, Object.keys(dolore));
     farmacoSelect.disabled = false;
     formulazioneGroup.style.display = 'block';

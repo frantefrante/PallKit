@@ -12,7 +12,6 @@
           <select id="sintomo-home" class="form-select">
             <option value="">-- Seleziona --</option>
             <!-- Le opzioni verranno popolate via JS -->
-            <option value="sedazione-palliativa">Sedazione Palliativa</option>
           </select>
         </div>
         <div id="custom-sintomo-group-home" class="mb-3" style="display:none;">
