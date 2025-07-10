@@ -36,6 +36,11 @@
         </a>
       </li>
       <li class="nav-item mb-2">
+        <a href="#" class="nav-link" data-target="sedazione-home">
+          <i class="fas fa-procedures me-2"></i>Sedazione Palliativa
+        </a>
+      </li>
+      <li class="nav-item mb-2">
         <a href="#" class="nav-link" data-target="equianalgesia-section">
           <i class="fas fa-balance-scale me-2"></i>Calcolo Equianalgesia
         </a>
@@ -74,17 +79,16 @@
       <p>Da qui puoi accedere a Gestione Sintomi o Identificazione.</p>
 
       <h5 class="mt-4 mb-3">Documenti paziente</h5>
-      <div id="documenti-container" class="dashboard-cards"></div>
+      <div id="documenti-container" class="dashboard-cards mb-4"></div>
+      <h5 class="mt-4 mb-3">Sedazione Palliativa</h5>
+      <div id="documenti-sedazione" class="dashboard-cards"></div>
     </div>
 
     <!-- SEZIONE Gestione Sintomi -->
     <?php include __DIR__ . '/gestione-sintomi.php'; ?>
 
      <!-- SEZIONE Sedazione Palliativa -->
-     <section id="gestione-sedazione"
-              class="sintomo-section p-4"
-              data-sintomo="Sedazione Palliativa"
-              style="display:none;">
+     <section id="sedazione-home" class="p-4" style="display:none;">
        <?php include __DIR__ . '/gestione-sedazione.php'; ?>
      </section>
 

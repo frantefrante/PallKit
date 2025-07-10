@@ -20,24 +20,20 @@ document.addEventListener("DOMContentLoaded", () => {
   const planPoso = document.getElementById("plan-posologia");
   const planFreq = document.getElementById("plan-frequenza");
 
-  const tableContainer = document.getElementById("terapie-container-home");
-  const tableOrigParent = tableContainer ? tableContainer.parentElement : null;
-  const sedWrapper = document.getElementById("sedation-table-wrapper");
+  const tbodySed = document.querySelector("#table-sedazione tbody");
+  window.terapieSed = window.terapieSed || [];
 
-  function moveTableToSedation() {
-    if (sedWrapper && tableContainer && tableContainer.parentElement !== sedWrapper) {
-      sedWrapper.appendChild(tableContainer);
-    }
+  function renderSedTable() {
+    if (!tbodySed) return;
+    tbodySed.innerHTML = "";
+    window.terapieSed.forEach((t,i)=>{
+      const tr = document.createElement("tr");
+      tr.innerHTML = `<td>${t.farmaco}</td><td>${t.via}</td><td>${t.dose}</td><td>${t.poso}</td><td>${t.freq}</td><td><button class="btn btn-sm btn-secondary del-sed-btn" data-i="${i}"><i class="fas fa-trash"></i></button></td>`;
+      tbodySed.appendChild(tr);
+    });
+    tbodySed.querySelectorAll('.del-sed-btn').forEach(b=>b.onclick=e=>{window.terapieSed.splice(+e.currentTarget.dataset.i,1);renderSedTable();});
   }
-
-  function moveTableToHome() {
-    if (tableOrigParent && tableContainer && tableContainer.parentElement !== tableOrigParent) {
-      tableOrigParent.appendChild(tableContainer);
-    }
-  }
-
-  window.moveTableToSedation = moveTableToSedation;
-  window.moveTableToHome = moveTableToHome;
+  window.renderSedTable = renderSedTable;
 
   // Move sedation sections into the main page content
   const mainContent = document.querySelector("main");
@@ -101,23 +97,22 @@ document.addEventListener("DOMContentLoaded", () => {
   formPlan.addEventListener("submit", e => {
     e.preventDefault();
     const rec = {
-      sintomo: "Sedazione Palliativa",
       farmaco: planDrug.value + (planForm.value ? " " + planForm.value : ""),
       via: planVia.value,
       dose: planDose.value,
       poso: planPoso.value,
       freq: planFreq.value
     };
-    if (window.terapie) {
-      window.terapie.push(rec);
-      if (typeof window.renderTableHome === "function") window.renderTableHome();
+    if (window.terapieSed) {
+      window.terapieSed.push(rec);
+      if (typeof window.renderSedTable === "function") window.renderSedTable();
     }
-    if (typeof window.saveRiepilogoDoc === 'function') window.saveRiepilogoDoc();
+    if (typeof window.saveSedazioneDoc === 'function') window.saveSedazioneDoc();
     formPlan.reset();
     planDrug.value = select.value;
     // torna alla schermata principale e riabilita il form
     if (typeof window.resetSedationUI === "function") window.resetSedationUI();
-    document.getElementById("gestione-sedazione").style.display = "none";
+    document.getElementById("sedazione-home").style.display = "none";
     const home = document.getElementById("gestione-home");
     if (home) home.style.display = "block";
     const sintSelect = document.getElementById("sintomo-home");
@@ -140,7 +135,23 @@ document.addEventListener("DOMContentLoaded", () => {
     calcRes.textContent = '';
     formPlan.reset();
     planDrug.value = '';
-    moveTableToHome();
-    if (typeof window.renderTableHome === 'function') window.renderTableHome();
+    if (typeof window.renderSedTable === 'function') window.renderSedTable();
+  };
+
+  window.buildSedazioneContent = function() {
+    const cont = document.createElement('div');
+    cont.className = 'doc-container';
+    const tbl = document.createElement('table');
+    tbl.className = 'summary-table';
+    const headRow = tbl.createTHead().insertRow();
+    ['Farmaco','Via','Dose','Posologia','Frequenza'].forEach(t => { const th = document.createElement('th'); th.textContent = t; headRow.appendChild(th); });
+    const body = tbl.createTBody();
+    (window.terapieSed || []).forEach(rec => {
+      const r = body.insertRow();
+      [rec.farmaco, rec.via, rec.dose, rec.poso, rec.freq].forEach(v => { const c = r.insertCell(); c.textContent = v; });
+      const sep = body.insertRow(); sep.className = 'separator-row'; for(let i=0;i<5;i++) sep.insertCell();
+    });
+    cont.appendChild(tbl);
+    return cont;
   };
 });
