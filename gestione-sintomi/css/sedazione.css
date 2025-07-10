@@ -1,15 +1,18 @@
+
 .sedation-table-wrapper {
   overflow-x: auto;
   margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  overflow: hidden;
 }
 
 .sedation-table {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.95rem;
-  border-radius: 6px;
-  overflow: visible;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  background: #fff;
 }
 
 .sedation-table th,

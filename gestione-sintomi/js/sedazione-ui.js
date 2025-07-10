@@ -2,6 +2,7 @@
 
 document.addEventListener("DOMContentLoaded", () => {
   const data = window.schemiSedazione || [];
+  const visibleData = data.filter(item => item.visibile !== false);
   const select = document.getElementById("select-drug");
   const schemaDiv = document.getElementById("drug-schema");
   const calcDiv = document.getElementById("dose-calculator");
@@ -46,8 +47,8 @@ document.addEventListener("DOMContentLoaded", () => {
     mainContent.appendChild(addDiv);
   }
 
-  // 1. Popola dropdown
-  data.forEach(item => {
+  // 1. Popola dropdown solo con farmaci visibili
+  visibleData.forEach(item => {
     select.add(new Option(item.nome, item.nome));
   });
 
