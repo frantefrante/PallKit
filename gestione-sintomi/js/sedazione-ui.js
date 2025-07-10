@@ -112,6 +112,9 @@ document.addEventListener("DOMContentLoaded", () => {
     planDrug.value = select.value;
     // reset UI for next entry but remain in sedazione section
     if (typeof window.resetSedationUI === "function") window.resetSedationUI();
+    // ensure the sedation section stays visible after adding
+    const sedHome = document.getElementById('sedazione-home');
+    if (sedHome) sedHome.style.display = 'block';
   });
 
 
