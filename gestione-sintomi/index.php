@@ -6,7 +6,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Progetto Pepe 2 – Dashboard Cure Palliative</title>
+  <title>Pallkit – Dashboard</title>
   <!-- CSS di Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- FontAwesome -->
@@ -20,10 +20,15 @@
 </head>
 <body>
 
+<header class="mobile-header d-md-none">
+  <button id="menu-toggle" class="btn btn-link text-white fs-4"><i class="fas fa-bars"></i></button>
+  <span class="ms-2">Pallkit</span>
+</header>
+
 <div class="d-flex flex-wrap">
   <!-- Sidebar -->
   <nav class="sidebar p-3">
-    <h4 class="text-white mb-4"><i class="fas fa-notes-medical me-2"></i>Cure Palliative</h4>
+    <h4 class="text-white mb-4"><i class="fas fa-notes-medical me-2"></i>Pallkit</h4>
     <ul class="nav flex-column">
       <li class="nav-item mb-2">
         <a href="#" class="nav-link active" data-target="dashboard-home">
