@@ -795,7 +795,7 @@ if (exportPdfBtn) exportPdfBtn.addEventListener('click', exportPdfHome);
     const rescueEV = rescueOS / 3;
 
     let html = '<table class="table table-bordered table-sm">';
-    html += '<thead><tr><th>Farmaco</th><th>Via</th><th>Dose</th><th>MED <span class="info" tabindex="0"><sup>?</sup><span class="tooltip">Dose equivalente di morfina per via orale</span></span> mg OS</th></tr></thead><tbody>';
+    html += '<thead><tr><th>Farmaco</th><th>Via</th><th>Dose</th><th><span class="text-success med-tooltip" data-bs-toggle="tooltip" data-bs-title="Dose equivalente di morfina per via orale">MED</span> mg OS</th></tr></thead><tbody>';
     rows.forEach(r=>{ html += `<tr><td>${r.drug}</td><td>${r.route}</td><td>${r.dose}</td><td>${r.med.toFixed(2)}</td></tr>`; });
     html += `<tr class="table-secondary"><td colspan="3"><strong>TOTALE MED</strong></td><td><strong>${totaleMED.toFixed(2)}</strong></td></tr>`;
     html += '</tbody></table>';
@@ -803,7 +803,11 @@ if (exportPdfBtn) exportPdfBtn.addEventListener('click', exportPdfHome);
     html += `<p><strong>Dose rescue (Morfina OS):</strong> ${rescueOS.toFixed(2)} mg</p>`;
     html += `<p><strong>Dose rescue (Morfina EV/SC):</strong> ${rescueEV.toFixed(2)} mg</p>`;
 
-    document.getElementById('result-home').innerHTML = html;
+    const resultEl = document.getElementById('result-home');
+    resultEl.innerHTML = html;
+    if (window.bootstrap) {
+      resultEl.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => new bootstrap.Tooltip(el));
+    }
   }
 
   window.calcolaEquianalgesiaHome = calcolaEquianalgesiaHome;
