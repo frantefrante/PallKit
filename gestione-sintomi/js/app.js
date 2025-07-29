@@ -6,6 +6,12 @@ document.addEventListener("DOMContentLoaded", function() {
   if (window.bootstrap) {
     document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => new bootstrap.Tooltip(el));
   }
+  // Gestione menu mobile
+  const menuToggle = document.getElementById('menu-toggle');
+  const sidebar = document.querySelector('.sidebar');
+  if (menuToggle && sidebar) {
+    menuToggle.addEventListener('click', () => sidebar.classList.toggle('active'));
+  }
   // ──────────────────────────────
   // 1) NAVIGAZIONE TRA LE SEZIONI
   // ──────────────────────────────
@@ -30,6 +36,7 @@ document.addEventListener("DOMContentLoaded", function() {
       }
       document.querySelectorAll('.sidebar .nav-link').forEach(x=>x.classList.remove('active'));
       this.classList.add('active');
+      if (window.innerWidth <= 768 && sidebar) sidebar.classList.remove('active');
     });
   });
   document.getElementById('dashboard-home').style.display = 'block';

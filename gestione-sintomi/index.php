@@ -20,6 +20,11 @@
 </head>
 <body>
 
+<header class="mobile-header d-md-none">
+  <button id="menu-toggle" class="btn btn-link text-white fs-4"><i class="fas fa-bars"></i></button>
+  <span class="ms-2">Cure Palliative</span>
+</header>
+
 <div class="d-flex flex-wrap">
   <!-- Sidebar -->
   <nav class="sidebar p-3">
