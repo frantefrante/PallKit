@@ -41,24 +41,23 @@ document.addEventListener("DOMContentLoaded", function() {
   // ──────────────────────────────
   const dolore = {
     "Morfina": {
-      "Oramorph gocce": ["Orale", "5–10 mg (4–8 gtt)", "Ogni 4 ore"],
-      "Morfina SC":     ["SC",    "5–10 mg",           "Ogni 4 ore"],
-      "MST RP":         ["Orale", "10–20 mg",          "Ogni 12 ore"]
+      "gtt":    ["OS",  "5–10 mg (4–8 gtt)", "Ogni 4 ore"],
+      "fiale":  ["SC",  "5–10 mg",            "Ogni 4 ore"],
+      "cp":     ["OS",  "10–20 mg",           "Ogni 12 ore"]
     },
     "Ossicodone": {
-      "Oxynorm gocce":  ["Orale", "5–10 mg",           "Ogni 4–6 ore"],
-      "Oxycontin RP":   ["Orale", "10–20 mg",          "Ogni 12 ore"],
-      "Targin RP":      ["Orale", "10/5 mg",           "Ogni 12 ore"]
+      "gtt": ["OS", "5–10 mg",  "Ogni 4–6 ore"],
+      "cp":  ["OS", "10–20 mg", "Ogni 12 ore"]
     },
     "Fentanil": {
-      "Cerotto": ["TTS",   "12–25 mcg/h", "72h"],
-      "Spray":   ["Nasale","100–400 mcg", "Al bisogno"]
+      "cerotto": ["TTS", "12–25 mcg/h", "72h"],
+      "spray":   ["NAS", "100–400 mcg", "Al bisogno"]
     }
   };
   const altriSintomi = {
     "Dispnea": {
-      "Ossigeno":   ["Nasale", "1–4 L/min", "Continuo"],
-      "Morfina SC": ["SC",     "1–2 mg",    "Ogni 4h"]
+      "Ossigeno":   ["NAS", "1–4 L/min", "Continuo"],
+      "Morfina SC": ["SC",  "1–2 mg",  "Ogni 4h"]
     },
     "Delirio": {
       "Aloperidolo": ["SC", "0,5–1 mg", "Ogni 8–12h"]
@@ -120,8 +119,10 @@ document.addEventListener("DOMContentLoaded", function() {
     customFarmacoInput.style.display = 'none';
     customFormInput.style.display = 'none';
     formulazioneGroup.style.display = 'none';
-    viaInput.value = doseInput.value = posologiaInput.value = frequenzaInput.value = '';
-    viaInput.readOnly = doseInput.readOnly = true;
+    viaInput.value = '';
+    doseInput.value = posologiaInput.value = frequenzaInput.value = '';
+    viaInput.disabled = true;
+    doseInput.readOnly = true;
     editingIndex = null;
     document.getElementById('btn-add-home').textContent = 'Aggiungi';
   }
@@ -146,6 +147,7 @@ document.addEventListener("DOMContentLoaded", function() {
   } else if (s) {
     populate(farmacoSelect, Object.keys(altriSintomi[s]));
     farmacoSelect.disabled = false;
+    formulazioneGroup.style.display = 'block';
   }
 }
   function onFarmacoChangeHome() {
@@ -155,7 +157,8 @@ document.addEventListener("DOMContentLoaded", function() {
       formulazioneSelect.disabled = false;
     } else if (s && s !== 'Altro') {
       const arr = altriSintomi[s][farmacoSelect.value];
-      viaInput.readOnly = doseInput.readOnly = false;
+      viaInput.disabled = false;
+      doseInput.readOnly = false;
       viaInput.value = arr[0] || '';
       doseInput.value = arr[1] || '';
       if (!posologiaInput.value) posologiaInput.value = arr[2] || '';
@@ -164,7 +167,8 @@ document.addEventListener("DOMContentLoaded", function() {
   }
   function onFormulazioneChangeHome() {
     const arr = dolore[farmacoSelect.value][formulazioneSelect.value];
-    viaInput.readOnly = doseInput.readOnly = false;
+    viaInput.disabled = false;
+    doseInput.readOnly = false;
     viaInput.value = arr[0] || '';
     doseInput.value = (arr[1]||'').split('(')[0].trim();
     if (!posologiaInput.value) {
@@ -179,14 +183,14 @@ document.addEventListener("DOMContentLoaded", function() {
     if (s === 'Altro') {
       sint = customSintomoInput.value.trim();
       farm = customFarmacoInput.value.trim();
-      if (!sint||!farm) return alert('Inserisci sintomo e farmaco');
+      if (!sint||!farm) return alert('Inserisci sintomo e molecola');
     } else if (s === 'Dolore') {
       farm = farmacoSelect.value;
       frm  = formulazioneSelect.value;
-      if (!farm||!frm) return alert('Seleziona farmaco e formulazione');
+      if (!farm||!frm) return alert('Seleziona molecola e formulazione');
     } else {
       farm = farmacoSelect.value;
-      if (!farm) return alert('Seleziona farmaco');
+      if (!farm) return alert('Seleziona molecola');
     }
     const rec = { sintomo:sint, farmaco:frm||farm, via:viaInput.value, dose:doseInput.value, poso:posologiaInput.value, freq:frequenzaInput.value };
     if (editingIndex!==null) window.terapie[editingIndex]=rec; else window.terapie.push(rec);
