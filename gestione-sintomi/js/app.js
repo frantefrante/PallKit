@@ -629,95 +629,177 @@ if (exportPdfBtn) exportPdfBtn.addEventListener('click', exportPdfHome);
   // ──────────────────────────────
   // 9) EQUIANALGESIA
   // ──────────────────────────────
-  const equivalenze = {
-    morfina_orale: 1,
-    ossicodone_orale: 1.5,
-    morfina_ev: 3,
-    fentanil_tts: 0.03 // esempio: 1 mcg/h ≈ 3 mg morfina orale
+  const oppioidi = {
+    morfina: {
+      label: 'Morfina',
+      forms: { OS:{unit:'mg/24h', coeff:1}, EV:{unit:'mg/24h', coeff:3}, SC:{unit:'mg/24h', coeff:3} }
+    },
+    ossicodone: {
+      label: 'Ossicodone',
+      forms: { OS:{unit:'mg/24h', coeff:1.5} }
+    },
+    fentanil: {
+      label: 'Fentanil TTS',
+      forms: { TTS:{unit:'mcg/h', coeff:0.03} }
+    },
+    buprenorfina: {
+      label: 'Buprenorfina TTS',
+      forms: { TTS:{unit:'mcg/h', coeff:0.01} }
+    },
+    tapentadolo: {
+      label: 'Tapentadolo',
+      forms: { OS:{unit:'mg/24h', coeff:0.4} }
+    },
+    metadone: {
+      label: 'Metadone',
+      forms: { OS:{unit:'mg/24h', coeff:0.5} }
+    }
   };
 
-  function getEquivalentDose(drug, dose) {
-    const coeff = equivalenze[drug] || 1;
-    return dose * coeff;
-  }
-
-  function calcolaEquianalgesiaHome() {
-    const entries = document.querySelectorAll('#drug-list-home .drug-entry');
-    let totale = 0;
-
-    entries.forEach(entry => {
-      const drug = entry.querySelector('.drug-select').value;
-      const dose = parseFloat(entry.querySelector('.dose-input').value) || 0;
-      totale += getEquivalentDose(drug, dose);
-    });
-
-    const riduzione = parseFloat(document.getElementById('tolleranza-home').value) || 0;
-    const target = document.getElementById('conversion-target-home').value;
-    const coeffTarget = equivalenze[target] || 1;
-
-    const doseFinale = (totale * (1 - riduzione / 100)) / coeffTarget;
-    const rescue = doseFinale / 6;
-
-    const result = `
-      <strong>Dose target:</strong> ${doseFinale.toFixed(2)} mg/24h<br>
-      <strong>Dose rescue:</strong> ${rescue.toFixed(2)} mg ogni 4h se necessario<br>
-      <strong>Totale MED calcolato:</strong> ${totale.toFixed(2)} mg
-    `;
-
-    document.getElementById('result-home').innerHTML = result;
-  }
-
-  // Rende la funzione disponibile globalmente
-  window.calcolaEquianalgesiaHome = calcolaEquianalgesiaHome;
-
-  const addDrugBtn = document.getElementById('add-drug-home');
-  if (addDrugBtn) {
-    addDrugBtn.addEventListener('click', () => {
-      const container = document.getElementById('drug-list-home');
-      const baseEntry = container.querySelector('.drug-entry');
-      const clone = baseEntry.cloneNode(true);
-
-      // resetta i campi
-      const select = clone.querySelector('.drug-select');
-      const input = clone.querySelector('.dose-input');
-      if (select) select.selectedIndex = 0;
-      if (input) input.value = '';
-
-      // rimuove eventuali ID duplicati
-      clone.querySelectorAll('[id]').forEach(el => el.removeAttribute('id'));
-
-      container.appendChild(clone);
+  function populateDrugSelect(sel) {
+    if(!sel) return;
+    sel.innerHTML = '';
+    Object.keys(oppioidi).forEach(k=>{
+      const o = document.createElement('option');
+      o.value = k; o.textContent = oppioidi[k].label; sel.appendChild(o);
     });
   }
 
-  function addEntry(list, entryClass) {
-    if (!list) return;
-    const base = list.querySelector('.' + entryClass);
+  function populateRoute(sel, drug) {
+    if(!sel||!oppioidi[drug]) return;
+    sel.innerHTML = '';
+    Object.keys(oppioidi[drug].forms).forEach(v=>{
+      const o = document.createElement('option');
+      o.value = v; o.textContent = v; sel.appendChild(o);
+    });
+  }
+
+  function updateUnit(entry){
+    if(!entry) return;
+    const drug = entry.querySelector('.drug-select').value;
+    const route = entry.querySelector('.route-select').value;
+    const span = entry.querySelector('.dose-unit');
+    if(span && oppioidi[drug] && oppioidi[drug].forms[route]) span.textContent = oppioidi[drug].forms[route].unit;
+  }
+
+  function initEntry(entry){
+    const dSel = entry.querySelector('.drug-select');
+    const rSel = entry.querySelector('.route-select');
+    populateDrugSelect(dSel);
+    populateRoute(rSel, dSel.value);
+    updateUnit(entry);
+  }
+
+  const firstEntry = document.querySelector('#drug-list-home .drug-entry');
+  if(firstEntry) initEntry(firstEntry);
+
+  const targetDrugSel = document.getElementById('conversion-target-drug');
+  const targetRouteSel = document.getElementById('conversion-target-route');
+  if(targetDrugSel){
+    populateDrugSelect(targetDrugSel);
+    populateRoute(targetRouteSel, targetDrugSel.value);
+  }
+
+  function addEntry(list, entryClass){
+    if(!list) return;
+    const base = list.querySelector('.'+entryClass);
     const clone = base.cloneNode(true);
     const input = clone.querySelector('input');
-    if (input) input.value = '';
+    if(input) input.value='';
     list.appendChild(clone);
   }
 
-
-
-  document.addEventListener('click', function (e) {
-    if (e.target.classList.contains('remove-drug')) {
+  document.addEventListener('change', e=>{
+    if(e.target.classList.contains('drug-select')){
       const entry = e.target.closest('.drug-entry');
-      if (document.querySelectorAll('#drug-list-home .drug-entry').length > 1) entry.remove();
+      populateRoute(entry.querySelector('.route-select'), e.target.value);
+      updateUnit(entry);
+    }
+    if(e.target.classList.contains('route-select')){
+      updateUnit(e.target.closest('.drug-entry'));
+    }
+    if(e.target===targetDrugSel){
+      populateRoute(targetRouteSel, e.target.value);
+    }
+  });
+
+  document.getElementById('tolleranza-home').addEventListener('input', function(){
+    document.getElementById('tolleranza-value').textContent = this.value + '%';
+  });
+
+  document.addEventListener('click', function(e){
+    if(e.target.classList.contains('add-drug')){
+      alert('Aggiungi un oppioide aggiuntivo');
+      const container = document.getElementById('drug-list-home');
+      const base = container.querySelector('.drug-entry');
+      const clone = base.cloneNode(true);
+      clone.querySelectorAll('input').forEach(i=>i.value='');
+      container.appendChild(clone);
+      initEntry(clone);
+    }
+    if(e.target.classList.contains('remove-drug')){
+      const entry = e.target.closest('.drug-entry');
+      if(document.querySelectorAll('#drug-list-home .drug-entry').length>1) entry.remove();
     }
     ['spec','indirizzo','tel','mail'].forEach(cls => {
-      if (e.target.classList.contains('remove-' + cls)) {
+      if(e.target.classList.contains('remove-'+cls)){
         const lists = {spec:specList, indirizzo:indirizzoList, tel:telList, mail:mailList};
         const list = lists[cls];
-        const entry = e.target.closest('.' + cls + '-entry');
-        if (list && list.querySelectorAll('.' + cls + '-entry').length > 1) entry.remove();
+        const entry = e.target.closest('.'+cls+'-entry');
+        if(list && list.querySelectorAll('.'+cls+'-entry').length>1) entry.remove();
       }
-      if (e.target.classList.contains('add-' + cls)) {
+      if(e.target.classList.contains('add-'+cls)){
         const lists = {spec:specList, indirizzo:indirizzoList, tel:telList, mail:mailList};
-        addEntry(lists[cls], cls + '-entry');
+        addEntry(lists[cls], cls+'-entry');
       }
     });
   });
+
+  function calcolaEquianalgesiaHome(){
+    const entries = document.querySelectorAll('#drug-list-home .drug-entry');
+    let totaleMED = 0;
+    const rows = [];
+    const principi = new Set();
+    entries.forEach(entry=>{
+      const drug = entry.querySelector('.drug-select').value;
+      const route = entry.querySelector('.route-select').value;
+      const dose = parseFloat(entry.querySelector('.dose-input').value) || 0;
+      const coeff = oppioidi[drug].forms[route].coeff;
+      const med = dose * coeff;
+      totaleMED += med;
+      principi.add(drug);
+      rows.push({drug:oppioidi[drug].label, route, dose, med});
+    });
+
+    const targetDrug = targetDrugSel.value;
+    const targetRoute = targetRouteSel.value;
+    let rid = parseFloat(document.getElementById('tolleranza-home').value) || 0;
+    if(principi.size===1 && principi.has(targetDrug)){
+      alert('Non è opportuno applicare una riduzione per tolleranza crociata usando lo stesso oppioide');
+      rid = 0;
+      document.getElementById('tolleranza-home').value = 0;
+      document.getElementById('tolleranza-value').textContent = '0%';
+    }
+    const totaleRidotto = totaleMED * (1 - rid/100);
+    const coeffTarget = oppioidi[targetDrug].forms[targetRoute].coeff;
+    const doseTarget = totaleRidotto / coeffTarget;
+    const rescueOS = totaleRidotto / 6;
+    const rescueEV = rescueOS / 3;
+
+    let html = '<table class="table table-bordered table-sm">';
+    html += '<thead><tr><th>Farmaco</th><th>Via</th><th>Dose</th><th>MED mg OS</th></tr></thead><tbody>';
+    rows.forEach(r=>{ html += `<tr><td>${r.drug}</td><td>${r.route}</td><td>${r.dose}</td><td>${r.med.toFixed(2)}</td></tr>`; });
+    html += `<tr class="table-secondary"><td colspan="3"><strong>TOTALE MED</strong></td><td><strong>${totaleMED.toFixed(2)}</strong></td></tr>`;
+    html += '</tbody></table>';
+    html += `<p><strong>Dose equivalente di ${oppioidi[targetDrug].label} (${targetRoute}):</strong> ${doseTarget.toFixed(2)} ${oppioidi[targetDrug].forms[targetRoute].unit}</p>`;
+    html += `<p><strong>Equivalente morfinico orale:</strong> ${totaleRidotto.toFixed(2)} mg</p>`;
+    html += `<p><strong>Dose rescue (Morfina OS):</strong> ${rescueOS.toFixed(2)} mg</p>`;
+    html += `<p><strong>Dose rescue (Morfina EV/SC):</strong> ${rescueEV.toFixed(2)} mg</p>`;
+
+    document.getElementById('result-home').innerHTML = html;
+  }
+
+  window.calcolaEquianalgesiaHome = calcolaEquianalgesiaHome;
+
 
 });

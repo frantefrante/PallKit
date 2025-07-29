@@ -95,43 +95,55 @@
     <!-- SEZIONE Calcolo Equianalgesia -->
     <section id="equianalgesia-section" class="p-4" style="display:none;">
       <div class="card card-body">
+        <div class="mb-2"><strong>Da</strong></div>
         <div id="drug-list-home">
-          <div class="row mb-2 drug-entry">
-            <div class="col-md-5">
-              <select class="form-select drug-select">
-                <option value="morfina_orale">Morfina orale</option>
-                <option value="ossicodone_orale">Ossicodone orale</option>
-                <option value="fentanil_tts">Fentanil cerotto</option>
-              </select>
-            </div>
+          <div class="row align-items-end mb-2 drug-entry">
             <div class="col-md-4">
-              <input type="number" class="form-control dose-input" placeholder="Dose/24h (mg)">
+              <label class="form-label">Molecola</label>
+              <select class="form-select drug-select"></select>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-3">
+              <label class="form-label">Dosaggio</label>
+              <div class="input-group">
+                <input type="number" class="form-control dose-input">
+                <span class="input-group-text dose-unit">mg/24h</span>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">Via</label>
+              <select class="form-select route-select"></select>
+            </div>
+            <div class="col-md-2 text-nowrap">
+              <button class="btn btn-success add-drug me-1" type="button" data-bs-toggle="tooltip" data-bs-title="Aggiungi un oppioide aggiuntivo">+</button>
               <button class="btn btn-danger remove-drug" type="button">−</button>
             </div>
           </div>
         </div>
 
-        <button class="btn btn-secondary mb-3" id="add-drug-home" type="button">Aggiungi oppioide</button>
-
-        <div class="mb-3">
-          <label for="conversion-target-home">Converti in:</label>
-          <select class="form-select" id="conversion-target-home">
-            <option value="ossicodone_orale">Ossicodone orale</option>
-            <option value="morfina_ev">Morfina EV</option>
-            <option value="fentanil_tts">Fentanil cerotto</option>
-          </select>
+        <div class="mt-3"><strong>A</strong></div>
+        <div class="row align-items-end mb-3">
+          <div class="col-md-4">
+            <label class="form-label">Molecola</label>
+            <select class="form-select" id="conversion-target-drug"></select>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Via</label>
+            <select class="form-select" id="conversion-target-route"></select>
+          </div>
         </div>
 
         <div class="mb-3">
-          <label>Riduzione per tolleranza crociata:</label>
-          <input type="number" id="tolleranza-home" value="25" class="form-control" /> %
+          <label class="form-label">
+            Tolleranza crociata
+            <span class="info"><sup>?</sup><span class="tooltip">La tolleranza crociata incompleta &egrave; una riduzione della dose equianalgesica quando si passa da un oppioide a un altro. La maggior parte delle linee guida raccomanda una riduzione del 25&ndash;50%.</span></span>
+          </label>
+          <input type="range" id="tolleranza-home" class="form-range" min="0" max="50" step="5" value="25">
+          <span id="tolleranza-value">25%</span>
         </div>
 
-        <button class="btn btn-primary" type="button" onclick="calcolaEquianalgesiaHome()">Calcola</button>
+        <button class="btn btn-primary mb-3" type="button" onclick="calcolaEquianalgesiaHome()">Calcola</button>
 
-        <div class="mt-3" id="result-home"></div>
+        <div id="result-home"></div>
       </div>
     </section>
 
