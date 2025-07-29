@@ -18,20 +18,36 @@
           <input type="text" id="custom-sintomo-home" class="form-control" placeholder="Inserisci sintomo">
         </div>
         <div class="mb-3">
-          <label class="form-label">Farmaco</label>
+          <label class="form-label">Molecola</label>
           <select id="farmaco-home" class="form-select" disabled></select>
           <input type="text" id="custom-farmaco-home" class="form-control mt-2" style="display:none;"
-                 placeholder="Inserisci farmaco">
+                 placeholder="Inserisci molecola">
         </div>
         <div id="formulazione-group-home" class="mb-3" style="display:none;">
           <label class="form-label">Formulazione</label>
-          <select id="formulazione-home" class="form-select"></select>
+          <select id="formulazione-home" class="form-select">
+            <option value="">--</option>
+            <option value="cp">cp</option>
+            <option value="gtt">gtt</option>
+            <option value="fiale">fiale</option>
+            <option value="cerotto">cerotto</option>
+            <option value="spray">spray</option>
+            <option value="supposte">supposte</option>
+          </select>
           <input type="text" id="custom-formulazione-home" class="form-control mt-2" style="display:none;"
                  placeholder="Inserisci formulazione">
         </div>
         <div class="mb-3">
           <label class="form-label">Via</label>
-          <input type="text" id="via-home" class="form-control" readonly>
+          <select id="via-home" class="form-select" disabled>
+            <option value="">--</option>
+            <option value="OS">OS</option>
+            <option value="EV">EV</option>
+            <option value="IM">IM</option>
+            <option value="SC">SC</option>
+            <option value="NAS">NAS</option>
+            <option value="TTS">TTS</option>
+          </select>
         </div>
         <div class="mb-3">
           <label class="form-label">Dosaggio</label>
@@ -62,7 +78,7 @@
           <thead>
             <tr>
               <th>Sintomo</th>
-              <th>Farmaco</th>
+              <th>Molecola</th>
               <th>Via</th>
               <th>Dose</th>
               <th>Posologia</th>
