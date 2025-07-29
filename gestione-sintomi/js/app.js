@@ -2,6 +2,10 @@
 // Logica principale per Dashboard, Gestione Sintomi, Identificazione NECPAL, modali e export
 
 document.addEventListener("DOMContentLoaded", function() {
+  // Inizializza tooltip Bootstrap
+  if (window.bootstrap) {
+    document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => new bootstrap.Tooltip(el));
+  }
   // ──────────────────────────────
   // 1) NAVIGAZIONE TRA LE SEZIONI
   // ──────────────────────────────
@@ -723,13 +727,18 @@ if (exportPdfBtn) exportPdfBtn.addEventListener('click', exportPdfHome);
     }
   });
 
-  document.getElementById('tolleranza-home').addEventListener('input', function(){
-    document.getElementById('tolleranza-value').textContent = this.value + '%';
-  });
+  const tolRange = document.getElementById('tolleranza-home');
+  const tolInput = document.getElementById('tolleranza-input');
+  function syncTolerance(val){
+    tolRange.value = val;
+    tolInput.value = val;
+    document.getElementById('tolleranza-value').textContent = val + '%';
+  }
+  tolRange.addEventListener('input', () => syncTolerance(tolRange.value));
+  tolInput.addEventListener('input', () => syncTolerance(tolInput.value));
 
   document.addEventListener('click', function(e){
     if(e.target.classList.contains('add-drug')){
-      alert('Aggiungi un oppioide aggiuntivo');
       const container = document.getElementById('drug-list-home');
       const base = container.querySelector('.drug-entry');
       const clone = base.cloneNode(true);
@@ -773,12 +782,11 @@ if (exportPdfBtn) exportPdfBtn.addEventListener('click', exportPdfHome);
 
     const targetDrug = targetDrugSel.value;
     const targetRoute = targetRouteSel.value;
-    let rid = parseFloat(document.getElementById('tolleranza-home').value) || 0;
+    let rid = parseFloat(tolRange.value) || 0;
     if(principi.size===1 && principi.has(targetDrug)){
       alert('Non è opportuno applicare una riduzione per tolleranza crociata usando lo stesso oppioide');
       rid = 0;
-      document.getElementById('tolleranza-home').value = 0;
-      document.getElementById('tolleranza-value').textContent = '0%';
+      syncTolerance(0);
     }
     const totaleRidotto = totaleMED * (1 - rid/100);
     const coeffTarget = oppioidi[targetDrug].forms[targetRoute].coeff;
@@ -787,12 +795,11 @@ if (exportPdfBtn) exportPdfBtn.addEventListener('click', exportPdfHome);
     const rescueEV = rescueOS / 3;
 
     let html = '<table class="table table-bordered table-sm">';
-    html += '<thead><tr><th>Farmaco</th><th>Via</th><th>Dose</th><th>MED mg OS</th></tr></thead><tbody>';
+    html += '<thead><tr><th>Farmaco</th><th>Via</th><th>Dose</th><th>MED <span class="info" tabindex="0"><sup>?</sup><span class="tooltip">Dose equivalente di morfina per via orale</span></span> mg OS</th></tr></thead><tbody>';
     rows.forEach(r=>{ html += `<tr><td>${r.drug}</td><td>${r.route}</td><td>${r.dose}</td><td>${r.med.toFixed(2)}</td></tr>`; });
     html += `<tr class="table-secondary"><td colspan="3"><strong>TOTALE MED</strong></td><td><strong>${totaleMED.toFixed(2)}</strong></td></tr>`;
     html += '</tbody></table>';
     html += `<p><strong>Dose equivalente di ${oppioidi[targetDrug].label} (${targetRoute}):</strong> ${doseTarget.toFixed(2)} ${oppioidi[targetDrug].forms[targetRoute].unit}</p>`;
-    html += `<p><strong>Equivalente morfinico orale:</strong> ${totaleRidotto.toFixed(2)} mg</p>`;
     html += `<p><strong>Dose rescue (Morfina OS):</strong> ${rescueOS.toFixed(2)} mg</p>`;
     html += `<p><strong>Dose rescue (Morfina EV/SC):</strong> ${rescueEV.toFixed(2)} mg</p>`;
 

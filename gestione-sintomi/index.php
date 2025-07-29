@@ -114,7 +114,7 @@
               <select class="form-select route-select"></select>
             </div>
             <div class="col-md-2 text-nowrap">
-              <button class="btn btn-success add-drug me-1" type="button" data-bs-toggle="tooltip" data-bs-title="Aggiungi un oppioide aggiuntivo">+</button>
+              <button class="btn btn-success add-drug me-1" type="button" data-bs-toggle="tooltip" data-bs-title="Aggiungi molecola">+</button>
               <button class="btn btn-danger remove-drug" type="button">−</button>
             </div>
           </div>
@@ -135,10 +135,13 @@
         <div class="mb-3">
           <label class="form-label">
             Tolleranza crociata
-            <span class="info"><sup>?</sup><span class="tooltip">La tolleranza crociata incompleta &egrave; una riduzione della dose equianalgesica quando si passa da un oppioide a un altro. La maggior parte delle linee guida raccomanda una riduzione del 25&ndash;50%.</span></span>
+            <span class="info" tabindex="0"><sup>?</sup><span class="tooltip">La tolleranza crociata incompleta &egrave; una riduzione della dose equianalgesica quando si passa da un oppioide a un altro. La maggior parte delle linee guida raccomanda una riduzione del 25&ndash;50%.</span></span>
           </label>
-          <input type="range" id="tolleranza-home" class="form-range" min="0" max="50" step="5" value="25">
-          <span id="tolleranza-value">25%</span>
+          <div class="d-flex align-items-center gap-2">
+            <input type="range" id="tolleranza-home" class="form-range flex-grow-1" min="0" max="50" step="5" value="25">
+            <input type="number" id="tolleranza-input" class="form-control" style="width:80px" min="0" max="50" step="5" value="25">
+            <span id="tolleranza-value">25%</span>
+          </div>
         </div>
 
         <button class="btn btn-primary mb-3" type="button" onclick="calcolaEquianalgesiaHome()">Calcola</button>
