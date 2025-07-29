@@ -168,19 +168,58 @@ function downloadNecpalPdf() {
 }
 window.downloadNecpalPdf = downloadNecpalPdf;
 
+// Aggiorna la lista di documenti in dashboard
+function refreshPatientDocsUI() {
+  const container = document.getElementById('documenti-container');
+  if (!container || !window.patientDocs) return;
+  container.innerHTML = '';
+  if (window.patientDocs.length === 0) {
+    const p = document.createElement('p');
+    p.className = 'text-muted';
+    p.textContent = 'Nessun documento disponibile.';
+    container.appendChild(p);
+    return;
+  }
+  window.patientDocs.forEach((doc, idx) => {
+    const card = document.createElement('div');
+    card.className = 'doc-card';
+    card.innerHTML = `
+      <button class="delete-btn" data-index="${idx}">&times;</button>
+      <div class="doc-type">${doc.title}</div>
+      <div class="doc-date">${doc.date}</div>
+      <div class="doc-desc">${doc.desc}</div>
+      <div class="card-actions">
+        <button class="view-btn" data-index="${idx}">Visualizza</button>
+        <button class="pdf-btn" data-index="${idx}">Scarica PDF</button>
+      </div>`;
+    container.appendChild(card);
+  });
+}
+window.refreshPatientDocsUI = refreshPatientDocsUI;
+
 window.saveRiepilogoDoc = function() {
   let html = '';
   if (window.buildPreviewContent) {
     const el = window.buildPreviewContent();
     html = el.outerHTML || '';
   }
-  addPatientDoc({
+
+  const doc = {
     title: 'Riepilogo farmaci',
     date: formatDateIt(new Date().toISOString().slice(0,10)),
     desc: 'Farmaci sintomatici attuali',
     type: 'riepilogo',
     html: html
-  });
+  };
+
+  window.patientDocs = window.patientDocs || [];
+  const idx = window.patientDocs.findIndex(d => d.type === 'riepilogo');
+  if (idx !== -1) {
+    window.patientDocs[idx] = doc;
+  } else {
+    window.patientDocs.push(doc);
+  }
+  refreshPatientDocsUI();
 };
 
 window.saveSedazioneDoc = function() {
