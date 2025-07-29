@@ -78,7 +78,7 @@
           <thead>
             <tr>
               <th>Sintomo</th>
-              <th>Molecola</th>
+              <th>Farmaco</th>
               <th>Via</th>
               <th>Dose</th>
               <th>Posologia</th>

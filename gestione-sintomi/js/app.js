@@ -203,7 +203,7 @@ document.addEventListener("DOMContentLoaded", function() {
       farm = farmacoSelect.value;
       if (!farm) return alert('Seleziona molecola');
     }
-    const rec = { sintomo:sint, farmaco:frm||farm, via:viaInput.value, dose:doseInput.value, poso:posologiaInput.value, freq:frequenzaInput.value };
+    const rec = { sintomo:sint, farmaco: farm + (frm ? ' ' + frm : ''), via:viaInput.value, dose:doseInput.value, poso:posologiaInput.value, freq:frequenzaInput.value };
     if (editingIndex!==null) window.terapie[editingIndex]=rec; else window.terapie.push(rec);
     resetFormHome(); renderTableHome();
     if (typeof window.saveRiepilogoDoc === 'function') window.saveRiepilogoDoc();
