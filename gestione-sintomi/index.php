@@ -135,7 +135,7 @@
         <div class="mb-3">
           <label class="form-label">
             Tolleranza crociata
-            <span class="ms-1 text-primary" role="button" data-bs-toggle="tooltip" data-bs-title="La tolleranza crociata incompleta &egrave; una riduzione della dose equianalgesica quando si passa da un oppioide a un altro. La maggior parte delle linee guida raccomanda una riduzione del 25&ndash;50%.">?</span>
+            <span class="ms-1 text-primary help-icon" role="button" data-bs-toggle="tooltip" data-bs-title="La tolleranza crociata incompleta &egrave; una riduzione della dose equianalgesica quando si passa da un oppioide a un altro. La maggior parte delle linee guida raccomanda una riduzione del 25&ndash;50%.">?</span>
           </label>
           <div class="d-flex align-items-center gap-2">
             <input type="range" id="tolleranza-home" class="form-range flex-grow-1" min="0" max="50" step="5" value="25">

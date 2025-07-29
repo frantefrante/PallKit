@@ -161,6 +161,19 @@ p {
     margin-bottom: 0.75rem;
 }
 
+/* Piccola icona di aiuto in apice */
+.help-icon {
+    display: inline-block;
+    vertical-align: super;
+    font-size: 0.65em;
+    width: 1em;
+    height: 1em;
+    line-height: 1em;
+    text-align: center;
+    border: 1px solid currentColor;
+    border-radius: 50%;
+}
+
 @media (max-width: 768px) {
     .sidebar {
         width: 100%;
