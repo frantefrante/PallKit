@@ -144,8 +144,10 @@
           </label>
           <div class="d-flex align-items-center gap-2">
             <input type="range" id="tolleranza-home" class="form-range flex-grow-1" min="0" max="50" step="5" value="25">
-            <input type="number" id="tolleranza-input" class="form-control" style="width:80px" min="0" max="50" step="5" value="25">
-            <span id="tolleranza-value">25%</span>
+            <div class="input-group" style="width:120px">
+              <input type="number" id="tolleranza-input" class="form-control" min="0" max="50" step="5" value="25">
+              <span class="input-group-text">%</span>
+            </div>
           </div>
         </div>
 
