@@ -215,7 +215,12 @@ document.addEventListener("DOMContentLoaded", function() {
       tr.innerHTML = `<td>${t.sintomo}</td><td>${t.farmaco}</td><td>${t.via}</td><td>${t.dose}</td><td>${t.poso}</td><td>${t.freq}</td><td><button class="btn btn-sm btn-danger del-btn" data-i="${i}"><i class="fas fa-trash"></i></button></td>`;
       tbody.appendChild(tr);
     });
-    tbody.querySelectorAll('.del-btn').forEach(b=>b.onclick=e=>{window.terapie.splice(+e.currentTarget.dataset.i,1);resetFormHome();renderTableHome();});
+    tbody.querySelectorAll('.del-btn').forEach(b=>b.onclick=e=>{
+      window.terapie.splice(+e.currentTarget.dataset.i, 1);
+      resetFormHome();
+      renderTableHome();
+      if (typeof window.saveRiepilogoDoc === 'function') window.saveRiepilogoDoc();
+    });
   }
   window.renderTableHome = renderTableHome;
   sintomoSelect.onchange       = onSintomoChangeHome;
