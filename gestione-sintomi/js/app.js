@@ -739,7 +739,6 @@ if (exportPdfBtn) exportPdfBtn.addEventListener('click', exportPdfHome);
   function syncTolerance(val){
     tolRange.value = val;
     tolInput.value = val;
-    document.getElementById('tolleranza-value').textContent = val + '%';
   }
   tolRange.addEventListener('input', () => syncTolerance(tolRange.value));
   tolInput.addEventListener('input', () => syncTolerance(tolInput.value));
