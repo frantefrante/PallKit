@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
     tbodySed.innerHTML = "";
     window.terapieSed.forEach((t,i)=>{
       const tr = document.createElement("tr");
-      tr.innerHTML = `<td>${t.farmaco}</td><td>${t.via}</td><td>${t.dose}</td><td>${t.poso}</td><td>${t.freq}</td><td><button class="btn btn-sm btn-secondary del-sed-btn" data-i="${i}"><i class="fas fa-trash"></i></button></td>`;
+      tr.innerHTML = `<td>${t.farmaco}</td><td>${t.via}</td><td>${t.dose}</td><td>${t.poso}</td><td>${t.freq}</td><td><button class="btn btn-sm btn-danger del-sed-btn" data-i="${i}"><i class="fas fa-trash"></i></button></td>`;
       tbodySed.appendChild(tr);
     });
     tbodySed.querySelectorAll('.del-sed-btn').forEach(b=>b.onclick=e=>{window.terapieSed.splice(+e.currentTarget.dataset.i,1);renderSedTable();});
