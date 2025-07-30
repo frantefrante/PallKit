@@ -121,7 +121,8 @@ document.addEventListener("DOMContentLoaded", function() {
     sel.innerHTML = '<option value="">--</option>';
     items.forEach(i => { const opt = document.createElement('option'); opt.value = i; opt.textContent = i; sel.appendChild(opt); });
   }
-  function resetFormHome() {
+  function resetFormHome(keepSint = false) {
+    if (!keepSint) sintomoSelect.value = '';
     farmacoSelect.innerHTML = '';
     formulazioneSelect.innerHTML = '';
     farmacoSelect.disabled = true;
@@ -137,8 +138,8 @@ document.addEventListener("DOMContentLoaded", function() {
     editingIndex = null;
     document.getElementById('btn-add-home').textContent = 'Aggiungi';
   }
-  function onSintomoChangeHome() {
-  resetFormHome();
+  function onSintomoChangeHome(keepSint = true) {
+  resetFormHome(keepSint);
   // Nascondi tutte le sezioni di sintomo
   document.querySelectorAll('.sintomo-section').forEach(sec => sec.style.display = 'none');
   const s = sintomoSelect.value;
@@ -205,7 +206,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     const rec = { sintomo:sint, farmaco: farm + (frm ? ' ' + frm : ''), via:viaInput.value, dose:doseInput.value, poso:posologiaInput.value, freq:frequenzaInput.value };
     if (editingIndex!==null) window.terapie[editingIndex]=rec; else window.terapie.push(rec);
-    resetFormHome(); renderTableHome();
+    onSintomoChangeHome(true); renderTableHome();
     if (typeof window.saveRiepilogoDoc === 'function') window.saveRiepilogoDoc();
   }
   function renderTableHome() {
@@ -217,13 +218,13 @@ document.addEventListener("DOMContentLoaded", function() {
     });
     tbody.querySelectorAll('.del-btn').forEach(b=>b.onclick=e=>{
       window.terapie.splice(+e.currentTarget.dataset.i, 1);
-      resetFormHome();
+      onSintomoChangeHome(true);
       renderTableHome();
       if (typeof window.saveRiepilogoDoc === 'function') window.saveRiepilogoDoc();
     });
   }
   window.renderTableHome = renderTableHome;
-  sintomoSelect.onchange       = onSintomoChangeHome;
+  sintomoSelect.onchange       = () => onSintomoChangeHome(true);
   farmacoSelect.onchange       = onFarmacoChangeHome;
   formulazioneSelect.onchange  = onFormulazioneChangeHome;
   document.getElementById('btn-add-home').onclick = addTerapiaHome;
