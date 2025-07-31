@@ -109,7 +109,20 @@ document.addEventListener('DOMContentLoaded', function () {
         else if (window.downloadNecpalPdf) window.downloadNecpalPdf();
         break;
       case 'necpal4':
-        if (doc.html) pdfFromHtml(doc.html, 'NECPAL4.pdf');
+        if (doc.html) {
+          const preview = document.createElement('div');
+          preview.innerHTML = doc.html;
+          const opt = {
+            margin: 0.5,
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+          };
+          html2pdf().set(opt).from(preview).toPdf().get('pdf').then(pdf => {
+            const url = pdf.output('bloburl');
+            window.open(url, '_blank');
+          });
+        }
         break;
       case 'sedazione':
         if (doc.html) pdfFromHtml(doc.html, 'sedazione.pdf');
@@ -170,6 +183,25 @@ function downloadNecpalPdf() {
   html2pdf().set(opt).from(tmp).save();
 }
 window.downloadNecpalPdf = downloadNecpalPdf;
+
+// Scarica il PDF del NECPAL 4 aprendo il documento in una nuova scheda
+function downloadNecpal4Pdf() {
+  const preview = document.getElementById('necpal4-preview');
+  if (!preview || !preview.innerHTML.trim()) return alert('Anteprima non disponibile.');
+  const tmp = document.createElement('div');
+  tmp.innerHTML = preview.innerHTML;
+  const opt = {
+    margin: 0.5,
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { scale: 2 },
+    jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+  };
+  html2pdf().set(opt).from(tmp).toPdf().get('pdf').then(pdf => {
+    const url = pdf.output('bloburl');
+    window.open(url, '_blank');
+  });
+}
+window.downloadNecpal4Pdf = downloadNecpal4Pdf;
 
 // Aggiorna la lista di documenti in dashboard
 function refreshPatientDocsUI() {
@@ -352,7 +384,7 @@ document.addEventListener('DOMContentLoaded', function () {
   if (savePdf4 && previewBox4) {
     savePdf4.addEventListener('click', () => {
       if (!previewBox4.innerHTML.trim()) return alert('Anteprima non disponibile.');
-      pdfFromHtml(previewBox4.innerHTML, 'NECPAL4.pdf');
+      downloadNecpal4Pdf();
     });
   }
 
@@ -402,19 +434,34 @@ document.addEventListener('DOMContentLoaded', function () {
     necpal4Form.addEventListener('submit', function(e){
       e.preventDefault();
       const fd = new FormData(necpal4Form);
-      const html = buildNecpal4Html(fd);
-      if (resultBox4) resultBox4.style.display = 'block';
-      if (previewBox4) {
-        previewBox4.innerHTML = html;
-        previewBox4.style.display = 'block';
-      }
-      addPatientDoc({
-        title: 'NECPAL 4',
-        date: formatDateIt(new Date().toISOString().slice(0,10)),
-        desc: 'Valutazione NECPAL 4',
-        type: 'necpal4',
-        html: html
-      });
+      fd.append('ajax', '1');
+      const url = necpal4Form.getAttribute('action') || 'process-necpal4.php';
+      fetch(url, { method: 'POST', body: fd })
+        .then(r => r.ok ? r.json() : Promise.reject())
+        .then(res => {
+          if (res.success) {
+            const html = buildNecpal4Html(fd);
+            if (resultBox4) resultBox4.style.display = 'block';
+            if (previewBox4) {
+              previewBox4.innerHTML = html;
+              previewBox4.style.display = 'block';
+            }
+            addPatientDoc({
+              title: 'NECPAL 4',
+              date: formatDateIt(new Date().toISOString().slice(0,10)),
+              desc: 'Valutazione NECPAL 4',
+              type: 'necpal4',
+              html: html
+            });
+          } else {
+            const msg = res.errors ? res.errors.join('\n') : (res.error || 'Errore durante il salvataggio');
+            alert(msg);
+          }
+        })
+        .catch(err => {
+          alert('Errore durante il salvataggio');
+          console.error('NECPAL4 save error', err);
+        });
     });
   }
 
