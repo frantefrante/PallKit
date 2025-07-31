@@ -18,7 +18,11 @@ document.addEventListener("DOMContentLoaded", function() {
   document.querySelectorAll('.sidebar .nav-link[data-target]').forEach(link => {
     link.addEventListener('click', function(e) {
       e.preventDefault();
-      const sections = ['dashboard-home','gestione-home','sedazione-home','identificazione-home','equianalgesia-section','rescue-section'];
+      const sections = [
+        'dashboard-home','gestione-home','sedazione-home',
+        'identificazione-home','complessita-home','prognosi-home',
+        'monitoraggio-home','equianalgesia-section','rescue-section'
+      ];
       sections.forEach(id => {
         const sec = document.getElementById(id);
         if (sec) sec.style.display = 'none';

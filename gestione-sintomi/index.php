@@ -57,10 +57,29 @@
       </li>
 
       <li class="nav-item mb-2">
+        <span class="nav-link text-white-50">Strumenti Clinici</span>
+      </li>
+      <li class="nav-item mb-2 ms-3">
         <a href="#" class="nav-link" data-target="identificazione-home">
           <i class="fas fa-id-card me-2"></i>Identificazione
         </a>
       </li>
+      <li class="nav-item mb-2 ms-3">
+        <a href="#" class="nav-link" data-target="complessita-home">
+          <i class="fas fa-layer-group me-2"></i>Complessità
+        </a>
+      </li>
+      <li class="nav-item mb-2 ms-3">
+        <a href="#" class="nav-link" data-target="prognosi-home">
+          <i class="fas fa-hourglass-half me-2"></i>Prognosi
+        </a>
+      </li>
+      <li class="nav-item mb-2 ms-3">
+        <a href="#" class="nav-link" data-target="monitoraggio-home">
+          <i class="fas fa-chart-line me-2"></i>Monitoraggio
+        </a>
+      </li>
+
       <li class="nav-item">
         <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#medico-modal-home">
           <i class="fas fa-user-md me-2"></i>Dati Medico
@@ -186,6 +205,15 @@
 
     <!-- SEZIONE Identificazione -->
     <?php include __DIR__ . '/identificazione.php'; ?>
+
+    <!-- SEZIONE Complessità -->
+    <?php include __DIR__ . '/strumenti-complessita.php'; ?>
+
+    <!-- SEZIONE Prognosi -->
+    <?php include __DIR__ . '/strumenti-prognosi.php'; ?>
+
+    <!-- SEZIONE Monitoraggio -->
+    <?php include __DIR__ . '/strumenti-monitoraggio.php'; ?>
   </div>
 </div>
 
