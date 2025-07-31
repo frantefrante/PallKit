@@ -3,20 +3,26 @@
 ?>
 <section id="idcpal-home" class="p-4" style="display:none;">
   <div class="bg-white p-4 rounded shadow-sm">
-    <h5 class="mb-3"><i class="fas fa-layer-group me-2"></i>IDC-PAL</h5>
-    <form id="idcpal-form">
+    <div class="d-flex justify-content-between mb-3">
+      <h5 class="mb-0"><i class="fas fa-layer-group me-2"></i>IDC-PAL</h5>
+      <div class="small">
+        <span class="badge bg-warning text-dark me-1">C</span>= complesso
+        <span class="badge bg-danger ms-3 me-1">AC</span>= altamente complesso
+      </div>
+    </div>
+    <form id="idcpal-form" action="process-idcpal.php" method="post">
       <div class="row g-3 mb-3">
         <div class="col-md-4">
           <label class="form-label">Nome e Cognome</label>
-          <input type="text" id="idcpal-nome" class="form-control" readonly>
+          <input type="text" id="idcpal-nome" name="text_1" class="form-control" readonly>
         </div>
         <div class="col-md-4">
           <label class="form-label">Data di nascita</label>
-          <input type="date" id="idcpal-nascita" class="form-control" readonly>
+          <input type="date" id="idcpal-nascita" name="date_2" class="form-control" readonly>
         </div>
         <div class="col-md-4">
           <label class="form-label">Data compilazione</label>
-          <input type="date" id="idcpal-data" class="form-control" value="<?php echo date('Y-m-d'); ?>">
+          <input type="date" id="idcpal-data" name="date_1" class="form-control" value="<?php echo date('Y-m-d'); ?>">
         </div>
       </div>
       <div class="accordion" id="idcpal-acc">
@@ -74,7 +80,7 @@ $sec3_2 = [
     $id='idcpal-'.str_replace(['.',' '],'',$it[0]);
     $badge=$it[2]=='AC'? 'bg-danger' : 'bg-warning text-dark';
     echo "<div class='form-check mb-2' data-bs-toggle='tooltip' data-bs-trigger='hover' data-bs-title='".htmlspecialchars($it[3])."'>";
-    echo "<input class='form-check-input idcpal-check' type='checkbox' id='$id' data-class='{$it[2]}' data-label='{$it[0]} - {$it[1]}'>";
+    echo "<input class='form-check-input idcpal-check' type='checkbox' id='$id' name='voci[]' value='{$it[0]}' data-class='{$it[2]}' data-label='{$it[0]} - {$it[1]}'>";
     echo "<label class='form-check-label' for='$id'><span class='fw-bold'>{$it[0]}</span> – {$it[1]} <span class='badge $badge ms-2'>{$it[2]}</span></label>";
     echo "</div>";
   }
@@ -144,8 +150,15 @@ $sec3_2 = [
           <label class="form-check-label" for="idcpal-esito3">Altamente complessa</label>
         </div>
       </div>
-      <div class="mt-3">
-        <button type="button" id="idcpal-genera" class="btn btn-primary">Genera scheda</button>
+      <div class="mt-3 d-grid">
+        <button type="submit" class="btn btn-primary"><i class="fas fa-save me-2"></i>Salva IDC-PAL</button>
+      </div>
+      <div id="idcpal-result" class="mt-4" style="display:none;">
+        <div class="mb-2">
+          <button type="button" id="btn-view-idcpal" class="btn btn-outline-secondary me-2">Visualizza</button>
+          <button type="button" id="btn-save-pdf-idcpal" class="btn btn-success">Scarica PDF</button>
+        </div>
+        <div id="idcpal-preview" class="mt-2" style="display:none;"></div>
       </div>
     </form>
   </div>
@@ -173,17 +186,76 @@ document.addEventListener('DOMContentLoaded',function(){
     r.addEventListener('change',()=>{sceltaManuale=true;});
   });
   updateCounts();
-  const btn=document.getElementById('idcpal-genera');
-  if(btn){
-    btn.addEventListener('click',function(){
-      const nome=document.getElementById('idcpal-nome').value;
-      const data=document.getElementById('idcpal-data').value;
-      let voce=[];
-      document.querySelectorAll('#idcpal-home .idcpal-check:checked').forEach(cb=>{voce.push(cb.dataset.label);});
-      const esito=document.querySelector('input[name="idcpal-esito"]:checked');
-      const finale=esito?esito.value:'';
-      const testo=`IDC-PAL\nPaziente: ${nome}\nData: ${data}\nVoci: ${voce.join(', ')}\nClassificazione: ${finale}`;
-      alert(testo);
+
+  function buildHtml(){
+    const nome=document.getElementById('idcpal-nome').value;
+    const nascita=document.getElementById('idcpal-nascita').value;
+    const data=document.getElementById('idcpal-data').value;
+    const es=document.querySelector('input[name="idcpal-esito"]:checked');
+    const finale=es?es.value:'';
+    let items=[];
+    document.querySelectorAll('#idcpal-home .idcpal-check:checked').forEach(cb=>{items.push(cb.dataset.label);});
+    const list=items.map(it=>`<li>${it}</li>`).join('');
+    return `
+      <div style="font-family: Helvetica, Arial, sans-serif; font-size:11pt;">
+        <div style="background:#f7f7f7; padding:8px; margin-top:10px;">
+          <strong>Nome paziente:</strong> ${nome}<br>
+          <strong>Data di nascita:</strong> ${nascita}<br>
+          <strong>Data di compilazione:</strong> ${data}
+        </div>
+        <h4 style="background:#e0e0e0; padding:4px; margin-top:20px; font-size:1rem;">Voci IDC-PAL</h4>
+        <ul>${list}</ul>
+        <div style="background:#cccccc; padding:6px; margin-top:20px; font-weight:bold;">Classificazione finale: ${finale}</div>
+      </div>`;
+  }
+
+  const form=document.getElementById('idcpal-form');
+  const result=document.getElementById('idcpal-result');
+  const preview=document.getElementById('idcpal-preview');
+  const viewBtn=document.getElementById('btn-view-idcpal');
+  const pdfBtn=document.getElementById('btn-save-pdf-idcpal');
+
+  if(pdfBtn && preview){
+    pdfBtn.addEventListener('click',()=>{ if(!preview.innerHTML.trim()) return alert('Anteprima non disponibile.'); downloadIdcpalPdf(); });
+  }
+
+  if(form){
+    form.addEventListener('submit',function(e){
+      e.preventDefault();
+      const fd=new FormData(form);
+      fd.append('ajax','1');
+      const url=form.getAttribute('action') || 'process-idcpal.php';
+      fetch(url,{method:'POST',body:fd})
+        .then(r=>r.ok?r.json():Promise.reject())
+        .then(res=>{
+          if(res.success){
+            const html=buildHtml();
+            if(result) result.style.display='block';
+            if(preview){ preview.innerHTML=html; preview.style.display='block'; }
+            addPatientDoc({
+              title:'IDC-PAL',
+              date: formatDateIt(new Date().toISOString().slice(0,10)),
+              desc:'Valutazione IDC-PAL',
+              type:'idcpal',
+              html: html
+            });
+          }else{
+            const msg=res.errors?res.errors.join('\n'):(res.error||'Errore durante il salvataggio');
+            alert(msg);
+          }
+        })
+        .catch(err=>{ alert('Errore durante il salvataggio'); console.error('IDCPAL save error',err); });
+    });
+  }
+
+  if(viewBtn && preview){
+    viewBtn.addEventListener('click',()=>{
+      const html=preview.innerHTML.trim();
+      if(!html) return alert('Anteprima non disponibile.');
+      const modalBody=document.getElementById('preview-content-home');
+      if(!modalBody) return alert('Anteprima non disponibile.');
+      modalBody.innerHTML=html;
+      new bootstrap.Modal(document.getElementById('preview-modal-home')).show();
     });
   }
 });

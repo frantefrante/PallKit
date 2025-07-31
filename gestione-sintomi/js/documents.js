@@ -127,6 +127,10 @@ document.addEventListener('DOMContentLoaded', function () {
       case 'sedazione':
         if (doc.html) pdfFromHtml(doc.html, 'sedazione.pdf');
         break;
+      case 'idcpal':
+        if (doc.html) pdfFromHtml(doc.html, 'IDC-PAL.pdf');
+        else if (window.downloadIdcpalPdf) window.downloadIdcpalPdf();
+        break;
       default:
         alert('Download non disponibile');
     }
@@ -202,6 +206,23 @@ function downloadNecpal4Pdf() {
   });
 }
 window.downloadNecpal4Pdf = downloadNecpal4Pdf;
+
+// Scarica il PDF dell'IDC-PAL
+function downloadIdcpalPdf() {
+  const preview = document.getElementById('idcpal-preview');
+  if (!preview || !preview.innerHTML.trim()) return alert('Anteprima non disponibile.');
+  const tmp = document.createElement('div');
+  tmp.innerHTML = preview.innerHTML;
+  const opt = {
+    margin: 0.5,
+    filename: 'IDC-PAL.pdf',
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { scale: 2 },
+    jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+  };
+  html2pdf().set(opt).from(tmp).save();
+}
+window.downloadIdcpalPdf = downloadIdcpalPdf;
 
 // Aggiorna la lista di documenti in dashboard
 function refreshPatientDocsUI() {
@@ -468,6 +489,88 @@ document.addEventListener('DOMContentLoaded', function () {
   if (viewBtn4 && previewBox4) {
     viewBtn4.addEventListener('click', () => {
       const html = previewBox4.innerHTML.trim();
+      if (!html) return alert('Anteprima non disponibile.');
+      const modalBody = document.getElementById('preview-content-home');
+      if (!modalBody) return alert('Anteprima non disponibile.');
+      modalBody.innerHTML = html;
+      new bootstrap.Modal(document.getElementById('preview-modal-home')).show();
+    });
+  }
+
+  // ─────── IDC-PAL ───────
+  const idcpalForm = document.getElementById('idcpal-form');
+  const resultBoxIdc = document.getElementById('idcpal-result');
+  const previewIdc = document.getElementById('idcpal-preview');
+  const viewBtnIdc = document.getElementById('btn-view-idcpal');
+  const pdfBtnIdc = document.getElementById('btn-save-pdf-idcpal');
+
+  if (pdfBtnIdc && previewIdc) {
+    pdfBtnIdc.addEventListener('click', () => {
+      if (!previewIdc.innerHTML.trim()) return alert('Anteprima non disponibile.');
+      downloadIdcpalPdf();
+    });
+  }
+
+  function buildIdcpalHtml() {
+    const nome = document.getElementById('idcpal-nome').value;
+    const nasc = document.getElementById('idcpal-nascita').value;
+    const data = document.getElementById('idcpal-data').value;
+    const esEl = document.querySelector('input[name="idcpal-esito"]:checked');
+    const finale = esEl ? esEl.value : '';
+    const list = [];
+    document.querySelectorAll('#idcpal-home .idcpal-check:checked').forEach(cb => list.push(cb.dataset.label));
+    const li = list.map(t => `<li>${t}</li>`).join('');
+    return `
+      <div style="font-family: Helvetica, Arial, sans-serif; font-size:11pt;">
+        <div style="background:#f7f7f7; padding:8px; margin-top:10px;">
+          <strong>Nome paziente:</strong> ${nome}<br>
+          <strong>Data di nascita:</strong> ${nasc}<br>
+          <strong>Data di compilazione:</strong> ${data}
+        </div>
+        <h4 style="background:#e0e0e0; padding:4px; margin-top:20px; font-size:1rem;">Voci IDC-PAL</h4>
+        <ul>${li}</ul>
+        <div style="background:#cccccc; padding:6px; margin-top:20px; font-weight:bold;">Classificazione finale: ${finale}</div>
+      </div>`;
+  }
+
+  if (idcpalForm) {
+    idcpalForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const fd = new FormData(idcpalForm);
+      fd.append('ajax','1');
+      const url = idcpalForm.getAttribute('action') || 'process-idcpal.php';
+      fetch(url, { method: 'POST', body: fd })
+        .then(r => r.ok ? r.json() : Promise.reject())
+        .then(res => {
+          if (res.success) {
+            const html = buildIdcpalHtml();
+            if (resultBoxIdc) resultBoxIdc.style.display = 'block';
+            if (previewIdc) {
+              previewIdc.innerHTML = html;
+              previewIdc.style.display = 'block';
+            }
+            addPatientDoc({
+              title: 'IDC-PAL',
+              date: formatDateIt(new Date().toISOString().slice(0,10)),
+              desc: 'Valutazione IDC-PAL',
+              type: 'idcpal',
+              html: html
+            });
+          } else {
+            const msg = res.errors ? res.errors.join('\n') : (res.error || 'Errore durante il salvataggio');
+            alert(msg);
+          }
+        })
+        .catch(err => {
+          alert('Errore durante il salvataggio');
+          console.error('IDC-PAL save error', err);
+        });
+    });
+  }
+
+  if (viewBtnIdc && previewIdc) {
+    viewBtnIdc.addEventListener('click', () => {
+      const html = previewIdc.innerHTML.trim();
       if (!html) return alert('Anteprima non disponibile.');
       const modalBody = document.getElementById('preview-content-home');
       if (!modalBody) return alert('Anteprima non disponibile.');
