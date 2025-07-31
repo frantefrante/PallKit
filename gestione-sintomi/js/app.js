@@ -477,6 +477,10 @@ document.addEventListener("DOMContentLoaded", function() {
     const dateEl = document.getElementById('date-2');
     if (nameEl) nameEl.value = pazienteData.nome || '';
     if (dateEl) dateEl.value = pazienteData.dataNascita || '';
+    const name4 = document.getElementById('necpal4-nome');
+    const date4 = document.getElementById('necpal4-nascita');
+    if (name4) name4.value = pazienteData.nome || '';
+    if (date4) date4.value = pazienteData.dataNascita || '';
   }
   updatePazienteFields();
 
