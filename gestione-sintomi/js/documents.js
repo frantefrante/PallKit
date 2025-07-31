@@ -402,19 +402,34 @@ document.addEventListener('DOMContentLoaded', function () {
     necpal4Form.addEventListener('submit', function(e){
       e.preventDefault();
       const fd = new FormData(necpal4Form);
-      const html = buildNecpal4Html(fd);
-      if (resultBox4) resultBox4.style.display = 'block';
-      if (previewBox4) {
-        previewBox4.innerHTML = html;
-        previewBox4.style.display = 'block';
-      }
-      addPatientDoc({
-        title: 'NECPAL 4',
-        date: formatDateIt(new Date().toISOString().slice(0,10)),
-        desc: 'Valutazione NECPAL 4',
-        type: 'necpal4',
-        html: html
-      });
+      fd.append('ajax', '1');
+      const url = necpal4Form.getAttribute('action') || 'process-necpal4.php';
+      fetch(url, { method: 'POST', body: fd })
+        .then(r => r.ok ? r.json() : Promise.reject())
+        .then(res => {
+          if (res.success) {
+            const html = buildNecpal4Html(fd);
+            if (resultBox4) resultBox4.style.display = 'block';
+            if (previewBox4) {
+              previewBox4.innerHTML = html;
+              previewBox4.style.display = 'block';
+            }
+            addPatientDoc({
+              title: 'NECPAL 4',
+              date: formatDateIt(new Date().toISOString().slice(0,10)),
+              desc: 'Valutazione NECPAL 4',
+              type: 'necpal4',
+              html: html
+            });
+          } else {
+            const msg = res.errors ? res.errors.join('\n') : (res.error || 'Errore durante il salvataggio');
+            alert(msg);
+          }
+        })
+        .catch(err => {
+          alert('Errore durante il salvataggio');
+          console.error('NECPAL4 save error', err);
+        });
     });
   }
 

@@ -646,7 +646,9 @@ if (exportPdfBtn) exportPdfBtn.addEventListener('click', exportPdfHome);
   // ──────────────────────────────
   // 8) POPUP NEC PAL
   // ──────────────────────────────
-  document.querySelectorAll('.link-indicatore').forEach(el => el.addEventListener('click', function() {
+  document.querySelectorAll('.link-indicatore').forEach(el => el.addEventListener('click', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
     const p = document.getElementById(this.dataset.target); if (p) p.style.display='flex';
   }));
   document.querySelectorAll('.popup-indicatore .close-popup').forEach(b => b.addEventListener('click', () => b.closest('.popup-indicatore').style.display='none'));
