@@ -3,20 +3,26 @@
 ?>
 <section id="idcpal-home" class="p-4" style="display:none;">
   <div class="bg-white p-4 rounded shadow-sm">
-    <h5 class="mb-3"><i class="fas fa-layer-group me-2"></i>IDC-PAL</h5>
-    <form id="idcpal-form">
+    <div class="d-flex justify-content-between mb-3">
+      <h5 class="mb-0"><i class="fas fa-layer-group me-2"></i>IDC-PAL</h5>
+      <div class="small">
+        <span class="badge bg-warning text-dark me-1">C</span>= complesso
+        <span class="badge bg-danger ms-3 me-1">AC</span>= altamente complesso
+      </div>
+    </div>
+    <form id="idcpal-form" action="process-idcpal.php" method="post">
       <div class="row g-3 mb-3">
         <div class="col-md-4">
           <label class="form-label">Nome e Cognome</label>
-          <input type="text" id="idcpal-nome" class="form-control" readonly>
+          <input type="text" id="idcpal-nome" name="text_1" class="form-control" readonly>
         </div>
         <div class="col-md-4">
           <label class="form-label">Data di nascita</label>
-          <input type="date" id="idcpal-nascita" class="form-control" readonly>
+          <input type="date" id="idcpal-nascita" name="date_2" class="form-control" readonly>
         </div>
         <div class="col-md-4">
           <label class="form-label">Data compilazione</label>
-          <input type="date" id="idcpal-data" class="form-control" value="<?php echo date('Y-m-d'); ?>">
+          <input type="date" id="idcpal-data" name="date_1" class="form-control" value="<?php echo date('Y-m-d'); ?>">
         </div>
       </div>
       <div class="accordion" id="idcpal-acc">
@@ -74,7 +80,7 @@ $sec3_2 = [
     $id='idcpal-'.str_replace(['.',' '],'',$it[0]);
     $badge=$it[2]=='AC'? 'bg-danger' : 'bg-warning text-dark';
     echo "<div class='form-check mb-2' data-bs-toggle='tooltip' data-bs-trigger='hover' data-bs-title='".htmlspecialchars($it[3])."'>";
-    echo "<input class='form-check-input idcpal-check' type='checkbox' id='$id' data-class='{$it[2]}' data-label='{$it[0]} - {$it[1]}'>";
+    echo "<input class='form-check-input idcpal-check' type='checkbox' id='$id' name='voci[]' value='{$it[0]}' data-class='{$it[2]}' data-label='{$it[0]} - {$it[1]}'>";
     echo "<label class='form-check-label' for='$id'><span class='fw-bold'>{$it[0]}</span> – {$it[1]} <span class='badge $badge ms-2'>{$it[2]}</span></label>";
     echo "</div>";
   }
@@ -144,8 +150,15 @@ $sec3_2 = [
           <label class="form-check-label" for="idcpal-esito3">Altamente complessa</label>
         </div>
       </div>
-      <div class="mt-3">
-        <button type="button" id="idcpal-genera" class="btn btn-primary">Genera scheda</button>
+      <div class="mt-3 d-grid">
+        <button type="submit" class="btn btn-primary"><i class="fas fa-save me-2"></i>Salva IDC-PAL</button>
+      </div>
+      <div id="idcpal-result" class="mt-4" style="display:none;">
+        <div class="mb-2">
+          <button type="button" id="btn-view-idcpal" class="btn btn-outline-secondary me-2">Visualizza</button>
+          <button type="button" id="btn-save-pdf-idcpal" class="btn btn-success">Scarica PDF</button>
+        </div>
+        <div id="idcpal-preview" class="mt-2" style="display:none;"></div>
       </div>
     </form>
   </div>
@@ -173,18 +186,6 @@ document.addEventListener('DOMContentLoaded',function(){
     r.addEventListener('change',()=>{sceltaManuale=true;});
   });
   updateCounts();
-  const btn=document.getElementById('idcpal-genera');
-  if(btn){
-    btn.addEventListener('click',function(){
-      const nome=document.getElementById('idcpal-nome').value;
-      const data=document.getElementById('idcpal-data').value;
-      let voce=[];
-      document.querySelectorAll('#idcpal-home .idcpal-check:checked').forEach(cb=>{voce.push(cb.dataset.label);});
-      const esito=document.querySelector('input[name="idcpal-esito"]:checked');
-      const finale=esito?esito.value:'';
-      const testo=`IDC-PAL\nPaziente: ${nome}\nData: ${data}\nVoci: ${voce.join(', ')}\nClassificazione: ${finale}`;
-      alert(testo);
-    });
-  }
+
 });
 </script>
