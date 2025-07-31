@@ -30,43 +30,56 @@
       </fieldset>
       <div id="necpal4-neg" class="alert alert-danger" style="display:none;">NECPAL negativo</div>
       <div id="necpal4-cond" style="display:none;">
-        <div class="mb-3">
-          <label class="form-label">Bisogni palliativi</label>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="bisogni-pall" name="bisogni_pall">
-            <label class="form-check-label" for="bisogni-pall">Presente</label>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <div class="item-card">
+              <div class="form-check">
+                <input class="form-check-input item-check" type="checkbox" id="bisogni-pall" name="bisogni_pall">
+                <label class="form-check-label fw-bold" for="bisogni-pall">Bisogni palliativi</label>
+              </div>
+              <div class="small text-muted mt-1">Il paziente stesso, i professionisti e/o i suoi familiari ritengono che il malato abbia attualmente bisogni di cure palliative</div>
+            </div>
           </div>
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Perdita funzionale</label>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="perdita-funz" name="perdita_funz">
-            <label class="form-check-label" for="perdita-funz">Presente</label>
+          <div class="col-md-6">
+            <div class="item-card">
+              <div class="form-check">
+                <input class="form-check-input item-check" type="checkbox" id="perdita-funz" name="perdita_funz">
+                <label class="form-check-label fw-bold" for="perdita-funz">Perdita funzionale</label>
+              </div>
+              <div class="small text-muted mt-1">Deterioramento funzionale grave, progressivo e irreversibile e/o perdita &gt; 30% dell’indice di Barthel in 6 mesi</div>
+            </div>
           </div>
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Perdita nutrizionale</label>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="perdita-nutr" name="perdita_nutr">
-            <label class="form-check-label" for="perdita-nutr">Presente</label>
+          <div class="col-md-6">
+            <div class="item-card">
+              <div class="form-check">
+                <input class="form-check-input item-check" type="checkbox" id="perdita-nutr" name="perdita_nutr">
+                <label class="form-check-label fw-bold" for="perdita-nutr">Perdita nutrizionale</label>
+              </div>
+              <div class="small text-muted mt-1">Calo ponderale grave e progressivo e/o perdita di peso &gt; 10% in 6 mesi</div>
+            </div>
           </div>
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Multimorbidità</label>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="multi-morbid" name="multimorbidita">
-            <label class="form-check-label" for="multi-morbid">Presente</label>
+          <div class="col-md-6">
+            <div class="item-card">
+              <div class="form-check">
+                <input class="form-check-input item-check" type="checkbox" id="multi-morbid" name="multimorbidita">
+                <label class="form-check-label fw-bold" for="multi-morbid">Multimorbidità</label>
+              </div>
+              <div class="small text-muted mt-1">Presenza di almeno 2 malattie croniche concomitanti alla malattia principale</div>
+            </div>
           </div>
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Utilizzo di risorse</label>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="uso-risorse" name="uso_risorse">
-            <label class="form-check-label" for="uso-risorse">Presente</label>
+          <div class="col-md-6">
+            <div class="item-card">
+              <div class="form-check">
+                <input class="form-check-input item-check" type="checkbox" id="uso-risorse" name="uso_risorse">
+                <label class="form-check-label fw-bold" for="uso-risorse">Utilizzo di risorse</label>
+              </div>
+              <div class="small text-muted mt-1">Due o più ricoveri urgenti nell’ultimo anno e/o necessità di cure continuative complesse</div>
+            </div>
           </div>
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Malattia avanzata</label>
+          <div class="col-md-6">
+            <div class="item-card">
+              <strong>Malattia avanzata</strong>
+              <div class="small text-muted mb-2">Criteri di gravità e/o progressione di malattia cronica oncologica, polmonare, cardiaca, epatica, renale o neurologica</div>
 <?php
 $patologie = [
   ['Cancro','popup-indicatore-cancro'],
@@ -80,13 +93,15 @@ $patologie = [
   ['Patologie renali croniche','popup-indicatore-renale']
 ];
 foreach($patologie as $i=>$p): ?>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="patologie[]" id="patologia-<?php echo $i; ?>" value="<?php echo htmlspecialchars($p[0]); ?>">
-            <label class="form-check-label" for="patologia-<?php echo $i; ?>">
-              <?php echo $p[0]; ?> <sup class="link-indicatore text-primary" role="button" data-target="<?php echo $p[1]; ?>">i</sup>
-            </label>
-          </div>
+              <div class="form-check">
+                <input class="form-check-input item-check" type="checkbox" name="patologie[]" id="patologia-<?php echo $i; ?>" value="<?php echo htmlspecialchars($p[0]); ?>">
+                <label class="form-check-label" for="patologia-<?php echo $i; ?>">
+                  <?php echo $p[0]; ?> <sup class="link-indicatore help-icon text-primary" role="button" data-target="<?php echo $p[1]; ?>">i</sup>
+                </label>
+              </div>
 <?php endforeach; ?>
+            </div>
+          </div>
         </div>
         <div class="mb-3">
           <label class="form-label">Stima prognostica</label>
@@ -155,7 +170,17 @@ document.addEventListener('DOMContentLoaded',function(){
     prognosi.style.display='block';
   }
 
-  document.querySelectorAll('#necpal4-cond input[type=checkbox]').forEach(cb=>cb.addEventListener('change',calcPrognosi));
+  function toggleCard(el){
+    const card = el.closest('.item-card');
+    if(!card) return;
+    const any = card.querySelectorAll('.item-check:checked').length>0;
+    card.classList.toggle('selected', any);
+  }
+
+  document.querySelectorAll('#necpal4-cond .item-check').forEach(cb=>{
+    cb.addEventListener('change',()=>{toggleCard(cb);calcPrognosi();});
+    toggleCard(cb);
+  });
 
   update();
 });
