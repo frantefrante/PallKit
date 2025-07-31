@@ -128,8 +128,22 @@ document.addEventListener('DOMContentLoaded', function () {
         if (doc.html) pdfFromHtml(doc.html, 'sedazione.pdf');
         break;
       case 'idcpal':
-        if (doc.html) pdfFromHtml(doc.html, 'IDC-PAL.pdf');
-        else if (window.downloadIdcpalPdf) window.downloadIdcpalPdf();
+        if (doc.html) {
+          const preview = document.createElement('div');
+          preview.innerHTML = doc.html;
+          const opt = {
+            margin: 0.5,
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+          };
+          html2pdf().set(opt).from(preview).toPdf().get('pdf').then(pdf => {
+            const url = pdf.output('bloburl');
+            window.open(url, '_blank');
+          });
+        } else if (window.downloadIdcpalPdf) {
+          window.downloadIdcpalPdf();
+        }
         break;
       default:
         alert('Download non disponibile');
@@ -215,12 +229,14 @@ function downloadIdcpalPdf() {
   tmp.innerHTML = preview.innerHTML;
   const opt = {
     margin: 0.5,
-    filename: 'IDC-PAL.pdf',
     image: { type: 'jpeg', quality: 0.98 },
     html2canvas: { scale: 2 },
     jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
   };
-  html2pdf().set(opt).from(tmp).save();
+  html2pdf().set(opt).from(tmp).toPdf().get('pdf').then(pdf => {
+    const url = pdf.output('bloburl');
+    window.open(url, '_blank');
+  });
 }
 window.downloadIdcpalPdf = downloadIdcpalPdf;
 
