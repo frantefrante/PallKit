@@ -29,7 +29,7 @@
   <!-- Sidebar -->
   <nav class="sidebar p-3">
     <h4 class="text-white mb-4"><i class="fas fa-notes-medical me-2"></i>Pallkit</h4>
-    <ul class="nav flex-column">
+    <ul class="nav flex-column" id="clinical-menu">
       <li class="nav-item mb-2">
         <a href="#" class="nav-link active" data-target="dashboard-home">
           <i class="fas fa-tachometer-alt me-2"></i>Dashboard
@@ -65,7 +65,7 @@
           <i class="fas fa-id-card me-2"></i>Identificazione
           <i class="fas fa-chevron-right rotate-icon ms-auto"></i>
         </a>
-        <ul class="nav flex-column collapse" id="submenu-ident">
+        <ul class="nav flex-column collapse" id="submenu-ident" data-bs-parent="#clinical-menu">
           <li class="nav-item">
             <a href="#" class="nav-link ms-3" data-target="identificazione-home">NECPAL 3.0</a>
           </li>
@@ -83,7 +83,7 @@
           <i class="fas fa-layer-group me-2"></i>Complessità
           <i class="fas fa-chevron-right rotate-icon ms-auto"></i>
         </a>
-        <ul class="nav flex-column collapse" id="submenu-compl">
+        <ul class="nav flex-column collapse" id="submenu-compl" data-bs-parent="#clinical-menu">
           <li class="nav-item">
             <a href="#" class="nav-link ms-3" data-target="idcpal-home">IDC-PAL</a>
           </li>
@@ -95,7 +95,7 @@
           <i class="fas fa-hourglass-half me-2"></i>Prognosi
           <i class="fas fa-chevron-right rotate-icon ms-auto"></i>
         </a>
-        <ul class="nav flex-column collapse" id="submenu-prog">
+        <ul class="nav flex-column collapse" id="submenu-prog" data-bs-parent="#clinical-menu">
           <li class="nav-item">
             <a href="#" class="nav-link ms-3" data-target="pps-home">PPS</a>
           </li>
@@ -110,7 +110,7 @@
           <i class="fas fa-chart-line me-2"></i>Monitoraggio
           <i class="fas fa-chevron-right rotate-icon ms-auto"></i>
         </a>
-        <ul class="nav flex-column collapse" id="submenu-monit">
+        <ul class="nav flex-column collapse" id="submenu-monit" data-bs-parent="#clinical-menu">
           <li class="nav-item">
             <a href="#" class="nav-link ms-3" data-target="ipos-home">IPOS</a>
           </li>

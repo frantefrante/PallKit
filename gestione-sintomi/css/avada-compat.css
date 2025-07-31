@@ -20,6 +20,8 @@ h1, h2, h3, h4, h5, h6 {
     left: 0;
     padding-top: 20px;
     overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
 }
 .content-wrapper {
     margin-left: 240px;
@@ -188,9 +190,7 @@ p {
 .submenu-toggle:not(.collapsed) .rotate-icon {
     transform: rotate(90deg);
 }
-.sidebar .collapse {
-    overflow: hidden;
-}
+
 
 @media (max-width: 768px) {
     .mobile-header {
