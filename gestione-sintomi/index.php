@@ -61,7 +61,7 @@
       </li>
 
       <li class="nav-item mb-2">
-        <a class="nav-link submenu-toggle collapsed" data-bs-toggle="collapse" href="#submenu-ident" role="button" aria-expanded="false">
+        <a class="nav-link submenu-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#submenu-ident" href="#" role="button" aria-expanded="false">
           <i class="fas fa-id-card me-2"></i>Identificazione
           <i class="fas fa-chevron-right rotate-icon ms-auto"></i>
         </a>
@@ -79,7 +79,7 @@
       </li>
 
       <li class="nav-item mb-2">
-        <a class="nav-link submenu-toggle collapsed" data-bs-toggle="collapse" href="#submenu-compl" role="button" aria-expanded="false">
+        <a class="nav-link submenu-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#submenu-compl" href="#" role="button" aria-expanded="false">
           <i class="fas fa-layer-group me-2"></i>Complessità
           <i class="fas fa-chevron-right rotate-icon ms-auto"></i>
         </a>
@@ -91,7 +91,7 @@
       </li>
 
       <li class="nav-item mb-2">
-        <a class="nav-link submenu-toggle collapsed" data-bs-toggle="collapse" href="#submenu-prog" role="button" aria-expanded="false">
+        <a class="nav-link submenu-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#submenu-prog" href="#" role="button" aria-expanded="false">
           <i class="fas fa-hourglass-half me-2"></i>Prognosi
           <i class="fas fa-chevron-right rotate-icon ms-auto"></i>
         </a>
@@ -106,7 +106,7 @@
       </li>
 
       <li class="nav-item mb-2">
-        <a class="nav-link submenu-toggle collapsed" data-bs-toggle="collapse" href="#submenu-monit" role="button" aria-expanded="false">
+        <a class="nav-link submenu-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#submenu-monit" href="#" role="button" aria-expanded="false">
           <i class="fas fa-chart-line me-2"></i>Monitoraggio
           <i class="fas fa-chevron-right rotate-icon ms-auto"></i>
         </a>

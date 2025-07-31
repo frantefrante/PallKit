@@ -19,6 +19,7 @@ h1, h2, h3, h4, h5, h6 {
     top: 0;
     left: 0;
     padding-top: 20px;
+    overflow-y: auto;
 }
 .content-wrapper {
     margin-left: 240px;
@@ -187,6 +188,9 @@ p {
 .submenu-toggle:not(.collapsed) .rotate-icon {
     transform: rotate(90deg);
 }
+.sidebar .collapse {
+    overflow: hidden;
+}
 
 @media (max-width: 768px) {
     .mobile-header {
@@ -212,6 +216,7 @@ p {
         padding-top: 20px;
         transform: translateX(-100%);
         transition: transform 0.3s;
+        overflow-y: auto;
         z-index: 1040;
     }
     .sidebar.active {
