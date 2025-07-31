@@ -2,6 +2,29 @@
 // process-necpal4.php
 require_once __DIR__ . '/config.php';
 
+/**
+ * Crea la tabella per i dati NECPAL4 se non esiste.
+ */
+function ensureTable(PDO $pdo): void {
+    $sql = <<<SQL
+    CREATE TABLE IF NOT EXISTS necpal4_submissions (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      date_compilazione DATE NOT NULL,
+      nome_paziente VARCHAR(255) NOT NULL,
+      data_nascita DATE NOT NULL,
+      surprise_question ENUM('yes','no') NOT NULL,
+      bisogni_pall TINYINT(1) DEFAULT 0,
+      perdita_funz TINYINT(1) DEFAULT 0,
+      perdita_nutr TINYINT(1) DEFAULT 0,
+      multimorbidita TINYINT(1) DEFAULT 0,
+      uso_risorse TINYINT(1) DEFAULT 0,
+      patologie TEXT,
+      submitted_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+    SQL;
+    $pdo->exec($sql);
+}
+
 // Accetta solo POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: index.php');
@@ -50,6 +73,7 @@ $patologie_json = json_encode(array_map('sanitize', $pat), JSON_UNESCAPED_UNICOD
 
 try {
     $pdo = getPDO();
+    ensureTable($pdo);
     $stmt = $pdo->prepare(<<<SQL
         INSERT INTO necpal4_submissions
         (date_compilazione, nome_paziente, data_nascita, surprise_question,
