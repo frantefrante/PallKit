@@ -14,11 +14,14 @@ h1, h2, h3, h4, h5, h6 {
 .sidebar {
     width: 240px;
     background: #4caf50;
-    min-height: 100vh;
+    height: 100vh;
     position: fixed;
     top: 0;
     left: 0;
     padding-top: 20px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
 }
 .content-wrapper {
     margin-left: 240px;
@@ -177,6 +180,18 @@ p {
     border-radius: 50%;
 }
 
+.submenu-toggle {
+    display: flex;
+    align-items: center;
+}
+.rotate-icon {
+    transition: transform 0.2s;
+}
+.submenu-toggle:not(.collapsed) .rotate-icon {
+    transform: rotate(90deg);
+}
+
+
 @media (max-width: 768px) {
     .mobile-header {
         display: flex;
@@ -196,11 +211,12 @@ p {
         position: fixed;
         top: 0;
         left: 0;
-        min-height: 100vh;
+        height: 100vh;
         background: #4caf50;
         padding-top: 20px;
         transform: translateX(-100%);
         transition: transform 0.3s;
+        overflow-y: auto;
         z-index: 1040;
     }
     .sidebar.active {

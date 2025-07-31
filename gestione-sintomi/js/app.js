@@ -18,7 +18,12 @@ document.addEventListener("DOMContentLoaded", function() {
   document.querySelectorAll('.sidebar .nav-link[data-target]').forEach(link => {
     link.addEventListener('click', function(e) {
       e.preventDefault();
-      const sections = ['dashboard-home','gestione-home','sedazione-home','identificazione-home','equianalgesia-section','rescue-section'];
+      const sections = [
+        'dashboard-home','gestione-home','sedazione-home',
+        'identificazione-home','necpal4-home','spict-home',
+        'idcpal-home','pps-home','ppi-home','ipos-home',
+        'equianalgesia-section','rescue-section'
+      ];
       sections.forEach(id => {
         const sec = document.getElementById(id);
         if (sec) sec.style.display = 'none';

@@ -29,7 +29,7 @@
   <!-- Sidebar -->
   <nav class="sidebar p-3">
     <h4 class="text-white mb-4"><i class="fas fa-notes-medical me-2"></i>Pallkit</h4>
-    <ul class="nav flex-column">
+    <ul class="nav flex-column" id="clinical-menu">
       <li class="nav-item mb-2">
         <a href="#" class="nav-link active" data-target="dashboard-home">
           <i class="fas fa-tachometer-alt me-2"></i>Dashboard
@@ -57,10 +57,66 @@
       </li>
 
       <li class="nav-item mb-2">
-        <a href="#" class="nav-link" data-target="identificazione-home">
-          <i class="fas fa-id-card me-2"></i>Identificazione
-        </a>
+        <span class="nav-link text-white-50">Strumenti Clinici</span>
       </li>
+
+      <li class="nav-item mb-2">
+        <a class="nav-link submenu-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#submenu-ident" href="#" role="button" aria-expanded="false">
+          <i class="fas fa-id-card me-2"></i>Identificazione
+          <i class="fas fa-chevron-right rotate-icon ms-auto"></i>
+        </a>
+        <ul class="nav flex-column collapse" id="submenu-ident" data-bs-parent="#clinical-menu">
+          <li class="nav-item">
+            <a href="#" class="nav-link ms-3" data-target="identificazione-home">NECPAL 3.0</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link ms-3" data-target="necpal4-home">NECPAL 4.0</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link ms-3" data-target="spict-home">SPICT</a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="nav-item mb-2">
+        <a class="nav-link submenu-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#submenu-compl" href="#" role="button" aria-expanded="false">
+          <i class="fas fa-layer-group me-2"></i>Complessità
+          <i class="fas fa-chevron-right rotate-icon ms-auto"></i>
+        </a>
+        <ul class="nav flex-column collapse" id="submenu-compl" data-bs-parent="#clinical-menu">
+          <li class="nav-item">
+            <a href="#" class="nav-link ms-3" data-target="idcpal-home">IDC-PAL</a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="nav-item mb-2">
+        <a class="nav-link submenu-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#submenu-prog" href="#" role="button" aria-expanded="false">
+          <i class="fas fa-hourglass-half me-2"></i>Prognosi
+          <i class="fas fa-chevron-right rotate-icon ms-auto"></i>
+        </a>
+        <ul class="nav flex-column collapse" id="submenu-prog" data-bs-parent="#clinical-menu">
+          <li class="nav-item">
+            <a href="#" class="nav-link ms-3" data-target="pps-home">PPS</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link ms-3" data-target="ppi-home">PPI</a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="nav-item mb-2">
+        <a class="nav-link submenu-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#submenu-monit" href="#" role="button" aria-expanded="false">
+          <i class="fas fa-chart-line me-2"></i>Monitoraggio
+          <i class="fas fa-chevron-right rotate-icon ms-auto"></i>
+        </a>
+        <ul class="nav flex-column collapse" id="submenu-monit" data-bs-parent="#clinical-menu">
+          <li class="nav-item">
+            <a href="#" class="nav-link ms-3" data-target="ipos-home">IPOS</a>
+          </li>
+        </ul>
+      </li>
+
       <li class="nav-item">
         <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#medico-modal-home">
           <i class="fas fa-user-md me-2"></i>Dati Medico
@@ -186,6 +242,24 @@
 
     <!-- SEZIONE Identificazione -->
     <?php include __DIR__ . '/identificazione.php'; ?>
+
+    <!-- SEZIONE NECPAL 4.0 -->
+    <?php include __DIR__ . '/strumenti-necpal4.php'; ?>
+
+    <!-- SEZIONE SPICT -->
+    <?php include __DIR__ . '/strumenti-spict.php'; ?>
+
+    <!-- SEZIONE IDC-PAL -->
+    <?php include __DIR__ . '/strumenti-idcpal.php'; ?>
+
+    <!-- SEZIONE PPS -->
+    <?php include __DIR__ . '/strumenti-pps.php'; ?>
+
+    <!-- SEZIONE PPI -->
+    <?php include __DIR__ . '/strumenti-ppi.php'; ?>
+
+    <!-- SEZIONE IPOS -->
+    <?php include __DIR__ . '/strumenti-ipos.php'; ?>
   </div>
 </div>
 
