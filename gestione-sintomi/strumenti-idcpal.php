@@ -6,11 +6,15 @@
     <h5 class="mb-3"><i class="fas fa-layer-group me-2"></i>IDC-PAL</h5>
     <form id="idcpal-form">
       <div class="row g-3 mb-3">
-        <div class="col-md-6">
+        <div class="col-md-4">
           <label class="form-label">Nome e Cognome</label>
-          <input type="text" id="idcpal-nome" class="form-control">
+          <input type="text" id="idcpal-nome" class="form-control" readonly>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
+          <label class="form-label">Data di nascita</label>
+          <input type="date" id="idcpal-nascita" class="form-control" readonly>
+        </div>
+        <div class="col-md-4">
           <label class="form-label">Data compilazione</label>
           <input type="date" id="idcpal-data" class="form-control" value="<?php echo date('Y-m-d'); ?>">
         </div>
@@ -69,7 +73,7 @@ $sec3_2 = [
   foreach($list as $i=>$it){
     $id='idcpal-'.str_replace(['.',' '],'',$it[0]);
     $badge=$it[2]=='AC'? 'bg-danger' : 'bg-warning text-dark';
-    echo "<div class='form-check mb-2' data-bs-toggle='tooltip' data-bs-title='".htmlspecialchars($it[3])."'>";
+    echo "<div class='form-check mb-2' data-bs-toggle='tooltip' data-bs-trigger='hover' data-bs-title='".htmlspecialchars($it[3])."'>";
     echo "<input class='form-check-input idcpal-check' type='checkbox' id='$id' data-class='{$it[2]}' data-label='{$it[0]} - {$it[1]}'>";
     echo "<label class='form-check-label' for='$id'><span class='fw-bold'>{$it[0]}</span> – {$it[1]} <span class='badge $badge ms-2'>{$it[2]}</span></label>";
     echo "</div>";
@@ -148,6 +152,7 @@ $sec3_2 = [
 </section>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
+  let sceltaManuale=false;
   function updateCounts(){
     let c=0, ac=0;
     document.querySelectorAll('#idcpal-home .idcpal-check').forEach(cb=>{
@@ -155,9 +160,17 @@ document.addEventListener('DOMContentLoaded',function(){
     });
     document.getElementById('idcpal-count-c').textContent=c+' C';
     document.getElementById('idcpal-count-ac').textContent=ac+' AC';
+    if(!sceltaManuale){
+      if(ac>0) document.getElementById('idcpal-esito3').checked=true;
+      else if(c>0) document.getElementById('idcpal-esito2').checked=true;
+      else document.getElementById('idcpal-esito1').checked=true;
+    }
   }
   document.querySelectorAll('#idcpal-home .idcpal-check').forEach(cb=>{
     cb.addEventListener('change',updateCounts);
+  });
+  document.querySelectorAll('input[name="idcpal-esito"]').forEach(r=>{
+    r.addEventListener('change',()=>{sceltaManuale=true;});
   });
   updateCounts();
   const btn=document.getElementById('idcpal-genera');

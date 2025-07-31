@@ -482,7 +482,9 @@ document.addEventListener("DOMContentLoaded", function() {
   if (name4) name4.value = pazienteData.nome || '';
   if (date4) date4.value = pazienteData.dataNascita || '';
   const nameIdc = document.getElementById('idcpal-nome');
+  const nascIdc = document.getElementById('idcpal-nascita');
   if (nameIdc) nameIdc.value = pazienteData.nome || '';
+  if (nascIdc) nascIdc.value = pazienteData.dataNascita || '';
 }
   updatePazienteFields();
 
