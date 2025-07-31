@@ -59,25 +59,62 @@
       <li class="nav-item mb-2">
         <span class="nav-link text-white-50">Strumenti Clinici</span>
       </li>
-      <li class="nav-item mb-2 ms-3">
-        <a href="#" class="nav-link" data-target="identificazione-home">
+
+      <li class="nav-item mb-2">
+        <a class="nav-link submenu-toggle collapsed" data-bs-toggle="collapse" href="#submenu-ident" role="button" aria-expanded="false">
           <i class="fas fa-id-card me-2"></i>Identificazione
+          <i class="fas fa-chevron-right rotate-icon ms-auto"></i>
         </a>
+        <ul class="nav flex-column collapse" id="submenu-ident">
+          <li class="nav-item">
+            <a href="#" class="nav-link ms-3" data-target="identificazione-home">NECPAL 3.0</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link ms-3" data-target="necpal4-home">NECPAL 4.0</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link ms-3" data-target="spict-home">SPICT</a>
+          </li>
+        </ul>
       </li>
-      <li class="nav-item mb-2 ms-3">
-        <a href="#" class="nav-link" data-target="complessita-home">
+
+      <li class="nav-item mb-2">
+        <a class="nav-link submenu-toggle collapsed" data-bs-toggle="collapse" href="#submenu-compl" role="button" aria-expanded="false">
           <i class="fas fa-layer-group me-2"></i>Complessità
+          <i class="fas fa-chevron-right rotate-icon ms-auto"></i>
         </a>
+        <ul class="nav flex-column collapse" id="submenu-compl">
+          <li class="nav-item">
+            <a href="#" class="nav-link ms-3" data-target="idcpal-home">IDC-PAL</a>
+          </li>
+        </ul>
       </li>
-      <li class="nav-item mb-2 ms-3">
-        <a href="#" class="nav-link" data-target="prognosi-home">
+
+      <li class="nav-item mb-2">
+        <a class="nav-link submenu-toggle collapsed" data-bs-toggle="collapse" href="#submenu-prog" role="button" aria-expanded="false">
           <i class="fas fa-hourglass-half me-2"></i>Prognosi
+          <i class="fas fa-chevron-right rotate-icon ms-auto"></i>
         </a>
+        <ul class="nav flex-column collapse" id="submenu-prog">
+          <li class="nav-item">
+            <a href="#" class="nav-link ms-3" data-target="pps-home">PPS</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link ms-3" data-target="ppi-home">PPI</a>
+          </li>
+        </ul>
       </li>
-      <li class="nav-item mb-2 ms-3">
-        <a href="#" class="nav-link" data-target="monitoraggio-home">
+
+      <li class="nav-item mb-2">
+        <a class="nav-link submenu-toggle collapsed" data-bs-toggle="collapse" href="#submenu-monit" role="button" aria-expanded="false">
           <i class="fas fa-chart-line me-2"></i>Monitoraggio
+          <i class="fas fa-chevron-right rotate-icon ms-auto"></i>
         </a>
+        <ul class="nav flex-column collapse" id="submenu-monit">
+          <li class="nav-item">
+            <a href="#" class="nav-link ms-3" data-target="ipos-home">IPOS</a>
+          </li>
+        </ul>
       </li>
 
       <li class="nav-item">
@@ -206,14 +243,23 @@
     <!-- SEZIONE Identificazione -->
     <?php include __DIR__ . '/identificazione.php'; ?>
 
-    <!-- SEZIONE Complessità -->
-    <?php include __DIR__ . '/strumenti-complessita.php'; ?>
+    <!-- SEZIONE NECPAL 4.0 -->
+    <?php include __DIR__ . '/strumenti-necpal4.php'; ?>
 
-    <!-- SEZIONE Prognosi -->
-    <?php include __DIR__ . '/strumenti-prognosi.php'; ?>
+    <!-- SEZIONE SPICT -->
+    <?php include __DIR__ . '/strumenti-spict.php'; ?>
 
-    <!-- SEZIONE Monitoraggio -->
-    <?php include __DIR__ . '/strumenti-monitoraggio.php'; ?>
+    <!-- SEZIONE IDC-PAL -->
+    <?php include __DIR__ . '/strumenti-idcpal.php'; ?>
+
+    <!-- SEZIONE PPS -->
+    <?php include __DIR__ . '/strumenti-pps.php'; ?>
+
+    <!-- SEZIONE PPI -->
+    <?php include __DIR__ . '/strumenti-ppi.php'; ?>
+
+    <!-- SEZIONE IPOS -->
+    <?php include __DIR__ . '/strumenti-ipos.php'; ?>
   </div>
 </div>
 

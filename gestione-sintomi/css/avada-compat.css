@@ -177,6 +177,17 @@ p {
     border-radius: 50%;
 }
 
+.submenu-toggle {
+    display: flex;
+    align-items: center;
+}
+.rotate-icon {
+    transition: transform 0.2s;
+}
+.submenu-toggle:not(.collapsed) .rotate-icon {
+    transform: rotate(90deg);
+}
+
 @media (max-width: 768px) {
     .mobile-header {
         display: flex;

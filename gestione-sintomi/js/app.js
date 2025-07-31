@@ -20,8 +20,9 @@ document.addEventListener("DOMContentLoaded", function() {
       e.preventDefault();
       const sections = [
         'dashboard-home','gestione-home','sedazione-home',
-        'identificazione-home','complessita-home','prognosi-home',
-        'monitoraggio-home','equianalgesia-section','rescue-section'
+        'identificazione-home','necpal4-home','spict-home',
+        'idcpal-home','pps-home','ppi-home','ipos-home',
+        'equianalgesia-section','rescue-section'
       ];
       sections.forEach(id => {
         const sec = document.getElementById(id);
