@@ -100,56 +100,67 @@ $domande2=[
 $domanda9="Q9. Sono stati affrontati eventuali problemi pratici, personali o economici derivanti dalla malattia?";
 $scale=[0,1,2,3,4];
 ?>
-      <p class="fw-bold">Domande da Q3 a Q5: 0 = No, per niente – 1 = Raramente – 2 = Qualche volta – 3 = Per la maggior parte del tempo – 4 = Sempre</p>
+      <div class="mb-3">
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle">
+            <tbody>
+              <tr class="table-secondary"><th colspan="7">Domande da Q3 a Q5</th></tr>
+              <tr class="table-light">
+                <th></th>
+                <th class="text-center">0<br><small>No, per niente</small></th>
+                <th class="text-center">1<br><small>Raramente</small></th>
+                <th class="text-center">2<br><small>Qualche volta</small></th>
+                <th class="text-center">3<br><small>Per la maggior parte del tempo</small></th>
+                <th class="text-center">4<br><small>Sempre</small></th>
+                <th class="text-center nv-opt">5<br><small>Non valutabile</small></th>
+              </tr>
 <?php foreach($domande1 as $key=>$text): ?>
-      <div class="mb-3">
-        <label class="form-label" data-int="<?php echo $text; ?>"><?php echo $text; ?></label>
-        <div>
-          <?php foreach($scale as $v): ?>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="q<?php echo $key; ?>" value="<?php echo $v; ?>" required>
-            <label class="form-check-label"><?php echo $v; ?></label>
-          </div>
-          <?php endforeach; ?>
-          <div class="form-check form-check-inline nv-opt">
-            <input class="form-check-input" type="radio" name="q<?php echo $key; ?>" value="5">
-            <label class="form-check-label">Non valutabile</label>
-          </div>
-        </div>
-      </div>
+              <tr>
+                <td data-int="<?php echo $text; ?>"><?php echo str_replace('{INT}','negli ultimi 3 giorni',$text); ?></td>
+<?php for($v=0;$v<=4;$v++): ?>
+                <td class="text-center"><input type="radio" name="q<?php echo $key; ?>" value="<?php echo $v; ?>" required></td>
+<?php endfor; ?>
+                <td class="text-center nv-opt"><input type="radio" name="q<?php echo $key; ?>" value="5"></td>
+              </tr>
 <?php endforeach; ?>
-      <p class="fw-bold">Domande da Q6 a Q8: 0 = Sempre – 1 = Per la maggior parte del tempo – 2 = Qualche volta – 3 = Raramente – 4 = No, per niente</p>
+              <tr class="table-secondary"><th colspan="7">Domande da Q6 a Q8</th></tr>
+              <tr class="table-light">
+                <th></th>
+                <th class="text-center">0<br><small>Sempre</small></th>
+                <th class="text-center">1<br><small>Per la maggior parte del tempo</small></th>
+                <th class="text-center">2<br><small>Qualche volta</small></th>
+                <th class="text-center">3<br><small>Raramente</small></th>
+                <th class="text-center">4<br><small>No, per niente</small></th>
+                <th class="text-center nv-opt">5<br><small>Non valutabile</small></th>
+              </tr>
 <?php foreach($domande2 as $key=>$text): ?>
-      <div class="mb-3">
-        <label class="form-label" data-int="<?php echo $text; ?>"><?php echo $text; ?></label>
-        <div>
-          <?php foreach($scale as $v): ?>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="q<?php echo $key; ?>" value="<?php echo $v; ?>" required>
-            <label class="form-check-label"><?php echo $v; ?></label>
-          </div>
-          <?php endforeach; ?>
-          <div class="form-check form-check-inline nv-opt">
-            <input class="form-check-input" type="radio" name="q<?php echo $key; ?>" value="5">
-            <label class="form-check-label">Non valutabile</label>
-          </div>
-        </div>
-      </div>
+              <tr>
+                <td data-int="<?php echo $text; ?>"><?php echo str_replace('{INT}','negli ultimi 3 giorni',$text); ?></td>
+<?php for($v=0;$v<=4;$v++): ?>
+                <td class="text-center"><input type="radio" name="q<?php echo $key; ?>" value="<?php echo $v; ?>" required></td>
+<?php endfor; ?>
+                <td class="text-center nv-opt"><input type="radio" name="q<?php echo $key; ?>" value="5"></td>
+              </tr>
 <?php endforeach; ?>
-      <p class="fw-bold">Significato dei punteggi per Q9: 0 = Problemi affrontati/Assenza di problemi – 1 = Problemi in maggior parte affrontati – 2 = Problemi parzialmente affrontati – 3 = Problemi affrontati in minima parte – 4 = Problemi non affrontati</p>
-      <div class="mb-3">
-        <label class="form-label" data-int="<?php echo $domanda9; ?>"><?php echo $domanda9; ?></label>
-        <div>
-          <?php foreach($scale as $v): ?>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="q9" value="<?php echo $v; ?>" required>
-            <label class="form-check-label"><?php echo $v; ?></label>
-          </div>
-          <?php endforeach; ?>
-          <div class="form-check form-check-inline nv-opt">
-            <input class="form-check-input" type="radio" name="q9" value="5">
-            <label class="form-check-label">Non valutabile</label>
-          </div>
+              <tr class="table-secondary"><th colspan="7">Domanda Q9</th></tr>
+              <tr class="table-light">
+                <th></th>
+                <th class="text-center">0<br><small>Problemi affrontati/Assenza di problemi</small></th>
+                <th class="text-center">1<br><small>Problemi in maggior parte affrontati</small></th>
+                <th class="text-center">2<br><small>Problemi parzialmente affrontati</small></th>
+                <th class="text-center">3<br><small>Problemi affrontati in minima parte</small></th>
+                <th class="text-center">4<br><small>Problemi non affrontati</small></th>
+                <th class="text-center nv-opt">5<br><small>Non valutabile</small></th>
+              </tr>
+              <tr>
+                <td data-int="<?php echo $domanda9; ?>"><?php echo str_replace('{INT}','negli ultimi 3 giorni',$domanda9); ?></td>
+<?php for($v=0;$v<=4;$v++): ?>
+                <td class="text-center"><input type="radio" name="q9" value="<?php echo $v; ?>" required></td>
+<?php endfor; ?>
+                <td class="text-center nv-opt"><input type="radio" name="q9" value="5"></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
       <div class="mb-3 q10-only">
