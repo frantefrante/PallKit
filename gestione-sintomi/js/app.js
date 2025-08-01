@@ -485,6 +485,12 @@ document.addEventListener("DOMContentLoaded", function() {
   const nascIdc = document.getElementById('idcpal-nascita');
   if (nameIdc) nameIdc.value = pazienteData.nome || '';
   if (nascIdc) nascIdc.value = pazienteData.dataNascita || '';
+  const nameIpos = document.getElementById('ipos-nome');
+  const nascIpos = document.getElementById('ipos-nascita');
+  const cfIpos   = document.getElementById('ipos-id');
+  if (nameIpos) nameIpos.value = pazienteData.nome || '';
+  if (nascIpos) nascIpos.value = pazienteData.dataNascita || '';
+  if (cfIpos)   cfIpos.value   = pazienteData.codFiscale || '';
 }
   updatePazienteFields();
 
