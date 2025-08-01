@@ -8,6 +8,7 @@ function ensureTable(PDO $pdo): void {
         id INT AUTO_INCREMENT PRIMARY KEY,
         nome_paziente VARCHAR(255) NOT NULL,
         id_paziente VARCHAR(100) NOT NULL,
+        data_nascita DATE NOT NULL,
         data_compilazione DATE NOT NULL,
         compilatore ENUM('paziente','staff') NOT NULL,
         intervallo ENUM('3','7') NOT NULL,
@@ -39,6 +40,7 @@ function sanitize(string $str): string {
 
 $nome     = $_POST['nome'] ?? '';
 $idpaz    = $_POST['id_paziente'] ?? '';
+$nascita  = $_POST['data_nascita'] ?? '';
 $data     = $_POST['data_compilazione'] ?? '';
 $compil   = $_POST['compilatore'] ?? '';
 $interv   = $_POST['intervallo'] ?? '';
@@ -56,6 +58,7 @@ $q10      = $_POST['q10'] ?? null;
 $errors = [];
 if (!$nome)     $errors[] = 'Nome paziente mancante';
 if (!$idpaz)    $errors[] = 'ID paziente mancante';
+if (!$nascita)  $errors[] = 'Data nascita mancante';
 if (!$data)     $errors[] = 'Data compilazione mancante';
 if (!in_array($compil, ['paziente','staff'], true)) $errors[] = 'Compilatore non valido';
 if (!in_array($interv, ['3','7'], true)) $errors[] = 'Intervallo non valido';
@@ -86,13 +89,14 @@ try {
     ensureTable($pdo);
     $stmt = $pdo->prepare(<<<SQL
         INSERT INTO ipos_submissions
-        (nome_paziente,id_paziente,data_compilazione,compilatore,intervallo,q1,q2,q3,q4,q5,q6,q7,q8,q9,q10,punteggio_totale)
+        (nome_paziente,id_paziente,data_nascita,data_compilazione,compilatore,intervallo,q1,q2,q3,q4,q5,q6,q7,q8,q9,q10,punteggio_totale)
         VALUES
-        (:nome,:idp,:data,:comp,:intv,:q1,:q2,:q3,:q4,:q5,:q6,:q7,:q8,:q9,:q10,:tot)
+        (:nome,:idp,:nasc,:data,:comp,:intv,:q1,:q2,:q3,:q4,:q5,:q6,:q7,:q8,:q9,:q10,:tot)
     SQL);
     $stmt->execute([
         ':nome' => $nome,
         ':idp'  => $idpaz,
+        ':nasc' => $nascita,
         ':data' => $data,
         ':comp' => $compil,
         ':intv' => $interv,

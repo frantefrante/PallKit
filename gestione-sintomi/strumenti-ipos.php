@@ -4,19 +4,20 @@
   <div class="bg-white p-4 rounded shadow-sm">
     <h5 class="mb-3"><i class="fas fa-chart-line me-2"></i>IPOS</h5>
     <form id="ipos-form" action="process-ipos.php" method="post">
-      <div class="row g-3">
+      <div class="row g-3 mb-3">
         <div class="col-md-4">
-          <label class="form-label">Nome paziente</label>
-          <input type="text" name="nome" class="form-control" required>
+          <label class="form-label">Nome e Cognome</label>
+          <input type="text" id="ipos-nome" name="nome" class="form-control" readonly>
         </div>
         <div class="col-md-4">
-          <label class="form-label">ID paziente</label>
-          <input type="text" name="id_paziente" class="form-control" required>
+          <label class="form-label">Data di nascita</label>
+          <input type="date" id="ipos-nascita" name="data_nascita" class="form-control" readonly>
         </div>
         <div class="col-md-4">
           <label class="form-label">Data compilazione</label>
-          <input type="date" name="data_compilazione" class="form-control" value="<?php echo date('Y-m-d'); ?>" required>
+          <input type="date" id="ipos-data" name="data_compilazione" class="form-control" value="<?php echo date('Y-m-d'); ?>">
         </div>
+        <input type="hidden" id="ipos-id" name="id_paziente">
       </div>
       <div class="row g-3 mt-3">
         <div class="col-md-6">
@@ -37,15 +38,23 @@
 
       <hr class="my-4">
       <div class="mb-3">
-        <label class="form-label" data-int="Elenca le principali problematiche incontrate {INT}">Domanda 1</label>
+        <label class="form-label" data-int="Q1. Quali sono stati i suoi problemi o le sue preoccupazioni più importanti {INT}?">Q1</label>
         <textarea name="q1" class="form-control" rows="2" required></textarea>
       </div>
       <div class="mb-3">
-        <label class="form-label" data-int="Indica l'intensità dei seguenti sintomi {INT}">Domanda 2</label>
+        <label class="form-label" data-int="Q2. A seguire troverà una lista di sintomi. Indichi quanto ciascun sintomo l'ha disturbata {INT} (in caso di fluttuazioni segni un valore medio)">Q2</label>
         <div class="table-responsive">
           <table class="table table-bordered align-middle">
             <thead>
-              <tr><th>Sintomo</th><th colspan="6" class="text-center">Intensità</th></tr>
+              <tr>
+                <th>Sintomo</th>
+                <th class="text-center">0<br><small>No, per niente</small></th>
+                <th class="text-center">1<br><small>Leggermente</small></th>
+                <th class="text-center">2<br><small>Moderatamente</small></th>
+                <th class="text-center">3<br><small>In modo severo</small></th>
+                <th class="text-center">4<br><small>In modo intollerabile</small></th>
+                <th class="text-center nv-opt">5<br><small>Non valutabile</small></th>
+              </tr>
             </thead>
             <tbody>
 <?php
@@ -74,19 +83,19 @@ foreach($sintomi as $i=>$s):?>
       </div>
 <?php
 $domande=[
-  3=>"Quanto ti sei sentito ansioso o preoccupato {INT}?",
-  4=>"Quanto ti sei sentito depresso {INT}?",
-  5=>"Quanto familiari o caregiver sono stati preoccupati per te {INT}?",
-  6=>"Ti sei sentito in pace con te stesso {INT}?",
-  7=>"Hai condiviso i tuoi stati d'animo con i tuoi cari {INT}?",
-  8=>"Hai ricevuto tutte le informazioni che desideravi {INT}?",
-  9=>"Eventuali problemi pratici o economici sono stati affrontati?" ,
+  3=>"Q3. Si è sentito in ansia o preoccupato per la Sua malattia o per le terapie {INT}?",
+  4=>"Q4. Qualcuno dei suoi cari è stato in ansia o preoccupato per Lei {INT}?",
+  5=>"Q5. Si è sentito depresso {INT}?",
+  6=>"Q6. Si è sentito in pace con sé stesso {INT}?",
+  7=>"Q7. Ha potuto condividere i Suoi stati d’animo con i suoi cari nel modo che desiderava {INT}?",
+  8=>"Q8. Ha ricevuto tutte le informazioni che desiderava {INT}?",
+  9=>"Q9. Sono stati affrontati eventuali problemi pratici, personali o economici derivanti dalla malattia?",
 ];
 $scale=[0,1,2,3,4];
 ?>
 <?php for($q=3;$q<=9;$q++): ?>
       <div class="mb-3">
-        <label class="form-label" data-int="<?php echo $domande[$q]; ?>">Domanda <?php echo $q; ?></label>
+        <label class="form-label" data-int="<?php echo $domande[$q]; ?>"><?php echo $domande[$q]; ?></label>
         <div>
           <?php foreach($scale as $v): ?>
           <div class="form-check form-check-inline">
@@ -102,7 +111,7 @@ $scale=[0,1,2,3,4];
       </div>
 <?php endfor; ?>
       <div class="mb-3 q10-only">
-        <label class="form-label">Come è stato compilato il questionario?</label>
+        <label class="form-label">Q10. Come ha completato il questionario?</label>
         <div class="form-check">
           <input class="form-check-input" type="radio" name="q10" value="solo" required>
           <label class="form-check-label">Da solo</label>
