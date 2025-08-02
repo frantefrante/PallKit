@@ -6,6 +6,10 @@
     const form        = document.getElementById('ipos-form');
     const riepilogo   = document.getElementById('ipos-riepilogo');
     const summaryBox  = document.getElementById('ipos-summary');
+    const useTest     = document.getElementById('ipos-use-test');
+    const nomeField   = document.getElementById('ipos-nome');
+    const nascitaField= document.getElementById('ipos-nascita');
+    const idField     = document.getElementById('ipos-id');
 
     function updateTexts(){
       const days = intervallo.value === '3' ? 'negli ultimi 3 giorni' : 'nell\'ultima settimana';
@@ -28,6 +32,22 @@
     if(compilatore) compilatore.addEventListener('change', updateTexts);
     if(intervallo) intervallo.addEventListener('change', updateTexts);
     updateTexts();
+
+    function toggleTest(){
+      if(useTest && useTest.checked){
+        if(nomeField)    nomeField.value    = 'Mario Rossi';
+        if(nascitaField) nascitaField.value = '1945-06-04';
+        if(idField)      idField.value      = 'RSSMRA45T22D612H';
+      } else {
+        if(nomeField)    nomeField.value    = '';
+        if(nascitaField) nascitaField.value = '';
+        if(idField)      idField.value      = '';
+      }
+    }
+    if(useTest){
+      useTest.addEventListener('change', toggleTest);
+      toggleTest();
+    }
 
     const btnRiep = document.getElementById('btn-riepilogo');
     if(btnRiep){
