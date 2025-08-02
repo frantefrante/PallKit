@@ -199,7 +199,8 @@ $scale=[0,1,2,3,4];
 require_once __DIR__ . '/config.php';
 try {
   $pdo = getPDO();
-  $stmt = $pdo->query("SELECT * FROM ipos_submissions ORDER BY data_compilazione DESC");
+  $stmt = $pdo->prepare("SELECT * FROM ipos_submissions WHERE id_paziente <> 'TEST' ORDER BY data_compilazione DESC");
+  $stmt->execute();
   $rows = $stmt->fetchAll();
 } catch (Exception $e) {
   $rows = [];
