@@ -7,7 +7,7 @@
 <section id="identificazione-home" class="p-4" style="display:none;">
   <div class="bg-white p-4 rounded shadow-sm">
     <h5 class="mb-3"><i class="fas fa-id-card me-2"></i>Modulo Identificazione (NECPAL)</h5>
-    <form id="necpal-form" action="process-necpal.php" method="post">
+    <form id="necpal-form" class="local-save" data-tipo="NECPAL" action="#" method="post">
       <!-- Data compilazione -->
       <div class="mb-3">
         <label for="date-1" class="form-label">Data compilazione <span class="text-danger">*</span></label>
