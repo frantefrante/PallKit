@@ -143,6 +143,14 @@
       <div id="documenti-container" class="dashboard-cards mb-4"></div>
       <h5 class="mt-4 mb-3">Sedazione Palliativa</h5>
       <div id="documenti-sedazione" class="dashboard-cards"></div>
+
+      <h5 class="mt-4 mb-3">Archivio Locale</h5>
+      <div class="table-responsive">
+        <table class="table table-sm" id="archivio-table">
+          <thead><tr><th>Data</th><th>Tipo</th><th>Visualizza</th><th>Stampa</th><th>Cancella</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
     </div>
 
     <!-- SEZIONE Gestione Sintomi -->
@@ -382,6 +390,23 @@
   </div>
 </div>
 
+<!-- Modale: Visualizza Scheda -->
+<div class="modal fade" id="scheda-modal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="scheda-title"></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body" id="scheda-contenuto"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="scheda-stampa">Stampa</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Chiudi</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Modale: Dati Medico -->
 <div class="modal fade" id="medico-modal-home" tabindex="-1">
   <div class="modal-dialog modal-lg">
@@ -563,6 +588,7 @@
 <script src="/js/sedazione.data.js"></script>
 <script src="/js/sedazione.js"></script>
 <script src="/js/documents.js"></script>
+<script src="/js/archivio.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     const d = document.getElementById("today-date-home");

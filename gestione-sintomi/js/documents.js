@@ -59,6 +59,7 @@ document.addEventListener('DOMContentLoaded', function () {
     docs.forEach((doc, idx) => {
       const card = document.createElement('div');
       card.className = 'doc-card';
+      const label = doc.type === 'ipos' ? 'Stampa' : 'Scarica PDF';
       card.innerHTML = `
         <button class="delete-btn" data-index="${idx}">&times;</button>
         <div class="doc-type">${doc.title}</div>
@@ -66,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function () {
         <div class="doc-desc">${doc.desc}</div>
         <div class="card-actions">
           <button class="view-btn" data-index="${idx}">Visualizza</button>
-          <button class="pdf-btn" data-index="${idx}">Scarica PDF</button>
+          <button class="pdf-btn" data-index="${idx}">${label}</button>
         </div>`;
       el.appendChild(card);
     });
@@ -143,6 +144,18 @@ document.addEventListener('DOMContentLoaded', function () {
           });
         } else if (window.downloadIdcpalPdf) {
           window.downloadIdcpalPdf();
+        }
+        break;
+      case 'ipos':
+        if (doc.html) {
+          if (window.printHtml) {
+            window.printHtml(doc.html);
+          } else {
+            const w = window.open('', '_blank');
+            w.document.write(doc.html);
+            w.document.close();
+            w.print();
+          }
         }
         break;
       default:

@@ -4,7 +4,7 @@
 <section id="necpal4-home" class="p-4" style="display:none;">
   <div class="bg-white p-4 rounded shadow-sm">
     <h5 class="mb-3"><i class="fas fa-id-card me-2"></i>NECPAL 4.0</h5>
-    <form id="necpal4-form" action="process-necpal4.php" method="post">
+    <form id="necpal4-form" class="local-save" data-tipo="NECPAL" action="#" method="post">
       <div class="mb-3">
         <label class="form-label">Data compilazione</label>
         <input type="date" id="necpal4-data" name="date_1" class="form-control" value="<?php echo date('Y-m-d'); ?>">

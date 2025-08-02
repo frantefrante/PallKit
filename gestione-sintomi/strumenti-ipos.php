@@ -5,7 +5,7 @@
     <h5 class="mb-0"><i class="fas fa-chart-line me-2"></i>IPOS</h5>
     <a href="#" class="small text-decoration-underline float-end" data-bs-toggle="modal" data-bs-target="#guida-ipos-modal">Guida alla compilazione</a>
     <hr>
-    <form id="ipos-form" action="process-ipos.php" method="post">
+    <form id="ipos-form" class="local-save" data-tipo="IPOS" action="#" method="post">
       <div class="row g-3 mb-3">
         <div class="col-md-4">
           <label class="form-label">Nome e Cognome</label>
@@ -180,39 +180,17 @@ $scale=[0,1,2,3,4];
       </div>
       <p class="fst-italic">Se si sente preoccupato per qualsiasi aspetto sollevato dal questionario per favore si senta libero di parlarne con il suo medico o infermiere.</p>
       <div class="d-grid mb-3">
-        <button id="btn-riepilogo" class="btn btn-secondary">Riepilogo</button>
-      </div>
-      <div id="ipos-riepilogo" style="display:none;" class="mb-3">
-        <h6 class="mb-2">Controlla i dati inseriti:</h6>
-        <div id="ipos-summary" class="mb-2"></div>
-        <button type="submit" class="btn btn-primary">Conferma e Invia</button>
+        <button type="submit" class="btn btn-primary">
+          <i class="fas fa-save me-2"></i>Salva IPOS
+        </button>
       </div>
     </form>
 
-    <hr>
-    <h6 class="mt-4">Compilazioni recenti</h6>
-<?php
-require_once __DIR__ . '/config.php';
-try {
-  $pdo = getPDO();
-  $stmt = $pdo->query("SELECT * FROM ipos_submissions ORDER BY data_compilazione DESC");
-  $rows = $stmt->fetchAll();
-} catch (Exception $e) {
-  $rows = [];
-}
-if($rows): ?>
-    <div class="table-responsive mb-4">
-      <table class="table table-sm">
-        <thead><tr><th>Nome</th><th>ID Paziente</th><th>Data</th><th>Punteggio</th></tr></thead>
-        <tbody>
-<?php foreach($rows as $r): ?>
-          <tr><td><?php echo htmlspecialchars($r['nome_paziente']); ?></td><td><?php echo htmlspecialchars($r['id_paziente']); ?></td><td><?php echo htmlspecialchars($r['data_compilazione']); ?></td><td><?php echo $r['punteggio_totale']; ?></td></tr>
-<?php endforeach; ?>
-        </tbody>
-      </table>
+    <div class="mb-3">
+      <button type="button" class="btn btn-secondary me-2" id="ipos-view-last">Visualizza</button>
+      <button type="button" class="btn btn-secondary" id="ipos-print-last">Stampa</button>
     </div>
-<?php endif; ?>
-    <canvas id="ipos-chart" height="200"></canvas>
+
     <div class="modal fade" id="guida-ipos-modal" tabindex="-1">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -234,15 +212,4 @@ if($rows): ?>
     </div>
   </div>
 </section>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="js/ipos.js"></script>
-<script>
-(function(){
-  const data = <?php echo json_encode($rows ?? []); ?>;
-  if(!data.length) return;
-  const ctx = document.getElementById('ipos-chart').getContext('2d');
-  const labels = data.map(r=>r.data_compilazione);
-  const scores = data.map(r=>parseInt(r.punteggio_totale,10));
-  new Chart(ctx,{type:'line',data:{labels:labels,datasets:[{label:'Punteggio IPOS',data:scores,fill:false,borderColor:'blue'}]}});
-})();
-</script>
