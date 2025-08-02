@@ -1,5 +1,6 @@
 (function(){
-  document.addEventListener('DOMContentLoaded',function(){
+  // Inizializza la pagina IPOS
+  function init(){
     const compilatore = document.getElementById('ipos-compilatore');
     const intervallo  = document.getElementById('ipos-intervallo');
     const form        = document.getElementById('ipos-form');
@@ -43,5 +44,11 @@
         window.scrollTo({top: riepilogo.offsetTop-20, behavior:'smooth'});
       });
     }
-  });
+  }
+
+  if (document.readyState !== 'loading') {
+    init();
+  } else {
+    document.addEventListener('DOMContentLoaded', init);
+  }
 })();
