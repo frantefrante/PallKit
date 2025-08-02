@@ -6,6 +6,10 @@
     <a href="#" class="small text-decoration-underline float-end" data-bs-toggle="modal" data-bs-target="#guida-ipos-modal">Guida alla compilazione</a>
     <hr>
     <form id="ipos-form" action="process-ipos.php" method="post">
+      <div class="form-check form-switch mb-3">
+        <input class="form-check-input" type="checkbox" id="ipos-test">
+        <label class="form-check-label" for="ipos-test">Compilazione di test</label>
+      </div>
       <div class="row g-3 mb-3">
         <div class="col-md-4">
           <label class="form-label">Nome e Cognome</label>
@@ -212,7 +216,6 @@ if($rows): ?>
       </table>
     </div>
 <?php endif; ?>
-    <canvas id="ipos-chart" height="200"></canvas>
     <div class="modal fade" id="guida-ipos-modal" tabindex="-1">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -234,15 +237,4 @@ if($rows): ?>
     </div>
   </div>
 </section>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="js/ipos.js"></script>
-<script>
-(function(){
-  const data = <?php echo json_encode($rows ?? []); ?>;
-  if(!data.length) return;
-  const ctx = document.getElementById('ipos-chart').getContext('2d');
-  const labels = data.map(r=>r.data_compilazione);
-  const scores = data.map(r=>parseInt(r.punteggio_totale,10));
-  new Chart(ctx,{type:'line',data:{labels:labels,datasets:[{label:'Punteggio IPOS',data:scores,fill:false,borderColor:'blue'}]}});
-})();
-</script>
