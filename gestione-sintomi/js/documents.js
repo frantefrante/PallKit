@@ -148,10 +148,14 @@ document.addEventListener('DOMContentLoaded', function () {
         break;
       case 'ipos':
         if (doc.html) {
-          const w = window.open('', '_blank');
-          w.document.write(doc.html);
-          w.document.close();
-          w.print();
+          if (window.printHtml) {
+            window.printHtml(doc.html);
+          } else {
+            const w = window.open('', '_blank');
+            w.document.write(doc.html);
+            w.document.close();
+            w.print();
+          }
         }
         break;
       default:

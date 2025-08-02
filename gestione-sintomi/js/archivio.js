@@ -4,6 +4,15 @@
 document.addEventListener('DOMContentLoaded', function(){
   const tbody = document.querySelector('#archivio-table tbody');
 
+  function printHtml(html){
+    const w = window.open('', '_blank');
+    w.document.write('<html><head><title>Stampa</title><style>body{font-family:Arial,sans-serif;font-size:12px;}table{width:100%;border-collapse:collapse;}th,td{border:1px solid #000;padding:4px;}@page{size:A4;margin:15mm;}@media print{table{page-break-inside:auto;}tr{page-break-inside:avoid;}}</style></head><body>');
+    w.document.write(html);
+    w.document.write('</body></html>');
+    w.document.close();
+    w.print();
+  }
+
   function getAllEntries(){
     const arr = [];
     for(let i=0;i<localStorage.length;i++){
@@ -20,6 +29,7 @@ document.addEventListener('DOMContentLoaded', function(){
   }
 
   function buildIposHtml(entry){
+    if(entry.html) return entry.html;
     const form = document.getElementById('ipos-form');
     if(!form) return '<p>Modulo IPOS non disponibile.</p>';
     const clone = form.cloneNode(true);
@@ -30,7 +40,10 @@ document.addEventListener('DOMContentLoaded', function(){
       const val = entry.contenuto[name];
       if(val !== undefined){
         if(el.type==='radio' || el.type==='checkbox'){
-          if(el.value == val) el.checked = true;
+          if(el.value == val){
+            el.checked = true;
+            el.setAttribute('checked','checked');
+          }
         }else{
           el.value = val;
         }
@@ -40,7 +53,10 @@ document.addEventListener('DOMContentLoaded', function(){
     clone.querySelectorAll('button').forEach(b=>b.remove());
     const dataStr = new Date(entry.timestamp).toLocaleString('it-IT');
     const tipo = `${entry.contenuto.compilatore} ${entry.contenuto.intervallo} giorni`;
-    return `<h3>IPOS</h3><p>Data: ${dataStr}<br>Tipo: ${tipo}</p>` + clone.outerHTML;
+    const wrapper = document.createElement('div');
+    wrapper.innerHTML = `<h3>IPOS</h3><p>Data: ${dataStr}<br>Tipo: ${tipo}</p>`;
+    wrapper.appendChild(clone);
+    return wrapper.innerHTML;
   }
 
   function render(){
@@ -61,10 +77,13 @@ document.addEventListener('DOMContentLoaded', function(){
       window.patientDocs = window.patientDocs.filter(d=>d.type !== 'ipos');
       const iposEntries = getAllEntries().filter(e=> e.tipo === 'IPOS');
       iposEntries.forEach(e=>{
+        if(!e.html){
+          e.html = buildIposHtml(e);
+          localStorage.setItem(e.key, JSON.stringify(e));
+        }
         const dataStr = new Date(e.timestamp).toLocaleDateString('it-IT');
         const desc = `${e.contenuto.compilatore} ${e.contenuto.intervallo} giorni`;
-        const html = buildIposHtml(e);
-        addPatientDoc({title:'IPOS', date:dataStr, desc:desc, type:'ipos', html:html});
+        addPatientDoc({title:'IPOS', date:dataStr, desc:desc, type:'ipos', html:e.html});
       });
     }
   }
@@ -103,12 +122,7 @@ document.addEventListener('DOMContentLoaded', function(){
       }
       html += '</ul>';
     }
-    const w = window.open('', '_blank');
-    w.document.write('<html><head><title>Stampa</title></head><body>');
-    w.document.write(html);
-    w.document.write('</body></html>');
-    w.document.close();
-    w.print();
+    printHtml(html);
   }
 
   document.addEventListener('click', function(e){
@@ -137,8 +151,9 @@ document.addEventListener('DOMContentLoaded', function(){
       const obj = {};
       fd.forEach((v,k)=>{ obj[k] = v; });
       const now = new Date().toISOString();
-      const data = { tipo: tipo.toUpperCase(), timestamp: now, contenuto: obj };
-      localStorage.setItem(tipo.toLowerCase() + '_' + now, JSON.stringify(data));
+      const entry = { tipo: tipo.toUpperCase(), timestamp: now, contenuto: obj };
+      entry.html = buildIposHtml(entry);
+      localStorage.setItem(tipo.toLowerCase() + '_' + now, JSON.stringify(entry));
       alert('Scheda salvata localmente');
       form.reset();
       render();
@@ -174,6 +189,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
   window.mostraScheda = mostraScheda;
   window.stampaScheda = stampaScheda;
+  window.printHtml = printHtml;
 
   render();
 });
