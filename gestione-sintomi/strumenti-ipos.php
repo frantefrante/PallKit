@@ -5,7 +5,7 @@
     <h5 class="mb-0"><i class="fas fa-chart-line me-2"></i>IPOS</h5>
     <a href="#" class="small text-decoration-underline float-end" data-bs-toggle="modal" data-bs-target="#guida-ipos-modal">Guida alla compilazione</a>
     <hr>
-    <form id="ipos-form" action="process-ipos.php" method="post">
+    <form id="ipos-form" action="process-ipos.php" method="post" autocomplete="off">
       <div class="form-check mb-3">
         <input class="form-check-input" type="checkbox" id="ipos-use-test">
         <label class="form-check-label" for="ipos-use-test">Compilazione di test</label>
@@ -13,11 +13,11 @@
       <div class="row g-3 mb-3">
         <div class="col-md-4">
           <label class="form-label">Nome e Cognome</label>
-          <input type="text" id="ipos-nome" name="nome" class="form-control" readonly>
+          <input type="text" id="ipos-nome" name="nome" class="form-control" autocomplete="off">
         </div>
         <div class="col-md-4">
           <label class="form-label">Data di nascita</label>
-          <input type="date" id="ipos-nascita" name="data_nascita" class="form-control" readonly>
+          <input type="date" id="ipos-nascita" name="data_nascita" class="form-control" autocomplete="off">
         </div>
         <div class="col-md-4">
           <label class="form-label">Data compilazione</label>

@@ -35,13 +35,29 @@
 
     function toggleTest(){
       if(useTest && useTest.checked){
-        if(nomeField)    nomeField.value    = 'Mario Rossi';
-        if(nascitaField) nascitaField.value = '1945-06-04';
-        if(idField)      idField.value      = 'RSSMRA45T22D612H';
+        if(nomeField){
+          nomeField.value = 'Mario Rossi';
+          nomeField.setAttribute('readonly', true);
+        }
+        if(nascitaField){
+          nascitaField.value = '1945-06-04';
+          nascitaField.setAttribute('readonly', true);
+        }
+        if(idField){
+          idField.value = 'RSSMRA45T22D612H';
+        }
       } else {
-        if(nomeField)    nomeField.value    = '';
-        if(nascitaField) nascitaField.value = '';
-        if(idField)      idField.value      = '';
+        if(nomeField){
+          nomeField.value = '';
+          nomeField.removeAttribute('readonly');
+        }
+        if(nascitaField){
+          nascitaField.value = '';
+          nascitaField.removeAttribute('readonly');
+        }
+        if(idField){
+          idField.value = '';
+        }
       }
     }
     if(useTest){
