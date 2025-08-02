@@ -17,7 +17,18 @@
         }
       });
       document.querySelectorAll('.q10-only').forEach(div=>{
-        div.style.display = compilatore.value === 'paziente' ? 'block' : 'none';
+        const show = compilatore.value === 'paziente';
+        div.style.display = show ? 'block' : 'none';
+        div.querySelectorAll('input').forEach((inp,i)=>{
+          if(show){
+            inp.disabled = false;
+            if(i===0) inp.required = true;
+          }else{
+            inp.disabled = true;
+            inp.required = false;
+            inp.checked = false;
+          }
+        });
       });
     }
     if(compilatore) compilatore.addEventListener('change', updateTexts);
