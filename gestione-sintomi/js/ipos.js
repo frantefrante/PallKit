@@ -5,6 +5,7 @@
     const form        = document.getElementById('ipos-form');
     const riepilogo   = document.getElementById('ipos-riepilogo');
     const summaryBox  = document.getElementById('ipos-summary');
+    const testBox     = document.getElementById('ipos-test');
 
     function updateTexts(){
       const days = intervallo.value === '3' ? 'negli ultimi 3 giorni' : 'nell\'ultima settimana';
@@ -41,6 +42,34 @@
         summaryBox.innerHTML = html;
         riepilogo.style.display = 'block';
         window.scrollTo({top: riepilogo.offsetTop-20, behavior:'smooth'});
+      });
+    }
+
+    function fillTest(){
+      const today = new Date().toISOString().slice(0,10);
+      document.getElementById('ipos-nome').value = 'Mario Rossi';
+      document.getElementById('ipos-nascita').value = '1970-01-01';
+      document.getElementById('ipos-data').value = today;
+      document.getElementById('ipos-id').value = 'TEST';
+      compilatore.value = 'paziente';
+      intervallo.value = '3';
+      form.querySelectorAll('textarea').forEach(t=>{t.value = 'Test';});
+      form.querySelectorAll('input[type=radio]').forEach(r=>{
+        if(r.value === '0') r.checked = true;
+      });
+      const q10 = form.querySelector('input[name="q10"][value="solo"]');
+      if(q10) q10.checked = true;
+      updateTexts();
+    }
+
+    if(testBox){
+      testBox.addEventListener('change', function(){
+        if(this.checked){
+          fillTest();
+        }else{
+          form.reset();
+          updateTexts();
+        }
       });
     }
   });

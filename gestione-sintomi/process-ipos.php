@@ -84,6 +84,16 @@ foreach ($nums as $n) {
     if ($val >=0 && $val <=4) $punteggio += $val;
 }
 
+if ($idpaz === 'TEST') {
+    if ($isAjax) {
+        header('Content-Type: application/json');
+        echo json_encode(['success' => true]);
+    } else {
+        header('Location: grazie.php');
+    }
+    exit;
+}
+
 try {
     $pdo = getPDO();
     ensureTable($pdo);
