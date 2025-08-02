@@ -187,6 +187,13 @@ $scale=[0,1,2,3,4];
         <div id="ipos-summary" class="mb-2"></div>
         <button type="submit" class="btn btn-primary">Conferma e Invia</button>
       </div>
+      <div id="ipos-result" class="mt-4" style="display:none;">
+        <div class="mb-2">
+          <button type="button" id="btn-view-ipos" class="btn btn-outline-secondary me-2">Visualizza</button>
+          <button type="button" id="btn-save-pdf-ipos" class="btn btn-success">Scarica PDF</button>
+        </div>
+        <div id="ipos-preview" class="mt-2" style="display:none;"></div>
+      </div>
     </form>
 
     <hr>

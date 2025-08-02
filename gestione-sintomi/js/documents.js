@@ -145,6 +145,9 @@ document.addEventListener('DOMContentLoaded', function () {
           window.downloadIdcpalPdf();
         }
         break;
+      case 'ipos':
+        if (doc.html) pdfFromHtml(doc.html, 'IPOS.pdf');
+        break;
       default:
         alert('Download non disponibile');
     }
