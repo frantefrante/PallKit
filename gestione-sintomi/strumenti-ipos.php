@@ -212,7 +212,6 @@ if($rows): ?>
       </table>
     </div>
 <?php endif; ?>
-    <canvas id="ipos-chart" height="200"></canvas>
     <div class="modal fade" id="guida-ipos-modal" tabindex="-1">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -234,15 +233,4 @@ if($rows): ?>
     </div>
   </div>
 </section>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="js/ipos.js"></script>
-<script>
-(function(){
-  const data = <?php echo json_encode($rows ?? []); ?>;
-  if(!data.length) return;
-  const ctx = document.getElementById('ipos-chart').getContext('2d');
-  const labels = data.map(r=>r.data_compilazione);
-  const scores = data.map(r=>parseInt(r.punteggio_totale,10));
-  new Chart(ctx,{type:'line',data:{labels:labels,datasets:[{label:'Punteggio IPOS',data:scores,fill:false,borderColor:'blue'}]}});
-})();
-</script>
