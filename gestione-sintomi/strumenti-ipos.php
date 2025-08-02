@@ -38,6 +38,11 @@
         </div>
       </div>
 
+      <div class="form-check mt-3">
+        <input class="form-check-input" type="checkbox" id="ipos-test-fill">
+        <label class="form-check-label" for="ipos-test-fill">Compila test</label>
+      </div>
+
       <hr class="my-4">
       <div class="mb-3">
         <label class="form-label" data-int="Q1. Quali sono stati i suoi problemi o le sue preoccupazioni più importanti {INT}?">Q1</label>

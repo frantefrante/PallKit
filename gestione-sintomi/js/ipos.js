@@ -5,6 +5,7 @@
     const form        = document.getElementById('ipos-form');
     const riepilogo   = document.getElementById('ipos-riepilogo');
     const summaryBox  = document.getElementById('ipos-summary');
+    const testFill    = document.getElementById('ipos-test-fill');
 
     function updateTexts(){
       const days = intervallo.value === '3' ? 'negli ultimi 3 giorni' : 'nell\'ultima settimana';
@@ -27,6 +28,31 @@
     if(compilatore) compilatore.addEventListener('change', updateTexts);
     if(intervallo) intervallo.addEventListener('change', updateTexts);
     updateTexts();
+
+    function fillTest(){
+      if(!form) return;
+      const today = new Date().toISOString().split('T')[0];
+      const set = (id,val)=>{ const el=document.getElementById(id); if(el) el.value=val; };
+      set('ipos-nome','Mario Rossi');
+      set('ipos-nascita','1970-01-01');
+      set('ipos-id','TEST123');
+      set('ipos-data',today);
+      if(compilatore) compilatore.value='paziente';
+      if(intervallo) intervallo.value='3';
+      updateTexts();
+      if(form.q1) form.q1.value='Test automatico';
+      document.querySelectorAll('input[name^="q2["][value="2"]').forEach(r=>r.checked=true);
+      for(let i=3;i<=9;i++){
+        const inp=form.querySelector('input[name="q'+i+'"][value="2"]');
+        if(inp) inp.checked=true;
+      }
+      const q10=form.querySelector('input[name="q10"][value="solo"]');
+      if(q10) q10.checked=true;
+    }
+
+    if(testFill){
+      testFill.addEventListener('change',function(){ if(this.checked) fillTest(); });
+    }
 
     const btnRiep = document.getElementById('btn-riepilogo');
     if(btnRiep){
@@ -89,6 +115,7 @@
                   html: html
                 });
               }
+              alert('Questionario IPOS salvato. Il documento è disponibile in dashboard.');
             } else {
               const msg = res.errors ? res.errors.join('\n') : (res.error || 'Errore durante il salvataggio');
               alert(msg);
