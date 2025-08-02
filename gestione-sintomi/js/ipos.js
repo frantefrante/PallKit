@@ -1,5 +1,5 @@
 (function(){
-  document.addEventListener('DOMContentLoaded',function(){
+  function init(){
     const compilatore = document.getElementById('ipos-compilatore');
     const intervallo  = document.getElementById('ipos-intervallo');
     const form        = document.getElementById('ipos-form');
@@ -51,7 +51,7 @@
     }
 
     if(testFill){
-      testFill.addEventListener('change',function(){ if(this.checked) fillTest(); });
+      testFill.addEventListener('click',function(){ if(this.checked) fillTest(); });
     }
 
     const btnRiep = document.getElementById('btn-riepilogo');
@@ -155,5 +155,11 @@
         html2pdf().set(opt).from(tmp).save();
       });
     }
-  });
+  }
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
 })();
