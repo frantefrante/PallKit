@@ -6,6 +6,10 @@
     <a href="#" class="small text-decoration-underline float-end" data-bs-toggle="modal" data-bs-target="#guida-ipos-modal">Guida alla compilazione</a>
     <hr>
     <form id="ipos-form" class="local-save" data-tipo="IPOS" action="#" method="post">
+      <div class="form-check form-switch mb-3">
+        <input class="form-check-input" type="checkbox" id="ipos-use-test">
+        <label class="form-check-label" for="ipos-use-test">Test</label>
+      </div>
       <div class="row g-3 mb-3">
         <div class="col-md-4">
           <label class="form-label">Nome e Cognome</label>

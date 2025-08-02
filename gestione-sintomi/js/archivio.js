@@ -44,8 +44,12 @@ document.addEventListener('DOMContentLoaded', function(){
             el.checked = true;
             el.setAttribute('checked','checked');
           }
+        }else if(el.tagName === 'TEXTAREA'){
+          el.value = val;
+          el.textContent = val;
         }else{
           el.value = val;
+          el.setAttribute('value', val);
         }
       }
       el.disabled = true;
@@ -53,8 +57,10 @@ document.addEventListener('DOMContentLoaded', function(){
     clone.querySelectorAll('button').forEach(b=>b.remove());
     const dataStr = new Date(entry.timestamp).toLocaleString('it-IT');
     const tipo = `${entry.contenuto.compilatore} ${entry.contenuto.intervallo} giorni`;
+    const nome = entry.contenuto.nome || '';
+    const nasc = entry.contenuto.data_nascita ? new Date(entry.contenuto.data_nascita).toLocaleDateString('it-IT') : '';
     const wrapper = document.createElement('div');
-    wrapper.innerHTML = `<h3>IPOS</h3><p>Data: ${dataStr}<br>Tipo: ${tipo}</p>`;
+    wrapper.innerHTML = `<h3>IPOS</h3><p>Nome: ${nome}<br>Data di nascita: ${nasc}<br>Data compilazione: ${dataStr}<br>Tipo: ${tipo}</p>`;
     wrapper.appendChild(clone);
     return wrapper.innerHTML;
   }
@@ -74,7 +80,9 @@ document.addEventListener('DOMContentLoaded', function(){
       });
     }
     if(window.patientDocs && window.addPatientDoc){
-      window.patientDocs = window.patientDocs.filter(d=>d.type !== 'ipos');
+      for(let i=window.patientDocs.length-1;i>=0;i--){
+        if(window.patientDocs[i].type === 'ipos') window.patientDocs.splice(i,1);
+      }
       const iposEntries = getAllEntries().filter(e=> e.tipo === 'IPOS');
       iposEntries.forEach(e=>{
         if(!e.html){
