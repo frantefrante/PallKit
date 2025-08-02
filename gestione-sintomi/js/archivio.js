@@ -3,9 +3,6 @@
 
 document.addEventListener('DOMContentLoaded', function(){
   const tbody = document.querySelector('#archivio-table tbody');
-  const filtroTipo = document.getElementById('filtro-tipo');
-  const filtroDal = document.getElementById('filtro-dal');
-  const filtroAl  = document.getElementById('filtro-al');
 
   function getAllEntries(){
     const arr = [];
@@ -22,54 +19,101 @@ document.addEventListener('DOMContentLoaded', function(){
     return arr;
   }
 
-  function applyFilter(list){
-    const tipo = filtroTipo ? filtroTipo.value : '';
-    const dal = filtroDal && filtroDal.value ? new Date(filtroDal.value) : null;
-    const al  = filtroAl && filtroAl.value ? new Date(filtroAl.value) : null;
-    return list.filter(e=>{
-      const t = new Date(e.timestamp);
-      if(tipo && e.tipo.toLowerCase()!==tipo) return false;
-      if(dal && t < dal) return false;
-      if(al && t > new Date(al.getTime()+86400000-1)) return false;
-      return true;
+  function buildIposHtml(entry){
+    const form = document.getElementById('ipos-form');
+    if(!form) return '<p>Modulo IPOS non disponibile.</p>';
+    const clone = form.cloneNode(true);
+    clone.id='';
+    clone.classList.remove('local-save');
+    clone.querySelectorAll('input, textarea, select').forEach(el=>{
+      const name = el.name;
+      const val = entry.contenuto[name];
+      if(val !== undefined){
+        if(el.type==='radio' || el.type==='checkbox'){
+          if(el.value == val) el.checked = true;
+        }else{
+          el.value = val;
+        }
+      }
+      el.disabled = true;
     });
+    clone.querySelectorAll('button').forEach(b=>b.remove());
+    const dataStr = new Date(entry.timestamp).toLocaleString('it-IT');
+    const tipo = `${entry.contenuto.compilatore} ${entry.contenuto.intervallo} giorni`;
+    return `<h3>IPOS</h3><p>Data: ${dataStr}<br>Tipo: ${tipo}</p>` + clone.outerHTML;
   }
 
   function render(){
-    if(!tbody) return;
-    tbody.innerHTML='';
-    const entries = applyFilter(getAllEntries());
-    entries.forEach(e=>{
-      const tr = document.createElement('tr');
-      const dataStr = new Date(e.timestamp).toLocaleString('it-IT');
-      tr.innerHTML = `<td>${dataStr}</td><td>${e.tipo}</td>`+
-        `<td><button class="btn btn-sm btn-primary" data-view="${e.key}">Visualizza</button></td>`+
-        `<td><button class="btn btn-sm btn-secondary" data-print="${e.key}">Stampa</button></td>`+
-        `<td><button class="btn btn-sm btn-danger" data-del="${e.key}">Cancella</button></td>`;
-      tbody.appendChild(tr);
-    });
+    if(tbody){
+      tbody.innerHTML='';
+      const entries = getAllEntries();
+      entries.forEach(e=>{
+        const tr = document.createElement('tr');
+        const dataStr = new Date(e.timestamp).toLocaleString('it-IT');
+        tr.innerHTML = `<td>${dataStr}</td><td>${e.tipo}</td>`+
+          `<td><button class="btn btn-sm btn-primary" data-view="${e.key}">Visualizza</button></td>`+
+          `<td><button class="btn btn-sm btn-secondary" data-print="${e.key}">Stampa</button></td>`+
+          `<td><button class="btn btn-sm btn-danger" data-del="${e.key}">Cancella</button></td>`;
+        tbody.appendChild(tr);
+      });
+    }
+    if(window.patientDocs && window.addPatientDoc){
+      window.patientDocs = window.patientDocs.filter(d=>d.type !== 'ipos');
+      const iposEntries = getAllEntries().filter(e=> e.tipo === 'IPOS');
+      iposEntries.forEach(e=>{
+        const dataStr = new Date(e.timestamp).toLocaleDateString('it-IT');
+        const desc = `${e.contenuto.compilatore} ${e.contenuto.intervallo} giorni`;
+        const html = buildIposHtml(e);
+        addPatientDoc({title:'IPOS', date:dataStr, desc:desc, type:'ipos', html:html});
+      });
+    }
   }
 
-  [filtroTipo, filtroDal, filtroAl].forEach(el=>{ if(el) el.addEventListener('change', render); });
-
-  document.addEventListener('click', function(e){
-    if(e.target.dataset.view){
-      const key = e.target.dataset.view;
-      const entry = JSON.parse(localStorage.getItem(key));
-      if(!entry) return;
-      const modalBody = document.getElementById('scheda-contenuto');
-      const title = document.getElementById('scheda-title');
-      title.textContent = `${entry.tipo} - ${new Date(entry.timestamp).toLocaleString('it-IT')}`;
+  function mostraScheda(key){
+    const entry = JSON.parse(localStorage.getItem(key));
+    if(!entry) return;
+    const modalBody = document.getElementById('scheda-contenuto');
+    const title = document.getElementById('scheda-title');
+    title.textContent = `${entry.tipo} - ${new Date(entry.timestamp).toLocaleString('it-IT')}`;
+    if(entry.tipo === 'IPOS'){
+      modalBody.innerHTML = buildIposHtml(entry);
+    }else{
       let html = '<ul class="list-group">';
       for(const k in entry.contenuto){
         html += `<li class="list-group-item"><strong>${k}:</strong> ${entry.contenuto[k]}</li>`;
       }
       html += '</ul>';
       modalBody.innerHTML = html;
-      const btnStampa = document.getElementById('scheda-stampa');
-      if(btnStampa) btnStampa.dataset.key = key;
-      const modal = new bootstrap.Modal(document.getElementById('scheda-modal'));
-      modal.show();
+    }
+    const btnStampa = document.getElementById('scheda-stampa');
+    if(btnStampa) btnStampa.dataset.key = key;
+    new bootstrap.Modal(document.getElementById('scheda-modal')).show();
+  }
+
+  function stampaScheda(key){
+    const entry = JSON.parse(localStorage.getItem(key));
+    if(!entry) return;
+    let html;
+    if(entry.tipo === 'IPOS'){
+      html = buildIposHtml(entry);
+    }else{
+      html = `<h3>${entry.tipo}</h3><p>Data: ${new Date(entry.timestamp).toLocaleString('it-IT')}</p><ul>`;
+      for(const k in entry.contenuto){
+        html += `<li><strong>${k}:</strong> ${entry.contenuto[k]}</li>`;
+      }
+      html += '</ul>';
+    }
+    const w = window.open('', '_blank');
+    w.document.write('<html><head><title>Stampa</title></head><body>');
+    w.document.write(html);
+    w.document.write('</body></html>');
+    w.document.close();
+    w.print();
+  }
+
+  document.addEventListener('click', function(e){
+    if(e.target.dataset.view){
+      mostraScheda(e.target.dataset.view);
     }
     if(e.target.dataset.print){
       stampaScheda(e.target.dataset.print);
@@ -84,23 +128,6 @@ document.addEventListener('DOMContentLoaded', function(){
       stampaScheda(e.target.dataset.key);
     }
   });
-
-  function stampaScheda(key){
-    const entry = JSON.parse(localStorage.getItem(key));
-    if(!entry) return;
-    const w = window.open('', '_blank');
-    w.document.write('<html><head><title>Stampa</title></head><body>');
-    w.document.write(`<h3>${entry.tipo}</h3>`);
-    w.document.write(`<p>Data: ${new Date(entry.timestamp).toLocaleString('it-IT')}</p>`);
-    w.document.write('<ul>');
-    for(const k in entry.contenuto){
-      w.document.write(`<li><strong>${k}:</strong> ${entry.contenuto[k]}</li>`);
-    }
-    w.document.write('</ul>');
-    w.document.write('</body></html>');
-    w.document.close();
-    w.print();
-  }
 
   document.querySelectorAll('form.local-save').forEach(form=>{
     form.addEventListener('submit', function(ev){
@@ -117,6 +144,36 @@ document.addEventListener('DOMContentLoaded', function(){
       render();
     });
   });
+
+  function getLatestKey(prefix){
+    let latest=null, latestTime=0;
+    for(let i=0;i<localStorage.length;i++){
+      const k = localStorage.key(i);
+      if(k.startsWith(prefix)){
+        const t = Date.parse(k.substring(prefix.length));
+        if(t>latestTime){ latestTime=t; latest=k; }
+      }
+    }
+    return latest;
+  }
+
+  const btnViewLast = document.getElementById('ipos-view-last');
+  const btnPrintLast = document.getElementById('ipos-print-last');
+  if(btnViewLast){
+    btnViewLast.addEventListener('click', ()=>{
+      const key = getLatestKey('ipos_');
+      if(key) mostraScheda(key);
+    });
+  }
+  if(btnPrintLast){
+    btnPrintLast.addEventListener('click', ()=>{
+      const key = getLatestKey('ipos_');
+      if(key) stampaScheda(key);
+    });
+  }
+
+  window.mostraScheda = mostraScheda;
+  window.stampaScheda = stampaScheda;
 
   render();
 });

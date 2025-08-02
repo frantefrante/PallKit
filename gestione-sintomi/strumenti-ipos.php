@@ -189,6 +189,11 @@ $scale=[0,1,2,3,4];
       </div>
     </form>
 
+    <div class="mb-3">
+      <button type="button" class="btn btn-secondary me-2" id="ipos-view-last">Visualizza</button>
+      <button type="button" class="btn btn-secondary" id="ipos-print-last">Stampa</button>
+    </div>
+
     <div class="modal fade" id="guida-ipos-modal" tabindex="-1">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">

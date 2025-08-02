@@ -145,25 +145,6 @@
       <div id="documenti-sedazione" class="dashboard-cards"></div>
 
       <h5 class="mt-4 mb-3">Archivio Locale</h5>
-      <div class="row g-2 mb-2">
-        <div class="col-md-3">
-          <label class="form-label">Tipo</label>
-          <select id="filtro-tipo" class="form-select">
-            <option value="">Tutti</option>
-            <option value="ipos">IPOS</option>
-            <option value="necpal">NECPAL</option>
-            <option value="sintomo">Sintomi</option>
-          </select>
-        </div>
-        <div class="col-md-3">
-          <label class="form-label">Dal</label>
-          <input type="date" id="filtro-dal" class="form-control">
-        </div>
-        <div class="col-md-3">
-          <label class="form-label">Al</label>
-          <input type="date" id="filtro-al" class="form-control">
-        </div>
-      </div>
       <div class="table-responsive">
         <table class="table table-sm" id="archivio-table">
           <thead><tr><th>Data</th><th>Tipo</th><th>Visualizza</th><th>Stampa</th><th>Cancella</th></tr></thead>
