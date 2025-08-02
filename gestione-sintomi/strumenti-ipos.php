@@ -38,6 +38,11 @@
         </div>
       </div>
 
+      <div class="form-check mt-3">
+        <input class="form-check-input" type="checkbox" id="ipos-test-fill">
+        <label class="form-check-label" for="ipos-test-fill">Compila test</label>
+      </div>
+
       <hr class="my-4">
       <div class="mb-3">
         <label class="form-label" data-int="Q1. Quali sono stati i suoi problemi o le sue preoccupazioni più importanti {INT}?">Q1</label>
@@ -187,6 +192,13 @@ $scale=[0,1,2,3,4];
         <div id="ipos-summary" class="mb-2"></div>
         <button type="submit" class="btn btn-primary">Conferma e Invia</button>
       </div>
+      <div id="ipos-result" class="mt-4" style="display:none;">
+        <div class="mb-2">
+          <button type="button" id="btn-view-ipos" class="btn btn-outline-secondary me-2">Visualizza</button>
+          <button type="button" id="btn-save-pdf-ipos" class="btn btn-success">Scarica PDF</button>
+        </div>
+        <div id="ipos-preview" class="mt-2" style="display:none;"></div>
+      </div>
     </form>
 
     <hr>
@@ -212,7 +224,6 @@ if($rows): ?>
       </table>
     </div>
 <?php endif; ?>
-    <canvas id="ipos-chart" height="200"></canvas>
     <div class="modal fade" id="guida-ipos-modal" tabindex="-1">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -234,15 +245,4 @@ if($rows): ?>
     </div>
   </div>
 </section>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="js/ipos.js"></script>
-<script>
-(function(){
-  const data = <?php echo json_encode($rows ?? []); ?>;
-  if(!data.length) return;
-  const ctx = document.getElementById('ipos-chart').getContext('2d');
-  const labels = data.map(r=>r.data_compilazione);
-  const scores = data.map(r=>parseInt(r.punteggio_totale,10));
-  new Chart(ctx,{type:'line',data:{labels:labels,datasets:[{label:'Punteggio IPOS',data:scores,fill:false,borderColor:'blue'}]}});
-})();
-</script>
