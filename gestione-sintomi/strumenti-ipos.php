@@ -180,12 +180,9 @@ $scale=[0,1,2,3,4];
       </div>
       <p class="fst-italic">Se si sente preoccupato per qualsiasi aspetto sollevato dal questionario per favore si senta libero di parlarne con il suo medico o infermiere.</p>
       <div class="d-grid mb-3">
-        <button id="btn-riepilogo" class="btn btn-secondary">Riepilogo</button>
-      </div>
-      <div id="ipos-riepilogo" style="display:none;" class="mb-3">
-        <h6 class="mb-2">Controlla i dati inseriti:</h6>
-        <div id="ipos-summary" class="mb-2"></div>
-        <button type="submit" class="btn btn-primary">Conferma e Invia</button>
+        <button type="submit" class="btn btn-primary">
+          <i class="fas fa-save me-2"></i>Salva IPOS
+        </button>
       </div>
     </form>
 
