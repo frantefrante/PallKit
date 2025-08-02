@@ -48,19 +48,10 @@
       updateTexts();
     }
 
-    function resetForm(){
-      form.reset();
-      document.getElementById('ipos-data').value = new Date().toISOString().split('T')[0];
-      updateTexts();
-    }
-
     if(useTest){
-      useTest.addEventListener('change', function(){
-        if(this.checked){
-          fillTest();
-        }else{
-          resetForm();
-        }
+      useTest.addEventListener('click', function(e){
+        e.preventDefault();
+        fillTest();
       });
     }
 
