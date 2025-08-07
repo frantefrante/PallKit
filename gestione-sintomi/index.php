@@ -97,10 +97,28 @@
         </a>
         <ul class="nav flex-column collapse" id="submenu-prog" data-bs-parent="#clinical-menu">
           <li class="nav-item">
+            <a href="#" class="nav-link ms-3" data-target="ppi-home">PPI</a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="nav-item mb-2">
+        <a class="nav-link submenu-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#submenu-perf" href="#" role="button" aria-expanded="false">
+          <i class="fas fa-person-running me-2"></i>Performance
+          <i class="fas fa-chevron-right rotate-icon ms-auto"></i>
+        </a>
+        <ul class="nav flex-column collapse" id="submenu-perf" data-bs-parent="#clinical-menu">
+          <li class="nav-item">
+            <a href="#" class="nav-link ms-3" data-target="akps-home">AKPS</a>
+          </li>
+          <li class="nav-item">
             <a href="#" class="nav-link ms-3" data-target="pps-home">PPS</a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link ms-3" data-target="ppi-home">PPI</a>
+            <a href="#" class="nav-link ms-3" data-target="adl-home">ADL</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link ms-3" data-target="badl-home">BADL</a>
           </li>
         </ul>
       </li>
@@ -259,9 +277,18 @@
 
     <!-- SEZIONE IDC-PAL -->
     <?php include __DIR__ . '/strumenti-idcpal.php'; ?>
+    
+    <!-- SEZIONE AKPS -->
+    <?php include __DIR__ . '/strumenti-akps.php'; ?>
 
     <!-- SEZIONE PPS -->
     <?php include __DIR__ . '/strumenti-pps.php'; ?>
+
+    <!-- SEZIONE ADL -->
+    <?php include __DIR__ . '/strumenti-adl.php'; ?>
+
+    <!-- SEZIONE BADL -->
+    <?php include __DIR__ . '/strumenti-badl.php'; ?>
 
     <!-- SEZIONE PPI -->
     <?php include __DIR__ . '/strumenti-ppi.php'; ?>
