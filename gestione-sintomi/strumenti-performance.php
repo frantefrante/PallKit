@@ -1,7 +1,7 @@
 <?php
 // strumenti-performance.php
 ?>
-<section id="performance-home" class="p-4" style="display:none;">
+<section id="performance-home" class="sintomo-section p-4" data-sintomo="performance-home" style="display:none;">
   <div class="performance-container">
     <h5 class="mb-3"><i class="fas fa-running me-2"></i>Scale di Performance</h5>
     <p class="text-muted">Strumenti di valutazione funzionale compilabili per la pratica clinica</p>
