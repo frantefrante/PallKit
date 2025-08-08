@@ -97,9 +97,6 @@
         </a>
         <ul class="nav flex-column collapse" id="submenu-prog" data-bs-parent="#clinical-menu">
           <li class="nav-item">
-            <a href="#" class="nav-link ms-3" data-target="pps-home">PPS</a>
-          </li>
-          <li class="nav-item">
             <a href="#" class="nav-link ms-3" data-target="ppi-home">PPI</a>
           </li>
         </ul>
@@ -114,6 +111,19 @@
           <li class="nav-item">
             <a href="#" class="nav-link ms-3" data-target="ipos-home">IPOS</a>
           </li>
+        </ul>
+      </li>
+
+      <li class="nav-item mb-2">
+        <a class="nav-link submenu-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#submenu-perf" href="#" role="button" aria-expanded="false" data-target="performance-home">
+          <i class="fas fa-person-running me-2"></i>Performance
+          <i class="fas fa-chevron-right rotate-icon ms-auto"></i>
+        </a>
+        <ul class="nav flex-column collapse" id="submenu-perf" data-bs-parent="#clinical-menu">
+          <li class="nav-item"><a href="#" class="nav-link ms-3" onclick="openPerfModal('akps');">AKPS</a></li>
+          <li class="nav-item"><a href="#" class="nav-link ms-3" onclick="openPerfModal('pps');">PPS</a></li>
+          <li class="nav-item"><a href="#" class="nav-link ms-3" onclick="openPerfModal('adl');">ADL</a></li>
+          <li class="nav-item"><a href="#" class="nav-link ms-3" onclick="openPerfModal('badl');">BADL</a></li>
         </ul>
       </li>
 
@@ -260,14 +270,14 @@
     <!-- SEZIONE IDC-PAL -->
     <?php include __DIR__ . '/strumenti-idcpal.php'; ?>
 
-    <!-- SEZIONE PPS -->
-    <?php include __DIR__ . '/strumenti-pps.php'; ?>
-
     <!-- SEZIONE PPI -->
     <?php include __DIR__ . '/strumenti-ppi.php'; ?>
 
     <!-- SEZIONE IPOS -->
     <?php include __DIR__ . '/strumenti-ipos.php'; ?>
+
+    <!-- SEZIONE PERFORMANCE -->
+    <?php include __DIR__ . '/strumenti-performance.php'; ?>
   </div>
 </div>
 
