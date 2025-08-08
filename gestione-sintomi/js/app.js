@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function() {
       const sections = [
         'dashboard-home','gestione-home','sedazione-home',
         'identificazione-home','necpal4-home','spict-home',
-        'idcpal-home','pps-home','ppi-home','ipos-home',
+        'idcpal-home','ppi-home','ipos-home','performance-home',
         'equianalgesia-section','rescue-section'
       ];
       sections.forEach(id => {
@@ -38,6 +38,9 @@ document.addEventListener("DOMContentLoaded", function() {
       if (targetEl) {
         targetEl.style.display = 'block';
         targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      if (this.dataset.modal && typeof window.openPerfModal === 'function') {
+        window.openPerfModal(this.dataset.modal);
       }
       document.querySelectorAll('.sidebar .nav-link').forEach(x=>x.classList.remove('active'));
       this.classList.add('active');

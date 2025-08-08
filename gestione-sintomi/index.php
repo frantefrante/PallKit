@@ -91,14 +91,32 @@
       </li>
 
       <li class="nav-item mb-2">
+        <a class="nav-link submenu-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#submenu-perf" href="#" role="button" aria-expanded="false" data-target="performance-home">
+          <i class="fas fa-running me-2"></i>Performance
+          <i class="fas fa-chevron-right rotate-icon ms-auto"></i>
+        </a>
+        <ul class="nav flex-column collapse" id="submenu-perf" data-bs-parent="#clinical-menu">
+          <li class="nav-item">
+            <a href="#" class="nav-link ms-3" data-target="performance-home" data-modal="akps">AKPS</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link ms-3" data-target="performance-home" data-modal="pps">PPS</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link ms-3" data-target="performance-home" data-modal="adl">ADL</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link ms-3" data-target="performance-home" data-modal="badl">BADL</a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="nav-item mb-2">
         <a class="nav-link submenu-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#submenu-prog" href="#" role="button" aria-expanded="false">
           <i class="fas fa-hourglass-half me-2"></i>Prognosi
           <i class="fas fa-chevron-right rotate-icon ms-auto"></i>
         </a>
         <ul class="nav flex-column collapse" id="submenu-prog" data-bs-parent="#clinical-menu">
-          <li class="nav-item">
-            <a href="#" class="nav-link ms-3" data-target="pps-home">PPS</a>
-          </li>
           <li class="nav-item">
             <a href="#" class="nav-link ms-3" data-target="ppi-home">PPI</a>
           </li>
@@ -260,8 +278,8 @@
     <!-- SEZIONE IDC-PAL -->
     <?php include __DIR__ . '/strumenti-idcpal.php'; ?>
 
-    <!-- SEZIONE PPS -->
-    <?php include __DIR__ . '/strumenti-pps.php'; ?>
+    <!-- SEZIONE Performance -->
+    <?php include __DIR__ . '/strumenti-performance.php'; ?>
 
     <!-- SEZIONE PPI -->
     <?php include __DIR__ . '/strumenti-ppi.php'; ?>
