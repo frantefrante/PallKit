@@ -5,7 +5,7 @@ let selectedItems = new Set();
 // Inizializzazione
 document.addEventListener('DOMContentLoaded', function() {
   const today = new Date().toISOString().split('T')[0];
-  const compilationDate = document.getElementById('compilation-date');
+  const compilationDate = document.getElementById('idcpal-compilation-date');
   if (compilationDate) compilationDate.value = today;
   
   setupIDCPALListeners();
@@ -14,10 +14,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Funzione per cambiare modalità (come switchMode in ESAS)
 function switchIDCPALMode(mode) {
-  document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
-  document.getElementById(mode + '-btn').classList.add('active');
-  document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
-  document.getElementById(mode + '-section').classList.add('active');
+  const container = document.getElementById('idcpal-home');
+  if (!container) return;
+  container.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
+  const btn = container.querySelector('#idcpal-' + mode + '-btn');
+  if (btn) btn.classList.add('active');
+  container.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
+  const section = container.querySelector('#idcpal-' + mode + '-section');
+  if (section) section.classList.add('active');
 }
 
 // Setup event listeners
@@ -54,8 +58,8 @@ function toggleIDCPALItem(code, level) {
 
 // Funzione per aggiornare i conteggi (come updateResults in ESAS)
 function updateIDCPALCounts() {
-  const c = document.getElementById('count-c');
-  const ac = document.getElementById('count-ac');
+  const c = document.getElementById('idcpal-count-c');
+  const ac = document.getElementById('idcpal-count-ac');
   if (c) c.textContent = `${idcpalCounts.C || 0} C`;
   if (ac) ac.textContent = `${idcpalCounts.AC || 0} AC`;
   
@@ -86,8 +90,8 @@ function autoClassifyComplexity() {
 
 // Funzione per salvare la valutazione (come saveESAS)
 function saveIDCPAL() {
-  const patientName = document.getElementById('patient-name')?.value || '';
-  const compilationDate = document.getElementById('compilation-date')?.value || '';
+  const patientName = document.getElementById('idcpal-patient-name')?.value || '';
+  const compilationDate = document.getElementById('idcpal-compilation-date')?.value || '';
   
   if (!patientName) {
     alert('Inserire il nome del paziente');
@@ -99,7 +103,7 @@ function saveIDCPAL() {
     return;
   }
   
-  const finalClassification = document.querySelector('input[name="classification"]:checked')?.value || '';
+  const finalClassification = document.querySelector('input[name="idcpal-classification"]:checked')?.value || '';
   
   const data = {
     paziente: patientName,
@@ -128,12 +132,12 @@ function resetIDCPAL() {
     document.querySelectorAll('.complexity-item').forEach(el => el.classList.remove('selected'));
     updateIDCPALCounts();
     
-    ['patient-name', 'patient-birth', 'compilation-date'].forEach(id => { 
-      const el = document.getElementById(id); 
-      if (el && id !== 'compilation-date') el.value = ''; 
+    ['idcpal-patient-name', 'idcpal-patient-birth', 'idcpal-compilation-date'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el && id !== 'idcpal-compilation-date') el.value = '';
     });
-    
-    document.querySelectorAll('input[name="classification"]').forEach(r => r.checked = false);
+
+    document.querySelectorAll('input[name="idcpal-classification"]').forEach(r => r.checked = false);
     document.querySelectorAll('.classification-option').forEach(o => {
       o.classList.remove('selected');
       o.style.border = '2px solid #e9ecef';
@@ -143,9 +147,9 @@ function resetIDCPAL() {
 
 // Funzione per stampare la valutazione compilata (come printESAS)
 function printIDCPAL() {
-  const patientName = document.getElementById('patient-name')?.value || 'Paziente';
-  const compilationDate = document.getElementById('compilation-date')?.value || new Date().toISOString().split('T')[0];
-  const finalClassification = document.querySelector('input[name="classification"]:checked')?.value || 'Non specificata';
+  const patientName = document.getElementById('idcpal-patient-name')?.value || 'Paziente';
+  const compilationDate = document.getElementById('idcpal-compilation-date')?.value || new Date().toISOString().split('T')[0];
+  const finalClassification = document.querySelector('input[name="idcpal-classification"]:checked')?.value || 'Non specificata';
   
   // Raccolta elementi selezionati con dettagli
   const selectedItemsDetails = [];
@@ -229,7 +233,7 @@ function printIDCPAL() {
 
 // Funzione per stampare il template (come printTemplate in ESAS)
 function printIDCPALTemplate() {
-  const templateContent = document.querySelector('#visualize-section .pdf-template').innerHTML;
+  const templateContent = document.querySelector('#idcpal-visualize-section .pdf-template').innerHTML;
   const printWindow = window.open('', '_blank');
   printWindow.document.write(`
     <html>
@@ -253,10 +257,28 @@ function downloadIDCPALTemplate() {
   alert('Funzionalità di download PDF in sviluppo. Per ora utilizza la stampa per salvare come PDF.');
 }
 
+// Funzioni per il glossario inline
+function toggleGlossaryInline(code) {
+  const glossary = document.getElementById(`glossary-${code}`);
+  if (!glossary) return;
+  
+  document.querySelectorAll('.inline-glossary').forEach(g => {
+    if (g.id !== `glossary-${code}`) {
+      g.style.display = 'none';
+    }
+  });
+  
+  if (glossary.style.display === 'none' || !glossary.style.display) {
+    glossary.style.display = 'block';
+  } else {
+    glossary.style.display = 'none';
+  }
+}
+
 // Funzioni per il glossario
 function filterIDCPALGlossary() {
-  const query = (document.getElementById('glossary-search')?.value || '').toLowerCase();
-  document.querySelectorAll('#glossary-content .glossary-item').forEach(item => {
+  const query = (document.getElementById('idcpal-glossary-search')?.value || '').toLowerCase();
+  document.querySelectorAll('#idcpal-glossary-content .glossary-item').forEach(item => {
     const text = item.textContent.toLowerCase();
     item.style.display = text.includes(query) ? '' : 'none';
   });
@@ -295,4 +317,3 @@ document.addEventListener('keydown', (e) => {
 });
 
 console.log('✅ IDC-PAL JavaScript caricato correttamente');
-

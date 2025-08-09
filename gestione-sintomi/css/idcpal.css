@@ -1,8 +1,8 @@
 :root {
-  --idcpal-primary: #5cb85c;
-  --idcpal-secondary: #449d44;
-  --idcpal-accent: #28a745;
-  --idcpal-light: #d4edda;
+  --idcpal-primary: #007bff;
+  --idcpal-secondary: #0056b3;
+  --idcpal-accent: #004085;
+  --idcpal-light: #d1ecf1;
   --idcpal-border: #e9ecef;
   --idcpal-warning: #ffc107;
   --idcpal-danger: #dc3545;
@@ -71,7 +71,7 @@
   background: var(--idcpal-primary);
   color: white;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(92, 184, 92, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
 }
 
 .content-section {
@@ -127,6 +127,7 @@
   margin-bottom: 1rem;
   transition: all 0.3s ease;
   cursor: pointer;
+  flex-direction: column;
 }
 
 .complexity-item:hover {
@@ -139,9 +140,16 @@
   border-color: var(--idcpal-accent);
 }
 
+.item-main {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+}
+
 .item-checkbox {
   margin-right: 1rem;
   transform: scale(1.2);
+  accent-color: var(--idcpal-primary);
 }
 
 .item-content {
@@ -152,12 +160,43 @@
   font-weight: 700;
   color: var(--idcpal-primary);
   margin-bottom: 0.3rem;
+  display: flex;
+  align-items: center;
 }
 
 .item-text {
   color: #2c3e50;
   margin-bottom: 0.5rem;
   line-height: 1.4;
+}
+
+.inline-glossary {
+  width: 100%;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e9ecef;
+  animation: slideDown 0.3s ease;
+}
+
+.inline-glossary-content {
+  background: #f8f9fa;
+  padding: 1rem;
+  border-radius: 8px;
+  border-left: 4px solid var(--idcpal-primary);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #495057;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .item-badge {
@@ -169,9 +208,9 @@
 }
 
 .badge-c {
-  background: #fff3cd;
-  color: #856404;
-  border: 1px solid #ffeaa7;
+  background: #d1ecf1;
+  color: #0c5460;
+  border: 1px solid #bee5eb;
 }
 
 .badge-ac {
@@ -234,7 +273,7 @@
 
 .classification-option:hover {
   border-color: var(--idcpal-primary);
-  background: rgba(92, 184, 92, 0.1);
+  background: rgba(0, 123, 255, 0.1);
 }
 
 .classification-option.selected {
@@ -347,7 +386,7 @@
 .btn-primary-custom:hover {
   background: linear-gradient(135deg, var(--idcpal-secondary), var(--idcpal-accent));
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(92, 184, 92, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
   color: white;
 }
 
@@ -383,4 +422,3 @@
     font-size: 2rem; 
   }
 }
-
