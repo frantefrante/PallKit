@@ -4,9 +4,11 @@ function openCategoryView(categoryName) {
   const backButton = document.getElementById('backToCategories');
   const searchBar = document.querySelector('.search-tools-compact');
   const statsRow = document.querySelector('.stats-row');
+  const mainHeader = document.querySelector('.valutazione-header');
   if (categoriesGrid) categoriesGrid.style.display = 'none';
   if (searchBar) searchBar.style.display = 'none';
   if (statsRow) statsRow.style.display = 'none';
+  if (mainHeader) mainHeader.style.display = 'none';
   if (backButton) backButton.style.display = 'block';
   loadCategoryContent(categoryName);
   if (categoryDetails) categoryDetails.style.display = 'block';
@@ -18,15 +20,53 @@ function showCategories() {
   const backButton = document.getElementById('backToCategories');
   const searchBar = document.querySelector('.search-tools-compact');
   const statsRow = document.querySelector('.stats-row');
+  const mainHeader = document.querySelector('.valutazione-header');
   if (categoriesGrid) categoriesGrid.style.display = 'grid';
   if (searchBar) searchBar.style.display = 'block';
   if (statsRow) statsRow.style.display = 'block';
   if (categoryDetails) categoryDetails.style.display = 'none';
   if (backButton) backButton.style.display = 'none';
+  if (mainHeader) mainHeader.style.display = 'block';
 }
 
 function loadCategoryContent(categoryName) {
   const categoryDetails = document.getElementById('categoryDetails');
+  if (!categoryDetails) return;
+
+  if (categoryName === 'complessita') {
+    categoryDetails.innerHTML = `
+<div class="valutazione-detail-section">
+  <div class="page-header">
+    <div class="page-icon mb-3">🧠</div>
+    <h1 class="page-title">Valutazione Complessità</h1>
+    <p class="page-subtitle">Valutazione della complessità clinica e assistenziale attraverso strumenti validati per l'identificazione e la classificazione multidimensionale dei pazienti in cure palliative</p>
+  </div>
+
+  <div class="tools-grid justify-content-center">
+    <div class="tool-card idcpal-card">
+      <div class="tool-header">
+        <div class="tool-icon idcpal-icon">ID</div>
+        <div>
+          <div class="tool-title">IDC-PAL</div>
+          <div class="tool-subtitle">Instrumento Diagnóstico de Complejidad</div>
+        </div>
+      </div>
+      <div class="tool-description">
+        Strumento per valutare la complessità multidimensionale nei pazienti in cure palliative attraverso l'analisi di 34 elementi distribuiti in 3 dimensioni: paziente, famiglia e sistema sanitario.
+      </div>
+      <div class="tool-actions">
+        <a href="#" class="action-btn btn-primary-idcpal" onclick="openIDCPALCompile()"><i class="fas fa-edit"></i>Compila</a>
+        <a href="#" class="action-btn btn-outline-idcpal" onclick="openIDCPALVisualize()"><i class="fas fa-table"></i>Visualizza</a>
+      </div>
+      <div class="tool-extra-action">
+        <a href="#" class="action-btn btn-outline-warning-custom glossary-btn" onclick="openIDCPALGlossary()"><i class="fas fa-book"></i>Glossario</a>
+      </div>
+    </div>
+  </div>
+</div>`;
+    return;
+  }
+
   const categoryData = {
     'identificazione': {
       title: 'Strumenti di Identificazione',
@@ -36,14 +76,6 @@ function loadCategoryContent(categoryName) {
         { name: 'NECPAL 3.1', subtitle: 'Necessidades Paliativas', description: 'Strumento di screening per identificare pazienti con bisogni palliativi. Versione 3.1 con criteri aggiornati.', available: false },
         { name: 'NECPAL 4.0', subtitle: 'Versione Aggiornata', description: 'Ultima versione del NECPAL con criteri rivisti e maggiore specificità per diverse patologie.', available: false },
         { name: 'SPICT', subtitle: 'Supportive & Palliative Care Indicators', description: 'Tool clinico per identificare pazienti che potrebbero beneficiare di cure palliative specialistiche.', available: false }
-      ]
-    },
-    'complessita': {
-      title: 'Valutazione Complessità',
-      icon: '🧠',
-      description: 'Valutazione della complessità clinica e assistenziale',
-      tools: [
-        { name: 'IDC-PAL', subtitle: 'Instrumento Diagnóstico de Complejidad', description: 'Strumento per valutare la complessità multidimensionale nei pazienti in cure palliative.', available: false }
       ]
     },
     'performance': {
@@ -116,8 +148,19 @@ function loadCategoryContent(categoryName) {
   let html = `<div class="category-detail"><div class="category-detail-header"><h3>${category.icon} ${category.title}</h3><p class="mb-0">${category.description}</p></div><div class="tools-detail-grid">`;
   category.tools.forEach(tool => {
     const statusBadge = tool.available ? '<span class="badge bg-success">✅ Disponibile</span>' : '<span class="badge bg-warning">In Sviluppo</span>';
-    const actionButton = tool.available ? `<button class="btn btn-success btn-sm" onclick="${tool.action || ''}">Apri Strumento</button>` : '<button class="btn btn-outline-secondary btn-sm" onclick="showComingSoon()">In Sviluppo</button>';
-    html += `<div class="tool-detail-card"><div class="tool-detail-header"><div class="tool-detail-icon">${tool.name.substring(0,2)}</div><div class="tool-detail-info"><h5>${tool.name}</h5><div class="tool-detail-subtitle">${tool.subtitle}</div></div></div><div class="tool-detail-description">${tool.description}</div><div class="tool-detail-actions">${statusBadge}${actionButton}</div></div>`;
+    let actionButtons = '';
+    if (tool.available) {
+      if (tool.actions && tool.actions.length > 0) {
+        tool.actions.forEach(action => {
+          actionButtons += `<button class="btn ${action.class} btn-sm me-1" onclick="${action.action}"><i class="${action.icon} me-1"></i>${action.name}</button>`;
+        });
+      } else {
+        actionButtons = `<button class="btn btn-success btn-sm" onclick="${tool.action || ''}">Apri Strumento</button>`;
+      }
+    } else {
+      actionButtons = '<button class="btn btn-outline-secondary btn-sm" onclick="showComingSoon()">In Sviluppo</button>';
+    }
+    html += `<div class="tool-detail-card"><div class="tool-detail-header"><div class="tool-detail-icon">${tool.name.substring(0,2)}</div><div class="tool-detail-info"><h5>${tool.name}</h5><div class="tool-detail-subtitle">${tool.subtitle}</div></div></div><div class="tool-detail-description">${tool.description}</div><div class="tool-detail-actions">${statusBadge}${actionButtons}</div></div>`;
   });
   html += '</div></div>';
   categoryDetails.innerHTML = html;
@@ -234,6 +277,22 @@ function openESASCompile() {
 function openESASVisualize() {
   navigateToSection('esas-home');
   if (typeof switchMode === 'function') switchMode('visualize');
+}
+
+// Funzioni IDC-PAL
+function openIDCPALCompile() {
+  navigateToSection('idcpal-home');
+  if (typeof switchIDCPALMode === 'function') switchIDCPALMode('compile');
+}
+
+function openIDCPALVisualize() {
+  navigateToSection('idcpal-home');
+  if (typeof switchIDCPALMode === 'function') switchIDCPALMode('visualize');
+}
+
+function openIDCPALGlossary() {
+  navigateToSection('idcpal-home');
+  if (typeof switchIDCPALMode === 'function') switchIDCPALMode('glossary');
 }
 
 function showIPOSPDF(tipo, giorni) {
