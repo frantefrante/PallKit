@@ -58,6 +58,11 @@
       </li>
 
       <li class="nav-item mb-2">
+        <a href="#" class="nav-link" data-target="idcpal-home">
+          <i class="fas fa-layer-group me-2"></i>Complessità
+        </a>
+      </li>
+
       <li class="nav-item mb-2">
         <a href="#" class="nav-link" data-target="strumenti-valutazione-home">
           <i class="fas fa-chart-line me-2"></i>Strumenti Valutazione
