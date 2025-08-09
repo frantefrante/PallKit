@@ -57,17 +57,17 @@
       </li>
 
       <li class="nav-item mb-2">
-        <span class="nav-link text-white-50">Strumenti Clinici</span>
+        <span class="nav-link text-white-50"><i class="fas fa-chart-bar me-2"></i>Strumenti di Valutazione</span>
       </li>
 
       <li class="nav-item mb-2">
         <a class="nav-link submenu-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#submenu-ident" href="#" role="button" aria-expanded="false">
-          <i class="fas fa-id-card me-2"></i>Identificazione
+          <i class="fas fa-search me-2"></i>Identificazione
           <i class="fas fa-chevron-right rotate-icon ms-auto"></i>
         </a>
         <ul class="nav flex-column collapse" id="submenu-ident" data-bs-parent="#clinical-menu">
           <li class="nav-item">
-            <a href="#" class="nav-link ms-3" data-target="identificazione-home">NECPAL 3.0</a>
+            <a href="#" class="nav-link ms-3" data-target="identificazione-home">NECPAL 3.1</a>
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link ms-3" data-target="necpal4-home">NECPAL 4.0</a>
@@ -80,36 +80,12 @@
 
       <li class="nav-item mb-2">
         <a class="nav-link submenu-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#submenu-compl" href="#" role="button" aria-expanded="false">
-          <i class="fas fa-layer-group me-2"></i>Complessità
+          <i class="fas fa-brain me-2"></i>Complessità
           <i class="fas fa-chevron-right rotate-icon ms-auto"></i>
         </a>
         <ul class="nav flex-column collapse" id="submenu-compl" data-bs-parent="#clinical-menu">
           <li class="nav-item">
             <a href="#" class="nav-link ms-3" data-target="idcpal-home">IDC-PAL</a>
-          </li>
-        </ul>
-      </li>
-
-      <li class="nav-item mb-2">
-        <a class="nav-link submenu-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#submenu-prog" href="#" role="button" aria-expanded="false">
-          <i class="fas fa-hourglass-half me-2"></i>Prognosi
-          <i class="fas fa-chevron-right rotate-icon ms-auto"></i>
-        </a>
-        <ul class="nav flex-column collapse" id="submenu-prog" data-bs-parent="#clinical-menu">
-          <li class="nav-item">
-            <a href="#" class="nav-link ms-3" data-target="ppi-home">PPI</a>
-          </li>
-        </ul>
-      </li>
-
-      <li class="nav-item mb-2">
-        <a class="nav-link submenu-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#submenu-monit" href="#" role="button" aria-expanded="false">
-          <i class="fas fa-chart-line me-2"></i>Monitoraggio
-          <i class="fas fa-chevron-right rotate-icon ms-auto"></i>
-        </a>
-        <ul class="nav flex-column collapse" id="submenu-monit" data-bs-parent="#clinical-menu">
-          <li class="nav-item">
-            <a href="#" class="nav-link ms-3" data-target="ipos-home">IPOS</a>
           </li>
         </ul>
       </li>
@@ -124,6 +100,71 @@
           <li class="nav-item"><a href="#" class="nav-link ms-3" onclick="openPerfModal('pps');">PPS</a></li>
           <li class="nav-item"><a href="#" class="nav-link ms-3" onclick="openPerfModal('adl');">ADL</a></li>
           <li class="nav-item"><a href="#" class="nav-link ms-3" onclick="openPerfModal('badl');">BADL</a></li>
+        </ul>
+      </li>
+
+      <li class="nav-item mb-2">
+        <a class="nav-link submenu-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#submenu-prog" href="#" role="button" aria-expanded="false" data-target="prognosi-home">
+          <i class="fas fa-chart-line me-2"></i>Prognosi
+          <i class="fas fa-chevron-right rotate-icon ms-auto"></i>
+        </a>
+        <ul class="nav flex-column collapse" id="submenu-prog" data-bs-parent="#clinical-menu">
+          <li class="nav-item"><a href="#" class="nav-link ms-3" onclick="openProgModal('ppi');">PPI</a></li>
+          <li class="nav-item"><a href="#" class="nav-link ms-3" onclick="openProgModal('pap');">PaP Score</a></li>
+        </ul>
+      </li>
+
+      <li class="nav-item mb-2">
+        <a class="nav-link submenu-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#submenu-multi" href="#" role="button" aria-expanded="false">
+          <i class="fas fa-clipboard me-2"></i>Multidimensionale
+          <i class="fas fa-chevron-right rotate-icon ms-auto"></i>
+        </a>
+        <ul class="nav flex-column collapse" id="submenu-multi" data-bs-parent="#clinical-menu">
+          <li class="nav-item"><a href="#" class="nav-link ms-3" data-target="ipos-home">IPOS</a></li>
+          <li class="nav-item"><a href="#" class="nav-link ms-3" data-target="esas-home">ESAS</a></li>
+        </ul>
+      </li>
+
+      <li class="nav-item mb-2">
+        <a class="nav-link submenu-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#submenu-dolore" href="#" role="button" aria-expanded="false">
+          <i class="fas fa-face-frown me-2"></i>Dolore
+          <i class="fas fa-chevron-right rotate-icon ms-auto"></i>
+        </a>
+        <ul class="nav flex-column collapse" id="submenu-dolore" data-bs-parent="#clinical-menu">
+          <li class="nav-item"><a href="#" class="nav-link ms-3" data-target="dn4-home">DN4</a></li>
+        </ul>
+      </li>
+
+      <li class="nav-item mb-2">
+        <a class="nav-link submenu-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#submenu-delirium" href="#" role="button" aria-expanded="false">
+          <i class="fas fa-puzzle-piece me-2"></i>Delirium
+          <i class="fas fa-chevron-right rotate-icon ms-auto"></i>
+        </a>
+        <ul class="nav flex-column collapse" id="submenu-delirium" data-bs-parent="#clinical-menu">
+          <li class="nav-item"><a href="#" class="nav-link ms-3" data-target="4at-home">4AT</a></li>
+          <li class="nav-item"><a href="#" class="nav-link ms-3" data-target="cam-home">CAM</a></li>
+        </ul>
+      </li>
+
+      <li class="nav-item mb-2">
+        <a class="nav-link submenu-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#submenu-sed" href="#" role="button" aria-expanded="false">
+          <i class="fas fa-bed me-2"></i>Sedazione
+          <i class="fas fa-chevron-right rotate-icon ms-auto"></i>
+        </a>
+        <ul class="nav flex-column collapse" id="submenu-sed" data-bs-parent="#clinical-menu">
+          <li class="nav-item"><a href="#" class="nav-link ms-3" data-target="rass-home">RASS</a></li>
+          <li class="nav-item"><a href="#" class="nav-link ms-3" data-target="ramsey-home">Ramsey</a></li>
+        </ul>
+      </li>
+
+      <li class="nav-item mb-2">
+        <a class="nav-link submenu-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#submenu-care" href="#" role="button" aria-expanded="false">
+          <i class="fas fa-users me-2"></i>Caregiving
+          <i class="fas fa-chevron-right rotate-icon ms-auto"></i>
+        </a>
+        <ul class="nav flex-column collapse" id="submenu-care" data-bs-parent="#clinical-menu">
+          <li class="nav-item"><a href="#" class="nav-link ms-3" data-target="zcb7-home">ZCB 7 p.ti</a></li>
+          <li class="nav-item"><a href="#" class="nav-link ms-3" data-target="famcare2-home">FAMCARE 2</a></li>
         </ul>
       </li>
 
@@ -270,14 +311,38 @@
     <!-- SEZIONE IDC-PAL -->
     <?php include __DIR__ . '/strumenti-idcpal.php'; ?>
 
-    <!-- SEZIONE PPI -->
-    <?php include __DIR__ . '/strumenti-ppi.php'; ?>
-
     <!-- SEZIONE IPOS -->
     <?php include __DIR__ . '/strumenti-ipos.php'; ?>
 
     <!-- SEZIONE PERFORMANCE -->
     <?php include __DIR__ . '/strumenti-performance.php'; ?>
+
+    <!-- SEZIONE PROGNOSI -->
+    <?php include __DIR__ . '/strumenti-prognosi.php'; ?>
+
+    <!-- SEZIONE ESAS -->
+    <?php include __DIR__ . '/strumenti-esas.php'; ?>
+
+    <!-- SEZIONE DN4 -->
+    <?php include __DIR__ . '/strumenti-dn4.php'; ?>
+
+    <!-- SEZIONE 4AT -->
+    <?php include __DIR__ . '/strumenti-4at.php'; ?>
+
+    <!-- SEZIONE CAM -->
+    <?php include __DIR__ . '/strumenti-cam.php'; ?>
+
+    <!-- SEZIONE RASS -->
+    <?php include __DIR__ . '/strumenti-rass.php'; ?>
+
+    <!-- SEZIONE RAMSEY -->
+    <?php include __DIR__ . '/strumenti-ramsey.php'; ?>
+
+    <!-- SEZIONE ZCB 7 -->
+    <?php include __DIR__ . '/strumenti-zcb7.php'; ?>
+
+    <!-- SEZIONE FAMCARE 2 -->
+    <?php include __DIR__ . '/strumenti-famcare2.php'; ?>
   </div>
 </div>
 
