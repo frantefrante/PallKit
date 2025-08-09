@@ -34,219 +34,34 @@ function loadCategoryContent(categoryName) {
   if (!categoryDetails) return;
 
   if (categoryName === 'complessita') {
-    categoryDetails.innerHTML = `<!-- Sezione Valutazione Complessità - Layout simile a Multidimensionali -->
+    categoryDetails.innerHTML = `
 <div class="valutazione-detail-section">
   <div class="page-header">
-    <h1 class="page-title"><i class="fas fa-brain me-3"></i>Valutazione Complessità</h1>
+    <i class="fas fa-brain fa-3x mb-3" style="color:#e83e8c;"></i>
+    <h1 class="page-title">Valutazione Complessità</h1>
+    <p class="page-subtitle">Valutazione della complessità clinica e assistenziale attraverso strumenti validati per l'identificazione e la classificazione multidimensionale dei pazienti in cure palliative</p>
   </div>
 
-  <div class="row g-4 justify-content-center">
-    <div class="col-lg-6 col-xl-5">
-      <div class="tool-card tool-card-compact h-100">
-        <div class="tool-header">
-          <div class="tool-icon-large">
-            <span class="tool-letters">ID</span>
-          </div>
-          <div class="tool-info">
-            <h4>IDC-PAL</h4>
-            <div class="tool-subtitle">Instrumento Diagnóstico de Complejidad</div>
-          </div>
+  <div class="tools-grid justify-content-center">
+    <div class="tool-card">
+      <div class="tool-header">
+        <div class="tool-icon idcpal-icon">ID</div>
+        <div>
+          <div class="tool-title">IDC-PAL</div>
+          <div class="tool-subtitle">Instrumento Diagnóstico de Complejidad</div>
         </div>
-
-        <div class="tool-description">
-          Strumento per valutare la complessità multidimensionale nei pazienti in cure palliative attraverso l'analisi di 34 elementi distribuiti in 3 dimensioni: paziente, famiglia e sistema sanitario.
-        </div>
-
-        <div class="tool-features">
-          <span class="feature-badge">34 elementi specifici</span>
-          <span class="feature-badge">3 dimensioni di valutazione</span>
-          <span class="feature-badge">Classificazione automatica</span>
-        </div>
-
-        <div class="tool-actions">
-          <button class="btn btn-primary btn-action" onclick="openIDCPALCompile()">
-            <i class="fas fa-edit me-2"></i>Compila
-          </button>
-          <button class="btn btn-outline-primary btn-action" onclick="openIDCPALVisualize()">
-            <i class="fas fa-table me-2"></i>Visualizza
-          </button>
-        </div>
-
-        <div class="tool-extra-action">
-          <button class="btn btn-outline-warning btn-sm glossary-btn" onclick="openIDCPALGlossary()">
-            <i class="fas fa-book me-1"></i>Glossario Clinico
-          </button>
-        </div>
+      </div>
+      <div class="tool-description">
+        Strumento per valutare la complessità multidimensionale nei pazienti in cure palliative attraverso l'analisi di 34 elementi distribuiti in 3 dimensioni: paziente, famiglia e sistema sanitario.
+      </div>
+      <div class="tool-actions">
+        <a href="#" class="action-btn btn-primary-idcpal" onclick="openIDCPALCompile()"><i class="fas fa-edit"></i>Compila</a>
+        <a href="#" class="action-btn btn-outline-idcpal" onclick="openIDCPALVisualize()"><i class="fas fa-table"></i>Visualizza</a>
+        <a href="#" class="action-btn btn-outline-warning-custom" onclick="openIDCPALGlossary()"><i class="fas fa-book"></i>Glossario</a>
       </div>
     </div>
   </div>
-</div>
-
-<style>
-/* Stili per il layout Complessità (replica Multidimensionali con dimensioni ridotte) */
-.valutazione-detail-section {
-  padding: 2rem;
-}
-
-.tool-card {
-  background: white;
-  border: 2px solid #e9ecef;
-  border-radius: 20px;
-  padding: 2rem;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.tool-card-compact {
-  max-width: 450px;
-  margin: 0 auto;
-}
-
-.tool-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-  border-color: #007bff;
-}
-
-.tool-header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 1.5rem;
-}
-
-.tool-icon-large {
-  width: 80px;
-  height: 80px;
-  border-radius: 16px;
-  background: linear-gradient(135deg, #007bff, #0056b3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 1.5rem;
-  box-shadow: 0 4px 20px rgba(0, 123, 255, 0.3);
-}
-
-.tool-letters {
-  font-size: 1.8rem;
-  font-weight: 800;
-  color: white;
-  letter-spacing: -1px;
-}
-
-.tool-info h4 {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: #2c3e50;
-  margin-bottom: 0.3rem;
-}
-
-.tool-subtitle {
-  color: #6c757d;
-  font-size: 1rem;
-  font-weight: 500;
-}
-
-.tool-description {
-  color: #495057;
-  line-height: 1.6;
-  margin-bottom: 1.5rem;
-  font-size: 1rem;
-}
-
-.tool-features {
-  margin-bottom: 2rem;
-}
-
-.feature-badge {
-  display: inline-block;
-  background: #d1ecf1;
-  color: #0c5460;
-  padding: 0.4rem 0.8rem;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  margin-right: 0.5rem;
-  margin-bottom: 0.5rem;
-  border: 1px solid #bee5eb;
-}
-
-.tool-actions {
-  display: flex;
-  gap: 0.8rem;
-  flex-wrap: wrap;
-}
-
-.btn-action {
-  flex: 1;
-  min-width: 120px;
-  padding: 0.8rem 1rem;
-  font-weight: 600;
-  border-radius: 12px;
-  transition: all 0.3s ease;
-}
-
-.btn-primary.btn-action {
-  background: linear-gradient(135deg, #007bff, #0056b3);
-  border: none;
-}
-
-.btn-primary.btn-action:hover {
-  background: linear-gradient(135deg, #0056b3, #004085);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
-}
-
-.btn-outline-primary.btn-action {
-  border: 2px solid #007bff;
-  color: #007bff;
-}
-
-.btn-outline-primary.btn-action:hover {
-  background: #007bff;
-  border-color: #007bff;
-  transform: translateY(-2px);
-}
-
-.btn-outline-warning.btn-action {
-  border: 2px solid #ffc107;
-  color: #856404;
-}
-
-.btn-outline-warning.btn-action:hover {
-  background: #ffc107;
-  border-color: #ffc107;
-  color: #000;
-  transform: translateY(-2px);
-}
-
-.tool-extra-action {
-  border-top: 1px solid #e9ecef;
-  padding-top: 1rem;
-}
-
-@media (max-width: 768px) {
-  .tool-actions {
-    flex-direction: column;
-    gap: 0.8rem;
-  }
-  
-  .btn-action {
-    flex: none;
-    width: 100%;
-  }
-  
-  .tool-header {
-    flex-direction: column;
-    text-align: center;
-  }
-  
-  .tool-icon-large {
-    margin-right: 0;
-    margin-bottom: 1rem;
-  }
-}
-</style>`;
+</div>`;
     return;
   }
 
