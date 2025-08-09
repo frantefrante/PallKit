@@ -43,7 +43,7 @@ function loadCategoryContent(categoryName) {
       icon: '🧠',
       description: 'Valutazione della complessità clinica e assistenziale',
       tools: [
-        { name: 'IDC-PAL', subtitle: 'Instrumento Diagnóstico de Complejidad', description: 'Strumento per valutare la complessità multidimensionale nei pazienti in cure palliative.', available: false }
+        { name: 'IDC-PAL', subtitle: 'Instrumento Diagnóstico de Complejidad', description: 'Strumento per valutare la complessità multidimensionale nei pazienti in cure palliative.', available: true, action: "window.open('idcpal.html','_blank')" }
       ]
     },
     'performance': {

@@ -451,9 +451,6 @@
     <!-- SEZIONE SPICT -->
     <?php include __DIR__ . '/strumenti-spict.php'; ?>
 
-    <!-- SEZIONE IDC-PAL -->
-    <?php include __DIR__ . '/strumenti-idcpal.php'; ?>
-
     <!-- SEZIONE MULTIDIMENSIONALE -->
     <?php include __DIR__ . '/strumenti-multidimensionali.php'; ?>
 

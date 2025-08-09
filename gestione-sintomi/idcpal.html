@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IDC-PAL - Complessità in Cure Palliative</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" rel="stylesheet" />
+  <style>
+    body { background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); min-height: 100vh; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    .main-container { max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; }
+    .idcpal-overview { background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%); border-radius: 24px; padding: 3rem; margin-bottom: 2rem; border: 2px solid #e9ecef; box-shadow: 0 8px 32px rgba(0,0,0,0.08); position: relative; overflow: hidden; }
+    .idcpal-overview::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 6px; background: linear-gradient(90deg, #5cb85c, #449d44, #28a745); }
+    .idcpal-header { display: flex; align-items: center; margin-bottom: 2rem; }
+    .idcpal-icon { width: 80px; height: 80px; background: linear-gradient(135deg, #5cb85c, #449d44); border-radius: 20px; display: flex; align-items: center; justify-content: center; color: white; font-size: 2.2rem; margin-right: 2rem; box-shadow: 0 4px 20px rgba(92,184,92,.3); }
+    .idcpal-title-section h1 { font-size: 3rem; font-weight: 800; color: #2c3e50; margin-bottom: .5rem; letter-spacing: -0.02em; }
+    .idcpal-subtitle { font-size: 1.3rem; color: #6c757d; font-weight: 500; margin-bottom: 0; }
+    .idcpal-description { font-size: 1.1rem; color: #495057; line-height: 1.7; margin-bottom: 2rem; max-width: 900px; }
+    .idcpal-highlight { background: linear-gradient(135deg, #d4edda, #c3e6cb); border: 1px solid #c3e6cb; border-radius: 16px; padding: 1.5rem; margin: 1.5rem 0; display: inline-block; }
+    .highlight-text { color: #155724; font-weight: 600; font-size: 1rem; margin: 0; }
+    .idcpal-actions { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 3rem; }
+    .action-button { background: white; border: 2px solid #e9ecef; border-radius: 20px; padding: 2.5rem 2rem; text-decoration: none; color: inherit; transition: all .4s ease; cursor: pointer; position: relative; overflow: hidden; }
+    .action-button:hover { transform: translateY(-8px); box-shadow: 0 12px 40px rgba(0,0,0,.15); border-color: #5cb85c; text-decoration: none; color: inherit; }
+    .action-button.active:hover { background: linear-gradient(135deg, #5cb85c, #449d44); color: white; }
+    .action-icon { width: 60px; height: 60px; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: white; margin-bottom: 1.5rem; transition: all .3s ease; }
+    .compile-button .action-icon { background: linear-gradient(135deg, #28a745, #20c997); }
+    .view-button .action-icon { background: linear-gradient(135deg, #007bff, #6610f2); }
+    .glossary-button .action-icon { background: linear-gradient(135deg, #fd7e14, #e83e8c); }
+    .action-title { font-size: 1.5rem; font-weight: 700; color: #2c3e50; margin-bottom: .8rem; }
+    .action-description { color: #6c757d; font-size: 1rem; line-height: 1.6; margin-bottom: 1rem; }
+    .action-status { display: inline-block; padding: .4rem 1rem; border-radius: 20px; font-size: .85rem; font-weight: 600; }
+    .status-active { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+    .complexity-modal { display: none; position: fixed; z-index: 1000; inset: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,.5); backdrop-filter: blur(5px); }
+    .complexity-modal-content { background: white; margin: 2% auto; padding: 2rem; border-radius: 16px; width: 95%; max-width: 1000px; max-height: 90vh; overflow-y: auto; position: relative; box-shadow: 0 20px 40px rgba(0,0,0,.3); }
+    .modal-close { position: absolute; right: 1.5rem; top: 1.5rem; font-size: 2rem; font-weight: bold; cursor: pointer; color: #aaa; transition: color .3s ease; }
+    .modal-close:hover { color: #000; }
+    .complexity-tabs { display: flex; margin-bottom: 2rem; border-bottom: 2px solid #e9ecef; gap: 1rem; }
+    .complexity-tab { padding: 1rem 2rem; cursor: pointer; border: none; background: none; font-size: 1rem; color: #6c757d; border-bottom: 2px solid transparent; transition: all .3s ease; border-radius: 8px 8px 0 0; }
+    .complexity-tab.active { color: #5cb85c; border-bottom-color: #5cb85c; background: rgba(92,184,92,.1); }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    .patient-info { background: #f8f9fa; padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem; border: 1px solid #e9ecef; }
+    .complexity-section { background: white; border: 1px solid #e9ecef; border-radius: 12px; margin-bottom: 1.5rem; overflow: hidden; }
+    .section-header { background: linear-gradient(135deg, #5cb85c, #449d44); color: white; padding: 1rem 1.5rem; font-weight: 600; font-size: 1.1rem; }
+    .section-content { padding: 1.5rem; }
+    .complexity-item { display: flex; align-items: flex-start; padding: 1rem; border: 1px solid #e9ecef; border-radius: 8px; margin-bottom: 1rem; transition: all .3s ease; cursor: pointer; }
+    .complexity-item:hover { background: #f8f9fa; border-color: #5cb85c; }
+    .complexity-item.selected { background: #d4edda; border-color: #28a745; }
+    .item-checkbox { margin-right: 1rem; transform: scale(1.2); }
+    .item-content { flex: 1; }
+    .item-code { font-weight: 700; color: #5cb85c; margin-bottom: .3rem; }
+    .item-text { color: #2c3e50; margin-bottom: .5rem; line-height: 1.4; }
+    .item-badge { display: inline-block; padding: .3rem .8rem; border-radius: 20px; font-size: .8rem; font-weight: 600; }
+    .badge-c { background: #fff3cd; color: #856404; border: 1px solid #ffeaa7; }
+    .badge-ac { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+    .complexity-summary { background: linear-gradient(135deg, #f8f9fa, #e9ecef); padding: 1.5rem; border-radius: 12px; margin: 2rem 0; border: 1px solid #dee2e6; }
+    .summary-counts { display: flex; gap: 2rem; margin-bottom: 1rem; }
+    .count-item { display: flex; align-items: center; gap: .5rem; }
+    .count-badge { padding: .5rem 1rem; border-radius: 20px; font-weight: 600; font-size: 1rem; }
+    .final-classification { margin-top: 1.5rem; padding: 1rem; background: white; border-radius: 8px; border: 1px solid #e9ecef; }
+    .classification-options { display: flex; gap: 1.5rem; margin-top: 1rem; }
+    .classification-option { display: flex; align-items: center; gap: .5rem; padding: .8rem 1.2rem; border: 2px solid #e9ecef; border-radius: 25px; cursor: pointer; transition: all .3s ease; }
+    .classification-option:hover { border-color: #5cb85c; background: rgba(92,184,92,.1); }
+    .classification-option.selected { border-color: #28a745; background: #d4edda; }
+    .pdf-view { background: white; padding: 2rem; border-radius: 8px; border: 1px solid #dee2e6; }
+    .pdf-table { width: 100%; border-collapse: collapse; margin-bottom: 2rem; }
+    .pdf-table th, .pdf-table td { border: 1px solid #dee2e6; padding: .75rem; text-align: left; }
+    .pdf-table th { background: #f8f9fa; font-weight: 600; }
+    .glossary-item { background: white; border: 1px solid #e9ecef; border-radius: 8px; margin-bottom: 1rem; overflow: hidden; }
+    .glossary-header { background: #f8f9fa; padding: 1rem 1.5rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+    .glossary-code { font-weight: 700; color: #5cb85c; }
+    .glossary-content { padding: 1.5rem; display: none; }
+    .glossary-content.show { display: block; }
+    @media (max-width: 768px) {
+      .main-container { padding: 1rem; }
+      .idcpal-overview { padding: 2rem 1.5rem; }
+      .idcpal-header { flex-direction: column; text-align: center; }
+      .idcpal-icon { margin-right: 0; margin-bottom: 1rem; }
+      .idcpal-title-section h1 { font-size: 2.2rem; }
+      .idcpal-actions { grid-template-columns: 1fr; gap: 1.5rem; }
+      .complexity-modal-content { width: 98%; margin: 1% auto; padding: 1rem; }
+      .summary-counts { flex-direction: column; gap: 1rem; }
+      .classification-options { flex-direction: column; gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="main-container">
+    <div class="idcpal-overview">
+      <div class="idcpal-header">
+        <div class="idcpal-icon"><i class="fas fa-layer-group"></i></div>
+        <div class="idcpal-title-section">
+          <h1>IDC-PAL</h1>
+          <p class="idcpal-subtitle">Strumento Diagnostico della Complessità</p>
+        </div>
+      </div>
+      <p class="idcpal-description">Il sistema IDC-PAL è uno strumento validato per identificare e classificare il livello di complessità assistenziale nei pazienti in cure palliative, attraverso l'analisi multidimensionale di elementi clinici, psico-emotivi, familiari e organizzativi che influenzano la pianificazione dell'assistenza.</p>
+      <div class="idcpal-highlight">
+        <p class="highlight-text"><i class="fas fa-check-circle me-2"></i> 3 dimensioni di valutazione • 34 elementi specifici • Classificazione automatica</p>
+      </div>
+    </div>
+
+    <div class="idcpal-actions">
+      <div class="action-button compile-button active" onclick="openComplexityModal('compile')">
+        <div class="action-icon"><i class="fas fa-edit"></i></div>
+        <div class="action-title">Compila IDC-PAL</div>
+        <div class="action-description">Valuta la complessità del caso clinico attraverso la compilazione guidata dei 34 elementi distribuiti nelle 3 dimensioni principali.</div>
+        <span class="action-status status-active"><i class="fas fa-play me-1"></i>Disponibile</span>
+      </div>
+      <div class="action-button view-button active" onclick="openComplexityModal('view')">
+        <div class="action-icon"><i class="fas fa-table"></i></div>
+        <div class="action-title">Visualizza Scala</div>
+        <div class="action-description">Consulta la struttura completa dello strumento con tutti gli elementi e i criteri di classificazione della complessità.</div>
+        <span class="action-status status-active"><i class="fas fa-play me-1"></i>Disponibile</span>
+      </div>
+      <div class="action-button glossary-button active" onclick="openComplexityModal('glossary')">
+        <div class="action-icon"><i class="fas fa-book"></i></div>
+        <div class="action-title">Glossario Clinico</div>
+        <div class="action-description">Accedi alle definizioni dettagliate e ai criteri clinici per ogni elemento dello strumento IDC-PAL.</div>
+        <span class="action-status status-active"><i class="fas fa-play me-1"></i>Disponibile</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="complexityModal" class="complexity-modal">
+    <div class="complexity-modal-content">
+      <span class="modal-close" onclick="closeModal()">&times;</span>
+
+      <div class="complexity-tabs">
+        <button class="complexity-tab active" onclick="showTab('compile')"><i class="fas fa-edit me-2"></i>Compila</button>
+        <button class="complexity-tab" onclick="showTab('view')"><i class="fas fa-table me-2"></i>Visualizza Scala</button>
+        <button class="complexity-tab" onclick="showTab('glossary')"><i class="fas fa-book me-2"></i>Glossario</button>
+      </div>
+
+      <div id="compile-tab" class="tab-content active">
+        <div class="patient-info">
+          <h5 class="text-primary mb-3"><i class="fas fa-user me-2"></i>Dati Paziente</h5>
+          <div class="row g-3">
+            <div class="col-md-4">
+              <label class="form-label">Nome e Cognome</label>
+              <input type="text" id="patient-name" class="form-control" placeholder="Inserire nome paziente" />
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Data di nascita</label>
+              <input type="date" id="patient-birth" class="form-control" />
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Data compilazione</label>
+              <input type="date" id="compilation-date" class="form-control" />
+            </div>
+          </div>
+        </div>
+
+        <div id="complexity-sections">
+          <div class="complexity-section">
+            <div class="section-header"><i class="fas fa-user me-2"></i>1. Elementi dipendenti dal paziente</div>
+            <div class="section-content">
+              <h6 class="text-muted mb-3">1.1 - Contesto</h6>
+
+              <div class="complexity-item" data-code="1.1a">
+                <input type="checkbox" class="form-check-input item-checkbox" id="item-1.1a" onchange="toggleItem('1.1a','AC')" />
+                <div class="item-content">
+                  <div class="item-code">1.1a</div>
+                  <div class="item-text">Il paziente è un bambino o un adolescente</div>
+                  <span class="item-badge badge-ac">AC</span>
+                </div>
+              </div>
+
+              <div class="complexity-item" data-code="1.1b">
+                <input type="checkbox" class="form-check-input item-checkbox" id="item-1.1b" onchange="toggleItem('1.1b','C')" />
+                <div class="item-content">
+                  <div class="item-code">1.1b</div>
+                  <div class="item-text">Il paziente è un professionista sanitario</div>
+                  <span class="item-badge badge-c">C</span>
+                </div>
+              </div>
+
+              <h6 class="text-muted mb-3 mt-4">1.2 - Sintomi</h6>
+
+              <div class="complexity-item" data-code="1.2a">
+                <input type="checkbox" class="form-check-input item-checkbox" id="item-1.2a" onchange="toggleItem('1.2a','AC')" />
+                <div class="item-content">
+                  <div class="item-code">1.2a</div>
+                  <div class="item-text">Sintomi di difficile controllo</div>
+                  <span class="item-badge badge-ac">AC</span>
+                </div>
+              </div>
+
+              <div class="complexity-item" data-code="1.2b">
+                <input type="checkbox" class="form-check-input item-checkbox" id="item-1.2b" onchange="toggleItem('1.2b','C')" />
+                <div class="item-content">
+                  <div class="item-code">1.2b</div>
+                  <div class="item-text">Sintomi che interferiscono con il sonno</div>
+                  <span class="item-badge badge-c">C</span>
+                </div>
+              </div>
+
+              <div class="complexity-item" data-code="1.2c">
+                <input type="checkbox" class="form-check-input item-checkbox" id="item-1.2c" onchange="toggleItem('1.2c','C')" />
+                <div class="item-content">
+                  <div class="item-code">1.2c</div>
+                  <div class="item-text">Sintomi che interferiscono con la capacità comunicativa</div>
+                  <span class="item-badge badge-c">C</span>
+                </div>
+              </div>
+
+              <h6 class="text-muted mb-3 mt-4">1.3 - Aspetti psicologici</h6>
+
+              <div class="complexity-item" data-code="1.3a">
+                <input type="checkbox" class="form-check-input item-checkbox" id="item-1.3a" onchange="toggleItem('1.3a','AC')" />
+                <div class="item-content">
+                  <div class="item-code">1.3a</div>
+                  <div class="item-text">Presenza di delirium</div>
+                  <span class="item-badge badge-ac">AC</span>
+                </div>
+              </div>
+
+              <div class="complexity-item" data-code="1.3b">
+                <input type="checkbox" class="form-check-input item-checkbox" id="item-1.3b" onchange="toggleItem('1.3b','C')" />
+                <div class="item-content">
+                  <div class="item-code">1.3b</div>
+                  <div class="item-text">Presenza di ansia o depressione clinicamente significativa</div>
+                  <span class="item-badge badge-c">C</span>
+                </div>
+              </div>
+
+              <div class="complexity-item" data-code="1.3c">
+                <input type="checkbox" class="form-check-input item-checkbox" id="item-1.3c" onchange="toggleItem('1.3c','C')" />
+                <div class="item-content">
+                  <div class="item-code">1.3c</div>
+                  <div class="item-text">Manifestazioni di collera o aggressività</div>
+                  <span class="item-badge badge-c">C</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="complexity-section">
+            <div class="section-header"><i class="fas fa-users me-2"></i>2. Elementi dipendenti dalla famiglia</div>
+            <div class="section-content">
+              <h6 class="text-muted mb-3">2.1 - Contesto familiare</h6>
+
+              <div class="complexity-item" data-code="2.1a">
+                <input type="checkbox" class="form-check-input item-checkbox" id="item-2.1a" onchange="toggleItem('2.1a','AC')" />
+                <div class="item-content">
+                  <div class="item-code">2.1a</div>
+                  <div class="item-text">Assenza di supporto familiare</div>
+                  <span class="item-badge badge-ac">AC</span>
+                </div>
+              </div>
+
+              <div class="complexity-item" data-code="2.1b">
+                <input type="checkbox" class="form-check-input item-checkbox" id="item-2.1b" onchange="toggleItem('2.1b','C')" />
+                <div class="item-content">
+                  <div class="item-code">2.1b</div>
+                  <div class="item-text">Famiglia monoparentale o single parent</div>
+                  <span class="item-badge badge-c">C</span>
+                </div>
+              </div>
+
+              <div class="complexity-item" data-code="2.1c">
+                <input type="checkbox" class="form-check-input item-checkbox" id="item-2.1c" onchange="toggleItem('2.1c','C')" />
+                <div class="item-content">
+                  <div class="item-code">2.1c</div>
+                  <div class="item-text">Presenza di minori nel nucleo familiare</div>
+                  <span class="item-badge badge-c">C</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="complexity-section">
+            <div class="section-header"><i class="fas fa-hospital me-2"></i>3. Elementi dipendenti dal sistema sanitario</div>
+            <div class="section-content">
+              <h6 class="text-muted mb-3">3.1 - Aspetti organizzativi</h6>
+
+              <div class="complexity-item" data-code="3.1a">
+                <input type="checkbox" class="form-check-input item-checkbox" id="item-3.1a" onchange="toggleItem('3.1a','AC')" />
+                <div class="item-content">
+                  <div class="item-code">3.1a</div>
+                  <div class="item-text">Necessità di interventi urgenti o emergenze ricorrenti</div>
+                  <span class="item-badge badge-ac">AC</span>
+                </div>
+              </div>
+
+              <div class="complexity-item" data-code="3.1b">
+                <input type="checkbox" class="form-check-input item-checkbox" id="item-3.1b" onchange="toggleItem('3.1b','C')" />
+                <div class="item-content">
+                  <div class="item-code">3.1b</div>
+                  <div class="item-text">Necessità di coordinamento tra più servizi</div>
+                  <span class="item-badge badge-c">C</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="complexity-summary">
+          <h5 class="text-primary mb-3"><i class="fas fa-chart-pie me-2"></i>Riepilogo Valutazione</h5>
+          <div class="summary-counts">
+            <div class="count-item"><span class="count-badge badge-c" id="count-c">0 C</span><span class="text-muted">Elementi di Complessità</span></div>
+            <div class="count-item"><span class="count-badge badge-ac" id="count-ac">0 AC</span><span class="text-muted">Elementi di Alta Complessità</span></div>
+          </div>
+          <div class="final-classification">
+            <label class="form-label fw-bold">Classificazione Finale</label>
+            <div class="classification-options">
+              <div class="classification-option" data-value="non-complessa"><input type="radio" name="classification" value="non-complessa" class="me-2" /><span>Non Complessa</span></div>
+              <div class="classification-option" data-value="complessa"><input type="radio" name="classification" value="complessa" class="me-2" /><span>Complessa</span></div>
+              <div class="classification-option" data-value="altamente-complessa"><input type="radio" name="classification" value="altamente-complessa" class="me-2" /><span>Altamente Complessa</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center mt-4">
+          <button class="btn btn-success btn-lg me-3" onclick="generateReport()"><i class="fas fa-file-pdf me-2"></i>Genera Report</button>
+          <button class="btn btn-outline-secondary btn-lg" onclick="resetForm()"><i class="fas fa-redo me-2"></i>Azzera</button>
+        </div>
+      </div>
+
+      <div id="view-tab" class="tab-content">
+        <h4 class="text-primary mb-4"><i class="fas fa-table me-2"></i>IDC-PAL - Scala Completa</h4>
+        <div class="pdf-view">
+          <div class="mb-4">
+            <h5>Strumento Diagnostico della Complessità in Cure Palliative</h5>
+            <p><strong>Paziente:</strong> _______________________________________________________________  <strong>Data:</strong> _________________</p>
+          </div>
+          <table class="pdf-table">
+            <thead>
+              <tr style="background:#28a745;color:white;"><th colspan="4">1. Elementi dipendenti dal paziente</th></tr>
+              <tr><th width="10%">Elementi</th><th width="70%">Descrizione</th><th width="10%">LC*</th><th width="10%">✓</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>1.1a</strong></td><td>Il paziente è un bambino o un adolescente</td><td><span class="badge-ac">AC</span></td><td><input type="checkbox" disabled></td></tr>
+              <tr><td><strong>1.1b</strong></td><td>Il paziente è un professionista sanitario</td><td><span class="badge-c">C</span></td><td><input type="checkbox" disabled></td></tr>
+              <tr><td><strong>1.2a</strong></td><td>Sintomi di difficile controllo</td><td><span class="badge-ac">AC</span></td><td><input type="checkbox" disabled></td></tr>
+              <tr><td><strong>1.2b</strong></td><td>Sintomi che interferiscono con il sonno</td><td><span class="badge-c">C</span></td><td><input type="checkbox" disabled></td></tr>
+              <tr><td><strong>1.2c</strong></td><td>Sintomi che interferiscono con la capacità comunicativa</td><td><span class="badge-c">C</span></td><td><input type="checkbox" disabled></td></tr>
+              <tr><td><strong>1.3a</strong></td><td>Presenza di delirium</td><td><span class="badge-ac">AC</span></td><td><input type="checkbox" disabled></td></tr>
+              <tr><td><strong>1.3b</strong></td><td>Presenza di ansia o depressione clinicamente significativa</td><td><span class="badge-c">C</span></td><td><input type="checkbox" disabled></td></tr>
+              <tr><td><strong>1.3c</strong></td><td>Manifestazioni di collera o aggressività</td><td><span class="badge-c">C</span></td><td><input type="checkbox" disabled></td></tr>
+            </tbody>
+          </table>
+
+          <table class="pdf-table">
+            <thead>
+              <tr style="background:#17a2b8;color:white;"><th colspan="4">2. Elementi dipendenti dalla famiglia</th></tr>
+              <tr><th width="10%">Elementi</th><th width="70%">Descrizione</th><th width="10%">LC*</th><th width="10%">✓</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>2.1a</strong></td><td>Assenza di supporto familiare</td><td><span class="badge-ac">AC</span></td><td><input type="checkbox" disabled></td></tr>
+              <tr><td><strong>2.1b</strong></td><td>Famiglia monoparentale o single parent</td><td><span class="badge-c">C</span></td><td><input type="checkbox" disabled></td></tr>
+              <tr><td><strong>2.1c</strong></td><td>Presenza di minori nel nucleo familiare</td><td><span class="badge-c">C</span></td><td><input type="checkbox" disabled></td></tr>
+            </tbody>
+          </table>
+
+          <table class="pdf-table">
+            <thead>
+              <tr style="background:#ffc107;color:black;"><th colspan="4">3. Elementi dipendenti dal sistema sanitario</th></tr>
+              <tr><th width="10%">Elementi</th><th width="70%">Descrizione</th><th width="10%">LC*</th><th width="10%">✓</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>3.1a</strong></td><td>Necessità di interventi urgenti o emergenze ricorrenti</td><td><span class="badge-ac">AC</span></td><td><input type="checkbox" disabled></td></tr>
+              <tr><td><strong>3.1b</strong></td><td>Necessità di coordinamento tra più servizi</td><td><span class="badge-c">C</span></td><td><input type="checkbox" disabled></td></tr>
+            </tbody>
+          </table>
+
+          <div class="mt-4">
+            <p><strong>*LC = Livello di complessità</strong>  <span class="badge-c">C: Elemento di Complessità</span>  <span class="badge-ac">AC: Elemento di Alta Complessità</span></p>
+            <p><strong>Situazione:</strong> ⬜ Non complessa   ⬜ Complessa   ⬜ Altamente Complessa</p>
+          </div>
+        </div>
+        <div class="text-center mt-4"><button class="btn btn-primary" onclick="printView()"><i class="fas fa-print me-2"></i>Stampa Scala</button></div>
+      </div>
+
+      <div id="glossary-tab" class="tab-content">
+        <h4 class="text-primary mb-4"><i class="fas fa-book me-2"></i>Glossario Clinico IDC-PAL</h4>
+        <div class="input-group mb-4"><span class="input-group-text"><i class="fas fa-search"></i></span><input type="text" id="glossary-search" class="form-control" placeholder="Cerca per codice (es. 1.1a) o parole chiave..." onkeyup="filterGlossary()" /></div>
+        <div id="glossary-content">
+          <div class="glossary-item">
+            <div class="glossary-header" onclick="toggleGlossary(this)"><div><span class="glossary-code">1.1a</span> - Il paziente è un bambino o un adolescente <span class="item-badge badge-ac ms-2">AC</span></div><i class="fas fa-chevron-right"></i></div>
+            <div class="glossary-content"><p><strong>Descrizione:</strong> Si considera il periodo di vita dalla nascita al completo sviluppo dell'organismo (infanzia e adolescenza fino a 18 anni). L'assistenza pediatrica in cure palliative presenta complessità specifiche legate allo sviluppo cognitivo ed emotivo.</p></div>
+          </div>
+          <div class="glossary-item">
+            <div class="glossary-header" onclick="toggleGlossary(this)"><div><span class="glossary-code">1.1b</span> - Il paziente è un professionista sanitario <span class="item-badge badge-c ms-2">C</span></div><i class="fas fa-chevron-right"></i></div>
+            <div class="glossary-content"><p><strong>Descrizione:</strong> Quando il fatto di essere un professionista della salute aggiunge difficoltà alla sua situazione o al processo decisionale. Può comportare resistenza alle cure o aspettative irrealistiche.</p></div>
+          </div>
+          <div class="glossary-item">
+            <div class="glossary-header" onclick="toggleGlossary(this)"><div><span class="glossary-code">1.2a</span> - Sintomi di difficile controllo <span class="item-badge badge-ac ms-2">AC</span></div><i class="fas fa-chevron-right"></i></div>
+            <div class="glossary-content"><p><strong>Descrizione:</strong> Sintomatologia persistente nonostante un'adeguata ottimizzazione terapeutica secondo le linee guida. Include dolore refrattario, dispnea severa, nausea/vomito incoercibili.</p></div>
+          </div>
+          <div class="glossary-item">
+            <div class="glossary-header" onclick="toggleGlossary(this)"><div><span class="glossary-code">1.2b</span> - Sintomi che interferiscono con il sonno <span class="item-badge badge-c ms-2">C</span></div><i class="fas fa-chevron-right"></i></div>
+            <div class="glossary-content"><p><strong>Descrizione:</strong> Presenza di sintomi che disturbano il riposo notturno del paziente, compromettendo la qualità di vita e richiedendo interventi specifici per il controllo del sonno.</p></div>
+          </div>
+          <div class="glossary-item">
+            <div class="glossary-header" onclick="toggleGlossary(this)"><div><span class="glossary-code">1.2c</span> - Sintomi che interferiscono con la capacità comunicativa <span class="item-badge badge-c ms-2">C</span></div><i class="fas fa-chevron-right"></i></div>
+            <div class="glossary-content"><p><strong>Descrizione:</strong> Sintomi che compromettono la capacità del paziente di comunicare efficacemente, inclusi problemi del linguaggio, disfagia, dispnea severa o alterazioni cognitive.</p></div>
+          </div>
+          <div class="glossary-item">
+            <div class="glossary-header" onclick="toggleGlossary(this)"><div><span class="glossary-code">1.3a</span> - Presenza di delirium <span class="item-badge badge-ac ms-2">AC</span></div><i class="fas fa-chevron-right"></i></div>
+            <div class="glossary-content"><p><strong>Descrizione:</strong> Stato confusionale acuto caratterizzato da alterazione della coscienza, deficit attentivo e cognitivo di rapida insorgenza. Richiede valutazione specialistica e interventi multidisciplinari.</p></div>
+          </div>
+          <div class="glossary-item">
+            <div class="glossary-header" onclick="toggleGlossary(this)"><div><span class="glossary-code">1.3b</span> - Presenza di ansia o depressione clinicamente significativa <span class="item-badge badge-c ms-2">C</span></div><i class="fas fa-chevron-right"></i></div>
+            <div class="glossary-content"><p><strong>Descrizione:</strong> Disturbi dell'umore o d'ansia che interferiscono significativamente con il funzionamento quotidiano e richiedono intervento psicologico o psichiatrico specialistico.</p></div>
+          </div>
+          <div class="glossary-item">
+            <div class="glossary-header" onclick="toggleGlossary(this)"><div><span class="glossary-code">1.3c</span> - Manifestazioni di collera o aggressività <span class="item-badge badge-c ms-2">C</span></div><i class="fas fa-chevron-right"></i></div>
+            <div class="glossary-content"><p><strong>Descrizione:</strong> Comportamenti aggressivi verbali o fisici che compromettono la relazione terapeutica e richiedono strategie di gestione specifiche e supporto psicologico.</p></div>
+          </div>
+          <div class="glossary-item">
+            <div class="glossary-header" onclick="toggleGlossary(this)"><div><span class="glossary-code">2.1a</span> - Assenza di supporto familiare <span class="item-badge badge-ac ms-2">AC</span></div><i class="fas fa-chevron-right"></i></div>
+            <div class="glossary-content"><p><strong>Descrizione:</strong> Mancanza di una rete familiare di supporto disponibile e affidabile. Include pazienti isolati socialmente o con familiari geograficamente distanti o emotivamente non disponibili.</p></div>
+          </div>
+          <div class="glossary-item">
+            <div class="glossary-header" onclick="toggleGlossary(this)"><div><span class="glossary-code">2.1b</span> - Famiglia monoparentale o single parent <span class="item-badge badge-c ms-2">C</span></div><i class="fas fa-chevron-right"></i></div>
+            <div class="glossary-content"><p><strong>Descrizione:</strong> Situazioni familiari in cui un solo genitore si occupa dei figli, creando maggiore stress e necessità di supporto aggiuntivo nell'assistenza al paziente.</p></div>
+          </div>
+          <div class="glossary-item">
+            <div class="glossary-header" onclick="toggleGlossary(this)"><div><span class="glossary-code">2.1c</span> - Presenza di minori nel nucleo familiare <span class="item-badge badge-c ms-2">C</span></div><i class="fas fa-chevron-right"></i></div>
+            <div class="glossary-content"><p><strong>Descrizione:</strong> Presenza di bambini o adolescenti nel nucleo familiare che richiede attenzioni specifiche per la gestione dell'impatto psicologico della malattia e del processo di lutto.</p></div>
+          </div>
+          <div class="glossary-item">
+            <div class="glossary-header" onclick="toggleGlossary(this)"><div><span class="glossary-code">3.1a</span> - Necessità di interventi urgenti o emergenze ricorrenti <span class="item-badge badge-ac ms-2">AC</span></div><i class="fas fa-chevron-right"></i></div>
+            <div class="glossary-content"><p><strong>Descrizione:</strong> Situazioni cliniche che richiedono interventi sanitari urgenti ripetuti, accessi in pronto soccorso frequenti o necessità di reperibilità h24 del team sanitario.</p></div>
+          </div>
+          <div class="glossary-item">
+            <div class="glossary-header" onclick="toggleGlossary(this)"><div><span class="glossary-code">3.1b</span> - Necessità di coordinamento tra più servizi <span class="item-badge badge-c ms-2">C</span></div><i class="fas fa-chevron-right"></i></div>
+            <div class="glossary-content"><p><strong>Descrizione:</strong> Coinvolgimento di multiple figure professionali e servizi sanitari che richiede un coordinamento complesso per garantire continuità assistenziale e integrazione delle cure.</p></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    (() => {
+      const counts = { C: 0, AC: 0 };
+      const tabIds = ['compile','view','glossary'];
+
+      // Alias per compatibilità con il tuo HTML
+      window.openComplexityModal = (tab) => openModal(tab);
+
+      window.openModal = (tab) => {
+        const m = document.getElementById('complexityModal');
+        if (!m) return;
+        m.style.display = 'block';
+        showTab(tab || 'compile');
+      };
+
+      window.closeModal = () => {
+        const m = document.getElementById('complexityModal');
+        if (m) m.style.display = 'none';
+      };
+
+      window.showTab = (name) => {
+        document.querySelectorAll('.complexity-tab').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+        const idx = tabIds.indexOf(name);
+        const tabs = document.querySelectorAll('.complexity-tab');
+        if (idx > -1 && tabs[idx]) tabs[idx].classList.add('active');
+        const pane = document.getElementById(`${name}-tab`);
+        if (pane) pane.classList.add('active');
+      };
+
+      function updateCounts() {
+        const c = document.getElementById('count-c');
+        const ac = document.getElementById('count-ac');
+        if (c) c.textContent = `${counts.C || 0} C`;
+        if (ac) ac.textContent = `${counts.AC || 0} AC`;
+      }
+
+      window.toggleItem = (code, level) => {
+        const row = document.querySelector(`.complexity-item[data-code="${code}"]`);
+        const cb = document.getElementById(`item-${code}`);
+        if (!row || !cb) return;
+        if (cb.checked) { 
+          row.classList.add('selected'); 
+          counts[level] = (counts[level] || 0) + 1; 
+        } else { 
+          row.classList.remove('selected'); 
+          counts[level] = Math.max(0, (counts[level] || 0) - 1); 
+        }
+        updateCounts();
+      };
+
+      window.resetForm = () => {
+        document.querySelectorAll('.item-checkbox').forEach(cb => cb.checked = false);
+        document.querySelectorAll('.complexity-item').forEach(el => el.classList.remove('selected'));
+        counts.C = 0; counts.AC = 0; updateCounts();
+        ['patient-name','patient-birth','compilation-date'].forEach(id => { 
+          const el = document.getElementById(id); 
+          if (el) el.value = ''; 
+        });
+        document.querySelectorAll('input[name="classification"]').forEach(r => r.checked = false);
+        document.querySelectorAll('.classification-option').forEach(o => o.classList.remove('selected'));
+      };
+
+      window.printView = () => {
+        const src = document.getElementById('view-tab'); 
+        if (!src) return;
+        const w = window.open('', '_blank');
+        w.document.write(`<!DOCTYPE html><html><head><meta charset="utf-8"><title>IDC-PAL - Scala Completa</title><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"><style>.badge-c{background:#fff3cd;color:#856404;border:1px solid #ffeaa7;padding:.3rem .8rem;border-radius:20px;font-size:.8rem;font-weight:600}.badge-ac{background:#f8d7da;color:#721c24;border:1px solid #f5c6cb;padding:.3rem .8rem;border-radius:20px;font-size:.8rem;font-weight:600}</style></head><body>`);
+        w.document.write(src.innerHTML);
+        w.document.write('</body></html>');
+        w.document.close(); 
+        w.focus(); 
+        w.print();
+      };
+
+      window.filterGlossary = () => {
+        const q = (document.getElementById('glossary-search')?.value || '').toLowerCase();
+        document.querySelectorAll('#glossary-content .glossary-item').forEach(item => {
+          const txt = item.textContent.toLowerCase();
+          item.style.display = txt.includes(q) ? '' : 'none';
+        });
+      };
+
+      window.toggleGlossary = (header) => {
+        const content = header.nextElementSibling; 
+        if (!content) return;
+        content.classList.toggle('show');
+        const chev = header.querySelector('.fa-chevron-right');
+        if (chev) chev.style.transform = content.classList.contains('show') ? 'rotate(90deg)' : 'rotate(0)';
+      };
+
+      window.generateReport = () => {
+        const name = document.getElementById('patient-name')?.value || '';
+        const birth = document.getElementById('patient-birth')?.value || '';
+        const date = document.getElementById('compilation-date')?.value || '';
+        const finalClassification = document.querySelector('input[name="classification"]:checked')?.value || '—';
+        
+        // Raccolta elementi selezionati
+        const selectedItems = [];
+        document.querySelectorAll('.item-checkbox:checked').forEach(cb => {
+          const item = cb.closest('.complexity-item');
+          const code = item.querySelector('.item-code').textContent;
+          const text = item.querySelector('.item-text').textContent;
+          const level = item.querySelector('.item-badge').textContent;
+          selectedItems.push({ code, text, level });
+        });
+
+        const win = window.open('', '_blank');
+        win.document.write(`<!DOCTYPE html><html><head><meta charset="utf-8"><title>Report IDC-PAL</title><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"><style>
+          .badge-c{background:#fff3cd;color:#856404;border:1px solid #ffeaa7;padding:.3rem .8rem;border-radius:20px;font-size:.8rem;font-weight:600;display:inline-block}
+          .badge-ac{background:#f8d7da;color:#721c24;border:1px solid #f5c6cb;padding:.3rem .8rem;border-radius:20px;font-size:.8rem;font-weight:600;display:inline-block}
+          .report-table{width:100%;border-collapse:collapse;margin:1rem 0}
+          .report-table th,.report-table td{border:1px solid #dee2e6;padding:.75rem;text-align:left}
+          .report-table th{background:#f8f9fa;font-weight:600}
+          .header-box{background:#f8f9fa;padding:1rem;border-radius:8px;margin-bottom:1rem;border:1px solid #dee2e6}
+          .summary-box{background:#e7f3ff;padding:1rem;border-radius:8px;margin:1rem 0;border:1px solid #b8daff}
+          @media print{body{margin:0;padding:1rem}}
+        </style></head><body class="p-4">`);
+        
+        win.document.write(`<div class="header-box"><h3 class="text-primary mb-3">Report IDC-PAL - Valutazione Complessità</h3><div class="row"><div class="col-md-4"><strong>Paziente:</strong><br/>${name || '—'}</div><div class="col-md-4"><strong>Data di nascita:</strong><br/>${birth || '—'}</div><div class="col-md-4"><strong>Data compilazione:</strong><br/>${date || '—'}</div></div></div>`);
+        
+        win.document.write(`<div class="summary-box"><h5 class="text-primary">Riepilogo Valutazione</h5><div class="row"><div class="col-md-4"><strong>Elementi C:</strong> ${counts.C}</div><div class="col-md-4"><strong>Elementi AC:</strong> ${counts.AC}</div><div class="col-md-4"><strong>Classificazione:</strong> <span class="fw-bold">${finalClassification.replace('-', ' ').toUpperCase()}</span></div></div></div>`);
+        
+        if (selectedItems.length > 0) {
+          win.document.write(`<h5 class="mt-4">Elementi Selezionati</h5><table class="report-table"><thead><tr><th width="15%">Codice</th><th width="70%">Descrizione</th><th width="15%">Livello</th></tr></thead><tbody>`);
+          selectedItems.forEach(item => {
+            win.document.write(`<tr><td><strong>${item.code}</strong></td><td>${item.text}</td><td><span class="badge-${item.level.toLowerCase()}">${item.level}</span></td></tr>`);
+          });
+          win.document.write(`</tbody></table>`);
+        }
+        
+        win.document.write(`<div class="mt-4 text-muted"><small>Report generato automaticamente dal sistema IDC-PAL - ${new Date().toLocaleDateString('it-IT')}</small></div>`);
+        win.document.write('</body></html>');
+        win.document.close(); 
+        win.focus();
+      };
+
+      // Gestione click sul modal per chiuderlo
+      const modal = document.getElementById('complexityModal');
+      if (modal) {
+        modal.addEventListener('click', (e) => { 
+          if (e.target === modal) closeModal(); 
+        });
+      }
+
+      // Gestione tasto ESC per chiudere il modal
+      document.addEventListener('keydown', (e) => { 
+        if (e.key === 'Escape') closeModal(); 
+      });
+
+      // Gestione click sulle opzioni di classificazione
+      document.querySelectorAll('.classification-option').forEach(opt => {
+        opt.addEventListener('click', () => {
+          document.querySelectorAll('.classification-option').forEach(o => o.classList.remove('selected'));
+          opt.classList.add('selected');
+          const radio = opt.querySelector('input[type="radio"]'); 
+          if (radio) radio.checked = true;
+        });
+      });
+
+      // Imposta la data di compilazione a oggi
+      const today = new Date().toISOString().split('T')[0];
+      const compilationDate = document.getElementById('compilation-date');
+      if (compilationDate) compilationDate.value = today;
+
+      updateCounts();
+    })();
+  </script>
+</body>
+</html>
+
