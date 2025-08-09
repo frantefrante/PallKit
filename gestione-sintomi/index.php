@@ -330,7 +330,7 @@
           </div>
 
           <!-- MULTIDIMENSIONALE -->
-          <div class="category-card multidimensionale" onclick="openCategoryView('multidimensionale')">
+          <div class="category-card multidimensionale" onclick="navigateToSection('multidimensionale-home')">
             <div class="category-header">
               <div class="category-icon">📋</div>
               <div class="category-info">
@@ -459,6 +459,9 @@
 
     <!-- SEZIONE IDC-PAL -->
     <?php include __DIR__ . '/strumenti-idcpal.php'; ?>
+
+    <!-- SEZIONE MULTIDIMENSIONALE -->
+    <?php include __DIR__ . '/strumenti-multidimensionali.php'; ?>
 
     <!-- SEZIONE IPOS -->
     <?php include __DIR__ . '/strumenti-ipos.php'; ?>
