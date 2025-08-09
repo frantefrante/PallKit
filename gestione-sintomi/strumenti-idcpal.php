@@ -299,12 +299,20 @@ $idcpal_sections = [
       </div>
     </div>
 
-    <!-- SEZIONE GLOSSARIO -->
-    <div id="idcpal-glossary-section" class="content-section">
-      <div class="mb-4">
-        <input type="text" id="idcpal-glossary-search" class="form-control" oninput="filterIDCPALGlossary()" placeholder="Cerca nel glossario...">
-      </div>
-      <div id="idcpal-glossary-content">
+  <!-- SEZIONE GLOSSARIO -->
+<div id="glossary-section" class="content-section">
+  <div class="mb-4">
+    <div class="input-group">
+      <span class="input-group-text"><i class="fas fa-search"></i></span>
+      <input type="text" id="glossary-search" class="form-control"
+             oninput="filterIDCPALGlossary()"
+             placeholder="Cerca nel glossario...">
+    </div>
+  </div>
+  <div id="glossary-content">
+    <!-- voci del glossario qui -->
+  </div>
+</div>
 <?php foreach ($idcpal_sections as $section): ?>
 <?php foreach ($section['subsections'] as $sub): ?>
 <?php foreach ($sub['items'] as $item): ?>
