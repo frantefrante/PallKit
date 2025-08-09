@@ -43,7 +43,7 @@ function loadCategoryContent(categoryName) {
       icon: '🧠',
       description: 'Valutazione della complessità clinica e assistenziale',
       tools: [
-        { name: 'IDC-PAL', subtitle: 'Instrumento Diagnóstico de Complejidad', description: 'Strumento per valutare la complessità multidimensionale nei pazienti in cure palliative.', available: true, action: 'navigateToSection("idcpal-home")' }
+        { name: 'IDC-PAL', subtitle: 'Instrumento Diagnóstico de Complejidad', description: 'Strumento per valutare la complessità multidimensionale nei pazienti in cure palliative.', available: true, action: "navigateToSection('idcpal-home')" }
       ]
     },
     'performance': {
@@ -51,10 +51,10 @@ function loadCategoryContent(categoryName) {
       icon: '🏃',
       description: 'Scale di valutazione funzionale e performance status',
       tools: [
-        { name: 'AKPS', subtitle: 'Australia-modified Karnofsky', description: 'Scala modificata del Karnofsky Performance Status, sviluppata specificamente per le cure palliative.', available: true, action: 'openPerfModal("akps")' },
-        { name: 'PPS', subtitle: 'Palliative Performance Scale', description: 'Strumento multidimensionale che valuta cinque domini funzionali con valore prognostico.', available: true, action: 'openPerfModal("pps")' },
-        { name: 'ADL', subtitle: 'Activities of Daily Living', description: 'Indice di Barthel per valutare l\'autonomia nelle attività della vita quotidiana.', available: true, action: 'openPerfModal("adl")' },
-        { name: 'BADL', subtitle: 'Basic Activities of Daily Living', description: 'Valutazione delle attività di base della vita quotidiana con sistema di scoring automatico.', available: true, action: 'openPerfModal("badl")' }
+        { name: 'AKPS', subtitle: 'Australia-modified Karnofsky', description: 'Scala modificata del Karnofsky Performance Status, sviluppata specificamente per le cure palliative.', available: true, action: "openPerfModal('akps')" },
+        { name: 'PPS', subtitle: 'Palliative Performance Scale', description: 'Strumento multidimensionale che valuta cinque domini funzionali con valore prognostico.', available: true, action: "openPerfModal('pps')" },
+        { name: 'ADL', subtitle: 'Activities of Daily Living', description: 'Indice di Barthel per valutare l\'autonomia nelle attività della vita quotidiana.', available: true, action: "openPerfModal('adl')" },
+        { name: 'BADL', subtitle: 'Basic Activities of Daily Living', description: 'Valutazione delle attività di base della vita quotidiana con sistema di scoring automatico.', available: true, action: "openPerfModal('badl')" }
       ]
     },
     'prognosi': {
@@ -71,7 +71,7 @@ function loadCategoryContent(categoryName) {
       icon: '📋',
       description: 'Strumenti per assessment olistico del paziente',
       tools: [
-        { name: 'IPOS', subtitle: 'Integrated Palliative care Outcome Scale', description: 'Scala integrata per la valutazione multidimensionale di outcome in cure palliative.', available: true, action: 'navigateToSection("ipos-home")' },
+        { name: 'IPOS', subtitle: 'Integrated Palliative care Outcome Scale', description: 'Scala integrata per la valutazione multidimensionale di outcome in cure palliative.', available: true, action: "navigateToSection('ipos-home')" },
         { name: 'ESAS', subtitle: 'Edmonton Symptom Assessment System', description: 'Sistema di valutazione rapida dei sintomi più comuni in cure palliative.', available: true, action: 'openESASCompile()' }
       ]
     },
