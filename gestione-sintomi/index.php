@@ -214,28 +214,22 @@
         <!-- Statistics Cards -->
         <div class="stats-row mb-4">
           <div class="row g-3">
-            <div class="col-6 col-md-3">
+            <div class="col-6 col-md-4">
               <div class="stat-card">
                 <div class="stat-number">18</div>
                 <div class="stat-label">Strumenti</div>
               </div>
             </div>
-            <div class="col-6 col-md-3">
+            <div class="col-6 col-md-4">
               <div class="stat-card">
                 <div class="stat-number">6</div>
                 <div class="stat-label">Implementati</div>
               </div>
             </div>
-            <div class="col-6 col-md-3">
+            <div class="col-6 col-md-4">
               <div class="stat-card">
                 <div class="stat-number">9</div>
                 <div class="stat-label">Categorie</div>
-              </div>
-            </div>
-            <div class="col-6 col-md-3">
-              <div class="stat-card">
-                <div class="stat-number">100%</div>
-                <div class="stat-label">Validati</div>
               </div>
             </div>
           </div>
@@ -338,7 +332,7 @@
                 <small>2 strumenti</small>
               </div>
               <div class="category-status">
-                <span class="badge bg-primary">Parziale</span>
+                <span class="badge bg-success">✅ Disponibile</span>
               </div>
             </div>
             <div class="category-description">
@@ -346,7 +340,7 @@
             </div>
             <div class="category-tools">
               <span class="tool-badge available">IPOS</span>
-              <span class="tool-badge">ESAS</span>
+              <span class="tool-badge available">ESAS</span>
             </div>
           </div>
 

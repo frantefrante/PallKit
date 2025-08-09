@@ -72,7 +72,7 @@ function loadCategoryContent(categoryName) {
       description: 'Strumenti per assessment olistico del paziente',
       tools: [
         { name: 'IPOS', subtitle: 'Integrated Palliative care Outcome Scale', description: 'Scala integrata per la valutazione multidimensionale di outcome in cure palliative.', available: true, action: 'navigateToSection("ipos-home")' },
-        { name: 'ESAS', subtitle: 'Edmonton Symptom Assessment System', description: 'Sistema di valutazione rapida dei sintomi più comuni in cure palliative.', available: false }
+        { name: 'ESAS', subtitle: 'Edmonton Symptom Assessment System', description: 'Sistema di valutazione rapida dei sintomi più comuni in cure palliative.', available: true, action: 'openESASCompile()' }
       ]
     },
     'dolore': {
@@ -228,10 +228,12 @@ function openIPOSVisualize() {
 
 function openESASCompile() {
   navigateToSection('esas-home');
+  if (typeof switchMode === 'function') switchMode('compile');
 }
 
 function openESASVisualize() {
-  alert('Visualizzazione PDF ESAS in sviluppo');
+  navigateToSection('esas-home');
+  if (typeof switchMode === 'function') switchMode('visualize');
 }
 
 function showIPOSPDF(tipo, giorni) {
