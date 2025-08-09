@@ -27,6 +27,294 @@ function showCategories() {
 
 function loadCategoryContent(categoryName) {
   const categoryDetails = document.getElementById('categoryDetails');
+  if (!categoryDetails) return;
+
+  if (categoryName === 'complessita') {
+    categoryDetails.innerHTML = `<!-- Sezione Valutazione Complessità - Layout come Multidimensionali -->
+<div class="valutazione-detail-section">
+  <div class="detail-header mb-4">
+    <h3>🧠 Valutazione Complessità</h3>
+    <p>Valutazione della complessità clinica e assistenziale attraverso strumenti validati per l'identificazione e classificazione multidimensionale dei pazienti in cure palliative</p>
+  </div>
+
+  <!-- Griglia strumenti (dimensioni ridotte come se fossero 2) -->
+  <div class="row g-4">
+    <!-- IDC-PAL Card (dimensioni ridotte) -->
+    <div class="col-lg-6 col-xl-5">
+      <div class="tool-card tool-card-compact h-100">
+        <div class="tool-header">
+          <div class="tool-icon-large">
+            <span class="tool-letters">ID</span>
+          </div>
+          <div class="tool-info">
+            <h4>IDC-PAL</h4>
+            <div class="tool-subtitle">Instrumento Diagnóstico de Complejidad</div>
+          </div>
+        </div>
+        
+        <div class="tool-description">
+          Strumento per valutare la complessità multidimensionale nei pazienti in cure palliative attraverso l'analisi di 34 elementi distribuiti in 3 dimensioni: paziente, famiglia e sistema sanitario.
+        </div>
+        
+        <div class="tool-features">
+          <span class="feature-badge">34 elementi specifici</span>
+          <span class="feature-badge">3 dimensioni di valutazione</span>
+          <span class="feature-badge">Classificazione automatica</span>
+        </div>
+        
+        <div class="tool-actions">
+          <button class="btn btn-primary btn-action" onclick="openIDCPALCompile()">
+            <i class="fas fa-edit me-2"></i>Compila
+          </button>
+          <button class="btn btn-outline-primary btn-action" onclick="openIDCPALVisualize()">
+            <i class="fas fa-table me-2"></i>Visualizza
+          </button>
+        </div>
+        
+        <!-- Glossario sotto Compila -->
+        <div class="tool-extra-action">
+          <button class="btn btn-outline-warning btn-sm glossary-btn" onclick="openIDCPALGlossary()">
+            <i class="fas fa-book me-1"></i>Glossario Clinico
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Spazio per futuro strumento (dimensioni ridotte) -->
+    <div class="col-lg-6 col-xl-5 offset-xl-2">
+      <div class="tool-card tool-card-compact h-100 coming-soon">
+        <div class="tool-header">
+          <div class="tool-icon-large coming-soon-icon">
+            <i class="fas fa-plus"></i>
+          </div>
+          <div class="tool-info">
+            <h4>Prossimo Strumento</h4>
+            <div class="tool-subtitle">In fase di sviluppo</div>
+          </div>
+        </div>
+        
+        <div class="tool-description">
+          Ulteriori strumenti per la valutazione della complessità saranno aggiunti nelle prossime versioni per completare la suite di assessment multidimensionale.
+        </div>
+        
+        <div class="tool-features">
+          <span class="feature-badge-coming">In arrivo</span>
+        </div>
+        
+        <div class="tool-actions">
+          <button class="btn btn-outline-secondary btn-action" disabled>
+            <i class="fas fa-clock me-2"></i>In Sviluppo
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+/* Stili per il layout Complessità (replica Multidimensionali con dimensioni ridotte) */
+.valutazione-detail-section {
+  padding: 2rem;
+}
+
+.detail-header h3 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
+
+.detail-header p {
+  color: #6c757d;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.tool-card {
+  background: white;
+  border: 2px solid #e9ecef;
+  border-radius: 20px;
+  padding: 2rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.tool-card-compact {
+  max-width: 450px;
+  margin: 0 auto;
+}
+
+.tool-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  border-color: #007bff;
+}
+
+.tool-card.coming-soon {
+  opacity: 0.7;
+  background: #f8f9fa;
+}
+
+.tool-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.tool-icon-large {
+  width: 80px;
+  height: 80px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1.5rem;
+  box-shadow: 0 4px 20px rgba(0, 123, 255, 0.3);
+}
+
+.tool-icon-large.coming-soon-icon {
+  background: linear-gradient(135deg, #6c757d, #495057);
+  box-shadow: 0 4px 20px rgba(108, 117, 125, 0.3);
+}
+
+.tool-letters {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: white;
+  letter-spacing: -1px;
+}
+
+.tool-info h4 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 0.3rem;
+}
+
+.tool-subtitle {
+  color: #6c757d;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.tool-description {
+  color: #495057;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+}
+
+.tool-features {
+  margin-bottom: 2rem;
+}
+
+.feature-badge {
+  display: inline-block;
+  background: #d1ecf1;
+  color: #0c5460;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+  border: 1px solid #bee5eb;
+}
+
+.feature-badge-coming {
+  display: inline-block;
+  background: #f8f9fa;
+  color: #6c757d;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+  border: 1px solid #dee2e6;
+}
+
+.tool-actions {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.btn-action {
+  flex: 1;
+  min-width: 120px;
+  padding: 0.8rem 1rem;
+  font-weight: 600;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.btn-primary.btn-action {
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  border: none;
+}
+
+.btn-primary.btn-action:hover {
+  background: linear-gradient(135deg, #0056b3, #004085);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+}
+
+.btn-outline-primary.btn-action {
+  border: 2px solid #007bff;
+  color: #007bff;
+}
+
+.btn-outline-primary.btn-action:hover {
+  background: #007bff;
+  border-color: #007bff;
+  transform: translateY(-2px);
+}
+
+.btn-outline-warning.btn-action {
+  border: 2px solid #ffc107;
+  color: #856404;
+}
+
+.btn-outline-warning.btn-action:hover {
+  background: #ffc107;
+  border-color: #ffc107;
+  color: #000;
+  transform: translateY(-2px);
+}
+
+.tool-extra-action {
+  border-top: 1px solid #e9ecef;
+  padding-top: 1rem;
+}
+
+@media (max-width: 768px) {
+  .tool-actions {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  
+  .btn-action {
+    flex: none;
+    width: 100%;
+  }
+  
+  .tool-header {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .tool-icon-large {
+    margin-right: 0;
+    margin-bottom: 1rem;
+  }
+}
+</style>`;
+    return;
+  }
+
   const categoryData = {
     'identificazione': {
       title: 'Strumenti di Identificazione',
@@ -36,24 +324,6 @@ function loadCategoryContent(categoryName) {
         { name: 'NECPAL 3.1', subtitle: 'Necessidades Paliativas', description: 'Strumento di screening per identificare pazienti con bisogni palliativi. Versione 3.1 con criteri aggiornati.', available: false },
         { name: 'NECPAL 4.0', subtitle: 'Versione Aggiornata', description: 'Ultima versione del NECPAL con criteri rivisti e maggiore specificità per diverse patologie.', available: false },
         { name: 'SPICT', subtitle: 'Supportive & Palliative Care Indicators', description: 'Tool clinico per identificare pazienti che potrebbero beneficiare di cure palliative specialistiche.', available: false }
-      ]
-    },
-    'complessita': {
-      title: 'Valutazione Complessità',
-      icon: '🧠',
-      description: 'Valutazione della complessità clinica e assistenziale',
-      tools: [
-        { 
-          name: 'IDC-PAL', 
-          subtitle: 'Instrumento Diagnóstico de Complejidad', 
-          description: 'Strumento per valutare la complessità multidimensionale nei pazienti in cure palliative attraverso 34 elementi in 3 dimensioni.', 
-          available: true, 
-          actions: [
-            { name: 'Compila', action: 'openIDCPALCompile()', icon: 'fas fa-edit', class: 'btn-success' },
-            { name: 'Visualizza', action: 'openIDCPALVisualize()', icon: 'fas fa-table', class: 'btn-primary' },
-            { name: 'Glossario', action: 'openIDCPALGlossary()', icon: 'fas fa-book', class: 'btn-warning' }
-          ]
-        }
       ]
     },
     'performance': {
