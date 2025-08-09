@@ -17,6 +17,7 @@
   <link href="/css/documents.css" rel="stylesheet">
   <!-- Sedation tables styles -->
   <link href="css/sedazione.css" rel="stylesheet">
+  <link href="css/strumenti-valutazione.css" rel="stylesheet">
 </head>
 <body>
 
@@ -57,115 +58,10 @@
       </li>
 
       <li class="nav-item mb-2">
-        <span class="nav-link text-white-50"><i class="fas fa-chart-bar me-2"></i>Strumenti di Valutazione</span>
-      </li>
-
       <li class="nav-item mb-2">
-        <a class="nav-link submenu-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#submenu-ident" href="#" role="button" aria-expanded="false">
-          <i class="fas fa-search me-2"></i>Identificazione
-          <i class="fas fa-chevron-right rotate-icon ms-auto"></i>
+        <a href="#" class="nav-link" data-target="strumenti-valutazione-home">
+          <i class="fas fa-chart-line me-2"></i>Strumenti Valutazione
         </a>
-        <ul class="nav flex-column collapse" id="submenu-ident" data-bs-parent="#clinical-menu">
-          <li class="nav-item">
-            <a href="#" class="nav-link ms-3" data-target="identificazione-home">NECPAL 3.1</a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link ms-3" data-target="necpal4-home">NECPAL 4.0</a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link ms-3" data-target="spict-home">SPICT</a>
-          </li>
-        </ul>
-      </li>
-
-      <li class="nav-item mb-2">
-        <a class="nav-link submenu-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#submenu-compl" href="#" role="button" aria-expanded="false">
-          <i class="fas fa-brain me-2"></i>Complessità
-          <i class="fas fa-chevron-right rotate-icon ms-auto"></i>
-        </a>
-        <ul class="nav flex-column collapse" id="submenu-compl" data-bs-parent="#clinical-menu">
-          <li class="nav-item">
-            <a href="#" class="nav-link ms-3" data-target="idcpal-home">IDC-PAL</a>
-          </li>
-        </ul>
-      </li>
-
-      <li class="nav-item mb-2">
-        <a class="nav-link submenu-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#submenu-perf" href="#" role="button" aria-expanded="false" data-target="performance-home">
-          <i class="fas fa-person-running me-2"></i>Performance
-          <i class="fas fa-chevron-right rotate-icon ms-auto"></i>
-        </a>
-        <ul class="nav flex-column collapse" id="submenu-perf" data-bs-parent="#clinical-menu">
-          <li class="nav-item"><a href="#" class="nav-link ms-3" onclick="openPerfModal('akps');">AKPS</a></li>
-          <li class="nav-item"><a href="#" class="nav-link ms-3" onclick="openPerfModal('pps');">PPS</a></li>
-          <li class="nav-item"><a href="#" class="nav-link ms-3" onclick="openPerfModal('adl');">ADL</a></li>
-          <li class="nav-item"><a href="#" class="nav-link ms-3" onclick="openPerfModal('badl');">BADL</a></li>
-        </ul>
-      </li>
-
-      <li class="nav-item mb-2">
-        <a class="nav-link submenu-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#submenu-prog" href="#" role="button" aria-expanded="false" data-target="prognosi-home">
-          <i class="fas fa-chart-line me-2"></i>Prognosi
-          <i class="fas fa-chevron-right rotate-icon ms-auto"></i>
-        </a>
-        <ul class="nav flex-column collapse" id="submenu-prog" data-bs-parent="#clinical-menu">
-          <li class="nav-item"><a href="#" class="nav-link ms-3" onclick="openProgModal('ppi');">PPI</a></li>
-          <li class="nav-item"><a href="#" class="nav-link ms-3" onclick="openProgModal('pap');">PaP Score</a></li>
-        </ul>
-      </li>
-
-      <li class="nav-item mb-2">
-        <a class="nav-link submenu-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#submenu-multi" href="#" role="button" aria-expanded="false">
-          <i class="fas fa-clipboard me-2"></i>Multidimensionale
-          <i class="fas fa-chevron-right rotate-icon ms-auto"></i>
-        </a>
-        <ul class="nav flex-column collapse" id="submenu-multi" data-bs-parent="#clinical-menu">
-          <li class="nav-item"><a href="#" class="nav-link ms-3" data-target="ipos-home">IPOS</a></li>
-          <li class="nav-item"><a href="#" class="nav-link ms-3" data-target="esas-home">ESAS</a></li>
-        </ul>
-      </li>
-
-      <li class="nav-item mb-2">
-        <a class="nav-link submenu-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#submenu-dolore" href="#" role="button" aria-expanded="false">
-          <i class="fas fa-face-frown me-2"></i>Dolore
-          <i class="fas fa-chevron-right rotate-icon ms-auto"></i>
-        </a>
-        <ul class="nav flex-column collapse" id="submenu-dolore" data-bs-parent="#clinical-menu">
-          <li class="nav-item"><a href="#" class="nav-link ms-3" data-target="dn4-home">DN4</a></li>
-        </ul>
-      </li>
-
-      <li class="nav-item mb-2">
-        <a class="nav-link submenu-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#submenu-delirium" href="#" role="button" aria-expanded="false">
-          <i class="fas fa-puzzle-piece me-2"></i>Delirium
-          <i class="fas fa-chevron-right rotate-icon ms-auto"></i>
-        </a>
-        <ul class="nav flex-column collapse" id="submenu-delirium" data-bs-parent="#clinical-menu">
-          <li class="nav-item"><a href="#" class="nav-link ms-3" data-target="4at-home">4AT</a></li>
-          <li class="nav-item"><a href="#" class="nav-link ms-3" data-target="cam-home">CAM</a></li>
-        </ul>
-      </li>
-
-      <li class="nav-item mb-2">
-        <a class="nav-link submenu-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#submenu-sed" href="#" role="button" aria-expanded="false">
-          <i class="fas fa-bed me-2"></i>Sedazione
-          <i class="fas fa-chevron-right rotate-icon ms-auto"></i>
-        </a>
-        <ul class="nav flex-column collapse" id="submenu-sed" data-bs-parent="#clinical-menu">
-          <li class="nav-item"><a href="#" class="nav-link ms-3" data-target="rass-home">RASS</a></li>
-          <li class="nav-item"><a href="#" class="nav-link ms-3" data-target="ramsey-home">Ramsey</a></li>
-        </ul>
-      </li>
-
-      <li class="nav-item mb-2">
-        <a class="nav-link submenu-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#submenu-care" href="#" role="button" aria-expanded="false">
-          <i class="fas fa-users me-2"></i>Caregiving
-          <i class="fas fa-chevron-right rotate-icon ms-auto"></i>
-        </a>
-        <ul class="nav flex-column collapse" id="submenu-care" data-bs-parent="#clinical-menu">
-          <li class="nav-item"><a href="#" class="nav-link ms-3" data-target="zcb7-home">ZCB 7 p.ti</a></li>
-          <li class="nav-item"><a href="#" class="nav-link ms-3" data-target="famcare2-home">FAMCARE 2</a></li>
-        </ul>
       </li>
 
       <li class="nav-item">
@@ -295,6 +191,259 @@
             <input type="text" class="form-control" id="rescue-result" readonly>
           </div>
           <button type="button" id="calculate-rescue-btn" class="btn btn-primary">Calcola</button>
+        </div>
+      </div>
+    </section>
+    <!-- SEZIONE Strumenti di Valutazione -->
+    <section id="strumenti-valutazione-home" class="p-4" style="display:none;">
+      <div class="valutazione-container">
+        <!-- Header -->
+        <div class="valutazione-header mb-4">
+          <h4><i class="fas fa-chart-line me-2"></i>Strumenti di Valutazione Clinica</h4>
+          <p class="text-muted">Raccolta completa di scale e strumenti validati per la valutazione multidimensionale in cure palliative</p>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="search-tools-compact mb-4">
+          <div class="input-group">
+            <span class="input-group-text"><i class="fas fa-search"></i></span>
+            <input type="text" class="form-control" id="searchCategories" placeholder="Cerca categoria o strumento...">
+          </div>
+        </div>
+
+        <!-- Statistics Cards -->
+        <div class="stats-row mb-4">
+          <div class="row g-3">
+            <div class="col-6 col-md-3">
+              <div class="stat-card">
+                <div class="stat-number">18</div>
+                <div class="stat-label">Strumenti</div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3">
+              <div class="stat-card">
+                <div class="stat-number">6</div>
+                <div class="stat-label">Implementati</div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3">
+              <div class="stat-card">
+                <div class="stat-number">9</div>
+                <div class="stat-label">Categorie</div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3">
+              <div class="stat-card">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Validati</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Categories Grid -->
+        <div class="categories-grid">
+          <!-- IDENTIFICAZIONE -->
+          <div class="category-card identificazione" onclick="openCategoryView('identificazione')">
+            <div class="category-header">
+              <div class="category-icon">🔍</div>
+              <div class="category-info">
+                <h5>Identificazione</h5>
+                <small>3 strumenti</small>
+              </div>
+              <div class="category-status">
+                <span class="badge bg-warning">In Sviluppo</span>
+              </div>
+            </div>
+            <div class="category-description">
+              Strumenti per identificare pazienti eleggibili per cure palliative
+            </div>
+            <div class="category-tools">
+              <span class="tool-badge">NECPAL 3.1</span>
+              <span class="tool-badge">NECPAL 4.0</span>
+              <span class="tool-badge">SPICT</span>
+            </div>
+          </div>
+
+          <!-- COMPLESSITÀ -->
+          <div class="category-card complessita" onclick="openCategoryView('complessita')">
+            <div class="category-header">
+              <div class="category-icon">🧠</div>
+              <div class="category-info">
+                <h5>Complessità</h5>
+                <small>1 strumento</small>
+              </div>
+              <div class="category-status">
+                <span class="badge bg-warning">In Sviluppo</span>
+              </div>
+            </div>
+            <div class="category-description">
+              Valutazione della complessità clinica e assistenziale
+            </div>
+            <div class="category-tools">
+              <span class="tool-badge">IDC-PAL</span>
+            </div>
+          </div>
+
+          <!-- PERFORMANCE -->
+          <div class="category-card performance" onclick="openCategoryView('performance')">
+            <div class="category-header">
+              <div class="category-icon">🏃</div>
+              <div class="category-info">
+                <h5>Performance</h5>
+                <small>4 strumenti</small>
+              </div>
+              <div class="category-status">
+                <span class="badge bg-success">✅ Disponibile</span>
+              </div>
+            </div>
+            <div class="category-description">
+              Scale di valutazione funzionale e performance status
+            </div>
+            <div class="category-tools">
+              <span class="tool-badge available">AKPS</span>
+              <span class="tool-badge available">PPS</span>
+              <span class="tool-badge available">ADL</span>
+              <span class="tool-badge available">BADL</span>
+            </div>
+          </div>
+
+          <!-- PROGNOSI -->
+          <div class="category-card prognosi" onclick="openCategoryView('prognosi')">
+            <div class="category-header">
+              <div class="category-icon">📈</div>
+              <div class="category-info">
+                <h5>Prognosi</h5>
+                <small>2 strumenti</small>
+              </div>
+              <div class="category-status">
+                <span class="badge bg-warning">In Sviluppo</span>
+              </div>
+            </div>
+            <div class="category-description">
+              Strumenti per la valutazione prognostica
+            </div>
+            <div class="category-tools">
+              <span class="tool-badge">PPI</span>
+              <span class="tool-badge">PaP Score</span>
+            </div>
+          </div>
+
+          <!-- MULTIDIMENSIONALE -->
+          <div class="category-card multidimensionale" onclick="openCategoryView('multidimensionale')">
+            <div class="category-header">
+              <div class="category-icon">📋</div>
+              <div class="category-info">
+                <h5>Multidimensionale</h5>
+                <small>2 strumenti</small>
+              </div>
+              <div class="category-status">
+                <span class="badge bg-primary">Parziale</span>
+              </div>
+            </div>
+            <div class="category-description">
+              Strumenti per assessment olistico del paziente
+            </div>
+            <div class="category-tools">
+              <span class="tool-badge available">IPOS</span>
+              <span class="tool-badge">ESAS</span>
+            </div>
+          </div>
+
+          <!-- DOLORE -->
+          <div class="category-card dolore" onclick="openCategoryView('dolore')">
+            <div class="category-header">
+              <div class="category-icon">😣</div>
+              <div class="category-info">
+                <h5>Dolore</h5>
+                <small>1 strumento</small>
+              </div>
+              <div class="category-status">
+                <span class="badge bg-warning">In Sviluppo</span>
+              </div>
+            </div>
+            <div class="category-description">
+              Strumenti specializzati per la valutazione del dolore
+            </div>
+            <div class="category-tools">
+              <span class="tool-badge">DN4</span>
+            </div>
+          </div>
+
+          <!-- DELIRIUM -->
+          <div class="category-card delirium" onclick="openCategoryView('delirium')">
+            <div class="category-header">
+              <div class="category-icon">🧩</div>
+              <div class="category-info">
+                <h5>Delirium</h5>
+                <small>2 strumenti</small>
+              </div>
+              <div class="category-status">
+                <span class="badge bg-warning">In Sviluppo</span>
+              </div>
+            </div>
+            <div class="category-description">
+              Strumenti per assessment e screening del delirium
+            </div>
+            <div class="category-tools">
+              <span class="tool-badge">4AT</span>
+              <span class="tool-badge">CAM</span>
+            </div>
+          </div>
+
+          <!-- SEDAZIONE -->
+          <div class="category-card sedazione" onclick="openCategoryView('sedazione')">
+            <div class="category-header">
+              <div class="category-icon">💤</div>
+              <div class="category-info">
+                <h5>Sedazione</h5>
+                <small>2 strumenti</small>
+              </div>
+              <div class="category-status">
+                <span class="badge bg-warning">In Sviluppo</span>
+              </div>
+            </div>
+            <div class="category-description">
+              Scale per monitoraggio del livello di sedazione
+            </div>
+            <div class="category-tools">
+              <span class="tool-badge">RASS</span>
+              <span class="tool-badge">Ramsey</span>
+            </div>
+          </div>
+
+          <!-- CAREGIVING -->
+          <div class="category-card caregiving" onclick="openCategoryView('caregiving')">
+            <div class="category-header">
+              <div class="category-icon">👥</div>
+              <div class="category-info">
+                <h5>Caregiving</h5>
+                <small>2 strumenti</small>
+              </div>
+              <div class="category-status">
+                <span class="badge bg-warning">In Sviluppo</span>
+              </div>
+            </div>
+            <div class="category-description">
+              Strumenti per valutare burden e soddisfazione dei caregiver
+            </div>
+            <div class="category-tools">
+              <span class="tool-badge">ZCB-7</span>
+              <span class="tool-badge">FAMCARE-2</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Back to Categories Button (hidden initially) -->
+        <div class="back-to-categories" id="backToCategories" style="display:none;">
+          <button class="btn btn-outline-success" onclick="showCategories()">
+            <i class="fas fa-arrow-left me-2"></i>Torna alle Categorie
+          </button>
+        </div>
+
+        <!-- Category Detail Views (hidden initially) -->
+        <div id="categoryDetails" style="display:none;">
+          <!-- Content will be dynamically loaded here -->
         </div>
       </div>
     </section>
@@ -664,6 +813,7 @@
 <script src="/js/sedazione.js"></script>
 <script src="/js/documents.js"></script>
 <script src="/js/archivio.js"></script>
+<script src="js/strumenti-valutazione.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     const d = document.getElementById("today-date-home");
