@@ -216,3 +216,47 @@ setTimeout(() => {
   const section = document.getElementById('strumenti-valutazione-home');
   if (section) observer.observe(section);
 }, 100);
+
+function openIPOSCompile() {
+  navigateToSection('ipos-home');
+}
+
+function openIPOSVisualize() {
+  const modal = new bootstrap.Modal(document.getElementById('iposVersionModal'));
+  modal.show();
+}
+
+function openESASCompile() {
+  navigateToSection('esas-home');
+}
+
+function openESASVisualize() {
+  alert('Visualizzazione PDF ESAS in sviluppo');
+}
+
+function showIPOSPDF(tipo, giorni) {
+  const versionModal = bootstrap.Modal.getInstance(document.getElementById('iposVersionModal'));
+  if (versionModal) versionModal.hide();
+  const tipoText = tipo === 'paziente' ? 'Paziente' : 'Staff';
+  document.getElementById('pdfModalTitle').innerHTML = `<i class="fas fa-file-pdf text-danger me-2"></i> IPOS ${tipoText} - ${giorni} giorni`;
+  const fileMap = {
+    'paziente_3': 'IPOSv1-P3-IT.pdf',
+    'paziente_7': 'IPOSv1-P7-IT.pdf',
+    'staff_3': 'IPOSv1-S3-IT.pdf',
+    'staff_7': 'IPOSv1-S7-IT.pdf'
+  };
+  const key = `${tipo}_${giorni}`;
+  const pdfPath = `ipos%20pdf/${fileMap[key]}`;
+  const frame = document.getElementById('pdfFrame');
+  if (frame) frame.src = pdfPath;
+  const pdfModal = new bootstrap.Modal(document.getElementById('pdfViewModal'));
+  pdfModal.show();
+}
+
+function printPDF() {
+  const frame = document.getElementById('pdfFrame');
+  if (frame && frame.contentWindow) {
+    frame.contentWindow.focus();
+    frame.contentWindow.print();
+  }
+}
