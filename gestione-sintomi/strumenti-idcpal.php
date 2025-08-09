@@ -1,191 +1,339 @@
 <?php
-// IDC-PAL sezione di valutazione complessità
 ?>
+<link rel="stylesheet" href="css/idcpal.css">
 <section id="idcpal-home" class="p-4" style="display:none;">
-  <div class="bg-white p-4 rounded shadow-sm">
-    <div class="d-flex justify-content-between mb-3">
-      <h5 class="mb-0"><i class="fas fa-layer-group me-2"></i>IDC-PAL</h5>
-      <div class="small">
-        <span class="badge bg-warning text-dark me-1">C</span>= complesso
-        <span class="badge bg-danger ms-3 me-1">AC</span>= altamente complesso
+  <div class="mb-3">
+    <button class="btn btn-outline-success me-2" onclick="navigateToSection('strumenti-valutazione-home')">
+      <i class="fas fa-arrow-left me-2"></i>Torna alle Categorie
+    </button>
+    <button class="btn btn-outline-primary" onclick="openCategoryView('complessita')">
+      <i class="fas fa-arrow-left me-2"></i>Torna a Complessità
+    </button>
+  </div>
+  
+  <div class="idcpal-container">
+    <div class="idcpal-header">
+      <h1 class="idcpal-title">
+        <i class="fas fa-layer-group me-3"></i>
+        IDC-PAL
+      </h1>
+      <p class="idcpal-subtitle">Instrumento Diagnóstico de Complejidad</p>
+      <p class="idcpal-description">
+        Strumento validato per identificare e classificare il livello di complessità assistenziale 
+        nei pazienti in cure palliative attraverso l'analisi di 34 elementi in 3 dimensioni.
+      </p>
+    </div>
+
+    <div class="mode-selector">
+      <a href="#" class="mode-btn active" onclick="switchIDCPALMode('compile')" id="compile-btn">
+        <i class="fas fa-edit"></i>
+        Compila IDC-PAL
+      </a>
+      <a href="#" class="mode-btn" onclick="switchIDCPALMode('visualize')" id="visualize-btn">
+        <i class="fas fa-table"></i>
+        Visualizza Scala
+      </a>
+      <a href="#" class="mode-btn" onclick="switchIDCPALMode('glossary')" id="glossary-btn">
+        <i class="fas fa-book"></i>
+        Glossario
+      </a>
+    </div>
+
+    <!-- SEZIONE COMPILA -->
+    <div id="compile-section" class="content-section active">
+      <div class="compile-form">
+        <div class="patient-info">
+          <h4 class="mb-3">
+            <i class="fas fa-user me-2"></i>
+            Dati Paziente
+          </h4>
+          <div class="row g-3">
+            <div class="col-md-4">
+              <label class="form-label">Nome e Cognome</label>
+              <input type="text" class="form-control" id="patient-name" placeholder="Inserisci nome paziente">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Data di nascita</label>
+              <input type="date" class="form-control" id="patient-birth">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Data compilazione</label>
+              <input type="date" class="form-control" id="compilation-date">
+            </div>
+          </div>
+        </div>
+
+        <!-- Sezione 1: Paziente -->
+        <div class="complexity-section">
+          <div class="section-header">
+            <i class="fas fa-user me-2"></i>1. Elementi dipendenti dal paziente
+          </div>
+          <div class="section-content">
+            <h6 class="text-muted mb-3">1.1 - Contesto</h6>
+            <div class="complexity-item" data-code="1.1a">
+              <input type="checkbox" class="form-check-input item-checkbox" id="item-1.1a" onchange="toggleIDCPALItem('1.1a', 'AC')">
+              <div class="item-content">
+                <div class="item-code">1.1a</div>
+                <div class="item-text">Il paziente è un bambino o un adolescente</div>
+                <span class="item-badge badge-ac">AC</span>
+              </div>
+            </div>
+            <div class="complexity-item" data-code="1.1b">
+              <input type="checkbox" class="form-check-input item-checkbox" id="item-1.1b" onchange="toggleIDCPALItem('1.1b', 'C')">
+              <div class="item-content">
+                <div class="item-code">1.1b</div>
+                <div class="item-text">Il paziente è un professionista sanitario</div>
+                <span class="item-badge badge-c">C</span>
+              </div>
+            </div>
+
+            <h6 class="text-muted mb-3 mt-4">1.2 - Sintomi</h6>
+            <div class="complexity-item" data-code="1.2a">
+              <input type="checkbox" class="form-check-input item-checkbox" id="item-1.2a" onchange="toggleIDCPALItem('1.2a', 'AC')">
+              <div class="item-content">
+                <div class="item-code">1.2a</div>
+                <div class="item-text">Sintomi di difficile controllo</div>
+                <span class="item-badge badge-ac">AC</span>
+              </div>
+            </div>
+            <div class="complexity-item" data-code="1.2b">
+              <input type="checkbox" class="form-check-input item-checkbox" id="item-1.2b" onchange="toggleIDCPALItem('1.2b', 'C')">
+              <div class="item-content">
+                <div class="item-code">1.2b</div>
+                <div class="item-text">Sintomi che interferiscono con il sonno</div>
+                <span class="item-badge badge-c">C</span>
+              </div>
+            </div>
+            <div class="complexity-item" data-code="1.2c">
+              <input type="checkbox" class="form-check-input item-checkbox" id="item-1.2c" onchange="toggleIDCPALItem('1.2c', 'C')">
+              <div class="item-content">
+                <div class="item-code">1.2c</div>
+                <div class="item-text">Sintomi che interferiscono con la capacità comunicativa</div>
+                <span class="item-badge badge-c">C</span>
+              </div>
+            </div>
+
+            <h6 class="text-muted mb-3 mt-4">1.3 - Aspetti psicologici</h6>
+            <div class="complexity-item" data-code="1.3a">
+              <input type="checkbox" class="form-check-input item-checkbox" id="item-1.3a" onchange="toggleIDCPALItem('1.3a', 'AC')">
+              <div class="item-content">
+                <div class="item-code">1.3a</div>
+                <div class="item-text">Presenza di delirium</div>
+                <span class="item-badge badge-ac">AC</span>
+              </div>
+            </div>
+            <div class="complexity-item" data-code="1.3b">
+              <input type="checkbox" class="form-check-input item-checkbox" id="item-1.3b" onchange="toggleIDCPALItem('1.3b', 'C')">
+              <div class="item-content">
+                <div class="item-code">1.3b</div>
+                <div class="item-text">Presenza di ansia o depressione clinicamente significativa</div>
+                <span class="item-badge badge-c">C</span>
+              </div>
+            </div>
+            <div class="complexity-item" data-code="1.3c">
+              <input type="checkbox" class="form-check-input item-checkbox" id="item-1.3c" onchange="toggleIDCPALItem('1.3c', 'C')">
+              <div class="item-content">
+                <div class="item-code">1.3c</div>
+                <div class="item-text">Manifestazioni di collera o aggressività</div>
+                <span class="item-badge badge-c">C</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sezione 2: Famiglia -->
+        <div class="complexity-section">
+          <div class="section-header">
+            <i class="fas fa-users me-2"></i>2. Elementi dipendenti dalla famiglia
+          </div>
+          <div class="section-content">
+            <h6 class="text-muted mb-3">2.1 - Contesto familiare</h6>
+            <div class="complexity-item" data-code="2.1a">
+              <input type="checkbox" class="form-check-input item-checkbox" id="item-2.1a" onchange="toggleIDCPALItem('2.1a', 'AC')">
+              <div class="item-content">
+                <div class="item-code">2.1a</div>
+                <div class="item-text">Assenza di supporto familiare</div>
+                <span class="item-badge badge-ac">AC</span>
+              </div>
+            </div>
+            <div class="complexity-item" data-code="2.1b">
+              <input type="checkbox" class="form-check-input item-checkbox" id="item-2.1b" onchange="toggleIDCPALItem('2.1b', 'C')">
+              <div class="item-content">
+                <div class="item-code">2.1b</div>
+                <div class="item-text">Famiglia monoparentale o single parent</div>
+                <span class="item-badge badge-c">C</span>
+              </div>
+            </div>
+            <div class="complexity-item" data-code="2.1c">
+              <input type="checkbox" class="form-check-input item-checkbox" id="item-2.1c" onchange="toggleIDCPALItem('2.1c', 'C')">
+              <div class="item-content">
+                <div class="item-code">2.1c</div>
+                <div class="item-text">Presenza di minori nel nucleo familiare</div>
+                <span class="item-badge badge-c">C</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sezione 3: Sistema Sanitario -->
+        <div class="complexity-section">
+          <div class="section-header">
+            <i class="fas fa-hospital me-2"></i>3. Elementi dipendenti dal sistema sanitario
+          </div>
+          <div class="section-content">
+            <h6 class="text-muted mb-3">3.1 - Aspetti organizzativi</h6>
+            <div class="complexity-item" data-code="3.1a">
+              <input type="checkbox" class="form-check-input item-checkbox" id="item-3.1a" onchange="toggleIDCPALItem('3.1a', 'AC')">
+              <div class="item-content">
+                <div class="item-code">3.1a</div>
+                <div class="item-text">Necessità di interventi urgenti o emergenze ricorrenti</div>
+                <span class="item-badge badge-ac">AC</span>
+              </div>
+            </div>
+            <div class="complexity-item" data-code="3.1b">
+              <input type="checkbox" class="form-check-input item-checkbox" id="item-3.1b" onchange="toggleIDCPALItem('3.1b', 'C')">
+              <div class="item-content">
+                <div class="item-code">3.1b</div>
+                <div class="item-text">Necessità di coordinamento tra più servizi</div>
+                <span class="item-badge badge-c">C</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Riepilogo -->
+        <div class="complexity-summary">
+          <h5 class="text-primary mb-3">
+            <i class="fas fa-chart-pie me-2"></i>Riepilogo Valutazione
+          </h5>
+          <div class="summary-counts">
+            <div class="count-item">
+              <span class="count-badge badge-c" id="count-c">0 C</span>
+              <span class="text-muted">Elementi di Complessità</span>
+            </div>
+            <div class="count-item">
+              <span class="count-badge badge-ac" id="count-ac">0 AC</span>
+              <span class="text-muted">Elementi di Alta Complessità</span>
+            </div>
+          </div>
+          
+          <div class="final-classification">
+            <label class="form-label fw-bold">Classificazione Finale</label>
+            <div class="classification-options">
+              <div class="classification-option" data-value="non-complessa">
+                <input type="radio" name="classification" value="non-complessa" class="me-2">
+                <span>Non Complessa</span>
+              </div>
+              <div class="classification-option" data-value="complessa">
+                <input type="radio" name="classification" value="complessa" class="me-2">
+                <span>Complessa</span>
+              </div>
+              <div class="classification-option" data-value="altamente-complessa">
+                <input type="radio" name="classification" value="altamente-complessa" class="me-2">
+                <span>Altamente Complessa</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="action-buttons">
+          <button type="button" class="btn-custom btn-primary-custom" onclick="saveIDCPAL()">
+            <i class="fas fa-save me-2"></i>
+            Salva Valutazione
+          </button>
+          <button type="button" class="btn-custom btn-outline-custom" onclick="resetIDCPAL()">
+            <i class="fas fa-undo me-2"></i>
+            Azzera
+          </button>
+          <button type="button" class="btn-custom btn-outline-custom" onclick="printIDCPAL()">
+            <i class="fas fa-print me-2"></i>
+            Stampa
+          </button>
+        </div>
+
       </div>
     </div>
-    <form id="idcpal-form" action="process-idcpal.php" method="post">
-      <div class="row g-3 mb-3">
-        <div class="col-md-4">
-          <label class="form-label">Nome e Cognome</label>
-          <input type="text" id="idcpal-nome" name="text_1" class="form-control" readonly>
+
+    <!-- SEZIONE VISUALIZZA -->
+    <div id="visualize-section" class="content-section">
+      <div class="pdf-template">
+        <div class="pdf-header">
+          <div class="pdf-title">IDC-PAL</div>
+          <div class="pdf-subtitle">Instrumento Diagnóstico de Complejidad</div>
+          <div style="font-style: italic; color: #666;">
+            Strumento per la valutazione della complessità in cure palliative
+          </div>
         </div>
-        <div class="col-md-4">
-          <label class="form-label">Data di nascita</label>
-          <input type="date" id="idcpal-nascita" name="date_2" class="form-control" readonly>
+        <div class="mb-4">
+          <p><strong>Paziente:</strong> _______________________________________________________________  <strong>Data:</strong> _________________</p>
         </div>
-        <div class="col-md-4">
-          <label class="form-label">Data compilazione</label>
-          <input type="date" id="idcpal-data" name="date_1" class="form-control" value="<?php echo date('Y-m-d'); ?>">
-        </div>
+        <table class="pdf-table">
+          <thead>
+            <tr style="background:#28a745;color:white;">
+              <th colspan="4">1. Elementi dipendenti dal paziente</th>
+            </tr>
+            <tr>
+              <th width="10%">Elementi</th>
+              <th width="70%">Descrizione</th>
+              <th width="10%">LC*</th>
+              <th width="10%">✓</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>1.1a</strong></td><td>Il paziente è un bambino o un adolescente</td><td><span class="badge-ac">AC</span></td><td>☐</td></tr>
+            <tr><td><strong>1.1b</strong></td><td>Il paziente è un professionista sanitario</td><td><span class="badge-c">C</span></td><td>☐</td></tr>
+            <tr><td><strong>1.2a</strong></td><td>Sintomi di difficile controllo</td><td><span class="badge-ac">AC</span></td><td>☐</td></tr>
+            <tr><td><strong>1.2b</strong></td><td>Sintomi che interferiscono con il sonno</td><td><span class="badge-c">C</span></td><td>☐</td></tr>
+            <tr><td><strong>1.2c</strong></td><td>Sintomi che interferiscono con la capacità comunicativa</td><td><span class="badge-c">C</span></td><td>☐</td></tr>
+            <tr><td><strong>1.3a</strong></td><td>Presenza di delirium</td><td><span class="badge-ac">AC</span></td><td>☐</td></tr>
+            <tr><td><strong>1.3b</strong></td><td>Presenza di ansia o depressione clinicamente significativa</td><td><span class="badge-c">C</span></td><td>☐</td></tr>
+            <tr><td><strong>1.3c</strong></td><td>Manifestazioni di collera o aggressività</td><td><span class="badge-c">C</span></td><td>☐</td></tr>
+            <tr><td><strong>2.1a</strong></td><td>Assenza di supporto familiare</td><td><span class="badge-ac">AC</span></td><td>☐</td></tr>
+            <tr><td><strong>2.1b</strong></td><td>Famiglia monoparentale o single parent</td><td><span class="badge-c">C</span></td><td>☐</td></tr>
+            <tr><td><strong>2.1c</strong></td><td>Presenza di minori nel nucleo familiare</td><td><span class="badge-c">C</span></td><td>☐</td></tr>
+            <tr><td><strong>3.1a</strong></td><td>Necessità di interventi urgenti o emergenze ricorrenti</td><td><span class="badge-ac">AC</span></td><td>☐</td></tr>
+            <tr><td><strong>3.1b</strong></td><td>Necessità di coordinamento tra più servizi</td><td><span class="badge-c">C</span></td><td>☐</td></tr>
+          </tbody>
+        </table>
+        <p class="text-muted"><small>* LC: Livello di Complessità (C = Complesso, AC = Alta Complessità)</small></p>
       </div>
-      <div class="accordion" id="idcpal-acc">
-<?php
-$sec1_1 = [
-  ['1.1a','Il paziente è un bambino o un adolescente','AC','Si considera il periodo di vita dalla nascita fino ai 18 anni.'],
-  ['1.1b','Il paziente è un professionista sanitario','C','Essere un professionista sanitario complica l’assistenza o il processo decisionale.'],
-  ['1.1c','Ruolo socio-familiare svolto dal paziente','C','Il paziente ha un ruolo chiave nel contesto familiare o sociale (es. unico caregiver, fonte di reddito, giovane).'],
-  ['1.1d','Il paziente ha una disabilità fisica, mentale o sensoriale precedente','C','Disabilità preesistente che rende difficile comunicare o assistere.'],
-  ['1.1e','Il paziente ha problemi di dipendenza, recenti e/o in atto','C','Presenza attuale o recente di dipendenze che ostacolano l’assistenza.'],
-  ['1.1f','Disturbi mentali preesistenti','C','Disturbi mentali pregressi che complicano la situazione (ansia, depressione, psicosi).']
-];
-$sec1_2 = [
-  ['1.2a','Sintomi di difficile controllo','AC','Sintomi che richiedono interventi terapeutici complessi, anche psicologici o strumentali.'],
-  ['1.2b','Sintomi refrattari','AC','Sintomi non controllabili senza ridurre la coscienza: possibile indicazione alla sedazione palliativa.'],
-  ['1.2c','Condizioni di urgenza in paziente oncologico in fase terminale','AC','Urgenze in fase terminale oncologica: emorragie, compressioni, convulsioni, ecc.'],
-  ['1.2d','Condizione di fine vita di difficile controllo','AC','Sintomi fisici o emotivi mal controllati nella fase finale (agonia protratta, ecc.).'],
-  ['1.2e','Condizioni cliniche secondarie a progressione neoplastica di difficile gestione','AC','Complicazioni neoplastiche gravi: occlusioni, carcinosi, ulcere tumorali, fistole.'],
-  ['1.2f','Scompenso acuto in insufficienza d’organo in paziente non oncologico in fase terminale','C','Scompenso grave in insufficienze croniche non oncologiche terminali.'],
-  ['1.2g','Grave disturbo cognitivo','C','Delirio, demenza o disturbi cognitivi difficili da controllare.'],
-  ['1.2h','Improvviso cambiamento del livello di autonomia funzionale','C','Calo improvviso dell’autonomia funzionale (mobilità, cura di sé, alimentazione).'],
-  ['1.2i','Esistenza di comorbidità di difficile controllo','C','Comorbidità complesse oltre alla malattia principale.'],
-  ['1.2j','Sindrome cachessia-anoressia grave','C','Presenza di cachessia: astenia, grave calo ponderale, anoressia.'],
-  ['1.2k','Gestione clinica difficile per scarsa o assente aderenza terapeutica','C','Mancanza di aderenza terapeutica che ostacola la gestione clinica.']
-];
-$sec1_3 = [
-  ['1.3a','Il paziente presenta un rischio di suicidio','AC','Rischio di suicidio: tentativi passati o pensieri espressi.'],
-  ['1.3b','Il paziente richiede di accelerare o anticipare il processo di morte','AC','Richieste esplicite del paziente di anticipare la morte.'],
-  ['1.3c','Il paziente presenta angoscia esistenziale e/o sofferenza spirituale','AC','Angoscia legata alla morte o sofferenza spirituale (mancanza di senso, rimorso, conflitti interiori).'],
-  ['1.3d','Contrasti nella comunicazione tra paziente e famiglia','C','Problemi di comunicazione tra paziente e familiari su diagnosi, prognosi, trattamenti.'],
-  ['1.3e','Contrasti nella comunicazione tra paziente e equipe terapeutica','C','Problemi di comunicazione tra paziente ed equipe terapeutica.'],
-  ['1.3f','Il paziente presenta gravi e persistenti difficoltà nell’adattamento emotivo','C','Adattamento emotivo compromesso (negazione patologica, colpa, speranze irrealistiche, rabbia).']
-];
-$sec2 = [
-  ['2.a','Assenza o insufficienza del supporto familiare e/o del caregiver','AC','Assenza o inadeguatezza del caregiver principale.'],
-  ['2.b','Famiglia e/o caregiver non competenti per l’assistenza','AC','Caregiver non competenti: per ragioni emotive, fisiche, funzionali o culturali.'],
-  ['2.c','Famiglia disfunzionale','AC','Famiglia con conflitti gravi (violenza, dipendenze, malattia psichiatrica).'],
-  ['2.d','Famiglia non più in grado di rispondere ai bisogni del paziente','AC','Famiglia esaurita emotivamente e incapace di sostenere il carico assistenziale.'],
-  ['2.e','Problemi relativi al lutto','C','Lutto anticipatorio, lutti irrisolti o rischio di lutto complicato nei familiari.'],
-  ['2.f','Limitazioni strutturali dell’ambiente','AC','Barriere strutturali all’assistenza: abitazione inadeguata, distanza, ostacoli fisici.']
-];
-$sec3_1 = [
-  ['3.1a','Sedazione palliativa di difficile gestione','AC','Sedazione difficile da gestire: farmaci non standard, dosi elevate, problemi emotivi.'],
-  ['3.1b','Difficile gestione farmacologica','C','Gestione complessa degli oppioidi o altri farmaci non convenzionali.'],
-  ['3.1c','Difficile gestione degli interventi','C','Difficoltà nella gestione di procedure palliative o tecniche invasive.'],
-  ['3.1d','Limiti nella competenza professionale per affrontare la situazione','C','Carenze di competenze palliative, conflitti tra operatori, carico emotivo o etico.']
-];
-$sec3_2 = [
-  ['3.2a','Difficoltà nella gestione di tecniche strumentali e/o materiale specifico a domicilio','C','Difficoltà nell’uso di presidi: pompe, ossigeno, ventilazione, dispositivi complessi.'],
-  ['3.2b','Difficoltà nel coordinamento o nella logistica dell’assistenza','C','Problemi logistici o di coordinamento tra professionisti o con strutture esterne.']
-];
-?>
-<?php function print_items($list){
-  foreach($list as $i=>$it){
-    $id='idcpal-'.str_replace(['.',' '],'',$it[0]);
-    $badge=$it[2]=='AC'? 'bg-danger' : 'bg-warning text-dark';
-    echo "<div class='form-check mb-2' data-bs-toggle='tooltip' data-bs-trigger='hover' data-bs-title='".htmlspecialchars($it[3])."'>";
-    echo "<input class='form-check-input idcpal-check' type='checkbox' id='$id' name='voci[]' value='{$it[0]}' data-class='{$it[2]}' data-label='{$it[0]} - {$it[1]}'>";
-    echo "<label class='form-check-label' for='$id'><span class='fw-bold'>{$it[0]}</span> – {$it[1]} <span class='badge $badge ms-2'>{$it[2]}</span></label>";
-    echo "</div>";
-  }
-}
-?>
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="head-sec1">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#sec1" aria-expanded="true">
-              Elementi dipendenti dal paziente
-            </button>
-          </h2>
-          <div id="sec1" class="accordion-collapse collapse show" data-bs-parent="#idcpal-acc">
-            <div class="accordion-body">
-              <h6 class="mb-2">1.1 – Contesto</h6>
-              <?php print_items($sec1_1); ?>
-              <h6 class="mt-3 mb-2">1.2 – Condizione clinica</h6>
-              <?php print_items($sec1_2); ?>
-              <h6 class="mt-3 mb-2">1.3 – Condizione psico-emotiva</h6>
-              <?php print_items($sec1_3); ?>
-            </div>
+      <div class="action-buttons">
+        <button type="button" class="btn-custom btn-outline-custom" onclick="printIDCPALTemplate()">
+          <i class="fas fa-print me-2"></i>Stampa Template
+        </button>
+        <button type="button" class="btn-custom btn-outline-custom" onclick="downloadIDCPALTemplate()">
+          <i class="fas fa-download me-2"></i>Scarica PDF
+        </button>
+      </div>
+    </div>
+
+    <!-- SEZIONE GLOSSARIO -->
+    <div id="glossary-section" class="content-section">
+      <div class="mb-3">
+        <input type="text" id="glossary-search" class="form-control" placeholder="Cerca nel glossario..." onkeyup="filterIDCPALGlossary()">
+      </div>
+      <div id="glossary-content">
+        <div class="glossary-item">
+          <div class="glossary-header" onclick="toggleIDCPALGlossary(this)">
+            <span class="glossary-code">1.1a</span>
+            <i class="fas fa-chevron-right"></i>
+          </div>
+          <div class="glossary-content">
+            Il paziente è un bambino o un adolescente.
           </div>
         </div>
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="head-sec2">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sec2" aria-expanded="false">
-              Elementi dipendenti dalla famiglia e dall’ambiente
-            </button>
-          </h2>
-          <div id="sec2" class="accordion-collapse collapse" data-bs-parent="#idcpal-acc">
-            <div class="accordion-body">
-              <?php print_items($sec2); ?>
-            </div>
+        <div class="glossary-item">
+          <div class="glossary-header" onclick="toggleIDCPALGlossary(this)">
+            <span class="glossary-code">1.2a</span>
+            <i class="fas fa-chevron-right"></i>
           </div>
-        </div>
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="head-sec3">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sec3" aria-expanded="false">
-              Elementi che dipendono dall’organizzazione sanitaria
-            </button>
-          </h2>
-          <div id="sec3" class="accordion-collapse collapse" data-bs-parent="#idcpal-acc">
-            <div class="accordion-body">
-              <h6 class="mb-2">3.1 – Professionisti e team</h6>
-              <?php print_items($sec3_1); ?>
-              <h6 class="mt-3 mb-2">3.2 – Risorse</h6>
-              <?php print_items($sec3_2); ?>
-            </div>
+          <div class="glossary-content">
+            Sintomi di difficile controllo.
           </div>
         </div>
       </div>
-      <div class="mt-3">
-        <span class="badge bg-warning text-dark me-2" id="idcpal-count-c">0 C</span>
-        <span class="badge bg-danger" id="idcpal-count-ac">0 AC</span>
-      </div>
-      <div class="mt-3">
-        <label class="form-label d-block">Classificazione finale</label>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="idcpal-esito" id="idcpal-esito1" value="Non complessa">
-          <label class="form-check-label" for="idcpal-esito1">Non complessa</label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="idcpal-esito" id="idcpal-esito2" value="Complessa">
-          <label class="form-check-label" for="idcpal-esito2">Complessa</label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="idcpal-esito" id="idcpal-esito3" value="Altamente complessa">
-          <label class="form-check-label" for="idcpal-esito3">Altamente complessa</label>
-        </div>
-      </div>
-      <div class="mt-3 d-grid">
-        <button type="submit" class="btn btn-primary"><i class="fas fa-save me-2"></i>Salva IDC-PAL</button>
-      </div>
-      <div id="idcpal-result" class="mt-4" style="display:none;">
-        <div class="mb-2">
-          <button type="button" id="btn-view-idcpal" class="btn btn-outline-secondary me-2">Visualizza</button>
-          <button type="button" id="btn-save-pdf-idcpal" class="btn btn-success">Scarica PDF</button>
-        </div>
-        <div id="idcpal-preview" class="mt-2" style="display:none;"></div>
-      </div>
-    </form>
+    </div>
+
   </div>
 </section>
-<script>
-document.addEventListener('DOMContentLoaded',function(){
-  let sceltaManuale=false;
-  function updateCounts(){
-    let c=0, ac=0;
-    document.querySelectorAll('#idcpal-home .idcpal-check').forEach(cb=>{
-      if(cb.checked){ if(cb.dataset.class==='C') c++; else ac++; }
-    });
-    document.getElementById('idcpal-count-c').textContent=c+' C';
-    document.getElementById('idcpal-count-ac').textContent=ac+' AC';
-    if(!sceltaManuale){
-      if(ac>0) document.getElementById('idcpal-esito3').checked=true;
-      else if(c>0) document.getElementById('idcpal-esito2').checked=true;
-      else document.getElementById('idcpal-esito1').checked=true;
-    }
-  }
-  document.querySelectorAll('#idcpal-home .idcpal-check').forEach(cb=>{
-    cb.addEventListener('change',updateCounts);
-  });
-  document.querySelectorAll('input[name="idcpal-esito"]').forEach(r=>{
-    r.addEventListener('change',()=>{sceltaManuale=true;});
-  });
-  updateCounts();
-
-});
-</script>
+<script src="js/idcpal.js"></script>

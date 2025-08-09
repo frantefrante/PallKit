@@ -268,14 +268,14 @@
                 <small>1 strumento</small>
               </div>
               <div class="category-status">
-                <span class="badge bg-warning">In Sviluppo</span>
+                <span class="badge bg-success">✅ Disponibile</span>
               </div>
             </div>
             <div class="category-description">
               Valutazione della complessità clinica e assistenziale
             </div>
             <div class="category-tools">
-              <span class="tool-badge">IDC-PAL</span>
+              <span class="tool-badge available">IDC-PAL</span>
             </div>
           </div>
 

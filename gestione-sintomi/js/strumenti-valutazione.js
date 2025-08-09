@@ -43,7 +43,17 @@ function loadCategoryContent(categoryName) {
       icon: '🧠',
       description: 'Valutazione della complessità clinica e assistenziale',
       tools: [
-        { name: 'IDC-PAL', subtitle: 'Instrumento Diagnóstico de Complejidad', description: 'Strumento per valutare la complessità multidimensionale nei pazienti in cure palliative.', available: false }
+        { 
+          name: 'IDC-PAL', 
+          subtitle: 'Instrumento Diagnóstico de Complejidad', 
+          description: 'Strumento per valutare la complessità multidimensionale nei pazienti in cure palliative attraverso 34 elementi in 3 dimensioni.', 
+          available: true, 
+          actions: [
+            { name: 'Compila', action: 'openIDCPALCompile()', icon: 'fas fa-edit', class: 'btn-success' },
+            { name: 'Visualizza', action: 'openIDCPALVisualize()', icon: 'fas fa-table', class: 'btn-primary' },
+            { name: 'Glossario', action: 'openIDCPALGlossary()', icon: 'fas fa-book', class: 'btn-warning' }
+          ]
+        }
       ]
     },
     'performance': {
@@ -116,8 +126,19 @@ function loadCategoryContent(categoryName) {
   let html = `<div class="category-detail"><div class="category-detail-header"><h3>${category.icon} ${category.title}</h3><p class="mb-0">${category.description}</p></div><div class="tools-detail-grid">`;
   category.tools.forEach(tool => {
     const statusBadge = tool.available ? '<span class="badge bg-success">✅ Disponibile</span>' : '<span class="badge bg-warning">In Sviluppo</span>';
-    const actionButton = tool.available ? `<button class="btn btn-success btn-sm" onclick="${tool.action || ''}">Apri Strumento</button>` : '<button class="btn btn-outline-secondary btn-sm" onclick="showComingSoon()">In Sviluppo</button>';
-    html += `<div class="tool-detail-card"><div class="tool-detail-header"><div class="tool-detail-icon">${tool.name.substring(0,2)}</div><div class="tool-detail-info"><h5>${tool.name}</h5><div class="tool-detail-subtitle">${tool.subtitle}</div></div></div><div class="tool-detail-description">${tool.description}</div><div class="tool-detail-actions">${statusBadge}${actionButton}</div></div>`;
+    let actionButtons = '';
+    if (tool.available) {
+      if (tool.actions && tool.actions.length > 0) {
+        tool.actions.forEach(action => {
+          actionButtons += `<button class="btn ${action.class} btn-sm me-1" onclick="${action.action}"><i class="${action.icon} me-1"></i>${action.name}</button>`;
+        });
+      } else {
+        actionButtons = `<button class="btn btn-success btn-sm" onclick="${tool.action || ''}">Apri Strumento</button>`;
+      }
+    } else {
+      actionButtons = '<button class="btn btn-outline-secondary btn-sm" onclick="showComingSoon()">In Sviluppo</button>';
+    }
+    html += `<div class="tool-detail-card"><div class="tool-detail-header"><div class="tool-detail-icon">${tool.name.substring(0,2)}</div><div class="tool-detail-info"><h5>${tool.name}</h5><div class="tool-detail-subtitle">${tool.subtitle}</div></div></div><div class="tool-detail-description">${tool.description}</div><div class="tool-detail-actions">${statusBadge}${actionButtons}</div></div>`;
   });
   html += '</div></div>';
   categoryDetails.innerHTML = html;
@@ -234,6 +255,22 @@ function openESASCompile() {
 function openESASVisualize() {
   navigateToSection('esas-home');
   if (typeof switchMode === 'function') switchMode('visualize');
+}
+
+// Funzioni IDC-PAL
+function openIDCPALCompile() {
+  navigateToSection('idcpal-home');
+  if (typeof switchIDCPALMode === 'function') switchIDCPALMode('compile');
+}
+
+function openIDCPALVisualize() {
+  navigateToSection('idcpal-home');
+  if (typeof switchIDCPALMode === 'function') switchIDCPALMode('visualize');
+}
+
+function openIDCPALGlossary() {
+  navigateToSection('idcpal-home');
+  if (typeof switchIDCPALMode === 'function') switchIDCPALMode('glossary');
 }
 
 function showIPOSPDF(tipo, giorni) {
