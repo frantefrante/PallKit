@@ -228,10 +228,12 @@ function openIPOSVisualize() {
 
 function openESASCompile() {
   navigateToSection('esas-home');
+  if (typeof switchMode === 'function') switchMode('compile');
 }
 
 function openESASVisualize() {
-  alert('Visualizzazione PDF ESAS in sviluppo');
+  navigateToSection('esas-home');
+  if (typeof switchMode === 'function') switchMode('visualize');
 }
 
 function showIPOSPDF(tipo, giorni) {
