@@ -104,13 +104,13 @@
       </li>
 
       <li class="nav-item mb-2">
-        <a class="nav-link submenu-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#submenu-prog" href="#" role="button" aria-expanded="false">
+        <a class="nav-link submenu-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#submenu-prog" href="#" role="button" aria-expanded="false" data-target="prognosi-home">
           <i class="fas fa-chart-line me-2"></i>Prognosi
           <i class="fas fa-chevron-right rotate-icon ms-auto"></i>
         </a>
         <ul class="nav flex-column collapse" id="submenu-prog" data-bs-parent="#clinical-menu">
-          <li class="nav-item"><a href="strumenti-prognosi.php?scale=ppi" class="nav-link ms-3">PPI</a></li>
-          <li class="nav-item"><a href="strumenti-prognosi.php?scale=pap" class="nav-link ms-3">PaP Score</a></li>
+          <li class="nav-item"><a href="#" class="nav-link ms-3" onclick="openProgModal('ppi');">PPI</a></li>
+          <li class="nav-item"><a href="#" class="nav-link ms-3" onclick="openProgModal('pap');">PaP Score</a></li>
         </ul>
       </li>
 
@@ -316,6 +316,9 @@
 
     <!-- SEZIONE PERFORMANCE -->
     <?php include __DIR__ . '/strumenti-performance.php'; ?>
+
+    <!-- SEZIONE PROGNOSI -->
+    <?php include __DIR__ . '/strumenti-prognosi.php'; ?>
 
     <!-- SEZIONE ESAS -->
     <?php include __DIR__ . '/strumenti-esas.php'; ?>
