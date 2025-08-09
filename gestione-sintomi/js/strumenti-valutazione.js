@@ -37,13 +37,13 @@ function loadCategoryContent(categoryName) {
     categoryDetails.innerHTML = `
 <div class="valutazione-detail-section">
   <div class="page-header">
-    <i class="fas fa-brain fa-3x mb-3" style="color:#e83e8c;"></i>
+    <div class="page-icon mb-3">🧠</div>
     <h1 class="page-title">Valutazione Complessità</h1>
     <p class="page-subtitle">Valutazione della complessità clinica e assistenziale attraverso strumenti validati per l'identificazione e la classificazione multidimensionale dei pazienti in cure palliative</p>
   </div>
 
   <div class="tools-grid justify-content-center">
-    <div class="tool-card">
+    <div class="tool-card idcpal-card">
       <div class="tool-header">
         <div class="tool-icon idcpal-icon">ID</div>
         <div>
@@ -57,7 +57,9 @@ function loadCategoryContent(categoryName) {
       <div class="tool-actions">
         <a href="#" class="action-btn btn-primary-idcpal" onclick="openIDCPALCompile()"><i class="fas fa-edit"></i>Compila</a>
         <a href="#" class="action-btn btn-outline-idcpal" onclick="openIDCPALVisualize()"><i class="fas fa-table"></i>Visualizza</a>
-        <a href="#" class="action-btn btn-outline-warning-custom" onclick="openIDCPALGlossary()"><i class="fas fa-book"></i>Glossario</a>
+      </div>
+      <div class="tool-extra-action">
+        <a href="#" class="action-btn btn-outline-warning-custom glossary-btn" onclick="openIDCPALGlossary()"><i class="fas fa-book"></i>Glossario</a>
       </div>
     </div>
   </div>

@@ -134,6 +134,8 @@
 
 /* Sezione Valutazione Complessità */
 .valutazione-detail-section { max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; }
+.page-icon { font-size: 3rem; }
+.idcpal-card { max-width: 450px; margin: 0 auto; }
 .idcpal-icon { background: linear-gradient(135deg, #007bff, #0056b3); }
 .btn-primary-idcpal { background: linear-gradient(135deg, #007bff, #0056b3); color: #fff; }
 .btn-primary-idcpal:hover { background: linear-gradient(135deg, #0056b3, #004085); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,123,255,0.3); color: #fff; }
@@ -141,3 +143,5 @@
 .btn-outline-idcpal:hover { background: #007bff; color: #fff; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,123,255,0.3); }
 .btn-outline-warning-custom { background: transparent; color: #856404; border: 2px solid #ffc107; }
 .btn-outline-warning-custom:hover { background: #ffc107; color: #000; transform: translateY(-2px); }
+.tool-extra-action { margin-top: 0.5rem; text-align: left; }
+.glossary-btn { flex: none; padding: 0.4rem 0.8rem; font-size: 0.85rem; }
