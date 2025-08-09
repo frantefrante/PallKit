@@ -3,10 +3,10 @@
 <link rel="stylesheet" href="css/idcpal.css">
 <section id="idcpal-home" class="p-4" style="display:none;">
   <div class="mb-3">
-    <button class="btn btn-outline-success me-2" onclick="navigateToSection('strumenti-valutazione-home')">
+    <button class="btn btn-outline-success me-2" onclick="navigateToSection('strumenti-valutazione-home'); showCategories();">
       <i class="fas fa-arrow-left me-2"></i>Torna alle Categorie
     </button>
-    <button class="btn btn-outline-primary" onclick="openCategoryView('complessita')">
+    <button class="btn btn-outline-primary" onclick="navigateToSection('strumenti-valutazione-home'); openCategoryView('complessita');">
       <i class="fas fa-arrow-left me-2"></i>Torna a Complessità
     </button>
   </div>

@@ -4,9 +4,11 @@ function openCategoryView(categoryName) {
   const backButton = document.getElementById('backToCategories');
   const searchBar = document.querySelector('.search-tools-compact');
   const statsRow = document.querySelector('.stats-row');
+  const mainHeader = document.querySelector('.valutazione-header');
   if (categoriesGrid) categoriesGrid.style.display = 'none';
   if (searchBar) searchBar.style.display = 'none';
   if (statsRow) statsRow.style.display = 'none';
+  if (mainHeader) mainHeader.style.display = 'none';
   if (backButton) backButton.style.display = 'block';
   loadCategoryContent(categoryName);
   if (categoryDetails) categoryDetails.style.display = 'block';
@@ -18,11 +20,13 @@ function showCategories() {
   const backButton = document.getElementById('backToCategories');
   const searchBar = document.querySelector('.search-tools-compact');
   const statsRow = document.querySelector('.stats-row');
+  const mainHeader = document.querySelector('.valutazione-header');
   if (categoriesGrid) categoriesGrid.style.display = 'grid';
   if (searchBar) searchBar.style.display = 'block';
   if (statsRow) statsRow.style.display = 'block';
   if (categoryDetails) categoryDetails.style.display = 'none';
   if (backButton) backButton.style.display = 'none';
+  if (mainHeader) mainHeader.style.display = 'block';
 }
 
 function loadCategoryContent(categoryName) {
@@ -30,16 +34,13 @@ function loadCategoryContent(categoryName) {
   if (!categoryDetails) return;
 
   if (categoryName === 'complessita') {
-    categoryDetails.innerHTML = `<!-- Sezione Valutazione Complessità - Layout come Multidimensionali -->
+    categoryDetails.innerHTML = `<!-- Sezione Valutazione Complessità - Layout simile a Multidimensionali -->
 <div class="valutazione-detail-section">
-  <div class="detail-header mb-4">
-    <h3>🧠 Valutazione Complessità</h3>
-    <p>Valutazione della complessità clinica e assistenziale attraverso strumenti validati per l'identificazione e classificazione multidimensionale dei pazienti in cure palliative</p>
+  <div class="page-header">
+    <h1 class="page-title"><i class="fas fa-brain me-3"></i>Valutazione Complessità</h1>
   </div>
 
-  <!-- Griglia strumenti (dimensioni ridotte come se fossero 2) -->
-  <div class="row g-4">
-    <!-- IDC-PAL Card (dimensioni ridotte) -->
+  <div class="row g-4 justify-content-center">
     <div class="col-lg-6 col-xl-5">
       <div class="tool-card tool-card-compact h-100">
         <div class="tool-header">
@@ -51,17 +52,17 @@ function loadCategoryContent(categoryName) {
             <div class="tool-subtitle">Instrumento Diagnóstico de Complejidad</div>
           </div>
         </div>
-        
+
         <div class="tool-description">
           Strumento per valutare la complessità multidimensionale nei pazienti in cure palliative attraverso l'analisi di 34 elementi distribuiti in 3 dimensioni: paziente, famiglia e sistema sanitario.
         </div>
-        
+
         <div class="tool-features">
           <span class="feature-badge">34 elementi specifici</span>
           <span class="feature-badge">3 dimensioni di valutazione</span>
           <span class="feature-badge">Classificazione automatica</span>
         </div>
-        
+
         <div class="tool-actions">
           <button class="btn btn-primary btn-action" onclick="openIDCPALCompile()">
             <i class="fas fa-edit me-2"></i>Compila
@@ -70,40 +71,10 @@ function loadCategoryContent(categoryName) {
             <i class="fas fa-table me-2"></i>Visualizza
           </button>
         </div>
-        
-        <!-- Glossario sotto Compila -->
+
         <div class="tool-extra-action">
           <button class="btn btn-outline-warning btn-sm glossary-btn" onclick="openIDCPALGlossary()">
             <i class="fas fa-book me-1"></i>Glossario Clinico
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Spazio per futuro strumento (dimensioni ridotte) -->
-    <div class="col-lg-6 col-xl-5 offset-xl-2">
-      <div class="tool-card tool-card-compact h-100 coming-soon">
-        <div class="tool-header">
-          <div class="tool-icon-large coming-soon-icon">
-            <i class="fas fa-plus"></i>
-          </div>
-          <div class="tool-info">
-            <h4>Prossimo Strumento</h4>
-            <div class="tool-subtitle">In fase di sviluppo</div>
-          </div>
-        </div>
-        
-        <div class="tool-description">
-          Ulteriori strumenti per la valutazione della complessità saranno aggiunti nelle prossime versioni per completare la suite di assessment multidimensionale.
-        </div>
-        
-        <div class="tool-features">
-          <span class="feature-badge-coming">In arrivo</span>
-        </div>
-        
-        <div class="tool-actions">
-          <button class="btn btn-outline-secondary btn-action" disabled>
-            <i class="fas fa-clock me-2"></i>In Sviluppo
           </button>
         </div>
       </div>
@@ -115,19 +86,6 @@ function loadCategoryContent(categoryName) {
 /* Stili per il layout Complessità (replica Multidimensionali con dimensioni ridotte) */
 .valutazione-detail-section {
   padding: 2rem;
-}
-
-.detail-header h3 {
-  font-size: 2rem;
-  font-weight: 700;
-  color: #2c3e50;
-  margin-bottom: 1rem;
-}
-
-.detail-header p {
-  color: #6c757d;
-  font-size: 1.1rem;
-  line-height: 1.6;
 }
 
 .tool-card {
@@ -151,11 +109,6 @@ function loadCategoryContent(categoryName) {
   border-color: #007bff;
 }
 
-.tool-card.coming-soon {
-  opacity: 0.7;
-  background: #f8f9fa;
-}
-
 .tool-header {
   display: flex;
   align-items: center;
@@ -172,11 +125,6 @@ function loadCategoryContent(categoryName) {
   justify-content: center;
   margin-right: 1.5rem;
   box-shadow: 0 4px 20px rgba(0, 123, 255, 0.3);
-}
-
-.tool-icon-large.coming-soon-icon {
-  background: linear-gradient(135deg, #6c757d, #495057);
-  box-shadow: 0 4px 20px rgba(108, 117, 125, 0.3);
 }
 
 .tool-letters {
@@ -221,19 +169,6 @@ function loadCategoryContent(categoryName) {
   margin-right: 0.5rem;
   margin-bottom: 0.5rem;
   border: 1px solid #bee5eb;
-}
-
-.feature-badge-coming {
-  display: inline-block;
-  background: #f8f9fa;
-  color: #6c757d;
-  padding: 0.4rem 0.8rem;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  margin-right: 0.5rem;
-  margin-bottom: 0.5rem;
-  border: 1px solid #dee2e6;
 }
 
 .tool-actions {
