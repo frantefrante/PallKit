@@ -2,8 +2,15 @@
 ?>
 <section id="ipos-home" class="p-4" style="display:none;">
   <div class="bg-white p-4 rounded shadow-sm">
-    <h5 class="mb-0"><i class="fas fa-chart-line me-2"></i>IPOS</h5>
-    <a href="#" class="small text-decoration-underline float-end" data-bs-toggle="modal" data-bs-target="#guida-ipos-modal">Guida alla compilazione</a>
+    <div class="d-flex justify-content-between align-items-center">
+      <h5 class="mb-0"><i class="fas fa-chart-line me-2"></i>IPOS</h5>
+      <div>
+        <button type="button" class="btn btn-outline-success btn-sm me-2" onclick="navigateToSection('multidimensionale-home')">
+          <i class="fas fa-arrow-left me-1"></i>Torna a Multidimensionale
+        </button>
+        <a href="#" class="small text-decoration-underline" data-bs-toggle="modal" data-bs-target="#guida-ipos-modal">Guida alla compilazione</a>
+      </div>
+    </div>
     <hr>
     <form id="ipos-form" class="local-save" data-tipo="IPOS" action="#" method="post">
       <div class="row g-3 mb-3">
