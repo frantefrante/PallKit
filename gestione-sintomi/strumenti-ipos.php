@@ -1,6 +1,14 @@
 <?php
 ?>
 <section id="ipos-home" class="p-4" style="display:none;">
+  <div class="mb-3">
+    <button class="btn btn-outline-success me-2" onclick="navigateToSection('strumenti-valutazione-home')">
+      <i class="fas fa-arrow-left me-2"></i>Torna alle Categorie
+    </button>
+    <button class="btn btn-outline-primary" onclick="navigateToSection('multidimensionale-home')">
+      <i class="fas fa-arrow-left me-2"></i>Torna a Multidimensionale
+    </button>
+  </div>
   <div class="bg-white p-4 rounded shadow-sm">
     <h5 class="mb-0"><i class="fas fa-chart-line me-2"></i>IPOS</h5>
     <a href="#" class="small text-decoration-underline float-end" data-bs-toggle="modal" data-bs-target="#guida-ipos-modal">Guida alla compilazione</a>
