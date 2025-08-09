@@ -1,0 +1,94 @@
+.valutazione-container { max-width: 1200px; margin: 0 auto; }
+.valutazione-header h4 { color: #5cb85c; font-weight: 600; }
+.search-tools-compact { max-width: 400px; margin: 0 auto; }
+.search-tools-compact .input-group-text { background: #5cb85c; color: white; border-color: #5cb85c; }
+.search-tools-compact .form-control:focus { border-color: #5cb85c; box-shadow: 0 0 0 0.2rem rgba(92,184,92,0.25); }
+.stats-row .stat-card { background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); text-align: center; border: 1px solid #e9ecef; transition: transform 0.3s ease; }
+.stats-row .stat-card:hover { transform: translateY(-2px); }
+.stat-number { font-size: 1.8rem; font-weight: bold; color: #5cb85c; margin-bottom: 0.25rem; }
+.stat-label { color: #6c757d; font-size: 0.85rem; font-weight: 500; }
+.categories-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px,1fr)); gap: 1.5rem; margin-top: 2rem; }
+.category-card { background: white; border-radius: 12px; padding: 1.5rem; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border: 1px solid #e9ecef; cursor: pointer; transition: all 0.3s ease; position: relative; overflow: hidden; opacity: 0; animation: fadeInUp 0.6s ease forwards; }
+.category-card:hover { transform: translateY(-5px); box-shadow: 0 8px 30px rgba(0,0,0,0.15); border-color: #5cb85c; }
+.category-card::before { content: ''; position: absolute; top:0; left:0; right:0; height:4px; background: linear-gradient(90deg,#5cb85c,#449d44); transform: scaleX(0); transition: transform 0.3s ease; }
+.category-card:hover::before { transform: scaleX(1); }
+.category-header { display:flex; align-items:flex-start; margin-bottom:1rem; }
+.category-icon { font-size:2rem; margin-right:1rem; flex-shrink:0; }
+.category-info { flex-grow:1; }
+.category-info h5 { margin:0; color:#333; font-weight:600; font-size:1.2rem; }
+.category-info small { color:#6c757d; font-size:0.85rem; }
+.category-status { flex-shrink:0; }
+.category-description { color:#666; font-size:0.9rem; line-height:1.5; margin-bottom:1rem; }
+.category-tools { display:flex; flex-wrap:wrap; gap:0.5rem; }
+.tool-badge { background:#f8f9fa; color:#6c757d; padding:0.25rem 0.75rem; border-radius:15px; font-size:0.75rem; font-weight:500; border:1px solid #e9ecef; }
+.tool-badge.available { background:#d4edda; color:#155724; border-color:#c3e6cb; }
+.back-to-categories { text-align:center; margin:2rem 0; }
+
+/* Category Detail Styles */
+.category-detail { animation: fadeInUp 0.5s ease; }
+.category-detail-header { background: linear-gradient(135deg,#5cb85c,#449d44); color:white; padding:2rem; border-radius:12px; margin-bottom:2rem; text-align:center; }
+.tools-detail-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap:1.5rem; }
+.tool-detail-card { background:white; border-radius:12px; padding:1.5rem; box-shadow:0 4px 20px rgba(0,0,0,0.08); border:1px solid #e9ecef; transition: all 0.3s ease; cursor:pointer; }
+.tool-detail-card:hover { transform: translateY(-3px); box-shadow:0 6px 25px rgba(0,0,0,0.12); border-color:#5cb85c; }
+.tool-detail-header { display:flex; align-items:center; margin-bottom:1rem; }
+.tool-detail-icon { width:50px; height:50px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:1.2rem; color:white; margin-right:1rem; font-weight:bold; background: linear-gradient(135deg,#5cb85c,#449d44); }
+.tool-detail-info h5 { margin:0; color:#333; font-weight:600; }
+.tool-detail-subtitle { color:#6c757d; font-size:0.85rem; margin-top:0.25rem; }
+.tool-detail-description { color:#666; font-size:0.9rem; line-height:1.5; margin-bottom:1rem; }
+.tool-detail-actions { display:flex; justify-content:space-between; align-items:center; }
+
+/* Responsive Design */
+@media (max-width:768px) {
+  .categories-grid { grid-template-columns:1fr; }
+  .category-header { flex-direction:column; text-align:center; }
+  .category-icon { margin-right:0; margin-bottom:0.5rem; }
+  .stats-row .row { text-align:center; }
+}
+
+@keyframes fadeInUp {
+  from { opacity:0; transform:translateY(30px); }
+  to { opacity:1; transform:translateY(0); }
+}
+
+.category-card:nth-child(1){ animation-delay:0.1s; }
+.category-card:nth-child(2){ animation-delay:0.2s; }
+.category-card:nth-child(3){ animation-delay:0.3s; }
+.category-card:nth-child(4){ animation-delay:0.4s; }
+.category-card:nth-child(5){ animation-delay:0.5s; }
+.category-card:nth-child(6){ animation-delay:0.6s; }
+.category-card:nth-child(7){ animation-delay:0.7s; }
+.category-card:nth-child(8){ animation-delay:0.8s; }
+.category-card:nth-child(9){ animation-delay:0.9s; }
+
+/* Miglioramenti responsive specifici */
+@media (max-width:576px) {
+  .valutazione-container { padding:0 0.5rem; }
+  .category-card { padding:1rem; }
+  .category-header { flex-direction:column; text-align:center; gap:0.5rem; }
+  .category-icon { font-size:1.5rem; margin:0 0 0.5rem 0; }
+  .category-tools { justify-content:center; }
+  .tool-badge { font-size:0.7rem; padding:0.2rem 0.5rem; }
+  .stats-row .stat-card { padding:1rem; }
+  .stat-number { font-size:1.5rem; }
+  .tools-detail-grid { grid-template-columns:1fr; }
+  .tool-detail-card { padding:1rem; }
+  .category-detail-header { padding:1.5rem 1rem; }
+  .category-detail-header h3 { font-size:1.5rem; }
+}
+
+/* Transizioni fluide */
+.categories-grid, .category-details, .back-to-categories, .search-tools-compact, .stats-row { transition: all 0.3s ease; }
+
+/* Loading states */
+.category-card.loading { opacity:0.6; pointer-events:none; }
+.category-card.loading::after { content:''; position:absolute; top:50%; left:50%; width:20px; height:20px; border:2px solid #f3f3f3; border-top:2px solid #5cb85c; border-radius:50%; animation:spin 1s linear infinite; transform:translate(-50%, -50%); }
+
+@keyframes spin { 0% { transform:translate(-50%, -50%) rotate(0deg);} 100% { transform:translate(-50%, -50%) rotate(360deg);} }
+
+/* Miglioramenti accessibilità */
+.category-card:focus { outline:2px solid #5cb85c; outline-offset:2px; }
+.tool-detail-card:focus { outline:2px solid #5cb85c; outline-offset:2px; }
+
+/* Stati hover migliorati */
+.category-card:hover .category-icon { transform:scale(1.1); transition:transform 0.3s ease; }
+.tool-detail-card:hover .tool-detail-icon { transform:scale(1.05); transition:transform 0.3s ease; }
