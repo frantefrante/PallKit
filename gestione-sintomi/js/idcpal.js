@@ -253,6 +253,24 @@ function downloadIDCPALTemplate() {
   alert('Funzionalità di download PDF in sviluppo. Per ora utilizza la stampa per salvare come PDF.');
 }
 
+// Funzioni per il glossario inline
+function toggleGlossaryInline(code) {
+  const glossary = document.getElementById(`glossary-${code}`);
+  if (!glossary) return;
+  
+  document.querySelectorAll('.inline-glossary').forEach(g => {
+    if (g.id !== `glossary-${code}`) {
+      g.style.display = 'none';
+    }
+  });
+  
+  if (glossary.style.display === 'none' || !glossary.style.display) {
+    glossary.style.display = 'block';
+  } else {
+    glossary.style.display = 'none';
+  }
+}
+
 // Funzioni per il glossario
 function filterIDCPALGlossary() {
   const query = (document.getElementById('glossary-search')?.value || '').toLowerCase();
@@ -295,4 +313,3 @@ document.addEventListener('keydown', (e) => {
 });
 
 console.log('✅ IDC-PAL JavaScript caricato correttamente');
-

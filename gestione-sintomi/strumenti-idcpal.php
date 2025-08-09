@@ -1,4 +1,108 @@
 <?php
+$idcpal_sections = [
+  '1' => [
+    'icon' => 'fas fa-user',
+    'title' => 'Elementi dipendenti dal paziente',
+    'subsections' => [
+      '1.1' => [
+        'title' => 'Contesto',
+        'items' => [
+          ['code' => '1.1a', 'text' => 'Il paziente è un bambino o un adolescente', 'level' => 'AC', 'description' => "Si considera il periodo di vita dalla nascita al completo sviluppo dell'organismo (infanzia e adolescenza fino a 18 anni). L'assistenza pediatrica presenta complessità specifiche."],
+          ['code' => '1.1b', 'text' => 'Il paziente è un professionista sanitario', 'level' => 'C', 'description' => 'Quando il fatto di essere un professionista della salute aggiunge difficoltà alla situazione o al processo decisionale.'],
+          ['code' => '1.1c', 'text' => 'Barriere linguistiche o culturali', 'level' => 'C', 'description' => 'Difficoltà di comunicazione dovute a differenze linguistiche o culturali che compromettono la comprensione delle cure.'],
+          ['code' => '1.1d', 'text' => 'Problemi socio-economici', 'level' => 'C', 'description' => 'Condizioni economiche precarie che limitano l\'accesso alle cure o l\'acquisto di dispositivi necessari.'],
+          ['code' => '1.1e', 'text' => 'Difficoltà di accesso ai servizi sanitari', 'level' => 'AC', 'description' => 'Ostacoli geografici, logistici o organizzativi che impediscono l\'accesso tempestivo ai servizi sanitari specialistici.'],
+        ],
+      ],
+      '1.2' => [
+        'title' => 'Sintomi',
+        'items' => [
+          ['code' => '1.2a', 'text' => 'Sintomi di difficile controllo', 'level' => 'AC', 'description' => 'Sintomi che non rispondono ai trattamenti standard o richiedono misure eccezionali.'],
+          ['code' => '1.2b', 'text' => 'Sintomi che interferiscono con il sonno', 'level' => 'C', 'description' => 'Disturbi che impediscono un riposo adeguato e generano affaticamento.'],
+          ['code' => '1.2c', 'text' => 'Sintomi che interferiscono con la capacità comunicativa', 'level' => 'C', 'description' => 'Deficit che impediscono al paziente di esprimersi o comprendere.'],
+          ['code' => '1.2d', 'text' => 'Presenza di ulcere cutanee maleodoranti', 'level' => 'C', 'description' => 'Lesioni cutanee con odore sgradevole che provocano disagio.'],
+        ],
+      ],
+      '1.3' => [
+        'title' => 'Aspetti psicologici',
+        'items' => [
+          ['code' => '1.3a', 'text' => 'Presenza di delirium', 'level' => 'AC', 'description' => "Stato confusionale acuto con disturbi dell'attenzione e percezioni alterate."],
+          ['code' => '1.3b', 'text' => 'Presenza di ansia o depressione clinicamente significativa', 'level' => 'C', 'description' => 'Sintomi psicologici che richiedono intervento specialistico.'],
+          ['code' => '1.3c', 'text' => 'Manifestazioni di collera o aggressività', 'level' => 'C', 'description' => 'Reazioni emotive intense dirette verso sé o gli altri.'],
+          ['code' => '1.3d', 'text' => 'Paura o negazione della morte', 'level' => 'AC', 'description' => 'Rifiuto persistente o timore paralizzante del processo di fine vita.'],
+          ['code' => '1.3e', 'text' => 'Richiesta di eutanasia o suicidio assistito', 'level' => 'AC', 'description' => 'Domanda esplicita di anticipare la morte con assistenza medica.'],
+        ],
+      ],
+      '1.4' => [
+        'title' => 'Aspetti spirituali',
+        'items' => [
+          ['code' => '1.4a', 'text' => 'Sofferenza spirituale', 'level' => 'C', 'description' => 'Senso di perdita di significato o disperazione esistenziale.'],
+          ['code' => '1.4b', 'text' => 'Conflitti con le proprie credenze religiose', 'level' => 'C', 'description' => 'Dissonanze tra il percorso di cura e le convinzioni spirituali personali.'],
+        ],
+      ],
+    ],
+  ],
+  '2' => [
+    'icon' => 'fas fa-users',
+    'title' => 'Elementi dipendenti dalla famiglia',
+    'subsections' => [
+      '2.1' => [
+        'title' => 'Contesto familiare',
+        'items' => [
+          ['code' => '2.1a', 'text' => 'Assenza di supporto familiare', 'level' => 'AC', 'description' => 'Il paziente non dispone di una rete familiare di sostegno.'],
+          ['code' => '2.1b', 'text' => 'Famiglia monoparentale o single parent', 'level' => 'C', 'description' => 'Responsabilità assistenziale concentrata su una sola persona.'],
+          ['code' => '2.1c', 'text' => 'Presenza di minori nel nucleo familiare', 'level' => 'C', 'description' => 'Presenza di figli piccoli che necessitano di attenzioni dedicate.'],
+          ['code' => '2.1d', 'text' => 'Caregiver principale con età avanzata o malato', 'level' => 'C', 'description' => 'Il caregiver presenta limitazioni fisiche o patologiche.'],
+        ],
+      ],
+      '2.2' => [
+        'title' => 'Dinamiche familiari',
+        'items' => [
+          ['code' => '2.2a', 'text' => 'Conflitti familiari maggiori', 'level' => 'AC', 'description' => 'Disaccordi significativi che compromettono l\'assistenza.'],
+          ['code' => '2.2b', 'text' => 'Difficoltà nella comunicazione familiare', 'level' => 'C', 'description' => 'Incapacità di condividere informazioni o emozioni in modo efficace.'],
+          ['code' => '2.2c', 'text' => 'Rifiuto di accettazione della prognosi', 'level' => 'AC', 'description' => 'La famiglia non riconosce la gravità della malattia.'],
+          ['code' => '2.2d', 'text' => 'Claudicatio familiare o burnout del caregiver', 'level' => 'C', 'description' => 'Esaurimento fisico o emotivo del caregiver principale.'],
+        ],
+      ],
+      '2.3' => [
+        'title' => 'Aspetti psico-sociali familiari',
+        'items' => [
+          ['code' => '2.3a', 'text' => 'Storia di perdite multiple o traumatiche', 'level' => 'C', 'description' => 'Eventi lutti precedenti che aumentano la vulnerabilità emotiva.'],
+          ['code' => '2.3b', 'text' => 'Problemi di salute mentale in familiari', 'level' => 'C', 'description' => 'Presenza di disturbi psichiatrici che interferiscono con l\'assistenza.'],
+        ],
+      ],
+    ],
+  ],
+  '3' => [
+    'icon' => 'fas fa-hospital',
+    'title' => 'Elementi dipendenti dal sistema sanitario',
+    'subsections' => [
+      '3.1' => [
+        'title' => 'Aspetti organizzativi',
+        'items' => [
+          ['code' => '3.1a', 'text' => 'Necessità di interventi urgenti o emergenze ricorrenti', 'level' => 'AC', 'description' => 'Situazioni cliniche che richiedono risposte rapide e frequenti.'],
+          ['code' => '3.1b', 'text' => 'Necessità di coordinamento tra più servizi', 'level' => 'C', 'description' => 'Coinvolgimento simultaneo di diversi livelli assistenziali.'],
+          ['code' => '3.1c', 'text' => 'Necessità di dispositivi o procedure complesse', 'level' => 'C', 'description' => 'Richiesta di tecnologie avanzate o procedure specialistiche.'],
+          ['code' => '3.1d', 'text' => 'Difficoltà nel reperimento di risorse', 'level' => 'C', 'description' => 'Scarsa disponibilità di mezzi o personale adeguato.'],
+        ],
+      ],
+      '3.2' => [
+        'title' => 'Aspetti professionali',
+        'items' => [
+          ['code' => '3.2a', 'text' => "Conflitti etici nell'équipe di cura", 'level' => 'AC', 'description' => 'Dilemmi etici che generano tensione tra i professionisti.'],
+          ['code' => '3.2b', 'text' => "Disaccordo nell'équipe sul piano di cura", 'level' => 'C', 'description' => 'Mancanza di consenso tra i membri del team terapeutico.'],
+        ],
+      ],
+      '3.3' => [
+        'title' => 'Aspetti legali',
+        'items' => [
+          ['code' => '3.3a', 'text' => 'Questioni medico-legali complesse', 'level' => 'AC', 'description' => 'Aspetti legali che richiedono consulenza specialistica.'],
+          ['code' => '3.3b', 'text' => 'Problemi di consenso informato', 'level' => 'C', 'description' => 'Difficoltà nel ottenere o validare il consenso del paziente.'],
+        ],
+      ],
+    ],
+  ],
+];
 ?>
 <link rel="stylesheet" href="css/idcpal.css">
 <section id="idcpal-home" class="p-4" style="display:none;">
@@ -63,145 +167,35 @@
           </div>
         </div>
 
-        <!-- Sezione 1: Paziente -->
+<?php foreach ($idcpal_sections as $num => $section): ?>
         <div class="complexity-section">
           <div class="section-header">
-            <i class="fas fa-user me-2"></i>1. Elementi dipendenti dal paziente
+            <i class="<?= $section['icon']; ?> me-2"></i><?= $num . '. ' . $section['title']; ?>
           </div>
           <div class="section-content">
-            <h6 class="text-muted mb-3">1.1 - Contesto</h6>
-            <div class="complexity-item" data-code="1.1a">
-              <input type="checkbox" class="form-check-input item-checkbox" id="item-1.1a" onchange="toggleIDCPALItem('1.1a', 'AC')">
-              <div class="item-content">
-                <div class="item-code">1.1a</div>
-                <div class="item-text">Il paziente è un bambino o un adolescente</div>
-                <span class="item-badge badge-ac">AC</span>
+<?php $firstSub = true; foreach ($section['subsections'] as $subnum => $sub): ?>
+            <h6 class="text-muted mb-3<?= $firstSub ? '' : ' mt-4'; ?>"><?= $subnum . ' - ' . $sub['title']; ?></h6>
+<?php $firstSub = false; foreach ($sub['items'] as $item): ?>
+            <div class="complexity-item" data-code="<?= $item['code']; ?>" onclick="toggleGlossaryInline('<?= $item['code']; ?>')">
+              <div class="item-main">
+                <input type="checkbox" class="form-check-input item-checkbox" id="item-<?= $item['code']; ?>" onchange="toggleIDCPALItem('<?= $item['code']; ?>', '<?= $item['level']; ?>')" onclick="event.stopPropagation()">
+                <div class="item-content">
+                  <div class="item-code"><?= $item['code']; ?> <i class="fas fa-info-circle text-primary ms-1" title="Clicca per info"></i></div>
+                  <div class="item-text"><?= $item['text']; ?></div>
+                  <span class="item-badge <?= $item['level'] === 'AC' ? 'badge-ac' : 'badge-c'; ?>"><?= $item['level']; ?></span>
+                </div>
+              </div>
+              <div class="inline-glossary" id="glossary-<?= $item['code']; ?>" style="display:none;">
+                <div class="inline-glossary-content">
+                  <strong>Descrizione:</strong> <?= $item['description']; ?>
+                </div>
               </div>
             </div>
-            <div class="complexity-item" data-code="1.1b">
-              <input type="checkbox" class="form-check-input item-checkbox" id="item-1.1b" onchange="toggleIDCPALItem('1.1b', 'C')">
-              <div class="item-content">
-                <div class="item-code">1.1b</div>
-                <div class="item-text">Il paziente è un professionista sanitario</div>
-                <span class="item-badge badge-c">C</span>
-              </div>
-            </div>
-
-            <h6 class="text-muted mb-3 mt-4">1.2 - Sintomi</h6>
-            <div class="complexity-item" data-code="1.2a">
-              <input type="checkbox" class="form-check-input item-checkbox" id="item-1.2a" onchange="toggleIDCPALItem('1.2a', 'AC')">
-              <div class="item-content">
-                <div class="item-code">1.2a</div>
-                <div class="item-text">Sintomi di difficile controllo</div>
-                <span class="item-badge badge-ac">AC</span>
-              </div>
-            </div>
-            <div class="complexity-item" data-code="1.2b">
-              <input type="checkbox" class="form-check-input item-checkbox" id="item-1.2b" onchange="toggleIDCPALItem('1.2b', 'C')">
-              <div class="item-content">
-                <div class="item-code">1.2b</div>
-                <div class="item-text">Sintomi che interferiscono con il sonno</div>
-                <span class="item-badge badge-c">C</span>
-              </div>
-            </div>
-            <div class="complexity-item" data-code="1.2c">
-              <input type="checkbox" class="form-check-input item-checkbox" id="item-1.2c" onchange="toggleIDCPALItem('1.2c', 'C')">
-              <div class="item-content">
-                <div class="item-code">1.2c</div>
-                <div class="item-text">Sintomi che interferiscono con la capacità comunicativa</div>
-                <span class="item-badge badge-c">C</span>
-              </div>
-            </div>
-
-            <h6 class="text-muted mb-3 mt-4">1.3 - Aspetti psicologici</h6>
-            <div class="complexity-item" data-code="1.3a">
-              <input type="checkbox" class="form-check-input item-checkbox" id="item-1.3a" onchange="toggleIDCPALItem('1.3a', 'AC')">
-              <div class="item-content">
-                <div class="item-code">1.3a</div>
-                <div class="item-text">Presenza di delirium</div>
-                <span class="item-badge badge-ac">AC</span>
-              </div>
-            </div>
-            <div class="complexity-item" data-code="1.3b">
-              <input type="checkbox" class="form-check-input item-checkbox" id="item-1.3b" onchange="toggleIDCPALItem('1.3b', 'C')">
-              <div class="item-content">
-                <div class="item-code">1.3b</div>
-                <div class="item-text">Presenza di ansia o depressione clinicamente significativa</div>
-                <span class="item-badge badge-c">C</span>
-              </div>
-            </div>
-            <div class="complexity-item" data-code="1.3c">
-              <input type="checkbox" class="form-check-input item-checkbox" id="item-1.3c" onchange="toggleIDCPALItem('1.3c', 'C')">
-              <div class="item-content">
-                <div class="item-code">1.3c</div>
-                <div class="item-text">Manifestazioni di collera o aggressività</div>
-                <span class="item-badge badge-c">C</span>
-              </div>
-            </div>
+<?php endforeach; endforeach; ?>
           </div>
         </div>
+<?php endforeach; ?>
 
-        <!-- Sezione 2: Famiglia -->
-        <div class="complexity-section">
-          <div class="section-header">
-            <i class="fas fa-users me-2"></i>2. Elementi dipendenti dalla famiglia
-          </div>
-          <div class="section-content">
-            <h6 class="text-muted mb-3">2.1 - Contesto familiare</h6>
-            <div class="complexity-item" data-code="2.1a">
-              <input type="checkbox" class="form-check-input item-checkbox" id="item-2.1a" onchange="toggleIDCPALItem('2.1a', 'AC')">
-              <div class="item-content">
-                <div class="item-code">2.1a</div>
-                <div class="item-text">Assenza di supporto familiare</div>
-                <span class="item-badge badge-ac">AC</span>
-              </div>
-            </div>
-            <div class="complexity-item" data-code="2.1b">
-              <input type="checkbox" class="form-check-input item-checkbox" id="item-2.1b" onchange="toggleIDCPALItem('2.1b', 'C')">
-              <div class="item-content">
-                <div class="item-code">2.1b</div>
-                <div class="item-text">Famiglia monoparentale o single parent</div>
-                <span class="item-badge badge-c">C</span>
-              </div>
-            </div>
-            <div class="complexity-item" data-code="2.1c">
-              <input type="checkbox" class="form-check-input item-checkbox" id="item-2.1c" onchange="toggleIDCPALItem('2.1c', 'C')">
-              <div class="item-content">
-                <div class="item-code">2.1c</div>
-                <div class="item-text">Presenza di minori nel nucleo familiare</div>
-                <span class="item-badge badge-c">C</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Sezione 3: Sistema Sanitario -->
-        <div class="complexity-section">
-          <div class="section-header">
-            <i class="fas fa-hospital me-2"></i>3. Elementi dipendenti dal sistema sanitario
-          </div>
-          <div class="section-content">
-            <h6 class="text-muted mb-3">3.1 - Aspetti organizzativi</h6>
-            <div class="complexity-item" data-code="3.1a">
-              <input type="checkbox" class="form-check-input item-checkbox" id="item-3.1a" onchange="toggleIDCPALItem('3.1a', 'AC')">
-              <div class="item-content">
-                <div class="item-code">3.1a</div>
-                <div class="item-text">Necessità di interventi urgenti o emergenze ricorrenti</div>
-                <span class="item-badge badge-ac">AC</span>
-              </div>
-            </div>
-            <div class="complexity-item" data-code="3.1b">
-              <input type="checkbox" class="form-check-input item-checkbox" id="item-3.1b" onchange="toggleIDCPALItem('3.1b', 'C')">
-              <div class="item-content">
-                <div class="item-code">3.1b</div>
-                <div class="item-text">Necessità di coordinamento tra più servizi</div>
-                <span class="item-badge badge-c">C</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Riepilogo -->
         <div class="complexity-summary">
           <h5 class="text-primary mb-3">
             <i class="fas fa-chart-pie me-2"></i>Riepilogo Valutazione
@@ -264,9 +258,11 @@
             Strumento per la valutazione della complessità in cure palliative
           </div>
         </div>
+        
         <div class="mb-4">
           <p><strong>Paziente:</strong> _______________________________________________________________  <strong>Data:</strong> _________________</p>
         </div>
+
         <table class="pdf-table">
           <thead>
             <tr style="background:#28a745;color:white;">
@@ -280,57 +276,51 @@
             </tr>
           </thead>
           <tbody>
-            <tr><td><strong>1.1a</strong></td><td>Il paziente è un bambino o un adolescente</td><td><span class="badge-ac">AC</span></td><td>☐</td></tr>
-            <tr><td><strong>1.1b</strong></td><td>Il paziente è un professionista sanitario</td><td><span class="badge-c">C</span></td><td>☐</td></tr>
-            <tr><td><strong>1.2a</strong></td><td>Sintomi di difficile controllo</td><td><span class="badge-ac">AC</span></td><td>☐</td></tr>
-            <tr><td><strong>1.2b</strong></td><td>Sintomi che interferiscono con il sonno</td><td><span class="badge-c">C</span></td><td>☐</td></tr>
-            <tr><td><strong>1.2c</strong></td><td>Sintomi che interferiscono con la capacità comunicativa</td><td><span class="badge-c">C</span></td><td>☐</td></tr>
-            <tr><td><strong>1.3a</strong></td><td>Presenza di delirium</td><td><span class="badge-ac">AC</span></td><td>☐</td></tr>
-            <tr><td><strong>1.3b</strong></td><td>Presenza di ansia o depressione clinicamente significativa</td><td><span class="badge-c">C</span></td><td>☐</td></tr>
-            <tr><td><strong>1.3c</strong></td><td>Manifestazioni di collera o aggressività</td><td><span class="badge-c">C</span></td><td>☐</td></tr>
-            <tr><td><strong>2.1a</strong></td><td>Assenza di supporto familiare</td><td><span class="badge-ac">AC</span></td><td>☐</td></tr>
-            <tr><td><strong>2.1b</strong></td><td>Famiglia monoparentale o single parent</td><td><span class="badge-c">C</span></td><td>☐</td></tr>
-            <tr><td><strong>2.1c</strong></td><td>Presenza di minori nel nucleo familiare</td><td><span class="badge-c">C</span></td><td>☐</td></tr>
-            <tr><td><strong>3.1a</strong></td><td>Necessità di interventi urgenti o emergenze ricorrenti</td><td><span class="badge-ac">AC</span></td><td>☐</td></tr>
-            <tr><td><strong>3.1b</strong></td><td>Necessità di coordinamento tra più servizi</td><td><span class="badge-c">C</span></td><td>☐</td></tr>
+<?php foreach ($idcpal_sections as $secNum => $section): ?>
+<?php foreach ($section['subsections'] as $sub): ?>
+<?php foreach ($sub['items'] as $item): ?>
+            <tr><td><strong><?= $item['code']; ?></strong></td><td><?= $item['text']; ?></td><td><span class="<?= $item['level'] === 'AC' ? 'badge-ac' : 'badge-c'; ?>"><?= $item['level']; ?></span></td><td>☐</td></tr>
+<?php endforeach; ?>
+<?php endforeach; ?>
+<?php endforeach; ?>
           </tbody>
         </table>
-        <p class="text-muted"><small>* LC: Livello di Complessità (C = Complesso, AC = Alta Complessità)</small></p>
+        <div style="font-size:0.8rem;color:#666;">LC*: Livello di Complessità (C = Complessità, AC = Alta Complessità)</div>
       </div>
       <div class="action-buttons">
-        <button type="button" class="btn-custom btn-outline-custom" onclick="printIDCPALTemplate()">
-          <i class="fas fa-print me-2"></i>Stampa Template
+        <button type="button" class="btn-custom btn-primary-custom" onclick="printIDCPALTemplate()">
+          <i class="fas fa-print me-2"></i>
+          Stampa Template
         </button>
         <button type="button" class="btn-custom btn-outline-custom" onclick="downloadIDCPALTemplate()">
-          <i class="fas fa-download me-2"></i>Scarica PDF
+          <i class="fas fa-download me-2"></i>
+          Scarica PDF
         </button>
       </div>
     </div>
 
     <!-- SEZIONE GLOSSARIO -->
     <div id="glossary-section" class="content-section">
-      <div class="mb-3">
-        <input type="text" id="glossary-search" class="form-control" placeholder="Cerca nel glossario..." onkeyup="filterIDCPALGlossary()">
+      <div class="mb-4">
+        <input type="text" id="glossary-search" class="form-control" oninput="filterIDCPALGlossary()" placeholder="Cerca nel glossario...">
       </div>
       <div id="glossary-content">
+<?php foreach ($idcpal_sections as $section): ?>
+<?php foreach ($section['subsections'] as $sub): ?>
+<?php foreach ($sub['items'] as $item): ?>
         <div class="glossary-item">
           <div class="glossary-header" onclick="toggleIDCPALGlossary(this)">
-            <span class="glossary-code">1.1a</span>
+            <span class="glossary-code"><?= $item['code']; ?></span>
             <i class="fas fa-chevron-right"></i>
           </div>
           <div class="glossary-content">
-            Il paziente è un bambino o un adolescente.
+            <p><strong><?= $item['text']; ?></strong></p>
+            <p><?= $item['description']; ?></p>
           </div>
         </div>
-        <div class="glossary-item">
-          <div class="glossary-header" onclick="toggleIDCPALGlossary(this)">
-            <span class="glossary-code">1.2a</span>
-            <i class="fas fa-chevron-right"></i>
-          </div>
-          <div class="glossary-content">
-            Sintomi di difficile controllo.
-          </div>
-        </div>
+<?php endforeach; ?>
+<?php endforeach; ?>
+<?php endforeach; ?>
       </div>
     </div>
 
