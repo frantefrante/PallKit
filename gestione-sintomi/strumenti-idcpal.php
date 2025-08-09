@@ -129,22 +129,22 @@ $idcpal_sections = [
     </div>
 
     <div class="mode-selector">
-      <a href="#" class="mode-btn active" onclick="switchIDCPALMode('compile')" id="compile-btn">
+      <a href="#" class="mode-btn active" onclick="switchIDCPALMode('compile')" id="idcpal-compile-btn">
         <i class="fas fa-edit"></i>
         Compila IDC-PAL
       </a>
-      <a href="#" class="mode-btn" onclick="switchIDCPALMode('visualize')" id="visualize-btn">
+      <a href="#" class="mode-btn" onclick="switchIDCPALMode('visualize')" id="idcpal-visualize-btn">
         <i class="fas fa-table"></i>
         Visualizza Scala
       </a>
-      <a href="#" class="mode-btn" onclick="switchIDCPALMode('glossary')" id="glossary-btn">
+      <a href="#" class="mode-btn" onclick="switchIDCPALMode('glossary')" id="idcpal-glossary-btn">
         <i class="fas fa-book"></i>
         Glossario
       </a>
     </div>
 
     <!-- SEZIONE COMPILA -->
-    <div id="compile-section" class="content-section active">
+    <div id="idcpal-compile-section" class="content-section active">
       <div class="compile-form">
         <div class="patient-info">
           <h4 class="mb-3">
@@ -249,7 +249,7 @@ $idcpal_sections = [
     </div>
 
     <!-- SEZIONE VISUALIZZA -->
-    <div id="visualize-section" class="content-section">
+    <div id="idcpal-visualize-section" class="content-section">
       <div class="pdf-template">
         <div class="pdf-header">
           <div class="pdf-title">IDC-PAL</div>
@@ -300,7 +300,7 @@ $idcpal_sections = [
     </div>
 
     <!-- SEZIONE GLOSSARIO -->
-    <div id="glossary-section" class="content-section">
+    <div id="idcpal-glossary-section" class="content-section">
       <div class="mb-4">
         <input type="text" id="glossary-search" class="form-control" oninput="filterIDCPALGlossary()" placeholder="Cerca nel glossario...">
       </div>

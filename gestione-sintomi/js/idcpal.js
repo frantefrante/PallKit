@@ -14,10 +14,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Funzione per cambiare modalità (come switchMode in ESAS)
 function switchIDCPALMode(mode) {
-  document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
-  document.getElementById(mode + '-btn').classList.add('active');
-  document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
-  document.getElementById(mode + '-section').classList.add('active');
+  const container = document.getElementById('idcpal-home');
+  if (!container) return;
+  container.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
+  const btn = container.querySelector(`#idcpal-${mode}-btn`);
+  if (btn) btn.classList.add('active');
+  container.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
+  const section = container.querySelector(`#idcpal-${mode}-section`);
+  if (section) section.classList.add('active');
 }
 
 // Setup event listeners
@@ -229,7 +233,7 @@ function printIDCPAL() {
 
 // Funzione per stampare il template (come printTemplate in ESAS)
 function printIDCPALTemplate() {
-  const templateContent = document.querySelector('#visualize-section .pdf-template').innerHTML;
+  const templateContent = document.querySelector('#idcpal-visualize-section .pdf-template').innerHTML;
   const printWindow = window.open('', '_blank');
   printWindow.document.write(`
     <html>

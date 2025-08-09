@@ -24,17 +24,17 @@
     </div>
 
     <div class="mode-selector">
-      <a href="#" class="mode-btn active" onclick="switchMode('compile')" id="compile-btn">
+      <a href="#" class="mode-btn active" onclick="switchMode('compile')" id="esas-compile-btn">
         <i class="fas fa-edit"></i>
         Compila ESAS
       </a>
-      <a href="#" class="mode-btn" onclick="switchMode('visualize')" id="visualize-btn">
+      <a href="#" class="mode-btn" onclick="switchMode('visualize')" id="esas-visualize-btn">
         <i class="fas fa-eye"></i>
         Visualizza Template
       </a>
     </div>
 
-    <div id="compile-section" class="content-section active">
+    <div id="esas-compile-section" class="content-section active">
       <div class="compile-form">
         <div class="patient-info">
           <h4 class="mb-3">
@@ -345,7 +345,7 @@
       </div>
     </div>
 
-    <div id="visualize-section" class="content-section">
+    <div id="esas-visualize-section" class="content-section">
       <div class="pdf-template">
         <div class="pdf-header">
           <div class="pdf-title">ESAS</div>
