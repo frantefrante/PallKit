@@ -58,6 +58,11 @@
       </li>
 
       <li class="nav-item mb-2">
+        <a href="#" class="nav-link" data-target="idcpal-home">
+          <i class="fas fa-layer-group me-2"></i>Complessità
+        </a>
+      </li>
+
       <li class="nav-item mb-2">
         <a href="#" class="nav-link" data-target="strumenti-valutazione-home">
           <i class="fas fa-chart-line me-2"></i>Strumenti Valutazione
@@ -222,7 +227,7 @@
             </div>
             <div class="col-6 col-md-4">
               <div class="stat-card">
-                <div class="stat-number">6</div>
+                <div class="stat-number">7</div>
                 <div class="stat-label">Implementati</div>
               </div>
             </div>
@@ -245,9 +250,9 @@
                 <h5>Identificazione</h5>
                 <small>3 strumenti</small>
               </div>
-              <div class="category-status">
-                <span class="badge bg-warning">In Sviluppo</span>
-              </div>
+                <div class="category-status">
+                  <span class="badge bg-warning">In Sviluppo</span>
+                </div>
             </div>
             <div class="category-description">
               Strumenti per identificare pazienti eleggibili per cure palliative
@@ -267,9 +272,9 @@
                 <h5>Complessità</h5>
                 <small>1 strumento</small>
               </div>
-              <div class="category-status">
-                <span class="badge bg-warning">In Sviluppo</span>
-              </div>
+                <div class="category-status">
+                  <span class="badge bg-success">✅ Disponibile</span>
+                </div>
             </div>
             <div class="category-description">
               Valutazione della complessità clinica e assistenziale

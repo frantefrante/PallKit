@@ -481,10 +481,10 @@ document.addEventListener("DOMContentLoaded", function() {
   const date4 = document.getElementById('necpal4-nascita');
   if (name4) name4.value = pazienteData.nome || '';
   if (date4) date4.value = pazienteData.dataNascita || '';
-  const nameIdc = document.getElementById('idcpal-nome');
-  const nascIdc = document.getElementById('idcpal-nascita');
-  if (nameIdc) nameIdc.value = pazienteData.nome || '';
-  if (nascIdc) nascIdc.value = pazienteData.dataNascita || '';
+  const idcName = document.getElementById('patient-name');
+  const idcBirth = document.getElementById('patient-birth');
+  if (idcName) idcName.value = pazienteData.nome || '';
+  if (idcBirth) idcBirth.value = pazienteData.dataNascita || '';
   const nameIpos = document.getElementById('ipos-nome');
   const nascIpos = document.getElementById('ipos-nascita');
   const cfIpos   = document.getElementById('ipos-id');
