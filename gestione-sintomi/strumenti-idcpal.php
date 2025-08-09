@@ -129,22 +129,22 @@ $idcpal_sections = [
     </div>
 
     <div class="mode-selector">
-      <a href="#" class="mode-btn active" onclick="switchIDCPALMode('compile')" id="compile-btn">
+      <a href="#" class="mode-btn active" onclick="switchIDCPALMode('compile')" id="idcpal-compile-btn">
         <i class="fas fa-edit"></i>
         Compila IDC-PAL
       </a>
-      <a href="#" class="mode-btn" onclick="switchIDCPALMode('visualize')" id="visualize-btn">
+      <a href="#" class="mode-btn" onclick="switchIDCPALMode('visualize')" id="idcpal-visualize-btn">
         <i class="fas fa-table"></i>
         Visualizza Scala
       </a>
-      <a href="#" class="mode-btn" onclick="switchIDCPALMode('glossary')" id="glossary-btn">
+      <a href="#" class="mode-btn" onclick="switchIDCPALMode('glossary')" id="idcpal-glossary-btn">
         <i class="fas fa-book"></i>
         Glossario
       </a>
     </div>
 
     <!-- SEZIONE COMPILA -->
-    <div id="compile-section" class="content-section active">
+    <div id="idcpal-compile-section" class="content-section active">
       <div class="compile-form">
         <div class="patient-info">
           <h4 class="mb-3">
@@ -154,15 +154,15 @@ $idcpal_sections = [
           <div class="row g-3">
             <div class="col-md-4">
               <label class="form-label">Nome e Cognome</label>
-              <input type="text" class="form-control" id="patient-name" placeholder="Inserisci nome paziente">
+              <input type="text" class="form-control" id="idcpal-patient-name" placeholder="Inserisci nome paziente">
             </div>
             <div class="col-md-4">
               <label class="form-label">Data di nascita</label>
-              <input type="date" class="form-control" id="patient-birth">
+              <input type="date" class="form-control" id="idcpal-patient-birth">
             </div>
             <div class="col-md-4">
               <label class="form-label">Data compilazione</label>
-              <input type="date" class="form-control" id="compilation-date">
+              <input type="date" class="form-control" id="idcpal-compilation-date">
             </div>
           </div>
         </div>
@@ -202,11 +202,11 @@ $idcpal_sections = [
           </h5>
           <div class="summary-counts">
             <div class="count-item">
-              <span class="count-badge badge-c" id="count-c">0 C</span>
+              <span class="count-badge badge-c" id="idcpal-count-c">0 C</span>
               <span class="text-muted">Elementi di Complessità</span>
             </div>
             <div class="count-item">
-              <span class="count-badge badge-ac" id="count-ac">0 AC</span>
+              <span class="count-badge badge-ac" id="idcpal-count-ac">0 AC</span>
               <span class="text-muted">Elementi di Alta Complessità</span>
             </div>
           </div>
@@ -215,15 +215,15 @@ $idcpal_sections = [
             <label class="form-label fw-bold">Classificazione Finale</label>
             <div class="classification-options">
               <div class="classification-option" data-value="non-complessa">
-                <input type="radio" name="classification" value="non-complessa" class="me-2">
+                <input type="radio" name="idcpal-classification" value="non-complessa" class="me-2">
                 <span>Non Complessa</span>
               </div>
               <div class="classification-option" data-value="complessa">
-                <input type="radio" name="classification" value="complessa" class="me-2">
+                <input type="radio" name="idcpal-classification" value="complessa" class="me-2">
                 <span>Complessa</span>
               </div>
               <div class="classification-option" data-value="altamente-complessa">
-                <input type="radio" name="classification" value="altamente-complessa" class="me-2">
+                <input type="radio" name="idcpal-classification" value="altamente-complessa" class="me-2">
                 <span>Altamente Complessa</span>
               </div>
             </div>
@@ -249,7 +249,7 @@ $idcpal_sections = [
     </div>
 
     <!-- SEZIONE VISUALIZZA -->
-    <div id="visualize-section" class="content-section">
+    <div id="idcpal-visualize-section" class="content-section">
       <div class="pdf-template">
         <div class="pdf-header">
           <div class="pdf-title">IDC-PAL</div>
@@ -299,12 +299,20 @@ $idcpal_sections = [
       </div>
     </div>
 
-    <!-- SEZIONE GLOSSARIO -->
-    <div id="glossary-section" class="content-section">
-      <div class="mb-4">
-        <input type="text" id="glossary-search" class="form-control" oninput="filterIDCPALGlossary()" placeholder="Cerca nel glossario...">
-      </div>
-      <div id="glossary-content">
+  <!-- SEZIONE GLOSSARIO -->
+<div id="glossary-section" class="content-section">
+  <div class="mb-4">
+    <div class="input-group">
+      <span class="input-group-text"><i class="fas fa-search"></i></span>
+      <input type="text" id="glossary-search" class="form-control"
+             oninput="filterIDCPALGlossary()"
+             placeholder="Cerca nel glossario...">
+    </div>
+  </div>
+  <div id="glossary-content">
+    <!-- voci del glossario qui -->
+  </div>
+</div>
 <?php foreach ($idcpal_sections as $section): ?>
 <?php foreach ($section['subsections'] as $sub): ?>
 <?php foreach ($sub['items'] as $item): ?>
