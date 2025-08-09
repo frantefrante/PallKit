@@ -10,7 +10,20 @@
         <span class="badge bg-danger ms-3 me-1">AC</span>= altamente complesso
       </div>
     </div>
-    <form id="idcpal-form" action="process-idcpal.php" method="post">
+    <ul class="nav nav-tabs mb-3" id="idcpal-nav" role="tablist">
+      <li class="nav-item">
+        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#idcpal-compila" type="button">Compila</button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#idcpal-visualizza" type="button">Visualizza Scala</button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#idcpal-glossario" type="button">Glossario</button>
+      </li>
+    </ul>
+    <div class="tab-content">
+      <div class="tab-pane fade show active" id="idcpal-compila">
+        <form id="idcpal-form" action="process-idcpal.php" method="post">
       <div class="row g-3 mb-3">
         <div class="col-md-4">
           <label class="form-label">Nome e Cognome</label>
@@ -85,6 +98,22 @@ $sec3_2 = [
     echo "</div>";
   }
 }
+function print_table_items($list){
+  foreach($list as $it){
+    $badge=$it[2]=='AC'? 'bg-danger':'bg-warning text-dark';
+    echo "<tr><td><strong>{$it[0]}</strong></td><td>{$it[1]}</td><td><span class='badge $badge'>{$it[2]}</span></td></tr>";
+  }
+}
+function print_glossary($list){
+  foreach($list as $it){
+    $badge=$it[2]=='AC'? 'bg-danger':'bg-warning text-dark';
+    $search=strtolower($it[0].' '.$it[1].' '.$it[3]);
+    echo "<div class='gloss-item mb-2' data-search='".htmlspecialchars($search)."'>";
+    echo "<div><strong>{$it[0]}</strong> – {$it[1]} <span class='badge $badge ms-2'>{$it[2]}</span></div>";
+    echo "<div class='small text-muted'>{$it[3]}</div>";
+    echo "</div>";
+  }
+}
 ?>
         <div class="accordion-item">
           <h2 class="accordion-header" id="head-sec1">
@@ -154,13 +183,104 @@ $sec3_2 = [
         <button type="submit" class="btn btn-primary"><i class="fas fa-save me-2"></i>Salva IDC-PAL</button>
       </div>
       <div id="idcpal-result" class="mt-4" style="display:none;">
-        <div class="mb-2">
-          <button type="button" id="btn-view-idcpal" class="btn btn-outline-secondary me-2">Visualizza</button>
-          <button type="button" id="btn-save-pdf-idcpal" class="btn btn-success">Scarica PDF</button>
+          <div class="mb-2">
+            <button type="button" id="btn-view-idcpal" class="btn btn-outline-secondary me-2">Visualizza</button>
+            <button type="button" id="btn-save-pdf-idcpal" class="btn btn-success">Scarica PDF</button>
+          </div>
+          <div id="idcpal-preview" class="mt-2" style="display:none;"></div>
         </div>
-        <div id="idcpal-preview" class="mt-2" style="display:none;"></div>
+      </form>
       </div>
-    </form>
+      <div class="tab-pane fade" id="idcpal-visualizza">
+        <div class="accordion" id="idcpal-view-acc">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="view-head1">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#view-sec1" aria-expanded="true">Elementi dipendenti dal paziente</button>
+            </h2>
+            <div id="view-sec1" class="accordion-collapse collapse show" data-bs-parent="#idcpal-view-acc">
+              <div class="accordion-body">
+                <h6 class="mb-2">1.1 – Contesto</h6>
+                <div class="table-responsive">
+                  <table class="table table-bordered align-middle">
+                    <thead><tr><th>Codice</th><th>Elemento</th><th>Livello</th></tr></thead>
+                    <tbody><?php print_table_items($sec1_1); ?></tbody>
+                  </table>
+                </div>
+                <h6 class="mt-3 mb-2">1.2 – Condizione clinica</h6>
+                <div class="table-responsive">
+                  <table class="table table-bordered align-middle">
+                    <thead><tr><th>Codice</th><th>Elemento</th><th>Livello</th></tr></thead>
+                    <tbody><?php print_table_items($sec1_2); ?></tbody>
+                  </table>
+                </div>
+                <h6 class="mt-3 mb-2">1.3 – Condizione psico-emotiva</h6>
+                <div class="table-responsive">
+                  <table class="table table-bordered align-middle">
+                    <thead><tr><th>Codice</th><th>Elemento</th><th>Livello</th></tr></thead>
+                    <tbody><?php print_table_items($sec1_3); ?></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="view-head2">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#view-sec2" aria-expanded="false">Elementi dipendenti dalla famiglia e dall’ambiente</button>
+            </h2>
+            <div id="view-sec2" class="accordion-collapse collapse" data-bs-parent="#idcpal-view-acc">
+              <div class="accordion-body">
+                <div class="table-responsive">
+                  <table class="table table-bordered align-middle">
+                    <thead><tr><th>Codice</th><th>Elemento</th><th>Livello</th></tr></thead>
+                    <tbody><?php print_table_items($sec2); ?></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="view-head3">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#view-sec3" aria-expanded="false">Elementi che dipendono dall’organizzazione sanitaria</button>
+            </h2>
+            <div id="view-sec3" class="accordion-collapse collapse" data-bs-parent="#idcpal-view-acc">
+              <div class="accordion-body">
+                <h6 class="mb-2">3.1 – Professionisti e team</h6>
+                <div class="table-responsive">
+                  <table class="table table-bordered align-middle">
+                    <thead><tr><th>Codice</th><th>Elemento</th><th>Livello</th></tr></thead>
+                    <tbody><?php print_table_items($sec3_1); ?></tbody>
+                  </table>
+                </div>
+                <h6 class="mt-3 mb-2">3.2 – Risorse</h6>
+                <div class="table-responsive">
+                  <table class="table table-bordered align-middle">
+                    <thead><tr><th>Codice</th><th>Elemento</th><th>Livello</th></tr></thead>
+                    <tbody><?php print_table_items($sec3_2); ?></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="idcpal-glossario">
+        <input type="text" id="idcpal-search-gloss" class="form-control mb-3" placeholder="Cerca nel glossario...">
+        <div id="idcpal-glossary-content">
+          <h6 class="mb-2">1.1 – Contesto</h6>
+          <?php print_glossary($sec1_1); ?>
+          <h6 class="mt-3 mb-2">1.2 – Condizione clinica</h6>
+          <?php print_glossary($sec1_2); ?>
+          <h6 class="mt-3 mb-2">1.3 – Condizione psico-emotiva</h6>
+          <?php print_glossary($sec1_3); ?>
+          <h6 class="mt-3 mb-2">2 – Famiglia e ambiente</h6>
+          <?php print_glossary($sec2); ?>
+          <h6 class="mt-3 mb-2">3.1 – Professionisti e team</h6>
+          <?php print_glossary($sec3_1); ?>
+          <h6 class="mt-3 mb-2">3.2 – Risorse</h6>
+          <?php print_glossary($sec3_2); ?>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 <script>
@@ -186,6 +306,16 @@ document.addEventListener('DOMContentLoaded',function(){
     r.addEventListener('change',()=>{sceltaManuale=true;});
   });
   updateCounts();
+
+  const glossSearch = document.getElementById('idcpal-search-gloss');
+  if(glossSearch){
+    glossSearch.addEventListener('keyup',function(){
+      const t=this.value.toLowerCase();
+      document.querySelectorAll('#idcpal-glossary-content .gloss-item').forEach(el=>{
+        el.style.display = el.dataset.search.includes(t)? '' : 'none';
+      });
+    });
+  }
 
 });
 </script>
