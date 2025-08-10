@@ -461,6 +461,10 @@
 
     <!-- SEZIONE PERFORMANCE -->
     <?php include __DIR__ . '/strumenti-performance.php'; ?>
+    <?php include __DIR__ . '/strumenti-akps.php'; ?>
+    <?php include __DIR__ . '/strumenti-pps.php'; ?>
+    <?php include __DIR__ . '/strumenti-adl.php'; ?>
+    <?php include __DIR__ . '/strumenti-badl.php'; ?>
 
     <!-- SEZIONE PROGNOSI -->
     <?php include __DIR__ . '/strumenti-prognosi.php'; ?>

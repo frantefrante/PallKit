@@ -1,0 +1,24 @@
+:root {
+  --adl-primary: #007bff;
+  --adl-secondary: #6f42c1;
+}
+
+#adl-home .performance-header h1 {
+  background: linear-gradient(135deg, var(--adl-primary), var(--adl-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+#adl-home .mode-btn.active,
+#adl-home .mode-btn:hover {
+  color: var(--adl-primary);
+}
+
+#adl-home .progress-fill {
+  background: linear-gradient(90deg, var(--adl-primary), var(--adl-secondary));
+}
+
+#adl-home .info-box {
+  border-left-color: var(--adl-primary);
+}

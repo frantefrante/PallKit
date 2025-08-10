@@ -1,0 +1,24 @@
+:root {
+  --pps-primary: #dc3545;
+  --pps-secondary: #fd7e14;
+}
+
+#pps-home .performance-header h1 {
+  background: linear-gradient(135deg, var(--pps-primary), var(--pps-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+#pps-home .mode-btn.active,
+#pps-home .mode-btn:hover {
+  color: var(--pps-primary);
+}
+
+#pps-home .progress-fill {
+  background: linear-gradient(90deg, var(--pps-primary), var(--pps-secondary));
+}
+
+#pps-home .info-box {
+  border-left-color: var(--pps-primary);
+}

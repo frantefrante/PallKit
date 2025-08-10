@@ -67,6 +67,62 @@ function loadCategoryContent(categoryName) {
     return;
   }
 
+    if (categoryName === 'performance') {
+    categoryDetails.innerHTML = `
+    <div class="tools-grid">
+      <div class="tool-card tool-card-compact h-100">
+        <div class="tool-header">
+          <div class="tool-icon-large performance-icon"><span class="tool-letters">AK</span></div>
+          <div class="tool-info"><h4>AKPS</h4><div class="tool-subtitle">Australia-modified Karnofsky Performance Status</div></div>
+        </div>
+        <div class="tool-description">Scala modificata del Karnofsky Performance Status per cure palliative.</div>
+        <div class="tool-features"><span class="feature-badge">Scala 0-100</span></div>
+        <div class="tool-actions">
+          <button class="btn btn-primary btn-action" onclick="openAKPSCompile()"><i class="fas fa-edit me-2"></i>Compila</button>
+          <button class="btn btn-outline-primary btn-action" onclick="openAKPSVisualize()"><i class="fas fa-eye me-2"></i>Visualizza</button>
+        </div>
+      </div>
+      <div class="tool-card tool-card-compact h-100">
+        <div class="tool-header">
+          <div class="tool-icon-large performance-icon"><span class="tool-letters">PPS</span></div>
+          <div class="tool-info"><h4>PPS</h4><div class="tool-subtitle">Palliative Performance Scale</div></div>
+        </div>
+        <div class="tool-description">Strumento multidimensionale con valore prognostico.</div>
+        <div class="tool-features"><span class="feature-badge">5 domini funzionali</span></div>
+        <div class="tool-actions">
+          <button class="btn btn-primary btn-action" onclick="openPPSCompile()"><i class="fas fa-edit me-2"></i>Compila</button>
+          <button class="btn btn-outline-primary btn-action" onclick="openPPSVisualize()"><i class="fas fa-eye me-2"></i>Visualizza</button>
+        </div>
+      </div>
+      <div class="tool-card tool-card-compact h-100">
+        <div class="tool-header">
+          <div class="tool-icon-large performance-icon"><span class="tool-letters">ADL</span></div>
+          <div class="tool-info"><h4>ADL</h4><div class="tool-subtitle">Activities of Daily Living</div></div>
+        </div>
+        <div class="tool-description">Indice di Barthel per l'autonomia quotidiana.</div>
+        <div class="tool-features"><span class="feature-badge">10 attività valutate</span></div>
+        <div class="tool-actions">
+          <button class="btn btn-primary btn-action" onclick="openADLCompile()"><i class="fas fa-edit me-2"></i>Compila</button>
+          <button class="btn btn-outline-primary btn-action" onclick="openADLVisualize()"><i class="fas fa-eye me-2"></i>Visualizza</button>
+        </div>
+      </div>
+      <div class="tool-card tool-card-compact h-100">
+        <div class="tool-header">
+          <div class="tool-icon-large performance-icon"><span class="tool-letters">BD</span></div>
+          <div class="tool-info"><h4>BADL</h4><div class="tool-subtitle">Basic Activities of Daily Living</div></div>
+        </div>
+        <div class="tool-description">Valutazione delle attività di base.</div>
+        <div class="tool-features"><span class="feature-badge">6 attività di base</span></div>
+        <div class="tool-actions">
+          <button class="btn btn-primary btn-action" onclick="openBADLCompile()"><i class="fas fa-edit me-2"></i>Compila</button>
+          <button class="btn btn-outline-primary btn-action" onclick="openBADLVisualize()"><i class="fas fa-eye me-2"></i>Visualizza</button>
+        </div>
+      </div>
+    </div>
+    `;
+    return;
+  }
+
   const categoryData = {
     'identificazione': {
       title: 'Strumenti di Identificazione',
@@ -76,17 +132,6 @@ function loadCategoryContent(categoryName) {
         { name: 'NECPAL 3.1', subtitle: 'Necessidades Paliativas', description: 'Strumento di screening per identificare pazienti con bisogni palliativi. Versione 3.1 con criteri aggiornati.', available: false },
         { name: 'NECPAL 4.0', subtitle: 'Versione Aggiornata', description: 'Ultima versione del NECPAL con criteri rivisti e maggiore specificità per diverse patologie.', available: false },
         { name: 'SPICT', subtitle: 'Supportive & Palliative Care Indicators', description: 'Tool clinico per identificare pazienti che potrebbero beneficiare di cure palliative specialistiche.', available: false }
-      ]
-    },
-    'performance': {
-      title: 'Scale di Performance',
-      icon: '🏃',
-      description: 'Scale di valutazione funzionale e performance status',
-      tools: [
-        { name: 'AKPS', subtitle: 'Australia-modified Karnofsky', description: 'Scala modificata del Karnofsky Performance Status, sviluppata specificamente per le cure palliative.', available: true, action: 'openPerfModal("akps")' },
-        { name: 'PPS', subtitle: 'Palliative Performance Scale', description: 'Strumento multidimensionale che valuta cinque domini funzionali con valore prognostico.', available: true, action: 'openPerfModal("pps")' },
-        { name: 'ADL', subtitle: 'Activities of Daily Living', description: 'Indice di Barthel per valutare l\'autonomia nelle attività della vita quotidiana.', available: true, action: 'openPerfModal("adl")' },
-        { name: 'BADL', subtitle: 'Basic Activities of Daily Living', description: 'Valutazione delle attività di base della vita quotidiana con sistema di scoring automatico.', available: true, action: 'openPerfModal("badl")' }
       ]
     },
     'multidimensionale': {
@@ -345,4 +390,36 @@ function printPDF() {
     frame.contentWindow.focus();
     frame.contentWindow.print();
   }
+}
+function openAKPSCompile(){
+  navigateToSection('akps-home');
+  setTimeout(()=>{ if(typeof switchAKPSMode==='function') switchAKPSMode('compile'); },100);
+}
+function openAKPSVisualize(){
+  navigateToSection('akps-home');
+  setTimeout(()=>{ if(typeof switchAKPSMode==='function') switchAKPSMode('view'); },100);
+}
+function openPPSCompile(){
+  navigateToSection('pps-home');
+  setTimeout(()=>{ if(typeof switchPPSMode==='function') switchPPSMode('compile'); },100);
+}
+function openPPSVisualize(){
+  navigateToSection('pps-home');
+  setTimeout(()=>{ if(typeof switchPPSMode==='function') switchPPSMode('view'); },100);
+}
+function openADLCompile(){
+  navigateToSection('adl-home');
+  setTimeout(()=>{ if(typeof switchADLMode==='function') switchADLMode('compile'); },100);
+}
+function openADLVisualize(){
+  navigateToSection('adl-home');
+  setTimeout(()=>{ if(typeof switchADLMode==='function') switchADLMode('view'); },100);
+}
+function openBADLCompile(){
+  navigateToSection('badl-home');
+  setTimeout(()=>{ if(typeof switchBADLMode==='function') switchBADLMode('compile'); },100);
+}
+function openBADLVisualize(){
+  navigateToSection('badl-home');
+  setTimeout(()=>{ if(typeof switchBADLMode==='function') switchBADLMode('view'); },100);
 }
