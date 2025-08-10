@@ -67,6 +67,7 @@ function loadCategoryContent(categoryName) {
     return;
   }
 
+
   const categoryData = {
     'identificazione': {
       title: 'Strumenti di Identificazione',
@@ -76,17 +77,6 @@ function loadCategoryContent(categoryName) {
         { name: 'NECPAL 3.1', subtitle: 'Necessidades Paliativas', description: 'Strumento di screening per identificare pazienti con bisogni palliativi. Versione 3.1 con criteri aggiornati.', available: false },
         { name: 'NECPAL 4.0', subtitle: 'Versione Aggiornata', description: 'Ultima versione del NECPAL con criteri rivisti e maggiore specificità per diverse patologie.', available: false },
         { name: 'SPICT', subtitle: 'Supportive & Palliative Care Indicators', description: 'Tool clinico per identificare pazienti che potrebbero beneficiare di cure palliative specialistiche.', available: false }
-      ]
-    },
-    'performance': {
-      title: 'Scale di Performance',
-      icon: '🏃',
-      description: 'Scale di valutazione funzionale e performance status',
-      tools: [
-        { name: 'AKPS', subtitle: 'Australia-modified Karnofsky', description: 'Scala modificata del Karnofsky Performance Status, sviluppata specificamente per le cure palliative.', available: true, action: 'openPerfModal("akps")' },
-        { name: 'PPS', subtitle: 'Palliative Performance Scale', description: 'Strumento multidimensionale che valuta cinque domini funzionali con valore prognostico.', available: true, action: 'openPerfModal("pps")' },
-        { name: 'ADL', subtitle: 'Activities of Daily Living', description: 'Indice di Barthel per valutare l\'autonomia nelle attività della vita quotidiana.', available: true, action: 'openPerfModal("adl")' },
-        { name: 'BADL', subtitle: 'Basic Activities of Daily Living', description: 'Valutazione delle attività di base della vita quotidiana con sistema di scoring automatico.', available: true, action: 'openPerfModal("badl")' }
       ]
     },
     'multidimensionale': {
@@ -344,5 +334,62 @@ function printPDF() {
   if (frame && frame.contentWindow) {
     frame.contentWindow.focus();
     frame.contentWindow.print();
+  }
+}
+
+// Funzioni Performance per navigazione dai box
+function openAKPSCompile() {
+  navigateToSection('akps-home');
+  if (typeof switchPerformanceMode === 'function') {
+    switchPerformanceMode('akps', 'compile');
+  }
+}
+
+function openAKPSVisualize() {
+  navigateToSection('akps-home');
+  if (typeof switchPerformanceMode === 'function') {
+    switchPerformanceMode('akps', 'view');
+  }
+}
+
+function openPPSCompile() {
+  navigateToSection('pps-home');
+  if (typeof switchPerformanceMode === 'function') {
+    switchPerformanceMode('pps', 'compile');
+  }
+}
+
+function openPPSVisualize() {
+  navigateToSection('pps-home');
+  if (typeof switchPerformanceMode === 'function') {
+    switchPerformanceMode('pps', 'view');
+  }
+}
+
+function openADLCompile() {
+  navigateToSection('adl-home');
+  if (typeof switchPerformanceMode === 'function') {
+    switchPerformanceMode('adl', 'compile');
+  }
+}
+
+function openADLVisualize() {
+  navigateToSection('adl-home');
+  if (typeof switchPerformanceMode === 'function') {
+    switchPerformanceMode('adl', 'view');
+  }
+}
+
+function openBADLCompile() {
+  navigateToSection('badl-home');
+  if (typeof switchPerformanceMode === 'function') {
+    switchPerformanceMode('badl', 'compile');
+  }
+}
+
+function openBADLVisualize() {
+  navigateToSection('badl-home');
+  if (typeof switchPerformanceMode === 'function') {
+    switchPerformanceMode('badl', 'view');
   }
 }

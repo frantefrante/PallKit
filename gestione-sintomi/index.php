@@ -279,7 +279,7 @@
           </div>
 
           <!-- PERFORMANCE -->
-          <div class="category-card performance" onclick="openCategoryView('performance')">
+          <div class="category-card performance" onclick="navigateToSection('performance-home')">
             <div class="category-header">
               <div class="category-icon">🏃</div>
               <div class="category-info">
@@ -459,7 +459,7 @@
     <!-- SEZIONE IPOS -->
     <?php include __DIR__ . '/strumenti-ipos.php'; ?>
 
-    <!-- SEZIONE PERFORMANCE -->
+    <!-- SEZIONE PERFORMANCE - nuova struttura -->
     <?php include __DIR__ . '/strumenti-performance.php'; ?>
 
     <!-- SEZIONE PROGNOSI -->
