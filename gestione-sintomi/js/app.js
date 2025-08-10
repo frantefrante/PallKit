@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function() {
       const sections = [
         'dashboard-home','gestione-home','sedazione-home',
         'identificazione-home','necpal4-home','spict-home',
-        'idcpal-home','performance-home','prognosi-home','ipos-home','strumenti-valutazione-home',
+        'idcpal-home','performance-home','prognosi-home','ppi-home','pap-home','ipos-home','strumenti-valutazione-home',
         'equianalgesia-section','rescue-section'
       ];
       sections.forEach(id => {
