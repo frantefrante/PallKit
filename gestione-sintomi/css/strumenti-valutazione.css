@@ -145,3 +145,87 @@
 .btn-outline-warning-custom:hover { background: #ffc107; color: #000; transform: translateY(-2px); }
 .tool-extra-action { margin-top: 0.5rem; text-align: left; }
 .glossary-btn { flex: none; padding: 0.4rem 0.8rem; font-size: 0.85rem; }
+
+/* === CATEGORIA PERFORMANCE === */
+.tool-card.performance-card {
+  border: 3px solid #6f42c1;
+}
+
+.tool-icon-large.performance-icon {
+  background: linear-gradient(135deg, #6f42c1, #563d7c);
+}
+
+.tool-card.performance-card .btn-primary {
+  background: linear-gradient(135deg, #6f42c1, #563d7c);
+  border: none;
+}
+
+.tool-card.performance-card .btn-primary:hover {
+  background: linear-gradient(135deg, #563d7c, #4a2c6a);
+  transform: translateY(-2px);
+}
+
+.tool-card.performance-card .btn-outline-primary {
+  border: 2px solid #6f42c1;
+  color: #6f42c1;
+  background: white;
+}
+
+.tool-card.performance-card .btn-outline-primary:hover {
+  background: #6f42c1;
+  color: white;
+}
+
+.tool-card.performance-card .feature-badge {
+  background: rgba(111, 66, 193, 0.1);
+  color: #6f42c1;
+  border: 1px solid rgba(111, 66, 193, 0.2);
+}
+
+.tool-card.performance-card:hover {
+  border-color: #563d7c;
+  box-shadow: 0 8px 32px rgba(111, 66, 193, 0.15);
+}
+
+.tool-card.performance-card:hover::before {
+  background: linear-gradient(90deg, #6f42c1, #563d7c);
+}
+
+.tool-card.akps-performance {
+  border-color: #28a745;
+}
+.tool-card.akps-performance .tool-icon-large {
+  background: linear-gradient(135deg, #28a745, #20c997);
+}
+
+.tool-card.pps-performance {
+  border-color: #dc3545;
+}
+.tool-card.pps-performance .tool-icon-large {
+  background: linear-gradient(135deg, #dc3545, #fd7e14);
+}
+
+.tool-card.adl-performance {
+  border-color: #007bff;
+}
+.tool-card.adl-performance .tool-icon-large {
+  background: linear-gradient(135deg, #007bff, #6f42c1);
+}
+
+.tool-card.badl-performance {
+  border-color: #6c757d;
+}
+.tool-card.badl-performance .tool-icon-large {
+  background: linear-gradient(135deg, #6c757d, #495057);
+}
+
+/* Griglia due colonne per Performance */
+.tools-grid.performance-grid {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+@media (max-width: 768px) {
+  .tools-grid.performance-grid {
+    grid-template-columns: 1fr;
+  }
+}
