@@ -56,13 +56,12 @@
           <i class="fas fa-syringe me-2"></i>Calcola Dose Rescue
         </a>
       </li>
-
-      <li class="nav-item mb-2">
       <li class="nav-item mb-2">
         <a href="#" class="nav-link" data-target="strumenti-valutazione-home">
           <i class="fas fa-chart-line me-2"></i>Strumenti Valutazione
         </a>
       </li>
+
 
       <li class="nav-item">
         <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#medico-modal-home">
@@ -303,7 +302,7 @@
           </div>
 
           <!-- PROGNOSI -->
-          <div class="category-card prognosi" onclick="openCategoryView('prognosi')">
+          <div class="category-card prognosi" onclick="openPrognosiHome()">
             <div class="category-header">
               <div class="category-icon">📈</div>
               <div class="category-info">
@@ -311,7 +310,7 @@
                 <small>2 strumenti</small>
               </div>
               <div class="category-status">
-                <span class="badge bg-warning">In Sviluppo</span>
+                <span class="badge bg-success">✅ Disponibile</span>
               </div>
             </div>
             <div class="category-description">
