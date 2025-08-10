@@ -120,10 +120,10 @@
           <i class="fas fa-chevron-right rotate-icon ms-auto"></i>
         </a>
         <ul class="nav flex-column collapse" id="submenu-perf" data-bs-parent="#clinical-menu">
-          <li class="nav-item"><a href="#" class="nav-link ms-3" onclick="openPerfModal('akps');">AKPS</a></li>
-          <li class="nav-item"><a href="#" class="nav-link ms-3" onclick="openPerfModal('pps');">PPS</a></li>
-          <li class="nav-item"><a href="#" class="nav-link ms-3" onclick="openPerfModal('adl');">ADL</a></li>
-          <li class="nav-item"><a href="#" class="nav-link ms-3" onclick="openPerfModal('badl');">BADL</a></li>
+          <li class="nav-item"><a href="#" class="nav-link ms-3" onclick="openAKPSCompile();">AKPS</a></li>
+          <li class="nav-item"><a href="#" class="nav-link ms-3" onclick="openPPSCompile();">PPS</a></li>
+          <li class="nav-item"><a href="#" class="nav-link ms-3" onclick="openADLCompile();">ADL</a></li>
+          <li class="nav-item"><a href="#" class="nav-link ms-3" onclick="openBADLCompile();">BADL</a></li>
         </ul>
       </li>
 
@@ -598,6 +598,7 @@
 <script src="/js/sedazione.data.js"></script>
 <script src="/js/sedazione.js"></script>
 <script src="/js/documents.js"></script>
+<script src="/js/strumenti-valutazione.js"></script>
 <script src="/js/archivio.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', function () {

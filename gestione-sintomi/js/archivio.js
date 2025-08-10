@@ -151,22 +151,27 @@ document.addEventListener('DOMContentLoaded', function(){
     }
   });
 
-  document.querySelectorAll('form.local-save').forEach(form=>{
-    form.addEventListener('submit', function(ev){
-      ev.preventDefault();
-      const tipo = form.dataset.tipo || 'Scheda';
-      const fd = new FormData(form);
-      const obj = {};
-      fd.forEach((v,k)=>{ obj[k] = v; });
-      const now = new Date().toISOString();
-      const entry = { tipo: tipo.toUpperCase(), timestamp: now, contenuto: obj };
-      entry.html = buildIposHtml(entry);
-      localStorage.setItem(tipo.toLowerCase() + '_' + now, JSON.stringify(entry));
-      alert('Scheda salvata localmente');
-      form.reset();
-      render();
-    });
-  });
+  /*
+   * Il salvataggio automatico delle schede nel localStorage è stato
+   * disattivato per evitare la memorizzazione dei dati dopo il refresh
+   * della pagina. Se necessario, riabilitare il blocco sottostante.
+   */
+  // document.querySelectorAll('form.local-save').forEach(form=>{
+  //   form.addEventListener('submit', function(ev){
+  //     ev.preventDefault();
+  //     const tipo = form.dataset.tipo || 'Scheda';
+  //     const fd = new FormData(form);
+  //     const obj = {};
+  //     fd.forEach((v,k)=>{ obj[k] = v; });
+  //     const now = new Date().toISOString();
+  //     const entry = { tipo: tipo.toUpperCase(), timestamp: now, contenuto: obj };
+  //     entry.html = buildIposHtml(entry);
+  //     localStorage.setItem(tipo.toLowerCase() + '_' + now, JSON.stringify(entry));
+  //     alert('Scheda salvata localmente');
+  //     form.reset();
+  //     render();
+  //   });
+  // });
 
   function getLatestKey(prefix){
     let latest=null, latestTime=0;
