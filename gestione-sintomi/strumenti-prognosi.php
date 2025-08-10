@@ -22,66 +22,44 @@
     <!-- Sezione Strumenti -->
     <div id="tools-section" class="content-section active">
       <div class="prognosi-grid">
-        <div class="tool-card tool-card-compact h-100">
-          <div class="tool-header">
-            <div class="tool-icon-large ppi-icon">
-              <span class="tool-letters">PPI</span>
-            </div>
-            <div class="tool-info">
-              <h4>PPI</h4>
-              <div class="tool-subtitle">Palliative Performance Index</div>
+        <div class="prognosi-card ppi" onclick="openPPICompile()">
+          <div class="card-header">
+            <div class="card-icon">PPI</div>
+            <div>
+              <div class="card-title">PPI</div>
+              <div class="card-subtitle">Palliative Performance Index</div>
             </div>
           </div>
-          
-          <div class="tool-description">
+          <div class="card-description">
             Strumento prognostico per stimare la sopravvivenza nei pazienti in cure palliative, basato su 5 parametri clinici facilmente valutabili.
           </div>
-          
-          <div class="tool-features">
-            <span class="feature-badge">5 parametri</span>
-            <span class="feature-badge">Predizione 3-6 settimane</span>
-            <span class="feature-badge">Validato</span>
-          </div>
-          
-          <div class="tool-actions">
-            <button class="btn btn-primary btn-action" onclick="openPPICompile()">
-              <i class="fas fa-edit me-2"></i>Compila
-            </button>
-            <button class="btn btn-outline-primary btn-action" onclick="openPPIVisualize()">
-              <i class="fas fa-table me-2"></i>Visualizza
-            </button>
-          </div>
+          <ul class="card-features">
+            <li>5 parametri di valutazione</li>
+            <li>Predizione sopravvivenza a 3 e 6 settimane</li>
+            <li>Calcolo automatico del punteggio</li>
+            <li>Validato internazionalmente</li>
+          </ul>
+          <div class="card-footer">Clicca per compilare la scala</div>
         </div>
 
-        <div class="tool-card tool-card-compact h-100">
-          <div class="tool-header">
-            <div class="tool-icon-large pap-icon">
-              <span class="tool-letters">PaP</span>
-            </div>
-            <div class="tool-info">
-              <h4>PaP Score</h4>
-              <div class="tool-subtitle">Palliative Prognostic Score</div>
+        <div class="prognosi-card pap" onclick="openPAPCompile()">
+          <div class="card-header">
+            <div class="card-icon">PaP</div>
+            <div>
+              <div class="card-title">PaP Score</div>
+              <div class="card-subtitle">Palliative Prognostic Score</div>
             </div>
           </div>
-          
-          <div class="tool-description">
+          <div class="card-description">
             Score prognostico multidimensionale che combina valutazione clinica e parametri laboratoristici per predire la sopravvivenza a 30 giorni.
           </div>
-          
-          <div class="tool-features">
-            <span class="feature-badge">6 parametri</span>
-            <span class="feature-badge">3 gruppi rischio</span>
-            <span class="feature-badge">30 giorni</span>
-          </div>
-          
-          <div class="tool-actions">
-            <button class="btn btn-primary btn-action" onclick="openPAPCompile()">
-              <i class="fas fa-edit me-2"></i>Compila
-            </button>
-            <button class="btn btn-outline-primary btn-action" onclick="openPAPVisualize()">
-              <i class="fas fa-table me-2"></i>Visualizza
-            </button>
-          </div>
+          <ul class="card-features">
+            <li>6 parametri clinici e laboratoristici</li>
+            <li>3 gruppi di rischio prognostico</li>
+            <li>Predizione sopravvivenza a 30 giorni</li>
+            <li>Ampiamente utilizzato in letteratura</li>
+          </ul>
+          <div class="card-footer">Clicca per compilare la scala</div>
         </div>
       </div>
     </div>
@@ -149,6 +127,14 @@
 
 <!-- Sezione PPI -->
 <section id="ppi-home" class="p-4" style="display:none;">
+  <div class="mb-3">
+    <button class="btn btn-outline-success me-2" onclick="navigateToSection('strumenti-valutazione-home'); showCategories();">
+      <i class="fas fa-arrow-left me-2"></i>Torna alle Categorie
+    </button>
+    <button class="btn btn-outline-primary" onclick="navigateToSection('performance-home')">
+      <i class="fas fa-arrow-left me-2"></i>Torna a Performance
+    </button>
+  </div>
   <div class="ppi-container">
     <div class="ppi-header">
       <h1><i class="fas fa-hourglass-half me-2"></i>PPI - Palliative Performance Index</h1>
@@ -281,6 +267,11 @@
     <!-- Tab Visualizza -->
     <div id="ppi-visualize-section" class="content-section">
       <div class="scale-reference">
+        <div class="text-end mb-3">
+          <button class="btn btn-outline-primary no-print" onclick="printPPIForm()">
+            <i class="fas fa-print me-2"></i>Stampa
+          </button>
+        </div>
         <h4>Palliative Performance Index (PPI) - Scala Completa</h4>
         <div class="table-responsive">
           <table class="scale-table">
@@ -324,6 +315,14 @@
 
 <!-- Sezione PaP Score -->
 <section id="pap-home" class="p-4" style="display:none;">
+  <div class="mb-3">
+    <button class="btn btn-outline-success me-2" onclick="navigateToSection('strumenti-valutazione-home'); showCategories();">
+      <i class="fas fa-arrow-left me-2"></i>Torna alle Categorie
+    </button>
+    <button class="btn btn-outline-primary" onclick="navigateToSection('performance-home')">
+      <i class="fas fa-arrow-left me-2"></i>Torna a Performance
+    </button>
+  </div>
   <div class="pap-container">
     <div class="pap-header">
       <h1><i class="fas fa-chart-line me-2"></i>PaP Score - Palliative Prognostic Score</h1>
@@ -477,6 +476,11 @@
     <!-- Tab Visualizza -->
     <div id="pap-visualize-section" class="content-section">
       <div class="scale-reference">
+        <div class="text-end mb-3">
+          <button class="btn btn-outline-primary no-print" onclick="printPAPForm()">
+            <i class="fas fa-print me-2"></i>Stampa
+          </button>
+        </div>
         <h4>Palliative Prognostic Score (PaP) - Scala Completa</h4>
         <div class="table-responsive">
           <table class="scale-table">

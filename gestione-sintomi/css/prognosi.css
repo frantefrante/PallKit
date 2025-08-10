@@ -85,29 +85,30 @@
   margin-top: 2rem;
 }
 
-/* Tool cards */
-.tool-card {
+/* Prognosi cards */
+.prognosi-card {
   background: white;
   border-radius: 16px;
   box-shadow: var(--shadow);
   padding: 2rem;
   transition: all 0.3s ease;
   border: 1px solid var(--border-color);
+  cursor: pointer;
 }
 
-.tool-card:hover {
+.prognosi-card:hover {
   transform: translateY(-5px);
   box-shadow: var(--shadow-hover);
   border-color: var(--prognosi-primary);
 }
 
-.tool-header {
+.prognosi-card .card-header {
   display: flex;
   align-items: center;
   margin-bottom: 1.5rem;
 }
 
-.tool-icon-large {
+.prognosi-card .card-icon {
   width: 60px;
   height: 60px;
   border-radius: 12px;
@@ -116,71 +117,61 @@
   justify-content: center;
   margin-right: 1rem;
   font-weight: bold;
-}
-
-.ppi-icon {
-  background: linear-gradient(135deg, #e74c3c, #c0392b);
   color: white;
 }
 
-.pap-icon {
-  background: linear-gradient(135deg, #9b59b6, #8e44ad);
-  color: white;
-}
+.prognosi-card.ppi .card-icon { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+.prognosi-card.pap .card-icon { background: linear-gradient(135deg, #9b59b6, #8e44ad); }
 
-.tool-letters {
-  font-size: 1.5rem;
-  font-weight: 700;
-}
-
-.tool-info h4 {
+.prognosi-card .card-title {
   color: var(--prognosi-primary);
   font-size: 1.4rem;
   font-weight: 600;
   margin-bottom: 0.3rem;
 }
 
-.tool-subtitle {
+.prognosi-card .card-subtitle {
   font-size: 0.9rem;
   color: #6c757d;
   font-weight: 500;
 }
 
-.tool-description {
+.prognosi-card .card-description {
   color: #555;
   margin-bottom: 1.5rem;
   font-size: 0.95rem;
   line-height: 1.6;
 }
 
-.tool-features {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
+.prognosi-card .card-features {
+  list-style: none;
+  margin: 0 0 1.5rem 0;
+  padding: 0;
 }
 
-.feature-badge {
-  background: var(--prognosi-light);
-  color: var(--prognosi-dark);
-  padding: 0.3rem 0.8rem;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: 500;
-}
-
-.tool-actions {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-}
-
-.btn-action {
-  flex: 1;
-  min-width: 120px;
-  padding: 0.75rem 1rem;
-  border-radius: 8px;
+.prognosi-card .card-features li {
+  padding: 0.3rem 0;
   font-size: 0.9rem;
+  color: #666;
+  position: relative;
+  padding-left: 1.2rem;
+}
+
+.prognosi-card .card-features li::before {
+  content: '\25CF';
+  position: absolute;
+  left: 0;
+  color: var(--prognosi-primary);
+  font-size: 0.6rem;
+  top: 0.6rem;
+}
+
+.prognosi-card .card-footer {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.85rem;
+  color: #6c757d;
 }
 
 /* Patient info card */

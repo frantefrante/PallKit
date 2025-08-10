@@ -443,6 +443,42 @@ function downloadReport(content, filename) {
 }
 
 // Funzioni di stampa
+function printPPIForm() {
+  const scale = document.querySelector('#ppi-visualize-section .scale-reference').cloneNode(true);
+  const btn = scale.querySelector('.no-print');
+  if (btn) btn.remove();
+  const content = `
+    <div style="font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding:20px;">
+      ${scale.innerHTML}
+    </div>
+    <style>
+      table{width:100%;border-collapse:collapse;}
+      th,td{border:1px solid #ddd;padding:8px;text-align:left;}
+      th{background:#fd7e14;color:#fff;}
+      tbody tr:nth-child(even){background:#f8f9fa;}
+      .interpretation-box{margin-top:20px;padding:15px;border-left:4px solid #fd7e14;background:#fff3e0;}
+    </style>`;
+  openPrintWindow(content);
+}
+
+function printPAPForm() {
+  const scale = document.querySelector('#pap-visualize-section .scale-reference').cloneNode(true);
+  const btn = scale.querySelector('.no-print');
+  if (btn) btn.remove();
+  const content = `
+    <div style="font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding:20px;">
+      ${scale.innerHTML}
+    </div>
+    <style>
+      table{width:100%;border-collapse:collapse;}
+      th,td{border:1px solid #ddd;padding:8px;text-align:left;}
+      th{background:#9b59b6;color:#fff;}
+      tbody tr:nth-child(even){background:#f8f9fa;}
+      .interpretation-box{margin-top:20px;padding:15px;border-left:4px solid #9b59b6;background:#f3e5f5;}
+    </style>`;
+  openPrintWindow(content);
+}
+
 function printPPI() {
   const patientName = document.getElementById('ppi-patient-name').value || 'Paziente non specificato';
   const date = document.getElementById('ppi-date').value || new Date().toISOString().split('T')[0];
