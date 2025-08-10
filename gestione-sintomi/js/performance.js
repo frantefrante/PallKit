@@ -381,88 +381,87 @@ function resetPerformanceForm(toolId) {
 }
 
 // === REPORT GENERATION ===
-function generatePerformanceReport(toolId) {
+function printPerformanceSheet(toolId) {
   const data = performanceData[toolId];
-  if (!data.score && !data.total) {
-    alert('Completa la valutazione prima di generare il report.');
+  const score = data.score ?? data.total;
+  if (score == null) {
+    alert('Completa la valutazione prima di stampare la scheda.');
     return;
   }
-  
+
   const patientName = document.getElementById(`${toolId}-patient-name`).value || 'Non specificato';
   const date = document.getElementById(`${toolId}-date`).value || new Date().toLocaleDateString('it-IT');
   const interpretation = document.getElementById(`${toolId}-interpretation`).textContent;
   const description = document.getElementById(`${toolId}-description`).textContent;
-  
-  const score = data.score || data.total;
-  const report = generateReportContent(toolId, score, patientName, date, interpretation, description);
-  
-  // Download del file
-  const blob = new Blob([report], { type: 'text/plain;charset=utf-8' });
-  const link = document.createElement('a');
-  link.href = URL.createObjectURL(blob);
-  link.download = `${toolId.toUpperCase()}_Report_${patientName.replace(/\s+/g, '_')}_${date.replace(/\//g, '-')}.txt`;
-  
-  // Compatibilità browser
-  if (navigator.msSaveBlob) {
-    navigator.msSaveBlob(blob, link.download);
-  } else {
-    link.click();
-  }
-  
-  // Salva in localStorage
-  saveToLocalStorage(toolId, {
-    score: score,
-    patientName,
-    date,
-    interpretation,
-    description,
-    timestamp: new Date().toISOString()
-  });
+  const recommendations = getRecommendations(toolId, score);
+
+  const printWindow = window.open('', '_blank');
+  const content = generateSheetContent(toolId, patientName, date, score, interpretation, description, recommendations);
+  printWindow.document.write(content);
+  printWindow.document.close();
+  printWindow.focus();
+  printWindow.onload = function() { printWindow.print(); };
 }
 
-function generateReportContent(toolId, score, patientName, date, interpretation, description) {
+function generateSheetContent(toolId, patientName, date, score, interpretation, description, recommendations) {
   const toolNames = {
     'akps': 'AKPS - Australia-modified Karnofsky Performance Status',
     'pps': 'PPS - Palliative Performance Scale',
     'adl': 'ADL - Activities of Daily Living (Indice di Barthel)',
     'badl': 'BADL - Basic Activities of Daily Living'
   };
-  
-  const currentDate = new Date().toLocaleString('it-IT');
-  
+
   return `
-REPORT ${toolNames[toolId]}
-${'='.repeat(80)}
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>${toolNames[toolId]} - Risultato</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.4; color: #333; }
+    .header { text-align: center; margin-bottom: 30px; border-bottom: 2px solid #6f42c1; padding-bottom: 20px; }
+    .header h1 { color: #6f42c1; margin-bottom: 10px; }
+    .patient-info { border: 2px solid #6f42c1; padding: 20px; margin-bottom: 25px; border-radius: 8px; background: #f8f5fc; }
+    .result-section { margin-top: 30px; padding: 20px; border: 2px solid #6f42c1; border-radius: 8px; background: #f8f5fc; }
+    .form-row { display: flex; justify-content: space-between; margin-bottom: 15px; }
+    .form-field { flex: 1; margin-right: 20px; }
+    .form-field:last-child { margin-right: 0; }
+    .footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd; font-size: 12px; color: #666; text-align: center; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>${toolNames[toolId]}</h1>
+    <p><strong>Scheda di Valutazione</strong></p>
+    <p>www.medbox.it - Strumenti per le Cure Palliative</p>
+  </div>
 
-DATI PAZIENTE:
-Nome: ${patientName}
-Data valutazione: ${date}
-Data generazione report: ${currentDate}
+  <div class="patient-info">
+    <div class="form-row">
+      <div class="form-field"><strong>Nome:</strong> ${patientName}</div>
+      <div class="form-field"><strong>Data valutazione:</strong> ${date}</div>
+    </div>
+  </div>
 
-RISULTATI:
-Punteggio: ${score}${toolId === 'pps' ? '%' : (toolId === 'badl' ? '/18' : '/100')}
-Interpretazione: ${interpretation}
+  <div class="result-section">
+    <h3>📊 Risultati</h3>
+    <div class="form-row">
+      <div class="form-field"><strong>Punteggio totale:</strong> ${score}${toolId === 'pps' ? '%' : (toolId === 'badl' ? '/18' : '/100')}</div>
+      <div class="form-field"><strong>Interpretazione:</strong> ${interpretation}</div>
+    </div>
+    <div style="margin-top:20px;"><strong>Descrizione:</strong><br>${description}</div>
+    <div style="margin-top:20px;"><strong>Indicazioni cliniche:</strong><br>${recommendations.replace(/\n/g,'<br>')}</div>
+    <div style="margin-top:20px;"><strong>Note aggiuntive:</strong><br><br><br></div>
+    <div style="margin-top:20px;"><strong>Data:</strong> ${date}&nbsp;&nbsp;&nbsp;<strong>Firma medico:</strong> _____________________</div>
+  </div>
 
-DESCRIZIONE CLINICA:
-${description}
-
-RACCOMANDAZIONI CLINICHE:
-${getRecommendations(toolId, score)}
-
-${getAdditionalInfo(toolId)}
-
-NOTE:
-- Questo report è stato generato automaticamente dal sistema Medbox.it
-- Per informazioni cliniche complete consultare sempre il medico specialista
-- La valutazione funzionale deve essere integrata con il quadro clinico complessivo
-- Si raccomanda di ripetere la valutazione periodicamente per monitorare l'evoluzione
-
-BIBLIOGRAFIA ESSENZIALE:
-${getBibliography(toolId)}
-
-Report generato da: www.medbox.it - Strumenti per le Cure Palliative
-Versione software: 2.0 | Data: ${currentDate}
-  `.trim();
+  <div class="footer">
+    <p>Scheda generata da <strong>www.medbox.it</strong></p>
+    <p>${new Date().toLocaleDateString('it-IT')} - Versione 2.0</p>
+  </div>
+</body>
+</html>
+  `;
 }
 
 function getRecommendations(toolId, score) {
@@ -749,13 +748,13 @@ function generatePrintTemplate(toolId) {
             </div>
         </div>
         <div style="margin-top: 20px;">
-            <strong>Note cliniche:</strong><br>
+            <strong>Indicazioni cliniche:</strong><br>
             ________________________________________________________________________<br>
             ________________________________________________________________________<br>
             ________________________________________________________________________<br>
         </div>
         <div style="margin-top: 20px;">
-            <strong>Raccomandazioni:</strong><br>
+            <strong>Note aggiuntive:</strong><br>
             ________________________________________________________________________<br>
             ________________________________________________________________________<br>
             ________________________________________________________________________<br>
@@ -778,16 +777,17 @@ function generatePrintTemplate(toolId) {
 function getTemplateItems(toolId) {
   if (toolId === 'akps') {
     return `
-        <div class="scale-item"><span class="checkbox"></span> <strong>100</strong> - Normale, nessuna evidenza di malattia</div>
-        <div class="scale-item"><span class="checkbox"></span> <strong>90</strong> - Normale attività, segni e sintomi minori</div>
-        <div class="scale-item"><span class="checkbox"></span> <strong>80</strong> - Attività normale con sforzo</div>
-        <div class="scale-item"><span class="checkbox"></span> <strong>70</strong> - Si prende cura di sé, incapace di attività normale</div>
-        <div class="scale-item"><span class="checkbox"></span> <strong>60</strong> - Richiede assistenza occasionale</div>
-        <div class="scale-item"><span class="checkbox"></span> <strong>50</strong> - Richiede assistenza considerevole</div>
-        <div class="scale-item"><span class="checkbox"></span> <strong>40</strong> - Disabile, richiede cure speciali</div>
-        <div class="scale-item"><span class="checkbox"></span> <strong>30</strong> - Severamente disabile</div>
-        <div class="scale-item"><span class="checkbox"></span> <strong>20</strong> - Molto malato</div>
-        <div class="scale-item"><span class="checkbox"></span> <strong>10</strong> - Moribondo</div>
+        <div class="scale-item"><span class="checkbox"></span> <strong>100</strong> – Normale; nessun disturbo, nessuna evidenza di malattia.</div>
+        <div class="scale-item"><span class="checkbox"></span> <strong>90</strong> – Capacità di svolgere attività normali; sintomi lievi o impercettibili.</div>
+        <div class="scale-item"><span class="checkbox"></span> <strong>80</strong> – Attività normali possibili con sforzo; manifestazione di sintomi.</div>
+        <div class="scale-item"><span class="checkbox"></span> <strong>70</strong> – Si prende cura di sè; impossibilità di svolgere attività normali o lavoro attivo.</div>
+        <div class="scale-item"><span class="checkbox"></span> <strong>60</strong> – Si prende cura della maggior parte dei bisogni, ma è necessaria assistenza occasionale.</div>
+        <div class="scale-item"><span class="checkbox"></span> <strong>50</strong> – Richiede assistenza considerevole e frequenti cure mediche.</div>
+        <div class="scale-item"><span class="checkbox"></span> <strong>40</strong> – A letto per più del 50% del tempo a causa di disabilità funzionale.</div>
+        <div class="scale-item"><span class="checkbox"></span> <strong>30</strong> – Quasi completamente costretto a letto.</div>
+        <div class="scale-item"><span class="checkbox"></span> <strong>20</strong> – Totalmente allettato; richiede cure infermieristiche estensive da parte di professionisti o familiari.</div>
+        <div class="scale-item"><span class="checkbox"></span> <strong>10</strong> – Comatoso o appena reattivo.</div>
+        <div class="scale-item"><span class="checkbox"></span> <strong>0</strong> – Decesso.</div>
     `;
   }
   
@@ -904,10 +904,3 @@ function getTemplateItems(toolId) {
   return '';
 }
 
-function saveToLocalStorage(toolId, data) {
-  try {
-    localStorage.setItem(`performance_${toolId}`, JSON.stringify(data));
-  } catch (e) {
-    console.warn('Salvataggio non riuscito', e);
-  }
-}

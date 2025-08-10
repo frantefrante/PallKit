@@ -204,48 +204,41 @@
 
       <div class="form-section">
         <h4>Seleziona il livello funzionale del paziente</h4>
-        <div class="radio-grid" id="akps-options">
-          <div class="radio-option" onclick="selectAKPS(100)">
-            <strong>100 - Normale, nessuna evidenza di malattia</strong><br>
-            <small>Attività normale, nessun sintomo o segno di malattia</small>
+          <div class="radio-grid" id="akps-options">
+            <div class="radio-option" onclick="selectAKPS(100)">
+              <strong>100 – Normale; nessun disturbo, nessuna evidenza di malattia.</strong>
+            </div>
+            <div class="radio-option" onclick="selectAKPS(90)">
+              <strong>90 – Capacità di svolgere attività normali; sintomi lievi o impercettibili.</strong>
+            </div>
+            <div class="radio-option" onclick="selectAKPS(80)">
+              <strong>80 – Attività normali possibili con sforzo; manifestazione di sintomi.</strong>
+            </div>
+            <div class="radio-option" onclick="selectAKPS(70)">
+              <strong>70 – Si prende cura di sè; impossibilità di svolgere attività normali o lavoro attivo.</strong>
+            </div>
+            <div class="radio-option" onclick="selectAKPS(60)">
+              <strong>60 – Si prende cura della maggior parte dei bisogni, ma è necessaria assistenza occasionale.</strong>
+            </div>
+            <div class="radio-option" onclick="selectAKPS(50)">
+              <strong>50 – Richiede assistenza considerevole e frequenti cure mediche.</strong>
+            </div>
+            <div class="radio-option" onclick="selectAKPS(40)">
+              <strong>40 – A letto per più del 50% del tempo a causa di disabilità funzionale.</strong>
+            </div>
+            <div class="radio-option" onclick="selectAKPS(30)">
+              <strong>30 – Quasi completamente costretto a letto.</strong>
+            </div>
+            <div class="radio-option" onclick="selectAKPS(20)">
+              <strong>20 – Totalmente allettato; richiede cure infermieristiche estensive da parte di professionisti o familiari.</strong>
+            </div>
+            <div class="radio-option" onclick="selectAKPS(10)">
+              <strong>10 – Comatoso o appena reattivo.</strong>
+            </div>
+            <div class="radio-option" onclick="selectAKPS(0)">
+              <strong>0 – Decesso.</strong>
+            </div>
           </div>
-          <div class="radio-option" onclick="selectAKPS(90)">
-            <strong>90 - Normale attività, segni e sintomi minori</strong><br>
-            <small>Normale attività, evidenza minore di malattia</small>
-          </div>
-          <div class="radio-option" onclick="selectAKPS(80)">
-            <strong>80 - Attività normale con sforzo</strong><br>
-            <small>Normale attività con sforzo, alcuni segni o sintomi di malattia</small>
-          </div>
-          <div class="radio-option" onclick="selectAKPS(70)">
-            <strong>70 - Si prende cura di sé, incapace di attività normale</strong><br>
-            <small>Cura di sé, incapace di attività normale o lavoro attivo</small>
-          </div>
-          <div class="radio-option" onclick="selectAKPS(60)">
-            <strong>60 - Richiede assistenza occasionale</strong><br>
-            <small>Richiede assistenza occasionale, ma riesce a prendersi cura della maggior parte delle necessità</small>
-          </div>
-          <div class="radio-option" onclick="selectAKPS(50)">
-            <strong>50 - Richiede assistenza considerevole</strong><br>
-            <small>Richiede assistenza considerevole e cure mediche frequenti</small>
-          </div>
-          <div class="radio-option" onclick="selectAKPS(40)">
-            <strong>40 - Disabile, richiede cure speciali</strong><br>
-            <small>Disabile, richiede cure speciali e assistenza</small>
-          </div>
-          <div class="radio-option" onclick="selectAKPS(30)">
-            <strong>30 - Severamente disabile</strong><br>
-            <small>Severamente disabile, ricovero indicato</small>
-          </div>
-          <div class="radio-option" onclick="selectAKPS(20)">
-            <strong>20 - Molto malato</strong><br>
-            <small>Molto malato, ricovero e trattamento attivo necessari</small>
-          </div>
-          <div class="radio-option" onclick="selectAKPS(10)">
-            <strong>10 - Moribondo</strong><br>
-            <small>Moribondo, processo di morte rapidamente progressivo</small>
-          </div>
-        </div>
       </div>
 
       <div id="akps-results" class="score-display" style="display: none;">
@@ -255,11 +248,8 @@
       </div>
 
       <div class="action-buttons">
-        <button class="btn btn-success" onclick="generatePerformanceReport('akps')">
-          <i class="fas fa-file-download"></i>Genera Report
-        </button>
-        <button class="btn btn-warning" onclick="printPerformanceTemplate('akps')">
-          <i class="fas fa-print"></i>Stampa Template
+        <button class="btn btn-success" onclick="printPerformanceSheet('akps')">
+          <i class="fas fa-print"></i>Stampa Scheda
         </button>
         <button class="btn btn-danger" onclick="resetPerformanceForm('akps')">
           <i class="fas fa-redo"></i>Azzera
@@ -278,21 +268,20 @@
           <tr>
             <th>Punteggio</th>
             <th>Descrizione</th>
-            <th>Caratteristiche cliniche</th>
           </tr>
         </thead>
         <tbody>
-          <tr><td><strong>100</strong></td><td>Normale, nessuna evidenza di malattia</td><td>Attività normale, nessun sintomo</td></tr>
-          <tr><td><strong>90</strong></td><td>Normale attività, segni e sintomi minori</td><td>Attività normale, evidenza minore di malattia</td></tr>
-          <tr><td><strong>80</strong></td><td>Attività normale con sforzo</td><td>Alcuni segni o sintomi di malattia</td></tr>
-          <tr><td><strong>70</strong></td><td>Si prende cura di sé, incapace di attività normale</td><td>Incapace di attività normale o lavoro attivo</td></tr>
-          <tr><td><strong>60</strong></td><td>Richiede assistenza occasionale</td><td>Riesce a prendersi cura della maggior parte delle necessità</td></tr>
-          <tr><td><strong>50</strong></td><td>Richiede assistenza considerevole</td><td>Richiede cure mediche frequenti</td></tr>
-          <tr><td><strong>40</strong></td><td>Disabile, richiede cure speciali</td><td>Richiede cure speciali e assistenza</td></tr>
-          <tr><td><strong>30</strong></td><td>Severamente disabile</td><td>Ricovero indicato</td></tr>
-          <tr><td><strong>20</strong></td><td>Molto malato</td><td>Ricovero e trattamento attivo necessari</td></tr>
-          <tr><td><strong>10</strong></td><td>Moribondo</td><td>Processo di morte rapidamente progressivo</td></tr>
-          <tr><td><strong>0</strong></td><td>Morto</td><td>-</td></tr>
+          <tr><td><strong>100</strong></td><td>Normale; nessun disturbo, nessuna evidenza di malattia.</td></tr>
+          <tr><td><strong>90</strong></td><td>Capacità di svolgere attività normali; sintomi lievi o impercettibili.</td></tr>
+          <tr><td><strong>80</strong></td><td>Attività normali possibili con sforzo; manifestazione di sintomi.</td></tr>
+          <tr><td><strong>70</strong></td><td>Si prende cura di sè; impossibilità di svolgere attività normali o lavoro attivo.</td></tr>
+          <tr><td><strong>60</strong></td><td>Si prende cura della maggior parte dei bisogni, ma è necessaria assistenza occasionale.</td></tr>
+          <tr><td><strong>50</strong></td><td>Richiede assistenza considerevole e frequenti cure mediche.</td></tr>
+          <tr><td><strong>40</strong></td><td>A letto per più del 50% del tempo a causa di disabilità funzionale.</td></tr>
+          <tr><td><strong>30</strong></td><td>Quasi completamente costretto a letto.</td></tr>
+          <tr><td><strong>20</strong></td><td>Totalmente allettato; richiede cure infermieristiche estensive da parte di professionisti o familiari.</td></tr>
+          <tr><td><strong>10</strong></td><td>Comatoso o appena reattivo.</td></tr>
+          <tr><td><strong>0</strong></td><td>Decesso.</td></tr>
         </tbody>
       </table>
 
@@ -304,6 +293,12 @@
           <li><strong>AKPS 40-50:</strong> Condizioni compromesse, cure palliative intensive</li>
           <li><strong>AKPS ≤30:</strong> Condizioni severe, cure di fine vita</li>
         </ul>
+      </div>
+
+      <div class="action-buttons">
+        <button class="btn btn-warning" onclick="printPerformanceTemplate('akps')">
+          <i class="fas fa-print"></i>Stampa Template
+        </button>
       </div>
     </div>
   </div>
@@ -412,11 +407,8 @@
       </div>
 
       <div class="action-buttons">
-        <button class="btn btn-success" onclick="generatePerformanceReport('pps')">
-          <i class="fas fa-file-download"></i>Genera Report
-        </button>
-        <button class="btn btn-warning" onclick="printPerformanceTemplate('pps')">
-          <i class="fas fa-print"></i>Stampa Template
+        <button class="btn btn-success" onclick="printPerformanceSheet('pps')">
+          <i class="fas fa-print"></i>Stampa Scheda
         </button>
         <button class="btn btn-danger" onclick="resetPerformanceForm('pps')">
           <i class="fas fa-redo"></i>Azzera
@@ -463,6 +455,12 @@
           <li><strong>PPS 30-40%:</strong> Prognosi in settimane, cure palliative intensive</li>
           <li><strong>PPS ≤20%:</strong> Prognosi in giorni-settimane, cure di fine vita</li>
         </ul>
+      </div>
+
+      <div class="action-buttons">
+        <button class="btn btn-warning" onclick="printPerformanceTemplate('pps')">
+          <i class="fas fa-print"></i>Stampa Template
+        </button>
       </div>
     </div>
   </div>
@@ -544,9 +542,6 @@
       </div>
 
       <div class="action-buttons">
-        <button class="btn btn-warning" onclick="printPerformanceTemplate('adl')">
-          <i class="fas fa-print"></i>Stampa Template Completo
-        </button>
         <button class="btn btn-success" onclick="window.open('#', '_blank')">
           <i class="fas fa-external-link-alt"></i>Versione Online Completa
         </button>
@@ -590,6 +585,12 @@
           <li><strong>91-99:</strong> Dipendenza lieve - Quasi indipendente</li>
           <li><strong>100:</strong> Indipendenza completa - Totalmente autonomo</li>
         </ul>
+      </div>
+
+      <div class="action-buttons">
+        <button class="btn btn-warning" onclick="printPerformanceTemplate('adl')">
+          <i class="fas fa-print"></i>Stampa Template
+        </button>
       </div>
     </div>
   </div>
@@ -667,9 +668,6 @@
       </div>
 
       <div class="action-buttons">
-        <button class="btn btn-warning" onclick="printPerformanceTemplate('badl')">
-          <i class="fas fa-print"></i>Stampa Template
-        </button>
         <button class="btn btn-success" onclick="window.open('#', '_blank')">
           <i class="fas fa-external-link-alt"></i>Versione Online Completa
         </button>
@@ -719,6 +717,12 @@
           <li>Pianificazione assistenziale domiciliare</li>
           <li>Valutazione per inserimento in strutture residenziali</li>
         </ul>
+      </div>
+
+      <div class="action-buttons">
+        <button class="btn btn-warning" onclick="printPerformanceTemplate('badl')">
+          <i class="fas fa-print"></i>Stampa Template
+        </button>
       </div>
     </div>
   </div>
