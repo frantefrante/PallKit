@@ -62,23 +62,6 @@
         </a>
       </li>
 
-      <li class="nav-item mb-2">
-        <a class="nav-link submenu-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#submenu-prog" href="#" role="button" aria-expanded="false">
-          <i class="fas fa-hourglass-half me-2"></i>Prognosi
-          <i class="fas fa-chevron-right rotate-icon ms-auto"></i>
-        </a>
-        <ul class="nav flex-column collapse" id="submenu-prog" data-bs-parent="#clinical-menu">
-          <li class="nav-item">
-            <a href="#" class="nav-link ms-3" data-target="prognosi-home">Strumenti</a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link ms-3" data-target="ppi-home">PPI</a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link ms-3" data-target="pap-home">PaP Score</a>
-          </li>
-        </ul>
-      </li>
 
       <li class="nav-item">
         <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#medico-modal-home">

@@ -165,7 +165,7 @@
     </div>
 
     <!-- Tab Compila -->
-    <div id="compile-section" class="content-section active">
+    <div id="ppi-compile-section" class="content-section active">
       <div class="patient-info-card">
         <h4><i class="fas fa-user me-2"></i>Dati Paziente</h4>
         <div class="row">
@@ -279,7 +279,7 @@
     </div>
 
     <!-- Tab Visualizza -->
-    <div id="visualize-section" class="content-section">
+    <div id="ppi-visualize-section" class="content-section">
       <div class="scale-reference">
         <h4>Palliative Performance Index (PPI) - Scala Completa</h4>
         <div class="table-responsive">
@@ -340,7 +340,7 @@
     </div>
 
     <!-- Tab Compila -->
-    <div id="compile-section" class="content-section active">
+    <div id="pap-compile-section" class="content-section active">
       <div class="patient-info-card">
         <h4><i class="fas fa-user me-2"></i>Dati Paziente</h4>
         <div class="row">
@@ -475,7 +475,7 @@
     </div>
 
     <!-- Tab Visualizza -->
-    <div id="visualize-section" class="content-section">
+    <div id="pap-visualize-section" class="content-section">
       <div class="scale-reference">
         <h4>Palliative Prognostic Score (PaP) - Scala Completa</h4>
         <div class="table-responsive">

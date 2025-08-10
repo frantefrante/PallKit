@@ -68,40 +68,68 @@ function openPAPVisualize() {
 
 // Funzioni per navigazione PPI
 function switchPPIMode(mode) {
-  // Rimuove active da tutti i bottoni
+  // Rimuove active da tutti i bottoni PPI
   document.querySelectorAll('#ppi-home .mode-btn').forEach(btn => {
     btn.classList.remove('active');
   });
-  
-  // Nasconde tutte le sezioni
+
+  // Nasconde tutte le sezioni PPI
   document.querySelectorAll('#ppi-home .content-section').forEach(section => {
     section.classList.remove('active');
   });
-  
-  // Attiva il bottone selezionato
-  event.target.classList.add('active');
-  
+
+  // Trova il bottone cliccato e lo attiva
+  const clickedButton = event ? event.target.closest('.mode-btn') : null;
+  if (clickedButton) {
+    clickedButton.classList.add('active');
+  } else {
+    // Fallback: attiva il primo bottone corrispondente al mode
+    const modeButtons = document.querySelectorAll('#ppi-home .mode-btn');
+    modeButtons.forEach(btn => {
+      if (btn.textContent.toLowerCase().includes(mode === 'compile' ? 'compila' : 'visualizza')) {
+        btn.classList.add('active');
+      }
+    });
+  }
+
   // Mostra la sezione corrispondente
-  document.getElementById(`${mode}-section`).classList.add('active');
+  const targetSection = document.querySelector(`#ppi-home #ppi-${mode}-section`);
+  if (targetSection) {
+    targetSection.classList.add('active');
+  }
 }
 
 // Funzioni per navigazione PaP
 function switchPAPMode(mode) {
-  // Rimuove active da tutti i bottoni
+  // Rimuove active da tutti i bottoni PaP
   document.querySelectorAll('#pap-home .mode-btn').forEach(btn => {
     btn.classList.remove('active');
   });
-  
-  // Nasconde tutte le sezioni
+
+  // Nasconde tutte le sezioni PaP
   document.querySelectorAll('#pap-home .content-section').forEach(section => {
     section.classList.remove('active');
   });
-  
-  // Attiva il bottone selezionato
-  event.target.classList.add('active');
-  
+
+  // Trova il bottone cliccato e lo attiva
+  const clickedButton = event ? event.target.closest('.mode-btn') : null;
+  if (clickedButton) {
+    clickedButton.classList.add('active');
+  } else {
+    // Fallback: attiva il primo bottone corrispondente al mode
+    const modeButtons = document.querySelectorAll('#pap-home .mode-btn');
+    modeButtons.forEach(btn => {
+      if (btn.textContent.toLowerCase().includes(mode === 'compile' ? 'compila' : 'visualizza')) {
+        btn.classList.add('active');
+      }
+    });
+  }
+
   // Mostra la sezione corrispondente
-  document.getElementById(`${mode}-section`).classList.add('active');
+  const targetSection = document.querySelector(`#pap-home #pap-${mode}-section`);
+  if (targetSection) {
+    targetSection.classList.add('active');
+  }
 }
 
 // Funzione per selezionare opzioni PPI

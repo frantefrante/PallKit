@@ -297,16 +297,6 @@ function openESASVisualize() {
   if (typeof switchMode === 'function') switchMode('visualize');
 }
 
-// Funzioni per navigazione Prognosi
-function openPrognosiHome() {
-  navigateToSection('prognosi-home');
-  if (typeof switchPrognosiMode === 'function') switchPrognosiMode('tools');
-}
-
-function openPrognosiReference() {
-  navigateToSection('prognosi-home');
-  if (typeof switchPrognosiMode === 'function') switchPrognosiMode('reference');
-}
 
 // Funzioni per PPI
 function openPPICompile() {
