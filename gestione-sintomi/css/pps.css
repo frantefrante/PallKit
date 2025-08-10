@@ -1,0 +1,369 @@
+#pps-home {
+  --pps-primary: #6f42c1;
+  --pps-secondary: #563d7c;
+  --pps-accent: #e83e8c;
+  --pps-light: #f8f9fa;
+  --pps-border: #e9ecef;
+  --pps-text: #495057;
+  --pps-success: #28a745;
+  --pps-warning: #ffc107;
+  --pps-danger: #dc3545;
+}
+
+#pps-home .pps-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+}
+
+#pps-home .pps-header {
+  background: linear-gradient(135deg, var(--pps-primary), var(--pps-secondary));
+  color: white;
+  padding: 2.5rem;
+  text-align: center;
+}
+#pps-home .pps-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+#pps-home .pps-header .subtitle {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  margin-bottom: 1rem;
+}
+#pps-home .version-badge {
+  background: rgba(255,255,255,0.2);
+  padding: 0.5rem 1rem;
+  border-radius: 25px;
+  display: inline-block;
+  font-weight: 600;
+}
+
+#pps-home .mode-selector {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  padding: 2rem;
+  background: var(--pps-light);
+  border-bottom: 3px solid var(--pps-border);
+}
+#pps-home .mode-btn {
+  padding: 1rem 2rem;
+  background: white;
+  border: 2px solid var(--pps-border);
+  border-radius: 50px;
+  text-decoration: none;
+  color: var(--pps-text);
+  font-weight: 600;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+#pps-home .mode-btn.active {
+  background: var(--pps-primary);
+  color: white;
+  border-color: var(--pps-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(111,66,193,0.3);
+}
+
+#pps-home .content-section {
+  display: none;
+  padding: 2rem;
+}
+#pps-home .content-section.active {
+  display: block;
+}
+
+#pps-home .patient-data {
+  background: var(--pps-light);
+  padding: 2rem;
+  border-radius: 15px;
+  margin-bottom: 2rem;
+  border: 1px solid var(--pps-border);
+}
+#pps-home .patient-data h3 {
+  color: var(--pps-primary);
+  margin-bottom: 1.5rem;
+  font-size: 1.4rem;
+}
+#pps-home .form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+#pps-home .form-group {
+  display: flex;
+  flex-direction: column;
+}
+#pps-home .form-group label {
+  font-weight: 600;
+  color: var(--pps-text);
+  margin-bottom: 0.5rem;
+}
+#pps-home .form-group input {
+  padding: 0.75rem;
+  border: 2px solid var(--pps-border);
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+#pps-home .form-group input:focus {
+  outline: none;
+  border-color: var(--pps-primary);
+}
+
+#pps-home .pps-scale-container {
+  background: white;
+  border-radius: 15px;
+  border: 2px solid var(--pps-primary);
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+#pps-home .scale-header {
+  background: var(--pps-primary);
+  color: white;
+  padding: 1.5rem;
+  text-align: center;
+}
+#pps-home .scale-instructions {
+  background: #fff3cd;
+  padding: 1rem;
+  border-left: 4px solid var(--pps-warning);
+  margin: 1rem;
+  border-radius: 8px;
+}
+
+#pps-home .pps-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+#pps-home .pps-table th {
+  background: var(--pps-light);
+  padding: 1rem 0.5rem;
+  text-align: center;
+  font-weight: 700;
+  color: var(--pps-primary);
+  border: 1px solid var(--pps-border);
+  font-size: 0.8rem;
+}
+#pps-home .pps-table td {
+  padding: 0.8rem 0.5rem;
+  border: 1px solid var(--pps-border);
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.8rem;
+  line-height: 1.3;
+}
+#pps-home .pps-table tr:hover td {
+  background: rgba(111,66,193,0.05);
+}
+#pps-home .pps-table tr.selected td {
+  background: rgba(111,66,193,0.1);
+  border-color: var(--pps-primary);
+  font-weight: 600;
+}
+#pps-home .pps-table tr.selected td:first-child {
+  background: var(--pps-primary);
+  color: white;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+#pps-home .pps-level {
+  font-weight: 700;
+  color: var(--pps-primary);
+  font-size: 1rem;
+}
+
+#pps-home .results-section {
+  background: linear-gradient(135deg, var(--pps-success), #20c997);
+  color: white;
+  padding: 2rem;
+  border-radius: 15px;
+  margin: 2rem 0;
+  text-align: center;
+  display: none;
+}
+#pps-home .results-section.show {
+  display: block;
+  animation: pps-slideIn 0.5s ease;
+}
+@keyframes pps-slideIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+#pps-home .pps-score-display {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+#pps-home .score-interpretation {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  opacity: 0.9;
+}
+#pps-home .prognostic-info {
+  background: rgba(255,255,255,0.1);
+  padding: 1.5rem;
+  border-radius: 10px;
+  margin-top: 1rem;
+}
+
+#pps-home .action-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 2rem 0;
+}
+
+#pps-home .scale-template {
+  background: white;
+  padding: 2rem;
+  border-radius: 15px;
+  border: 1px solid var(--pps-border);
+}
+#pps-home .template-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--pps-primary);
+}
+#pps-home .template-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2rem 0;
+}
+#pps-home .template-table th,
+#pps-home .template-table td {
+  border: 2px solid var(--pps-primary);
+  padding: 1rem 0.5rem;
+  text-align: center;
+  font-size: 0.9rem;
+}
+#pps-home .template-table th {
+  background: var(--pps-primary);
+  color: white;
+  font-weight: 700;
+}
+#pps-home .template-table tr:nth-child(even) {
+  background: rgba(111,66,193,0.05);
+}
+
+#pps-home .definitions-section {
+  background: var(--pps-light);
+  padding: 2rem;
+  border-radius: 15px;
+  margin: 2rem 0;
+  border: 1px solid var(--pps-border);
+}
+#pps-home .definitions-section h4 {
+  color: var(--pps-primary);
+  margin-bottom: 1.5rem;
+  font-size: 1.3rem;
+  border-bottom: 2px solid var(--pps-primary);
+  padding-bottom: 0.5rem;
+}
+#pps-home .definition-item {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: white;
+  border-radius: 10px;
+  border-left: 4px solid var(--pps-primary);
+}
+#pps-home .definition-item h5 {
+  color: var(--pps-primary);
+  margin-bottom: 0.8rem;
+  font-size: 1.1rem;
+}
+#pps-home .definition-item ul {
+  list-style: none;
+  padding-left: 0;
+}
+#pps-home .definition-item li {
+  margin-bottom: 0.5rem;
+  padding-left: 1.5rem;
+  position: relative;
+}
+#pps-home .definition-item li:before {
+  content: "•";
+  color: var(--pps-primary);
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+}
+
+#pps-home .references-section {
+  background: var(--pps-light);
+  padding: 2rem;
+  border-radius: 15px;
+  margin-top: 2rem;
+  border: 1px solid var(--pps-border);
+}
+#pps-home .references-section summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--pps-primary);
+}
+#pps-home .references-section p {
+  margin-bottom: 0.5rem;
+  color: var(--pps-text);
+}
+
+#pps-home [data-tooltip] {
+  position: relative;
+  cursor: help;
+}
+#pps-home [data-tooltip]:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.9);
+  color: white;
+  padding: 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  z-index: 1000;
+}
+
+@media (max-width: 768px) {
+  #pps-home .pps-header h1 {
+    font-size: 2rem;
+  }
+  #pps-home .mode-selector {
+    flex-direction: column;
+    align-items: center;
+  }
+  #pps-home .mode-btn {
+    width: 100%;
+    max-width: 300px;
+  }
+  #pps-home .pps-table,
+  #pps-home .template-table {
+    font-size: 0.7rem;
+  }
+  #pps-home .pps-table th,
+  #pps-home .pps-table td,
+  #pps-home .template-table th,
+  #pps-home .template-table td {
+    padding: 0.5rem 0.25rem;
+  }
+  #pps-home .action-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  #pps-home .action-buttons .btn {
+    width: 100%;
+    max-width: 300px;
+  }
+}
