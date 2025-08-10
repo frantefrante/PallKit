@@ -14,14 +14,17 @@ function selectPPSLevel(level) {
   const row = document.querySelector(`#pps-table tr[data-level="${level}"]`);
   if (row) row.classList.add('selected');
   selectedPPSLevel = level;
+  if (typeof performanceData !== 'undefined') {
+    performanceData.pps.score = level;
+  }
   showPPSResults(level);
 }
 
 function showPPSResults(level) {
   const resultsSection = document.getElementById('pps-results-section');
   const scoreDisplay = document.getElementById('pps-selected-score');
-  const interpretation = document.getElementById('pps-score-interpretation');
-  const prognosticDetails = document.getElementById('pps-prognostic-details');
+  const interpretation = document.getElementById('pps-interpretation');
+  const prognosticDetails = document.getElementById('pps-description');
   if (!resultsSection) return;
 
   scoreDisplay.textContent = level + '%';
@@ -59,7 +62,11 @@ function showPPSResults(level) {
 }
 
 function printPPS() {
-  window.print();
+  if (!selectedPPSLevel) {
+    alert('Seleziona prima un livello PPS.');
+    return;
+  }
+  printPerformanceSheet('pps');
 }
 
 function resetPPSForm() {
@@ -72,30 +79,7 @@ function resetPPSForm() {
   const resultsSection = document.getElementById('pps-results-section');
   if (resultsSection) resultsSection.classList.remove('show');
   selectedPPSLevel = null;
-}
-
-function printPPSTemplate() {
-  const templateContent = document.getElementById('pps-view').innerHTML;
-  const printWindow = window.open('', '_blank');
-  printWindow.document.write(`
-    <html>
-    <head>
-      <title>PPS Template - Palliative Performance Scale</title>
-      <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
-        th, td { border: 2px solid #333; padding: 8px; text-align: center; font-size: 10px; }
-        th { background: #f0f0f0; font-weight: bold; }
-        h2 { text-align: center; color: #333; }
-        .template-header { margin-bottom: 20px; }
-        @media print { body { margin: 0; } }
-      </style>
-    </head>
-    <body>
-      ${templateContent}
-    </body>
-    </html>
-  `);
-  printWindow.document.close();
-  printWindow.print();
+  if (typeof performanceData !== 'undefined') {
+    performanceData.pps.score = null;
+  }
 }

@@ -469,10 +469,10 @@
 
       <div id="pps-results-section" class="results-section">
         <div class="pps-score-display" id="pps-selected-score">-</div>
-        <div class="score-interpretation" id="pps-score-interpretation">Seleziona un livello PPS</div>
+        <div class="score-interpretation" id="pps-interpretation">Seleziona un livello PPS</div>
         <div class="prognostic-info">
           <h4>ℹ️ Informazioni Prognostiche</h4>
-          <div id="pps-prognostic-details">Le informazioni prognostiche appariranno qui una volta selezionato un livello PPS.</div>
+          <div id="pps-description">Le informazioni prognostiche appariranno qui una volta selezionato un livello PPS.</div>
         </div>
       </div>
 
@@ -530,7 +530,7 @@
       </div>
 
       <div class="action-buttons">
-        <button class="btn btn-secondary" onclick="printPPSTemplate()">
+        <button class="btn btn-secondary" onclick="printPerformanceTemplate('pps')">
           🖨️ Stampa Template Vuoto
         </button>
       </div>
@@ -626,9 +626,9 @@
             <li><strong>PPS è semplice, ma non facile</strong> - richiede training e comprensione accurata</li>
           </ul>
         </div>
-        <div class="definition-item" style="background: linear-gradient(135deg, #d1ecf1, #74b9ff); border-left-color: #0984e3; color: white;">
-          <h5 style="color: white;">⚠️ Errori Comuni da Evitare:</h5>
-          <ul style="color: white;">
+        <div class="definition-item" style="background: linear-gradient(135deg, #d1ecf1, #74b9ff); border-left-color: #0984e3; color: #000;">
+          <h5>⚠️ Errori Comuni da Evitare:</h5>
+          <ul>
             <li>Basarsi solo sull'osservazione invece che sulla capacità effettiva</li>
             <li>Non considerare il "miglior adattamento orizzontale"</li>
             <li>Ignorare la precedenza delle colonne di sinistra</li>
