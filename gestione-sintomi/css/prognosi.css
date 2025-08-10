@@ -5,8 +5,8 @@
   --prognosi-light: #fff3e0;
   --prognosi-dark: #d15502;
   --border-color: #e9ecef;
-  --shadow: 0 4px 20px rgba(0,0,0,0.08);
-  --shadow-hover: 0 8px 30px rgba(0,0,0,0.15);
+  --shadow: 0 8px 32px rgba(0,0,0,0.1);
+  --shadow-hover: 0 12px 40px rgba(0,0,0,0.15);
 }
 
 /* Contenitori principali */
@@ -85,93 +85,156 @@
   margin-top: 2rem;
 }
 
-/* Prognosi cards */
-.prognosi-card {
+/* Tool cards */
+.tool-card {
   background: white;
-  border-radius: 16px;
+  border-radius: 20px;
+  border: 3px solid;
+  padding: 2.5rem;
   box-shadow: var(--shadow);
-  padding: 2rem;
   transition: all 0.3s ease;
-  border: 1px solid var(--border-color);
-  cursor: pointer;
+  position: relative;
 }
 
-.prognosi-card:hover {
+.tool-card.ppi {
+  border-color: #e74c3c;
+}
+
+.tool-card.pap {
+  border-color: #9b59b6;
+}
+
+.tool-card:hover {
   transform: translateY(-5px);
   box-shadow: var(--shadow-hover);
-  border-color: var(--prognosi-primary);
 }
 
-.prognosi-card .card-header {
+.tool-header {
   display: flex;
   align-items: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
 }
 
-.prognosi-card .card-icon {
-  width: 60px;
-  height: 60px;
-  border-radius: 12px;
+.tool-icon-large {
+  width: 80px;
+  height: 80px;
+  border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 1rem;
-  font-weight: bold;
+  margin-right: 1.5rem;
   color: white;
+  font-size: 2rem;
+  font-weight: 700;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.3);
 }
 
-.prognosi-card.ppi .card-icon { background: linear-gradient(135deg, #e74c3c, #c0392b); }
-.prognosi-card.pap .card-icon { background: linear-gradient(135deg, #9b59b6, #8e44ad); }
-
-.prognosi-card .card-title {
-  color: var(--prognosi-primary);
-  font-size: 1.4rem;
-  font-weight: 600;
-  margin-bottom: 0.3rem;
+.ppi-icon {
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
 }
 
-.prognosi-card .card-subtitle {
-  font-size: 0.9rem;
-  color: #6c757d;
+.pap-icon {
+  background: linear-gradient(135deg, #9b59b6, #8e44ad);
+}
+
+.tool-info h4 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.tool-subtitle {
+  font-size: 1.1rem;
+  color: #7f8c8d;
   font-weight: 500;
+  letter-spacing: 0.5px;
 }
 
-.prognosi-card .card-description {
-  color: #555;
-  margin-bottom: 1.5rem;
-  font-size: 0.95rem;
+.tool-description {
+  font-size: 1.1rem;
   line-height: 1.6;
+  color: #34495e;
+  margin-bottom: 2rem;
 }
 
-.prognosi-card .card-features {
-  list-style: none;
-  margin: 0 0 1.5rem 0;
+.tool-features {
+  background: rgba(46, 204, 113, 0.1);
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  margin-bottom: 2rem;
+  border: 1px solid rgba(46, 204, 113, 0.2);
+  display: block;
+}
+
+.feature-badge {
+  color: #27ae60;
+  font-weight: 600;
+  font-size: 1rem;
+  background: none;
+  border: none;
   padding: 0;
+  border-radius: 0;
 }
 
-.prognosi-card .card-features li {
-  padding: 0.3rem 0;
-  font-size: 0.9rem;
-  color: #666;
-  position: relative;
-  padding-left: 1.2rem;
+.tool-actions {
+  display: flex;
+  gap: 1rem;
 }
 
-.prognosi-card .card-features li::before {
-  content: '\25CF';
-  position: absolute;
-  left: 0;
-  color: var(--prognosi-primary);
-  font-size: 0.6rem;
-  top: 0.6rem;
+.btn-action {
+  flex: 1;
+  padding: 1.2rem 2rem;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  border: none;
+  cursor: pointer;
 }
 
-.prognosi-card .card-footer {
-  margin-top: 1rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--border-color);
-  font-size: 0.85rem;
-  color: #6c757d;
+.btn-primary {
+  color: white;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.ppi-icon ~ * .btn-primary,
+.tool-card:has(.ppi-icon) .btn-primary {
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
+}
+
+.pap-icon ~ * .btn-primary,
+.tool-card:has(.pap-icon) .btn-primary {
+  background: linear-gradient(135deg, #9b59b6, #8e44ad);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+}
+
+.btn-outline-primary {
+  background: white;
+  border: 2px solid;
+}
+
+.tool-card.ppi .btn-outline-primary {
+  border-color: #e74c3c;
+  color: #e74c3c;
+}
+
+.tool-card.pap .btn-outline-primary {
+  border-color: #9b59b6;
+  color: #9b59b6;
+}
+
+.btn-outline-primary:hover {
+  background-color: rgba(0,0,0,0.05);
+  transform: translateY(-2px);
 }
 
 /* Patient info card */

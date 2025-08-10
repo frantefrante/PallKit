@@ -22,44 +22,62 @@
     <!-- Sezione Strumenti -->
     <div id="tools-section" class="content-section active">
       <div class="prognosi-grid">
-        <div class="prognosi-card ppi" onclick="openPPICompile()">
-          <div class="card-header">
-            <div class="card-icon">PPI</div>
-            <div>
-              <div class="card-title">PPI</div>
-              <div class="card-subtitle">Palliative Performance Index</div>
+        <div class="tool-card tool-card-compact h-100 ppi">
+          <div class="tool-header">
+            <div class="tool-icon-large ppi-icon">
+              <span class="tool-letters">PPI</span>
+            </div>
+            <div class="tool-info">
+              <h4>PPI</h4>
+              <div class="tool-subtitle">Palliative Performance Index</div>
             </div>
           </div>
-          <div class="card-description">
+
+          <div class="tool-description">
             Strumento prognostico per stimare la sopravvivenza nei pazienti in cure palliative, basato su 5 parametri clinici facilmente valutabili.
           </div>
-          <ul class="card-features">
-            <li>5 parametri di valutazione</li>
-            <li>Predizione sopravvivenza a 3 e 6 settimane</li>
-            <li>Calcolo automatico del punteggio</li>
-            <li>Validato internazionalmente</li>
-          </ul>
-          <div class="card-footer">Clicca per compilare la scala</div>
+
+          <div class="tool-features">
+            <span class="feature-badge">5 parametri clinici: PPS, Assunzione orale, Edema, Dispnea, Delirium</span>
+          </div>
+
+          <div class="tool-actions">
+            <button class="btn btn-primary btn-action" onclick="openPPICompile()">
+              <i class="fas fa-edit me-2"></i>Compila
+            </button>
+            <button class="btn btn-outline-primary btn-action" onclick="openPPIVisualize()">
+              <i class="fas fa-table me-2"></i>Visualizza
+            </button>
+          </div>
         </div>
 
-        <div class="prognosi-card pap" onclick="openPAPCompile()">
-          <div class="card-header">
-            <div class="card-icon">PaP</div>
-            <div>
-              <div class="card-title">PaP Score</div>
-              <div class="card-subtitle">Palliative Prognostic Score</div>
+        <div class="tool-card tool-card-compact h-100 pap">
+          <div class="tool-header">
+            <div class="tool-icon-large pap-icon">
+              <span class="tool-letters">PaP</span>
+            </div>
+            <div class="tool-info">
+              <h4>PaP Score</h4>
+              <div class="tool-subtitle">Palliative Prognostic Score</div>
             </div>
           </div>
-          <div class="card-description">
+
+          <div class="tool-description">
             Score prognostico multidimensionale che combina valutazione clinica e parametri laboratoristici per predire la sopravvivenza a 30 giorni.
           </div>
-          <ul class="card-features">
-            <li>6 parametri clinici e laboratoristici</li>
-            <li>3 gruppi di rischio prognostico</li>
-            <li>Predizione sopravvivenza a 30 giorni</li>
-            <li>Ampiamente utilizzato in letteratura</li>
-          </ul>
-          <div class="card-footer">Clicca per compilare la scala</div>
+
+          <div class="tool-features">
+            <span class="feature-badge">6 parametri: Dispnea, Anoressia, Karnofsky, Leucociti, Linfociti, Predizione clinica</span>
+          </div>
+
+          <div class="tool-actions">
+            <button class="btn btn-primary btn-action" onclick="openPAPCompile()">
+              <i class="fas fa-edit me-2"></i>Compila
+            </button>
+            <button class="btn btn-outline-primary btn-action" onclick="openPAPVisualize()">
+              <i class="fas fa-table me-2"></i>Visualizza
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -131,8 +149,8 @@
     <button class="btn btn-outline-success me-2" onclick="navigateToSection('strumenti-valutazione-home'); showCategories();">
       <i class="fas fa-arrow-left me-2"></i>Torna alle Categorie
     </button>
-    <button class="btn btn-outline-primary" onclick="navigateToSection('performance-home')">
-      <i class="fas fa-arrow-left me-2"></i>Torna a Performance
+    <button class="btn btn-outline-primary" onclick="navigateToSection('prognosi-home')">
+      <i class="fas fa-arrow-left me-2"></i>Torna a Prognosi
     </button>
   </div>
   <div class="ppi-container">
@@ -300,7 +318,7 @@
         </div>
         
         <div class="interpretation-box">
-          <h5><i class="fas fa-info-circle me-2"></i>Interpretazione Prognostica</h5>
+          <h5>Interpretazione Prognostica</h5>
           <ul>
             <li><strong>PPI ≤ 4:</strong> Sopravvivenza &gt;6 settimane (probabilità &gt;70%)</li>
             <li><strong>PPI &gt; 4:</strong> Sopravvivenza ≤3 settimane (probabilità &gt;80%)</li>
@@ -319,8 +337,8 @@
     <button class="btn btn-outline-success me-2" onclick="navigateToSection('strumenti-valutazione-home'); showCategories();">
       <i class="fas fa-arrow-left me-2"></i>Torna alle Categorie
     </button>
-    <button class="btn btn-outline-primary" onclick="navigateToSection('performance-home')">
-      <i class="fas fa-arrow-left me-2"></i>Torna a Performance
+    <button class="btn btn-outline-primary" onclick="navigateToSection('prognosi-home')">
+      <i class="fas fa-arrow-left me-2"></i>Torna a Prognosi
     </button>
   </div>
   <div class="pap-container">
@@ -514,7 +532,7 @@
         </div>
         
         <div class="interpretation-box">
-          <h5><i class="fas fa-info-circle me-2"></i>Interpretazione Prognostica</h5>
+          <h5>Interpretazione Prognostica</h5>
           <ul>
             <li><strong>Gruppo A (0-5.5 punti):</strong> Sopravvivenza &gt;30 giorni (probabilità &gt;70%)</li>
             <li><strong>Gruppo B (5.6-11 punti):</strong> Sopravvivenza incerta (30-70%)</li>
