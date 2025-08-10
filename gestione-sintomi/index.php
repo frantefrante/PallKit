@@ -459,7 +459,7 @@
     <!-- SEZIONE IPOS -->
     <?php include __DIR__ . '/strumenti-ipos.php'; ?>
 
-    <!-- SEZIONE PERFORMANCE -->
+    <!-- SEZIONE PERFORMANCE - nuova struttura -->
     <?php include __DIR__ . '/strumenti-performance.php'; ?>
 
     <!-- SEZIONE PROGNOSI -->
