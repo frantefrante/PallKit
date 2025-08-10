@@ -520,6 +520,14 @@ function resetPerfForm(type){
 }
 window.onclick=function(e){ if(e.target.classList.contains('perf-modal')){ e.target.style.display='none'; document.body.style.overflow='auto'; }};
 document.addEventListener('keydown', function(e){ if(e.key==='Escape'){ document.querySelectorAll('.perf-modal').forEach(m=>m.style.display='none'); document.body.style.overflow='auto'; }});
+
+document.addEventListener('DOMContentLoaded', function(){
+  const params = new URLSearchParams(window.location.search);
+  const modal = params.get('modal');
+  if(modal){
+    openPerfModal(modal);
+  }
+});
 </script>
 
 <style>
