@@ -5,9 +5,15 @@
 
 <section id="prognosi-home" class="p-4" style="display:none;">
   <div class="prognosi-container">
-    <div class="prognosi-header">
-      <h1><i class="fas fa-hourglass-half me-2"></i>Strumenti di Prognosi</h1>
-      <p class="text-muted">Scale prognostiche validate per la valutazione dell'aspettativa di vita in cure palliative</p>
+    <div class="mb-3">
+      <button class="btn btn-outline-success" onclick="navigateToSection('strumenti-valutazione-home')">
+        <i class="fas fa-arrow-left me-2"></i>Torna alle Categorie
+      </button>
+    </div>
+
+    <div class="category-detail-header">
+      <h3><i class="fas fa-hourglass-half me-2"></i>Strumenti di Prognosi</h3>
+      <p class="mb-0">Scale prognostiche validate per la valutazione dell'aspettativa di vita in cure palliative</p>
     </div>
 
     <div class="mode-selector mb-4">

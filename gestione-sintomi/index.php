@@ -302,7 +302,7 @@
           </div>
 
           <!-- PROGNOSI -->
-          <div class="category-card prognosi" onclick="openCategoryView('prognosi')">
+          <div class="category-card prognosi" onclick="openPrognosiHome()">
             <div class="category-header">
               <div class="category-icon">📈</div>
               <div class="category-info">
@@ -310,7 +310,7 @@
                 <small>2 strumenti</small>
               </div>
               <div class="category-status">
-                <span class="badge bg-warning">In Sviluppo</span>
+                <span class="badge bg-success">✅ Disponibile</span>
               </div>
             </div>
             <div class="category-description">

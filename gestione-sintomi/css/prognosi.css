@@ -88,12 +88,13 @@
 /* Tool cards */
 .tool-card {
   background: white;
-  border-radius: 20px;
-  border: 3px solid;
-  padding: 2.5rem;
-  box-shadow: var(--shadow);
+  border-radius: 16px;
+  border: 2px solid var(--border-color);
+  padding: 2rem;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.08);
   transition: all 0.3s ease;
   position: relative;
+  overflow: hidden;
 }
 
 .tool-card.ppi {
@@ -104,15 +105,25 @@
   border-color: #9b59b6;
 }
 
+.tool-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--prognosi-primary), var(--prognosi-dark));
+}
+
 .tool-card:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-hover);
+  transform: translateY(-8px);
+  box-shadow: 0 12px 36px rgba(0,0,0,0.15);
 }
 
 .tool-header {
   display: flex;
   align-items: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 .tool-icon-large {

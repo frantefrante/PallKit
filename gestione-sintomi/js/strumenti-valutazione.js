@@ -89,33 +89,6 @@ function loadCategoryContent(categoryName) {
         { name: 'BADL', subtitle: 'Basic Activities of Daily Living', description: 'Valutazione delle attività di base della vita quotidiana con sistema di scoring automatico.', available: true, action: 'openPerfModal("badl")' }
       ]
     },
-    'prognosi': {
-      title: 'Strumenti di Prognosi',
-      icon: '⏳',
-      description: "Scale prognostiche per la valutazione dell'aspettativa di vita",
-      tools: [
-        {
-          name: 'PPI',
-          subtitle: 'Palliative Performance Index',
-          description: 'Strumento prognostico per stimare la sopravvivenza nei pazienti in cure palliative.',
-          available: true,
-          actions: [
-            { name: 'Compila', class: 'btn-primary', icon: 'fas fa-edit', action: 'openPPICompile()' },
-            { name: 'Visualizza', class: 'btn-outline-primary', icon: 'fas fa-table', action: 'openPPIVisualize()' }
-          ]
-        },
-        {
-          name: 'PaP Score',
-          subtitle: 'Palliative Prognostic Score',
-          description: 'Score prognostico multidimensionale che combina valutazione clinica e parametri laboratoristici.',
-          available: true,
-          actions: [
-            { name: 'Compila', class: 'btn-primary', icon: 'fas fa-edit', action: 'openPAPCompile()' },
-            { name: 'Visualizza', class: 'btn-outline-primary', icon: 'fas fa-table', action: 'openPAPVisualize()' }
-          ]
-        }
-      ]
-    },
     'multidimensionale': {
       title: 'Valutazione Multidimensionale',
       icon: '📋',
@@ -318,6 +291,17 @@ function openPAPCompile() {
 function openPAPVisualize() {
   navigateToSection('pap-home');
   if (typeof switchPAPMode === 'function') switchPAPMode('visualize');
+}
+
+// Funzioni per Prognosi
+function openPrognosiHome() {
+  navigateToSection('prognosi-home');
+  if (typeof switchPrognosiMode === 'function') switchPrognosiMode('tools');
+}
+
+function openPrognosiReference() {
+  navigateToSection('prognosi-home');
+  if (typeof switchPrognosiMode === 'function') switchPrognosiMode('reference');
 }
 
 // Funzioni IDC-PAL
