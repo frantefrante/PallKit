@@ -1,0 +1,24 @@
+:root {
+  --akps-primary: #28a745;
+  --akps-secondary: #20c997;
+}
+
+#akps-home .performance-header h1 {
+  background: linear-gradient(135deg, var(--akps-primary), var(--akps-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+#akps-home .mode-btn.active,
+#akps-home .mode-btn:hover {
+  color: var(--akps-primary);
+}
+
+#akps-home .progress-fill {
+  background: linear-gradient(90deg, var(--akps-primary), var(--akps-secondary));
+}
+
+#akps-home .info-box {
+  border-left-color: var(--akps-primary);
+}

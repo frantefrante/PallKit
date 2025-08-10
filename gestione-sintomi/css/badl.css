@@ -1,0 +1,24 @@
+:root {
+  --badl-primary: #6c757d;
+  --badl-secondary: #495057;
+}
+
+#badl-home .performance-header h1 {
+  background: linear-gradient(135deg, var(--badl-primary), var(--badl-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+#badl-home .mode-btn.active,
+#badl-home .mode-btn:hover {
+  color: var(--badl-primary);
+}
+
+#badl-home .progress-fill {
+  background: linear-gradient(90deg, var(--badl-primary), var(--badl-secondary));
+}
+
+#badl-home .info-box {
+  border-left-color: var(--badl-primary);
+}
