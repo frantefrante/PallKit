@@ -199,6 +199,7 @@
         
         <div class="form-item" id="ppi-pps-item">
           <label class="form-label">1. Palliative Performance Scale (PPS)</label>
+          <button type="button" class="btn btn-sm btn-outline-success mb-2" onclick="openPPSModal()">Calcola PPS</button>
           <div class="radio-group">
             <div class="radio-option" onclick="selectPPI('pps', 4)">
               <span>10-20% (4 punti)</span>

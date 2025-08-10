@@ -66,6 +66,10 @@ function openPAPVisualize() {
   switchPAPMode('visualize');
 }
 
+function openPPSModal() {
+  window.open('strumenti-performance.php?modal=pps', 'pps_modal', 'width=800,height=600,scrollbars=yes');
+}
+
 // Funzioni per navigazione PPI
 function switchPPIMode(mode) {
   // Rimuove active da tutti i bottoni PPI
@@ -644,125 +648,4 @@ function openPrintWindow(content) {
   `);
   printWindow.document.close();
 }
-
-// Salvataggio automatico in localStorage
-function savePPIData() {
-  const data = {
-    ...ppiData,
-    patientName: document.getElementById('ppi-patient-name').value,
-    date: document.getElementById('ppi-date').value,
-    timestamp: new Date().toISOString()
-  };
-  localStorage.setItem('medbox_ppi_data', JSON.stringify(data));
-}
-
-function savePAPData() {
-  const data = {
-    ...papData,
-    patientName: document.getElementById('pap-patient-name').value,
-    date: document.getElementById('pap-date').value,
-    timestamp: new Date().toISOString()
-  };
-  localStorage.setItem('medbox_pap_data', JSON.stringify(data));
-}
-
-// Caricamento dati salvati
-function loadPPIData() {
-  const saved = localStorage.getItem('medbox_ppi_data');
-  if (saved) {
-    const data = JSON.parse(saved);
-    
-    // Carica i dati paziente
-    if (data.patientName) document.getElementById('ppi-patient-name').value = data.patientName;
-    if (data.date) document.getElementById('ppi-date').value = data.date;
-    
-    // Carica i valori dei parametri
-    Object.keys(ppiData).forEach(key => {
-      if (data[key] !== null && data[key] !== undefined) {
-        ppiData[key] = data[key];
-        // Trova e seleziona l'opzione corrispondente
-        const item = document.getElementById(`ppi-${key}-item`);
-        if (item) {
-          const options = item.querySelectorAll('.radio-option');
-          options.forEach(option => {
-            const span = option.querySelector('span');
-            if (span && span.textContent.includes(`(${data[key]} punt`)) {
-              option.classList.add('selected');
-              item.classList.add('completed');
-            }
-          });
-        }
-      }
-    });
-    
-    updatePPIProgress();
-    calculatePPI();
-  }
-}
-
-function loadPAPData() {
-  const saved = localStorage.getItem('medbox_pap_data');
-  if (saved) {
-    const data = JSON.parse(saved);
-    
-    // Carica i dati paziente
-    if (data.patientName) document.getElementById('pap-patient-name').value = data.patientName;
-    if (data.date) document.getElementById('pap-date').value = data.date;
-    
-    // Carica i valori dei parametri
-    Object.keys(papData).forEach(key => {
-      if (data[key] !== null && data[key] !== undefined) {
-        papData[key] = data[key];
-        // Trova e seleziona l'opzione corrispondente
-        const item = document.getElementById(`pap-${key}-item`);
-        if (item) {
-          const options = item.querySelectorAll('.radio-option');
-          options.forEach(option => {
-            const span = option.querySelector('span');
-            if (span && span.textContent.includes(`(${data[key]} punt`)) {
-              option.classList.add('selected');
-              item.classList.add('completed');
-            }
-          });
-        }
-      }
-    });
-    
-    updatePAPProgress();
-    calculatePAP();
-  }
-}
-
-// Event listeners per salvataggio automatico
-document.addEventListener('DOMContentLoaded', function() {
-  // Carica dati salvati all'avvio
-  setTimeout(() => {
-    loadPPIData();
-    loadPAPData();
-  }, 100);
-  
-  // Salva automaticamente quando si cambia il nome paziente o la data
-  const ppiPatientName = document.getElementById('ppi-patient-name');
-  const ppiDate = document.getElementById('ppi-date');
-  const papPatientName = document.getElementById('pap-patient-name');
-  const papDate = document.getElementById('pap-date');
-  
-  if (ppiPatientName) ppiPatientName.addEventListener('input', savePPIData);
-  if (ppiDate) ppiDate.addEventListener('change', savePPIData);
-  if (papPatientName) papPatientName.addEventListener('input', savePAPData);
-  if (papDate) papDate.addEventListener('change', savePAPData);
-});
-
-// Override delle funzioni di selezione per includere il salvataggio
-const originalSelectPPI = selectPPI;
-selectPPI = function(parameter, value) {
-  originalSelectPPI(parameter, value);
-  savePPIData();
-};
-
-const originalSelectPAP = selectPAP;
-selectPAP = function(parameter, value) {
-  originalSelectPAP(parameter, value);
-  savePAPData();
-};
 
