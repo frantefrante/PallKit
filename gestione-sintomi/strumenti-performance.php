@@ -13,7 +13,7 @@
     </div>
 
     <!-- Griglia Strumenti -->
-    <div class="tools-grid">
+    <div class="tools-grid performance-grid">
       <!-- AKPS Card -->
       <div class="tool-card tool-card-compact h-100 akps-card">
         <div class="tool-header">
