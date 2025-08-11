@@ -427,6 +427,10 @@
   position: relative;
 }
 
+.radio-option strong {
+  margin-right: 0.5rem;
+}
+
 .radio-option:hover {
   border-color: var(--primary-performance);
   background: var(--light-performance);

@@ -84,6 +84,38 @@
         </div>
       </div>
 
+      <!-- BADL Card -->
+      <div class="tool-card tool-card-compact h-100 badl-card">
+        <div class="tool-header">
+          <div class="tool-icon-large">
+            <span class="tool-letters">BD</span>
+          </div>
+          <div class="tool-info">
+            <h4>BADL</h4>
+            <div class="tool-subtitle">Basic Activities of Daily Living</div>
+          </div>
+        </div>
+
+        <div class="tool-description">
+          Valutazione delle attività di base della vita quotidiana con sistema di scoring automatico. Versione semplificata per screening rapido e monitoraggio.
+        </div>
+
+        <div class="tool-features">
+          <span class="feature-badge">6 attività</span>
+          <span class="feature-badge">Scala 0-3</span>
+          <span class="feature-badge">Screening</span>
+        </div>
+
+        <div class="tool-actions">
+          <button class="btn btn-primary btn-action" onclick="openBADLCompile()">
+            <i class="fas fa-edit me-2"></i>Compila
+          </button>
+          <button class="btn btn-outline-primary btn-action" onclick="openBADLVisualize()">
+            <i class="fas fa-table me-2"></i>Visualizza
+          </button>
+        </div>
+      </div>
+
       <!-- IADL Card -->
       <div class="tool-card tool-card-compact h-100 iadl-card">
         <div class="tool-header">
@@ -111,38 +143,6 @@
             <i class="fas fa-edit me-2"></i>Compila
           </button>
           <button class="btn btn-outline-primary btn-action" onclick="openIADLVisualize()">
-            <i class="fas fa-table me-2"></i>Visualizza
-          </button>
-        </div>
-      </div>
-
-      <!-- BADL Card -->
-      <div class="tool-card tool-card-compact h-100 badl-card">
-        <div class="tool-header">
-          <div class="tool-icon-large">
-            <span class="tool-letters">BD</span>
-          </div>
-          <div class="tool-info">
-            <h4>BADL</h4>
-            <div class="tool-subtitle">Basic Activities of Daily Living</div>
-          </div>
-        </div>
-        
-        <div class="tool-description">
-          Valutazione delle attività di base della vita quotidiana con sistema di scoring automatico. Versione semplificata per screening rapido e monitoraggio.
-        </div>
-        
-        <div class="tool-features">
-          <span class="feature-badge">6 attività</span>
-          <span class="feature-badge">Scala 0-3</span>
-          <span class="feature-badge">Screening</span>
-        </div>
-        
-        <div class="tool-actions">
-          <button class="btn btn-primary btn-action" onclick="openBADLCompile()">
-            <i class="fas fa-edit me-2"></i>Compila
-          </button>
-          <button class="btn btn-outline-primary btn-action" onclick="openBADLVisualize()">
             <i class="fas fa-table me-2"></i>Visualizza
           </button>
         </div>
@@ -981,6 +981,16 @@
       <div class="info-box">
         <h5><i class="fas fa-info-circle"></i>Informazioni BADL</h5>
         <p>Le Basic Activities of Daily Living rappresentano un rapido screening delle funzioni essenziali per l'autonomia personale. Punteggio totale: 0-18 punti.</p>
+      </div>
+
+      <div class="info-box">
+        <h5><i class="fas fa-list-ol"></i>Legenda punteggi 0-3</h5>
+        <ul>
+          <li><strong>0:</strong> Nessuna difficoltà</li>
+          <li><strong>1:</strong> Qualche difficoltà</li>
+          <li><strong>2:</strong> Grande difficoltà</li>
+          <li><strong>3:</strong> Impossibile</li>
+        </ul>
       </div>
 
       <table class="scale-table">
