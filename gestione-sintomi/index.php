@@ -444,8 +444,11 @@
     <!-- SEZIONE Identificazione -->
     <?php include __DIR__ . '/identificazione.php'; ?>
 
+    <!-- SEZIONE NECPAL 3.1 -->
+    <?php include __DIR__ . '/strumenti-necpal31.php'; ?>
+
     <!-- SEZIONE NECPAL 4.0 -->
-    <?php include __DIR__ . '/strumenti-necpal4.php'; ?>
+    <?php include __DIR__ . '/strumenti-necpal40.php'; ?>
 
     <!-- SEZIONE SPICT -->
     <?php include __DIR__ . '/strumenti-spict.php'; ?>
