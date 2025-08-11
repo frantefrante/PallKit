@@ -236,8 +236,57 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* Stili per modalità visualizza */
+        .spict-mode-selector {
+            background: white;
+            border-radius: 12px;
+            padding: 0.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            display: flex;
+            gap: 0.5rem;
+        }
+        .spict-mode-btn {
+            flex: 1;
+            padding: 0.875rem 1.5rem;
+            border: none;
+            background: transparent;
+            color: #6c757d;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+        }
+        .spict-mode-btn.active {
+            background: linear-gradient(135deg, #2c5aa0, #1e3d6f);
+            color: white;
+            box-shadow: 0 2px 8px rgba(44,90,160,0.3);
+        }
+        .spict-mode-btn:hover:not(.active) {
+            background: rgba(44,90,160,0.1);
+            color: #2c5aa0;
+        }
+        .spict-content-section { display: none; }
+        .spict-content-section.active { display: block; }
     </style>
 
+    <div class="mb-3">
+        <button class="btn btn-outline-success me-2" onclick="navigateToSection('identificazione-home')">
+            <i class="fas fa-arrow-left me-2"></i>Torna a Identificazione
+        </button>
+        <button class="btn btn-outline-primary" onclick="navigateToSection('strumenti-valutazione-home')">
+            <i class="fas fa-arrow-left me-2"></i>Torna alle Categorie
+        </button>
+    </div>
+
+    <div class="spict-mode-selector">
+        <a href="#" class="spict-mode-btn active" data-mode="compile" onclick="switchSpictMode('compile')"><i class="fas fa-edit me-2"></i>Compila</a>
+        <a href="#" class="spict-mode-btn" data-mode="visualize" onclick="switchSpictMode('visualize')"><i class="fas fa-eye me-2"></i>Visualizza</a>
+    </div>
+
+    <div id="spict-compile-section" class="spict-content-section active">
     <div class="container">
         <div class="header">
             <h1>Supportive and Palliative Care Indicators Tool (SPICT™)</h1>
@@ -560,6 +609,189 @@
             <button class="btn" onclick="printResults()">Stampa/Salva Risultati</button>
         </div>
     </div>
+    </div>
+
+    <div id="spict-visualize-section" class="spict-content-section">
+        <div class="spict-template-card">
+            <h3 class="spict-template-title">
+                <i class="fas fa-file-medical me-2"></i>
+                SPICT™ - Schema di Valutazione Template
+            </h3>
+            <p class="text-muted mb-4">
+                Supportive and Palliative Care Indicators Tool (SPICT™) - Strumento per identificare pazienti con bisogni di cure palliative e di supporto. Template vuoto per stampa e uso clinico.
+            </p>
+
+        <!-- Indicatori Generali -->
+        <div class="spict-general-indicators">
+            <div class="spict-general-title">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                Indicatori Generali di Compromissione o Peggioramento
+            </div>
+            <div class="spict-criteria-list">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" disabled>
+                            <label class="form-check-label">Ricovero(i) ospedaliero(i) non programmato(i)</label>
+                        </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" disabled>
+                            <label class="form-check-label">Performance Status basso o in peggioramento</label>
+                        </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" disabled>
+                            <label class="form-check-label">Dipendenza crescente dall'assistenza</label>
+                        </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" disabled>
+                            <label class="form-check-label">Caregiver necessita di maggiore supporto</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" disabled>
+                            <label class="form-check-label">Perdita di peso progressiva</label>
+                        </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" disabled>
+                            <label class="form-check-label">Sintomi persistenti nonostante trattamento</label>
+                        </div>
+        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" disabled>
+                            <label class="form-check-label">Richiesta di cure palliative</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Indicatori Specifici -->
+        <div class="spict-criteria-grid">
+            <div class="spict-criteria-card">
+                <div class="spict-criteria-header"><i class="fas fa-ribbon me-2"></i>Cancro</div>
+                <div class="spict-criteria-content">
+                    <div class="form-check mb-2"><input class="form-check-input" type="checkbox" disabled><label class="form-check-label">Deterioramento funzionale per progressione</label></div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" disabled><label class="form-check-label">Condizioni non permettono terapie oncologiche</label></div>
+                </div>
+            </div>
+
+            <div class="spict-criteria-card">
+                <div class="spict-criteria-header"><i class="fas fa-brain me-2"></i>Demenza/Fragilità</div>
+                <div class="spict-criteria-content">
+                    <div class="form-check mb-2"><input class="form-check-input" type="checkbox" disabled><label class="form-check-label">Incapacità di vestirsi, camminare o mangiare</label></div>
+                    <div class="form-check mb-2"><input class="form-check-input" type="checkbox" disabled><label class="form-check-label">Difficoltà nella deglutizione</label></div>
+                    <div class="form-check mb-2"><input class="form-check-input" type="checkbox" disabled><label class="form-check-label">Incontinenza urinaria e fecale</label></div>
+                    <div class="form-check mb-2"><input class="form-check-input" type="checkbox" disabled><label class="form-check-label">Comunicazione verbale compromessa</label></div>
+                    <div class="form-check mb-2"><input class="form-check-input" type="checkbox" disabled><label class="form-check-label">Cadute frequenti</label></div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" disabled><label class="form-check-label">Infezioni ricorrenti</label></div>
+                </div>
+            </div>
+
+            <div class="spict-criteria-card">
+                <div class="spict-criteria-header"><i class="fas fa-heart me-2"></i>Patologia Cardiaca/Vascolare</div>
+                <div class="spict-criteria-content">
+                    <div class="form-check mb-2"><input class="form-check-input" type="checkbox" disabled><label class="form-check-label">Scompenso cardiaco non trattabile</label></div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" disabled><label class="form-check-label">Malattia vascolare periferica severa</label></div>
+                </div>
+            </div>
+
+            <div class="spict-criteria-card">
+                <div class="spict-criteria-header"><i class="fas fa-lungs me-2"></i>Patologia Respiratoria</div>
+                <div class="spict-criteria-content">
+                    <div class="form-check mb-2"><input class="form-check-input" type="checkbox" disabled><label class="form-check-label">Patologia polmonare severa con dispnea</label></div>
+                    <div class="form-check mb-2"><input class="form-check-input" type="checkbox" disabled><label class="form-check-label">Ipossia persistente</label></div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" disabled><label class="form-check-label">Ventilazione meccanica pregressa</label></div>
+                </div>
+            </div>
+
+            <div class="spict-criteria-card">
+                <div class="spict-criteria-header"><i class="fas fa-kidneys me-2"></i>Patologia Renale</div>
+                <div class="spict-criteria-content">
+                    <div class="form-check mb-2"><input class="form-check-input" type="checkbox" disabled><label class="form-check-label">Insufficienza renale stadio 4-5</label></div>
+                    <div class="form-check mb-2"><input class="form-check-input" type="checkbox" disabled><label class="form-check-label">Insufficienza renale complicante</label></div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" disabled><label class="form-check-label">Dialisi sospesa o non iniziata</label></div>
+                </div>
+            </div>
+
+            <div class="spict-criteria-card">
+                <div class="spict-criteria-header"><i class="fas fa-procedures me-2"></i>Patologia Epatica</div>
+                <div class="spict-criteria-content">
+                    <div class="form-check mb-2"><input class="form-check-input" type="checkbox" disabled><label class="form-check-label">Cirrosi con complicanze multiple</label></div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" disabled><label class="form-check-label">Trapianto di fegato non possibile</label></div>
+                </div>
+            </div>
+
+            <div class="spict-criteria-card">
+                <div class="spict-criteria-header"><i class="fas fa-head-side-virus me-2"></i>Patologia Neurologica</div>
+                <div class="spict-criteria-content">
+                    <div class="form-check mb-2"><input class="form-check-input" type="checkbox" disabled><label class="form-check-label">Deterioramento progressivo funzioni</label></div>
+                    <div class="form-check mb-2"><input class="form-check-input" type="checkbox" disabled><label class="form-check-label">Disturbi della parola e deglutizione</label></div>
+                    <div class="form-check mb-2"><input class="form-check-input" type="checkbox" disabled><label class="form-check-label">Polmonite da aspirazione ricorrente</label></div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" disabled><label class="form-check-label">Paralisi persistente post-ictus</label></div>
+                </div>
+            </div>
+
+            <div class="spict-criteria-card">
+                <div class="spict-criteria-header"><i class="fas fa-ellipsis-h me-2"></i>Altre Patologie</div>
+                <div class="spict-criteria-content">
+                    <div class="form-check"><input class="form-check-input" type="checkbox" disabled><label class="form-check-label">Peggioramento e rischio di morte per altre patologie irreversibili</label></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Raccomandazioni -->
+        <div class="spict-action-recommendations">
+            <div class="spict-action-title">
+                <i class="fas fa-clipboard-list me-2"></i>
+                Raccomandazioni per l'Assistenza
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-check mb-3"><input class="form-check-input" type="checkbox" disabled><label class="form-check-label">Rivalutare i trattamenti in atto</label></div>
+                    <div class="form-check mb-3"><input class="form-check-input" type="checkbox" disabled><label class="form-check-label">Considerare valutazione specialistica</label></div>
+                    <div class="form-check mb-3"><input class="form-check-input" type="checkbox" disabled><label class="form-check-label">Condividere percorso con paziente/famiglia</label></div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-check mb-3"><input class="form-check-input" type="checkbox" disabled><label class="form-check-label">Pianificare precocemente le cure</label></div>
+                    <div class="form-check mb-3"><input class="form-check-input" type="checkbox" disabled><label class="form-check-label">Registrare e comunicare il percorso</label></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dati paziente -->
+        <div class="mt-4 p-3 border rounded">
+            <h5 class="mb-3">Dati Paziente</h5>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="form-label">Nome e Cognome:</label>
+                        <div class="border-bottom" style="height: 2rem;"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Data di nascita:</label>
+                        <div class="border-bottom" style="height: 2rem;"></div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="form-label">Data valutazione:</label>
+                        <div class="border-bottom" style="height: 2rem;"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Medico valutatore:</label>
+                        <div class="border-bottom" style="height: 2rem;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-4">
+            <button class="spict-btn-template" onclick="printSpictTemplate()">
+                <i class="fas fa-print me-2"></i>Stampa Template
+            </button>
+        </div>
+        </div>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -590,5 +822,25 @@
         function printResults() {
             window.print();
         }
+    </script>
+    <script>
+        function switchSpictMode(mode) {
+            const container = document.getElementById('spict-home');
+            container.querySelectorAll('.spict-mode-btn').forEach(btn => btn.classList.remove('active'));
+            const btn = container.querySelector(`.spict-mode-btn[data-mode="${mode}"]`);
+            if (btn) btn.classList.add('active');
+            container.querySelectorAll('.spict-content-section').forEach(sec => sec.classList.remove('active'));
+            const target = container.querySelector('#spict-' + mode + '-section');
+            if (target) target.classList.add('active');
+        }
+
+        function printSpictTemplate() {
+            switchSpictMode('visualize');
+            setTimeout(() => window.print(), 100);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            switchSpictMode('compile');
+        });
     </script>
 </section>

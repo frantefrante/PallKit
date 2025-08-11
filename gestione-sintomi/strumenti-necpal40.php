@@ -313,6 +313,14 @@
             .stage-grid { grid-template-columns: 1fr; }
         }
     </style>
+    <div class="mb-3">
+        <button class="btn btn-outline-success me-2" onclick="navigateToSection('identificazione-home')">
+            <i class="fas fa-arrow-left me-2"></i>Torna a Identificazione
+        </button>
+        <button class="btn btn-outline-primary" onclick="navigateToSection('strumenti-valutazione-home')">
+            <i class="fas fa-arrow-left me-2"></i>Torna alle Categorie
+        </button>
+    </div>
 
     <div class="necpal40-container">
         <div class="necpal40-header">
@@ -326,18 +334,18 @@
         </div>
 
         <div class="mode-selector">
-            <a href="#" class="mode-btn active" onclick="switchNecpal40Mode('compile')">
+            <a href="#" class="mode-btn active" data-mode="compile" onclick="switchNecpal40Mode('compile')">
                 <i class="fas fa-edit me-2"></i>Compila
             </a>
-            <a href="#" class="mode-btn" onclick="switchNecpal40Mode('visualize')">
+            <a href="#" class="mode-btn" data-mode="visualize" onclick="switchNecpal40Mode('visualize')">
                 <i class="fas fa-eye me-2"></i>Visualizza
             </a>
-            <a href="#" class="mode-btn" onclick="switchNecpal40Mode('glossary')">
+            <a href="#" class="mode-btn" data-mode="glossary" onclick="switchNecpal40Mode('glossary')">
                 <i class="fas fa-book me-2"></i>Glossario
             </a>
         </div>
 
-        <div id="compile-section" class="content-section active">
+        <div id="necpal40-compile-section" class="content-section active">
             <div class="patient-info-card">
                 <h3 class="patient-info-title">
                     <i class="fas fa-user-circle"></i>
@@ -451,14 +459,14 @@
                 </div>
             </div>
 
-            <div class="results-section" id="results40-section">
+            <div class="results-section" id="necpal40-results-section">
                 <div class="results-title">
                     <i class="fas fa-chart-pie me-2"></i>
                     Risultati Valutazione NECPAL 4.0
                 </div>
                 <div class="results-grid">
                     <div class="result-card">
-                        <div class="result-number" id="total40-items">0</div>
+                        <div class="result-number" id="necpal40-total-items">0</div>
                         <div class="result-label">Items Selezionati</div>
                     </div>
                     <div class="result-card">
@@ -466,11 +474,11 @@
                         <div class="result-label">Stato NECPAL</div>
                     </div>
                     <div class="result-card">
-                        <div class="result-number" id="stage40">-</div>
+                        <div class="result-number" id="necpal40-stage">-</div>
                         <div class="result-label">Stadio Prognostico</div>
                     </div>
                     <div class="result-card">
-                        <div class="result-number" id="prognosis40">-</div>
+                        <div class="result-number" id="necpal40-prognosis">-</div>
                         <div class="result-label">Prognosi Mediana</div>
                     </div>
                 </div>
@@ -510,7 +518,7 @@
             </div>
         </div>
 
-        <div id="visualize-section" class="content-section">
+        <div id="necpal40-visualize-section" class="content-section">
             <div class="patient-info-card">
                 <h3 class="patient-info-title">
                     <i class="fas fa-file-medical me-2"></i>
@@ -646,7 +654,7 @@
             </div>
         </div>
 
-        <div id="glossary-section" class="content-section">
+        <div id="necpal40-glossary-section" class="content-section">
             <div class="patient-info-card">
                 <h3 class="patient-info-title">
                     <i class="fas fa-book me-2"></i>
@@ -671,10 +679,13 @@
         });
 
         function switchNecpal40Mode(mode) {
-            document.querySelectorAll('#necpal40-home .mode-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            document.querySelectorAll('#necpal40-home .content-section').forEach(section => section.classList.remove('active'));
-            document.getElementById(mode + '-section').classList.add('active');
+            const container = document.getElementById('necpal40-home');
+            container.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
+            const btn = container.querySelector(`.mode-btn[data-mode="${mode}"]`);
+            if (btn) btn.classList.add('active');
+            container.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
+            const target = container.querySelector(`#necpal40-${mode}-section`);
+            if (target) target.classList.add('active');
         }
 
         function handleSurprise40Question() {
@@ -683,7 +694,7 @@
             if (surprise === 'yes') {
                 document.getElementById('necpal40-negative').style.display = 'block';
                 document.getElementById('necpal40-sections').style.display = 'none';
-                document.getElementById('results40-section').style.display = 'none';
+                document.getElementById('necpal40-results-section').style.display = 'none';
             } else {
                 document.getElementById('necpal40-negative').style.display = 'none';
                 document.getElementById('necpal40-sections').style.display = 'block';
@@ -706,10 +717,10 @@
 
         function updateResults40() {
             const totalItems = necpal40Data.items.length;
-            const resultsSection = document.getElementById('results40-section');
+            const resultsSection = document.getElementById('necpal40-results-section');
             if (necpal40Data.surprise === 'no') {
                 resultsSection.style.display = 'block';
-                document.getElementById('total40-items').textContent = totalItems;
+                document.getElementById('necpal40-total-items').textContent = totalItems;
                 if (necpal40Data.items.includes('bisogni-palliativi') && totalItems >= 2) {
                     document.getElementById('necpal40-status').textContent = 'POSITIVO';
                     const clinicalItems = totalItems - 1;
@@ -717,12 +728,12 @@
                     if (clinicalItems >= 1 && clinicalItems <= 2) { stage = 'I'; prognosis = '38 mesi'; }
                     else if (clinicalItems >= 3 && clinicalItems <= 4) { stage = 'II'; prognosis = '17.2 mesi'; }
                     else if (clinicalItems >= 5) { stage = 'III'; prognosis = '3.6 mesi'; }
-                    document.getElementById('stage40').textContent = stage;
-                    document.getElementById('prognosis40').textContent = prognosis;
+                    document.getElementById('necpal40-stage').textContent = stage;
+                    document.getElementById('necpal40-prognosis').textContent = prognosis;
                 } else {
                     document.getElementById('necpal40-status').textContent = 'NEGATIVO';
-                    document.getElementById('stage40').textContent = '-';
-                    document.getElementById('prognosis40').textContent = '-';
+                    document.getElementById('necpal40-stage').textContent = '-';
+                    document.getElementById('necpal40-prognosis').textContent = '-';
                 }
             } else {
                 resultsSection.style.display = 'none';
@@ -744,7 +755,7 @@
                 });
                 document.getElementById('necpal40-negative').style.display = 'none';
                 document.getElementById('necpal40-sections').style.display = 'none';
-                document.getElementById('results40-section').style.display = 'none';
+                document.getElementById('necpal40-results-section').style.display = 'none';
             }
         }
     </script>

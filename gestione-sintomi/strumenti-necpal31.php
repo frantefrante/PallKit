@@ -384,6 +384,14 @@
             }
         }
     </style>
+    <div class="mb-3">
+        <button class="btn btn-outline-success me-2" onclick="navigateToSection('identificazione-home')">
+            <i class="fas fa-arrow-left me-2"></i>Torna a Identificazione
+        </button>
+        <button class="btn btn-outline-primary" onclick="navigateToSection('strumenti-valutazione-home')">
+            <i class="fas fa-arrow-left me-2"></i>Torna alle Categorie
+        </button>
+    </div>
 
     <div class="necpal31-container">
         <div class="necpal31-header">
@@ -397,18 +405,18 @@
         </div>
 
         <div class="mode-selector">
-            <a href="#" class="mode-btn active" onclick="switchNecpal31Mode('compile')">
+            <a href="#" class="mode-btn active" data-mode="compile" onclick="switchNecpal31Mode('compile')">
                 <i class="fas fa-edit me-2"></i>Compila
             </a>
-            <a href="#" class="mode-btn" onclick="switchNecpal31Mode('visualize')">
+            <a href="#" class="mode-btn" data-mode="visualize" onclick="switchNecpal31Mode('visualize')">
                 <i class="fas fa-eye me-2"></i>Visualizza
             </a>
-            <a href="#" class="mode-btn" onclick="switchNecpal31Mode('glossary')">
+            <a href="#" class="mode-btn" data-mode="glossary" onclick="switchNecpal31Mode('glossary')">
                 <i class="fas fa-book me-2"></i>Glossario
             </a>
         </div>
 
-        <div id="compile-section" class="content-section active">
+        <div id="necpal31-compile-section" class="content-section active">
             <div class="patient-info-card">
                 <h3 class="patient-info-title">
                     <i class="fas fa-user-circle"></i>
@@ -458,7 +466,7 @@
                 </div>
             </div>
 
-            <div class="necpal-negative" id="necpal-negative">
+            <div class="necpal-negative" id="necpal31-negative">
                 <h4>
                     <i class="fas fa-info-circle me-2"></i>
                     NECPAL Negativo
@@ -466,7 +474,7 @@
                 <p>La domanda sorprendente è positiva. Il paziente non necessita attualmente di cure palliative specialistiche. È consigliabile rivalutare periodicamente.</p>
             </div>
 
-            <div class="necpal-sections" id="necpal-sections">
+            <div class="necpal-sections" id="necpal31-sections">
                 <div class="necpal-section">
                     <div class="section-header">
                         <i class="fas fa-hand-holding-heart me-2"></i>
@@ -627,22 +635,22 @@
                 </div>
             </div>
 
-            <div class="results-section" id="results-section">
+            <div class="results-section" id="necpal31-results-section">
                 <div class="results-title">
                     <i class="fas fa-chart-pie me-2"></i>
                     Risultati Valutazione NECPAL 3.1
                 </div>
                 <div class="results-grid">
                     <div class="result-card">
-                        <div class="result-number" id="total-items">0</div>
+                        <div class="result-number" id="necpal31-total-items">0</div>
                         <div class="result-label">Items Selezionati</div>
                     </div>
                     <div class="result-card">
-                        <div class="result-number" id="necpal-status">-</div>
+                        <div class="result-number" id="necpal31-status">-</div>
                         <div class="result-label">Stato NECPAL</div>
                     </div>
                     <div class="result-card">
-                        <div class="result-number" id="recommendation">-</div>
+                        <div class="result-number" id="necpal31-recommendation">-</div>
                         <div class="result-label">Raccomandazione</div>
                     </div>
                 </div>
@@ -657,7 +665,7 @@
             </div>
         </div>
 
-        <div id="visualize-section" class="content-section">
+        <div id="necpal31-visualize-section" class="content-section">
             <div class="patient-info-card">
                 <h3 class="patient-info-title">
                     <i class="fas fa-file-medical me-2"></i>
@@ -840,7 +848,7 @@
             </div>
         </div>
 
-        <div id="glossary-section" class="content-section">
+        <div id="necpal31-glossary-section" class="content-section">
             <div class="patient-info-card">
                 <h3 class="patient-info-title">
                     <i class="fas fa-book me-2"></i>
@@ -951,30 +959,33 @@
 
         document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('necpal31-eval-date').value = new Date().toISOString().split('T')[0];
-            document.querySelectorAll('input[name="surprise"]').forEach(radio => {
+            document.querySelectorAll('#necpal31-home input[name="surprise"]').forEach(radio => {
                 radio.addEventListener('change', handleSurpriseQuestion);
             });
         });
 
         function switchNecpal31Mode(mode) {
-            document.querySelectorAll('#necpal31-home .mode-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            document.querySelectorAll('#necpal31-home .content-section').forEach(section => section.classList.remove('active'));
-            document.getElementById(mode + '-section').classList.add('active');
+            const container = document.getElementById('necpal31-home');
+            container.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
+            const btn = container.querySelector(`.mode-btn[data-mode="${mode}"]`);
+            if (btn) btn.classList.add('active');
+            container.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
+            const target = container.querySelector(`#necpal31-${mode}-section`);
+            if (target) target.classList.add('active');
         }
 
         function handleSurpriseQuestion() {
             const surprise = document.querySelector('#necpal31-home input[name="surprise"]:checked').value;
             necpal31Data.surprise = surprise;
             if (surprise === 'yes') {
-                document.getElementById('necpal-negative').style.display = 'block';
-                document.getElementById('necpal-sections').style.display = 'none';
-                document.getElementById('results-section').style.display = 'none';
+                document.getElementById('necpal31-negative').style.display = 'block';
+                document.getElementById('necpal31-sections').style.display = 'none';
+                document.getElementById('necpal31-results-section').style.display = 'none';
             } else {
-                document.getElementById('necpal-negative').style.display = 'none';
-                document.getElementById('necpal-sections').style.display = 'block';
+                document.getElementById('necpal31-negative').style.display = 'none';
+                document.getElementById('necpal31-sections').style.display = 'block';
                 updateResults();
-            }
+        }
         }
 
         function toggleNecpal31Item(element, itemId) {
@@ -994,22 +1005,22 @@
 
         function updateResults() {
             const totalItems = necpal31Data.items.length;
-            const resultsSection = document.getElementById('results-section');
+            const resultsSection = document.getElementById('necpal31-results-section');
             if (necpal31Data.surprise === 'no' && totalItems > 0) {
                 resultsSection.style.display = 'block';
-                document.getElementById('total-items').textContent = totalItems;
+                document.getElementById('necpal31-total-items').textContent = totalItems;
                 if (totalItems >= 1) {
-                    document.getElementById('necpal-status').textContent = 'POSITIVO';
-                    document.getElementById('recommendation').textContent = 'CURE PALLIATIVE';
+                    document.getElementById('necpal31-status').textContent = 'POSITIVO';
+                    document.getElementById('necpal31-recommendation').textContent = 'CURE PALLIATIVE';
                 } else {
-                    document.getElementById('necpal-status').textContent = 'NEGATIVO';
-                    document.getElementById('recommendation').textContent = 'RIVALUTARE';
+                    document.getElementById('necpal31-status').textContent = 'NEGATIVO';
+                    document.getElementById('necpal31-recommendation').textContent = 'RIVALUTARE';
                 }
             } else if (necpal31Data.surprise === 'no') {
                 resultsSection.style.display = 'block';
-                document.getElementById('total-items').textContent = '0';
-                document.getElementById('necpal-status').textContent = 'NEGATIVO';
-                document.getElementById('recommendation').textContent = 'RIVALUTARE';
+                document.getElementById('necpal31-total-items').textContent = '0';
+                document.getElementById('necpal31-status').textContent = 'NEGATIVO';
+                document.getElementById('necpal31-recommendation').textContent = 'RIVALUTARE';
             } else {
                 resultsSection.style.display = 'none';
             }
@@ -1035,9 +1046,9 @@
                     item.classList.remove('selected');
                     item.querySelector('input[type="checkbox"]').checked = false;
                 });
-                document.getElementById('necpal-negative').style.display = 'none';
-                document.getElementById('necpal-sections').style.display = 'none';
-                document.getElementById('results-section').style.display = 'none';
+                document.getElementById('necpal31-negative').style.display = 'none';
+                document.getElementById('necpal31-sections').style.display = 'none';
+                document.getElementById('necpal31-results-section').style.display = 'none';
             }
         }
     </script>

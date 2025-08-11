@@ -19,7 +19,8 @@
       </p>
     </div>
 
-    <div class="tools-grid">
+    <div class="row g-4">
+      <div class="col-md-6">
       <div class="tool-card">
         <div class="tool-header">
           <div class="tool-icon">31</div>
@@ -37,7 +38,9 @@
           <a href="#" class="action-btn btn-outline-warning-custom glossary-btn" onclick="openNecpal31Glossary()"><i class="fas fa-book"></i>Glossario</a>
         </div>
       </div>
+      </div>
 
+      <div class="col-md-6">
       <div class="tool-card">
         <div class="tool-header">
           <div class="tool-icon">40</div>
@@ -55,7 +58,9 @@
           <a href="#" class="action-btn btn-outline-warning-custom glossary-btn" onclick="openNecpal40Glossary()"><i class="fas fa-book"></i>Glossario</a>
         </div>
       </div>
+      </div>
 
+      <div class="col-md-6 mx-auto">
       <div class="tool-card">
         <div class="tool-header">
           <div class="tool-icon">SP</div>
@@ -71,6 +76,7 @@
           <a href="#" class="action-btn btn-primary-custom" onclick="openSPICTCompile()"><i class="fas fa-edit"></i>Compila</a>
           <a href="#" class="action-btn btn-outline-custom" onclick="openSPICTVisualize()"><i class="fas fa-eye"></i>Visualizza</a>
         </div>
+      </div>
       </div>
     </div>
   </div>
