@@ -408,6 +408,15 @@
   gap: 0.8rem;
 }
 
+.domain-group {
+  margin-bottom: 1.5rem;
+}
+
+.domain-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
 .radio-option {
   padding: 1rem 1.5rem;
   border: 2px solid var(--border);
@@ -416,6 +425,10 @@
   transition: all 0.3s ease;
   background: #fafafa;
   position: relative;
+}
+
+.radio-option strong {
+  margin-right: 0.5rem;
 }
 
 .radio-option:hover {

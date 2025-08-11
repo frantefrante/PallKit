@@ -84,38 +84,6 @@
         </div>
       </div>
 
-      <!-- ADL Card -->
-      <div class="tool-card tool-card-compact h-100 adl-card">
-        <div class="tool-header">
-          <div class="tool-icon-large">
-            <span class="tool-letters">ADL</span>
-          </div>
-          <div class="tool-info">
-            <h4>ADL</h4>
-            <div class="tool-subtitle">Activities of Daily Living (Indice di Barthel)</div>
-          </div>
-        </div>
-        
-        <div class="tool-description">
-          Indice di Barthel per valutare l'autonomia nelle attività della vita quotidiana. Strumento gold standard per la valutazione funzionale con 10 domini specifici.
-        </div>
-        
-        <div class="tool-features">
-          <span class="feature-badge">10 attività</span>
-          <span class="feature-badge">Scala 0-100</span>
-          <span class="feature-badge">Gold standard</span>
-        </div>
-        
-        <div class="tool-actions">
-          <button class="btn btn-primary btn-action" onclick="openADLCompile()">
-            <i class="fas fa-edit me-2"></i>Compila
-          </button>
-          <button class="btn btn-outline-primary btn-action" onclick="openADLVisualize()">
-            <i class="fas fa-table me-2"></i>Visualizza
-          </button>
-        </div>
-      </div>
-
       <!-- BADL Card -->
       <div class="tool-card tool-card-compact h-100 badl-card">
         <div class="tool-header">
@@ -127,22 +95,54 @@
             <div class="tool-subtitle">Basic Activities of Daily Living</div>
           </div>
         </div>
-        
+
         <div class="tool-description">
           Valutazione delle attività di base della vita quotidiana con sistema di scoring automatico. Versione semplificata per screening rapido e monitoraggio.
         </div>
-        
+
         <div class="tool-features">
           <span class="feature-badge">6 attività</span>
           <span class="feature-badge">Scala 0-3</span>
           <span class="feature-badge">Screening</span>
         </div>
-        
+
         <div class="tool-actions">
           <button class="btn btn-primary btn-action" onclick="openBADLCompile()">
             <i class="fas fa-edit me-2"></i>Compila
           </button>
           <button class="btn btn-outline-primary btn-action" onclick="openBADLVisualize()">
+            <i class="fas fa-table me-2"></i>Visualizza
+          </button>
+        </div>
+      </div>
+
+      <!-- IADL Card -->
+      <div class="tool-card tool-card-compact h-100 iadl-card">
+        <div class="tool-header">
+          <div class="tool-icon-large">
+            <span class="tool-letters">IA</span>
+          </div>
+          <div class="tool-info">
+            <h4>IADL</h4>
+            <div class="tool-subtitle">Instrumental Activities of Daily Living</div>
+          </div>
+        </div>
+
+        <div class="tool-description">
+          Valutazione delle attività strumentali necessarie per vivere in modo indipendente nella comunità.
+        </div>
+
+        <div class="tool-features">
+          <span class="feature-badge">8 attività</span>
+          <span class="feature-badge">Scala 0-1</span>
+          <span class="feature-badge">Vita indipendente</span>
+        </div>
+
+        <div class="tool-actions">
+          <button class="btn btn-primary btn-action" onclick="openIADLCompile()">
+            <i class="fas fa-edit me-2"></i>Compila
+          </button>
+          <button class="btn btn-outline-primary btn-action" onclick="openIADLVisualize()">
             <i class="fas fa-table me-2"></i>Visualizza
           </button>
         </div>
@@ -658,8 +658,8 @@
     </details>
   </div>
 </section>
-<!-- ADL -->
-<section id="adl-home" class="p-4" style="display:none;">
+<!-- IADL -->
+<section id="iadl-home" class="p-4" style="display:none;">
   <div class="mb-3">
     <button class="btn btn-outline-success me-2" onclick="navigateToSection('strumenti-valutazione-home')">
       <i class="fas fa-arrow-left me-2"></i>Torna alle Categorie
@@ -669,80 +669,137 @@
     </button>
   </div>
   <div class="modal-header">
-    <h3>ADL - Activities of Daily Living (Indice di Barthel)</h3>
-    <p>Valutazione dell'autonomia nelle attività della vita quotidiana</p>
+    <h3>IADL - Instrumental Activities of Daily Living</h3>
+    <p>Valutazione delle attività strumentali della vita quotidiana</p>
   </div>
   <div class="modal-body">
     <div class="mode-selector">
-      <button class="mode-btn active" onclick="switchPerformanceMode('adl', 'compile')">
+      <button class="mode-btn active" onclick="switchPerformanceMode('iadl', 'compile')">
         <i class="fas fa-edit me-2"></i>Compila
       </button>
-      <button class="mode-btn" onclick="switchPerformanceMode('adl', 'view')">
+      <button class="mode-btn" onclick="switchPerformanceMode('iadl', 'view')">
         <i class="fas fa-table me-2"></i>Visualizza Scala
       </button>
     </div>
 
-    <div id="adl-compile" class="content-section active">
+    <div id="iadl-compile" class="content-section active">
       <div class="patient-info">
         <h4><i class="fas fa-user me-2"></i>Dati Paziente</h4>
         <div class="form-row">
           <div class="form-group">
             <label class="form-label">Nome Paziente</label>
-            <input type="text" class="form-control" id="adl-patient-name" placeholder="Inserisci nome paziente">
+            <input type="text" class="form-control" id="iadl-patient-name" placeholder="Inserisci nome paziente">
           </div>
           <div class="form-group">
             <label class="form-label">Data Valutazione</label>
-            <input type="date" class="form-control" id="adl-date">
+            <input type="date" class="form-control" id="iadl-date">
           </div>
         </div>
       </div>
 
       <div class="info-box">
-        <h5><i class="fas fa-info-circle"></i>Istruzioni</h5>
-        <p>L'Indice di Barthel valuta 10 attività della vita quotidiana. Per una valutazione completa e accurata, si consiglia di utilizzare il template stampabile.</p>
-      </div>
-
-      <div class="form-section">
-        <h4>Attività da valutare</h4>
-        <p><strong>Nota:</strong> Questa è una versione semplificata. Per la valutazione completa utilizzare il modulo cartaceo o la versione online dedicata.</p>
-        <div class="info-box">
-          <h5><i class="fas fa-list"></i>Le 10 attività del Barthel Index</h5>
-          <ul>
-            <li><strong>Alimentazione</strong> (0-2 punti) - Capacità di portare il cibo alla bocca</li>
-            <li><strong>Bagno</strong> (0-1 punto) - Capacità di lavarsi completamente</li>
-            <li><strong>Cura personale</strong> (0-1 punto) - Igiene di base, denti, capelli</li>
-            <li><strong>Vestirsi</strong> (0-2 punti) - Indossare e togliere i vestiti</li>
-            <li><strong>Controllo intestinale</strong> (0-2 punti) - Continenza fecale</li>
-            <li><strong>Controllo vescicale</strong> (0-2 punti) - Continenza urinaria</li>
-            <li><strong>Uso del WC</strong> (0-2 punti) - Transfert e igiene al WC</li>
-            <li><strong>Trasferimento letto-sedia</strong> (0-3 punti) - Capacità di spostarsi</li>
-            <li><strong>Mobilità</strong> (0-3 punti) - Deambulazione su superfici piane</li>
-            <li><strong>Scale</strong> (0-2 punti) - Salire e scendere le scale</li>
-          </ul>
-        </div>
+        <h5><i class="fas fa-info-circle"></i>Istruzioni IADL</h5>
+        <p>Per ogni attività seleziona se il paziente è indipendente (1) o dipendente (0).</p>
       </div>
 
       <div class="progress-container">
         <div class="progress-label">
-          <span>Per valutazione completa</span>
-          <span>Utilizza template</span>
+          <span>Completamento valutazione</span>
+          <span id="iadl-progress-text">0%</span>
         </div>
         <div class="progress-bar">
-          <div class="progress-fill" style="width: 0%"></div>
+          <div class="progress-fill" id="iadl-progress" style="width: 0%"></div>
         </div>
       </div>
 
+      <div class="form-section">
+        <h4>Attività strumentali</h4>
+
+        <div class="domain-group">
+          <label><strong>1. Uso del telefono</strong></label>
+          <div class="radio-grid" id="iadl-phone-group">
+            <div class="radio-option" onclick="selectIADL('phone', 1, this)">1 - Indipendente</div>
+            <div class="radio-option" onclick="selectIADL('phone', 0, this)">0 - Dipendente</div>
+          </div>
+        </div>
+
+        <div class="domain-group">
+          <label><strong>2. Shopping</strong></label>
+          <div class="radio-grid" id="iadl-shopping-group">
+            <div class="radio-option" onclick="selectIADL('shopping', 1, this)">1 - Indipendente</div>
+            <div class="radio-option" onclick="selectIADL('shopping', 0, this)">0 - Dipendente</div>
+          </div>
+        </div>
+
+        <div class="domain-group">
+          <label><strong>3. Preparazione del cibo</strong></label>
+          <div class="radio-grid" id="iadl-food-group">
+            <div class="radio-option" onclick="selectIADL('food', 1, this)">1 - Indipendente</div>
+            <div class="radio-option" onclick="selectIADL('food', 0, this)">0 - Dipendente</div>
+          </div>
+        </div>
+
+        <div class="domain-group">
+          <label><strong>4. Gestione casa</strong></label>
+          <div class="radio-grid" id="iadl-housekeeping-group">
+            <div class="radio-option" onclick="selectIADL('housekeeping', 1, this)">1 - Indipendente</div>
+            <div class="radio-option" onclick="selectIADL('housekeeping', 0, this)">0 - Dipendente</div>
+          </div>
+        </div>
+
+        <div class="domain-group">
+          <label><strong>5. Lavanderia</strong></label>
+          <div class="radio-grid" id="iadl-laundry-group">
+            <div class="radio-option" onclick="selectIADL('laundry', 1, this)">1 - Indipendente</div>
+            <div class="radio-option" onclick="selectIADL('laundry', 0, this)">0 - Dipendente</div>
+          </div>
+        </div>
+
+        <div class="domain-group">
+          <label><strong>6. Trasporti</strong></label>
+          <div class="radio-grid" id="iadl-transport-group">
+            <div class="radio-option" onclick="selectIADL('transport', 1, this)">1 - Indipendente</div>
+            <div class="radio-option" onclick="selectIADL('transport', 0, this)">0 - Dipendente</div>
+          </div>
+        </div>
+
+        <div class="domain-group">
+          <label><strong>7. Gestione farmaci</strong></label>
+          <div class="radio-grid" id="iadl-medications-group">
+            <div class="radio-option" onclick="selectIADL('medications', 1, this)">1 - Indipendente</div>
+            <div class="radio-option" onclick="selectIADL('medications', 0, this)">0 - Dipendente</div>
+          </div>
+        </div>
+
+        <div class="domain-group">
+          <label><strong>8. Gestione finanze</strong></label>
+          <div class="radio-grid" id="iadl-finances-group">
+            <div class="radio-option" onclick="selectIADL('finances', 1, this)">1 - Indipendente</div>
+            <div class="radio-option" onclick="selectIADL('finances', 0, this)">0 - Dipendente</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="iadl-results" class="score-display" style="display: none;">
+        <div class="score-number" id="iadl-score">-</div>
+        <div class="score-interpretation" id="iadl-interpretation">-</div>
+        <div class="score-description" id="iadl-description">-</div>
+      </div>
+
       <div class="action-buttons">
-        <button class="btn btn-success" onclick="window.open('#', '_blank')">
-          <i class="fas fa-external-link-alt"></i>Versione Online Completa
+        <button class="btn btn-success" onclick="printPerformanceSheet('iadl')">
+          <i class="fas fa-print"></i>Stampa Scheda
+        </button>
+        <button class="btn btn-danger" onclick="resetPerformanceForm('iadl')">
+          <i class="fas fa-redo"></i>Azzera
         </button>
       </div>
     </div>
 
-    <div id="adl-view" class="content-section">
+    <div id="iadl-view" class="content-section">
       <div class="info-box">
-        <h5><i class="fas fa-info-circle"></i>Informazioni ADL (Indice di Barthel)</h5>
-        <p>L'Indice di Barthel è lo strumento gold standard per valutare l'autonomia nelle attività della vita quotidiana. Punteggio massimo: 100 punti.</p>
+        <h5><i class="fas fa-info-circle"></i>Informazioni IADL</h5>
+        <p>Le Instrumental Activities of Daily Living valutano la capacità di vivere in autonomia nella comunità. Punteggio totale: 0-8 punti.</p>
       </div>
 
       <table class="scale-table">
@@ -750,36 +807,34 @@
           <tr>
             <th>Attività</th>
             <th>Punteggio</th>
-            <th>Criteri di valutazione</th>
+            <th>Descrizione</th>
           </tr>
         </thead>
         <tbody>
-          <tr><td><strong>Alimentazione</strong></td><td>0-2</td><td>0=assistenza; 1=aiuto tagliare; 2=indipendente</td></tr>
-          <tr><td><strong>Bagno</strong></td><td>0-1</td><td>0=dipendente; 1=indipendente</td></tr>
-          <tr><td><strong>Cura personale</strong></td><td>0-1</td><td>0=assistenza; 1=indipendente</td></tr>
-          <tr><td><strong>Vestirsi</strong></td><td>0-2</td><td>0=dipendente; 1=assistenza; 2=indipendente</td></tr>
-          <tr><td><strong>Controllo intestinale</strong></td><td>0-2</td><td>0=incontinente; 1=occasionale; 2=continente</td></tr>
-          <tr><td><strong>Controllo vescicale</strong></td><td>0-2</td><td>0=incontinente; 1=occasionale; 2=continente</td></tr>
-          <tr><td><strong>Uso WC</strong></td><td>0-2</td><td>0=dipendente; 1=assistenza; 2=indipendente</td></tr>
-          <tr><td><strong>Trasferimento</strong></td><td>0-3</td><td>0=incapace; 1=assistenza maggiore; 2=minore; 3=indipendente</td></tr>
-          <tr><td><strong>Mobilità</strong></td><td>0-3</td><td>0=immobile; 1=sedia rotelle; 2=aiuto; 3=indipendente</td></tr>
-          <tr><td><strong>Scale</strong></td><td>0-2</td><td>0=incapace; 1=assistenza; 2=indipendente</td></tr>
+          <tr><td>Uso del telefono</td><td>1/0</td><td>1 = indipendente, 0 = non usa il telefono</td></tr>
+          <tr><td>Shopping</td><td>1/0</td><td>1 = fa acquisti autonomamente</td></tr>
+          <tr><td>Preparazione del cibo</td><td>1/0</td><td>1 = prepara pasti adeguati</td></tr>
+          <tr><td>Gestione casa</td><td>1/0</td><td>1 = mantiene la casa in ordine</td></tr>
+          <tr><td>Lavanderia</td><td>1/0</td><td>1 = lava i propri vestiti</td></tr>
+          <tr><td>Trasporti</td><td>1/0</td><td>1 = viaggia autonomamente</td></tr>
+          <tr><td>Gestione farmaci</td><td>1/0</td><td>1 = assume correttamente i farmaci</td></tr>
+          <tr><td>Gestione finanze</td><td>1/0</td><td>1 = gestisce denaro e bollette</td></tr>
         </tbody>
       </table>
 
       <div class="info-box">
-        <h5><i class="fas fa-chart-bar"></i>Interpretazione Punteggi</h5>
+        <h5><i class="fas fa-chart-pie"></i>Interpretazione Punteggio Totale (0-8)</h5>
         <ul>
-          <li><strong>0-20:</strong> Dipendenza totale - Necessita assistenza completa</li>
-          <li><strong>21-60:</strong> Dipendenza severa - Richiede assistenza maggiore</li>
-          <li><strong>61-90:</strong> Dipendenza moderata - Necessita supporto parziale</li>
-          <li><strong>91-99:</strong> Dipendenza lieve - Quasi indipendente</li>
-          <li><strong>100:</strong> Indipendenza completa - Totalmente autonomo</li>
+          <li><strong>0:</strong> Massima dipendenza</li>
+          <li><strong>1-2:</strong> Dipendenza severa</li>
+          <li><strong>3-4:</strong> Dipendenza moderata</li>
+          <li><strong>5-6:</strong> Dipendenza lieve</li>
+          <li><strong>7-8:</strong> Indipendenza elevata</li>
         </ul>
       </div>
 
       <div class="action-buttons">
-        <button class="btn btn-warning" onclick="printPerformanceTemplate('adl')">
+        <button class="btn btn-warning" onclick="printPerformanceTemplate('iadl')">
           <i class="fas fa-print"></i>Stampa Template
         </button>
       </div>
@@ -829,38 +884,95 @@
 
       <div class="info-box">
         <h5><i class="fas fa-info-circle"></i>Istruzioni BADL</h5>
-        <p>Valuta le 6 attività di base usando la scala 0-3 per ogni attività. Tempo di compilazione: 5-10 minuti. Versione completa disponibile tramite template.</p>
-      </div>
-
-      <div class="form-section">
-        <h4>Attività di base da valutare</h4>
-        <p><strong>Scala:</strong> 0 = Nessuna difficoltà | 1 = Qualche difficoltà | 2 = Grande difficoltà | 3 = Impossibile</p>
-        <div class="info-box">
-          <h5><i class="fas fa-tasks"></i>Le 6 attività BADL</h5>
-          <ul>
-            <li><strong>Igiene personale</strong> - Lavarsi, cura denti, capelli, rasarsi</li>
-            <li><strong>Vestirsi</strong> - Indossare e togliere vestiti, scarpe</li>
-            <li><strong>Alimentarsi</strong> - Portare cibo alla bocca, masticare, deglutire</li>
-            <li><strong>Trasferimenti</strong> - Alzarsi, sedersi, spostarsi da letto a sedia</li>
-            <li><strong>Mobilità nel letto</strong> - Girarsi, alzarsi, posizionarsi</li>
-            <li><strong>Controllo sfinterico</strong> - Controllo vescica e intestino</li>
-          </ul>
-        </div>
+        <p>Per ogni attività seleziona il livello di difficoltà da 0 (nessuna) a 3 (impossibile).</p>
       </div>
 
       <div class="progress-container">
         <div class="progress-label">
-          <span>Per valutazione completa</span>
-          <span>Utilizza template</span>
+          <span>Completamento valutazione</span>
+          <span id="badl-progress-text">0%</span>
         </div>
         <div class="progress-bar">
-          <div class="progress-fill" style="width: 0%"></div>
+          <div class="progress-fill" id="badl-progress" style="width: 0%"></div>
         </div>
       </div>
 
+      <div class="form-section">
+        <h4>Attività di base</h4>
+
+        <div class="domain-group">
+          <label><strong>1. Igiene personale</strong></label>
+          <div class="radio-grid" id="badl-hygiene-group">
+            <div class="radio-option" onclick="selectBADL('hygiene', 0, this)"><strong>0</strong> Nessuna difficoltà</div>
+            <div class="radio-option" onclick="selectBADL('hygiene', 1, this)"><strong>1</strong> Qualche difficoltà</div>
+            <div class="radio-option" onclick="selectBADL('hygiene', 2, this)"><strong>2</strong> Grande difficoltà</div>
+            <div class="radio-option" onclick="selectBADL('hygiene', 3, this)"><strong>3</strong> Impossibile</div>
+          </div>
+        </div>
+
+        <div class="domain-group">
+          <label><strong>2. Vestirsi</strong></label>
+          <div class="radio-grid" id="badl-dressing-group">
+            <div class="radio-option" onclick="selectBADL('dressing', 0, this)"><strong>0</strong> Nessuna difficoltà</div>
+            <div class="radio-option" onclick="selectBADL('dressing', 1, this)"><strong>1</strong> Qualche difficoltà</div>
+            <div class="radio-option" onclick="selectBADL('dressing', 2, this)"><strong>2</strong> Grande difficoltà</div>
+            <div class="radio-option" onclick="selectBADL('dressing', 3, this)"><strong>3</strong> Impossibile</div>
+          </div>
+        </div>
+
+        <div class="domain-group">
+          <label><strong>3. Alimentarsi</strong></label>
+          <div class="radio-grid" id="badl-feeding-group">
+            <div class="radio-option" onclick="selectBADL('feeding', 0, this)"><strong>0</strong> Nessuna difficoltà</div>
+            <div class="radio-option" onclick="selectBADL('feeding', 1, this)"><strong>1</strong> Qualche difficoltà</div>
+            <div class="radio-option" onclick="selectBADL('feeding', 2, this)"><strong>2</strong> Grande difficoltà</div>
+            <div class="radio-option" onclick="selectBADL('feeding', 3, this)"><strong>3</strong> Impossibile</div>
+          </div>
+        </div>
+
+        <div class="domain-group">
+          <label><strong>4. Trasferimenti</strong></label>
+          <div class="radio-grid" id="badl-transfer-group">
+            <div class="radio-option" onclick="selectBADL('transfer', 0, this)"><strong>0</strong> Nessuna difficoltà</div>
+            <div class="radio-option" onclick="selectBADL('transfer', 1, this)"><strong>1</strong> Qualche difficoltà</div>
+            <div class="radio-option" onclick="selectBADL('transfer', 2, this)"><strong>2</strong> Grande difficoltà</div>
+            <div class="radio-option" onclick="selectBADL('transfer', 3, this)"><strong>3</strong> Impossibile</div>
+          </div>
+        </div>
+
+        <div class="domain-group">
+          <label><strong>5. Mobilità nel letto</strong></label>
+          <div class="radio-grid" id="badl-mobility-group">
+            <div class="radio-option" onclick="selectBADL('mobility', 0, this)"><strong>0</strong> Nessuna difficoltà</div>
+            <div class="radio-option" onclick="selectBADL('mobility', 1, this)"><strong>1</strong> Qualche difficoltà</div>
+            <div class="radio-option" onclick="selectBADL('mobility', 2, this)"><strong>2</strong> Grande difficoltà</div>
+            <div class="radio-option" onclick="selectBADL('mobility', 3, this)"><strong>3</strong> Impossibile</div>
+          </div>
+        </div>
+
+        <div class="domain-group">
+          <label><strong>6. Controllo sfinterico</strong></label>
+          <div class="radio-grid" id="badl-continence-group">
+            <div class="radio-option" onclick="selectBADL('continence', 0, this)"><strong>0</strong> Nessuna difficoltà</div>
+            <div class="radio-option" onclick="selectBADL('continence', 1, this)"><strong>1</strong> Qualche difficoltà</div>
+            <div class="radio-option" onclick="selectBADL('continence', 2, this)"><strong>2</strong> Grande difficoltà</div>
+            <div class="radio-option" onclick="selectBADL('continence', 3, this)"><strong>3</strong> Impossibile</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="badl-results" class="score-display" style="display: none;">
+        <div class="score-number" id="badl-score">-</div>
+        <div class="score-interpretation" id="badl-interpretation">-</div>
+        <div class="score-description" id="badl-description">-</div>
+      </div>
+
       <div class="action-buttons">
-        <button class="btn btn-success" onclick="window.open('#', '_blank')">
-          <i class="fas fa-external-link-alt"></i>Versione Online Completa
+        <button class="btn btn-success" onclick="printPerformanceSheet('badl')">
+          <i class="fas fa-print"></i>Stampa Scheda
+        </button>
+        <button class="btn btn-danger" onclick="resetPerformanceForm('badl')">
+          <i class="fas fa-redo"></i>Azzera
         </button>
       </div>
     </div>
@@ -869,6 +981,16 @@
       <div class="info-box">
         <h5><i class="fas fa-info-circle"></i>Informazioni BADL</h5>
         <p>Le Basic Activities of Daily Living rappresentano un rapido screening delle funzioni essenziali per l'autonomia personale. Punteggio totale: 0-18 punti.</p>
+      </div>
+
+      <div class="info-box">
+        <h5><i class="fas fa-list-ol"></i>Legenda punteggi 0-3</h5>
+        <ul>
+          <li><strong>0:</strong> Nessuna difficoltà</li>
+          <li><strong>1:</strong> Qualche difficoltà</li>
+          <li><strong>2:</strong> Grande difficoltà</li>
+          <li><strong>3:</strong> Impossibile</li>
+        </ul>
       </div>
 
       <table class="scale-table">

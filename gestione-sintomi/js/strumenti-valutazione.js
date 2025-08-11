@@ -366,17 +366,17 @@ function openPPSVisualize() {
   }
 }
 
-function openADLCompile() {
-  navigateToSection('adl-home');
+function openIADLCompile() {
+  navigateToSection('iadl-home');
   if (typeof switchPerformanceMode === 'function') {
-    switchPerformanceMode('adl', 'compile');
+    switchPerformanceMode('iadl', 'compile');
   }
 }
 
-function openADLVisualize() {
-  navigateToSection('adl-home');
+function openIADLVisualize() {
+  navigateToSection('iadl-home');
   if (typeof switchPerformanceMode === 'function') {
-    switchPerformanceMode('adl', 'view');
+    switchPerformanceMode('iadl', 'view');
   }
 }
 
