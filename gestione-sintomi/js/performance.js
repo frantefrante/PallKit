@@ -10,9 +10,11 @@ let performanceData = {
 
 // BADL scores specifici  
 let badlScores = {
-  hygiene: null, dressing: null, feeding: null, 
+  hygiene: null, dressing: null, feeding: null,
   transfer: null, mobility: null, continence: null
 };
+
+const iadlDomains = ['phone', 'shopping', 'food', 'housekeeping', 'laundry', 'transport', 'medications', 'finances'];
 
 // === INIZIALIZZAZIONE ===
 document.addEventListener('DOMContentLoaded', function() {
@@ -230,6 +232,91 @@ function showPartialBADLResult(currentScore, completed, total) {
   resultsDiv.style.display = 'block';
 }
 
+// === IADL FUNCTIONS ===
+function selectIADL(domain, score, element) {
+  performanceData.iadl.scores[domain] = parseInt(score);
+
+  const group = document.getElementById(`iadl-${domain}-group`);
+  if (group) {
+    group.querySelectorAll('.radio-option').forEach(opt => opt.classList.remove('selected'));
+  }
+
+  if (element) element.classList.add('selected');
+
+  calculateIADLScore();
+}
+
+function calculateIADLScore() {
+  let totalScore = 0;
+  let completedItems = 0;
+
+  iadlDomains.forEach(domain => {
+    const val = performanceData.iadl.scores[domain];
+    if (val !== undefined && val !== null) {
+      totalScore += val;
+      completedItems++;
+    }
+  });
+
+  performanceData.iadl.total = totalScore;
+
+  const progressPercentage = Math.round((completedItems / iadlDomains.length) * 100);
+  updateProgress('iadl', progressPercentage);
+
+  if (completedItems === iadlDomains.length) {
+    showIADLResult(totalScore);
+  } else {
+    showPartialIADLResult(totalScore, completedItems, iadlDomains.length);
+  }
+}
+
+function showIADLResult(totalScore) {
+  const resultsDiv = document.getElementById('iadl-results');
+  const scoreNum = document.getElementById('iadl-score');
+  const interpretation = document.getElementById('iadl-interpretation');
+  const description = document.getElementById('iadl-description');
+
+  if (!resultsDiv || !scoreNum || !interpretation || !description) return;
+
+  scoreNum.textContent = totalScore;
+
+  let interp, desc;
+  if (totalScore >= 7) {
+    interp = "Indipendenza elevata";
+    desc = "Il paziente può vivere indipendentemente nella comunità.";
+  } else if (totalScore >= 5) {
+    interp = "Dipendenza lieve";
+    desc = "Il paziente necessita di supporto limitato per alcune attività strumentali.";
+  } else if (totalScore >= 3) {
+    interp = "Dipendenza moderata";
+    desc = "Il paziente necessita di assistenza significativa per diverse attività.";
+  } else if (totalScore >= 1) {
+    interp = "Dipendenza severa";
+    desc = "Il paziente ha gravi limitazioni nella vita indipendente.";
+  } else {
+    interp = "Massima dipendenza";
+    desc = "Il paziente richiede assistenza completa per tutte le attività strumentali.";
+  }
+
+  interpretation.textContent = interp;
+  description.textContent = desc;
+  resultsDiv.style.display = 'block';
+}
+
+function showPartialIADLResult(currentScore, completed, total) {
+  const resultsDiv = document.getElementById('iadl-results');
+  const scoreNum = document.getElementById('iadl-score');
+  const interpretation = document.getElementById('iadl-interpretation');
+  const description = document.getElementById('iadl-description');
+
+  if (!resultsDiv || !scoreNum || !interpretation || !description) return;
+
+  scoreNum.textContent = currentScore;
+  interpretation.textContent = `Valutazione parziale (${completed}/${total})`;
+  description.textContent = "Completa tutte le attività per ottenere il punteggio finale.";
+  resultsDiv.style.display = 'block';
+}
+
 // === UTILITY FUNCTIONS ===
 function updateProgress(toolId, percentage) {
   const progressBar = document.getElementById(`${toolId}-progress`);
@@ -262,12 +349,12 @@ function resetPerformanceForm(toolId) {
       hygiene: null, dressing: null, feeding: null,
       transfer: null, mobility: null, continence: null
     };
+    performanceData.badl = { scores: {}, total: 0, patientName: '', date: '' };
   } else if (toolId === 'iadl') {
-    performanceData.iadl.scores = {};
+    performanceData.iadl = { scores: {}, total: 0, patientName: '', date: '' };
+  } else {
+    performanceData[toolId] = { score: null, patientName: '', date: '' };
   }
-  
-  // Reset dati generali
-  performanceData[toolId] = { score: null, patientName: '', date: '' };
   
   // Reset progress
   updateProgress(toolId, 0);

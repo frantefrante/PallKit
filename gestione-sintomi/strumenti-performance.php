@@ -699,40 +699,99 @@
 
       <div class="info-box">
         <h5><i class="fas fa-info-circle"></i>Istruzioni IADL</h5>
-        <p>Valuta le 8 attività strumentali utilizzando la scala binaria: 1 = indipendente, 0 = dipendente. Per la valutazione completa è disponibile il template stampabile.</p>
-      </div>
-
-      <div class="form-section">
-        <h4>Attività strumentali da valutare</h4>
-        <p><strong>Scala:</strong> 1 = Indipendente | 0 = Dipendente</p>
-        <div class="info-box">
-          <h5><i class="fas fa-tasks"></i>Le 8 attività IADL</h5>
-          <ul>
-            <li>Capacità di usare il telefono</li>
-            <li>Shopping</li>
-            <li>Preparazione del cibo</li>
-            <li>Gestione della casa</li>
-            <li>Lavanderia</li>
-            <li>Trasporti</li>
-            <li>Gestione dei farmaci</li>
-            <li>Gestione delle finanze</li>
-          </ul>
-        </div>
+        <p>Per ogni attività seleziona se il paziente è indipendente (1) o dipendente (0).</p>
       </div>
 
       <div class="progress-container">
         <div class="progress-label">
-          <span>Per valutazione completa</span>
-          <span>Utilizza template</span>
+          <span>Completamento valutazione</span>
+          <span id="iadl-progress-text">0%</span>
         </div>
         <div class="progress-bar">
-          <div class="progress-fill" style="width: 0%"></div>
+          <div class="progress-fill" id="iadl-progress" style="width: 0%"></div>
         </div>
       </div>
 
+      <div class="form-section">
+        <h4>Attività strumentali</h4>
+
+        <div class="domain-group">
+          <label><strong>1. Uso del telefono</strong></label>
+          <div class="radio-grid" id="iadl-phone-group">
+            <div class="radio-option" onclick="selectIADL('phone', 1, this)">1 - Indipendente</div>
+            <div class="radio-option" onclick="selectIADL('phone', 0, this)">0 - Dipendente</div>
+          </div>
+        </div>
+
+        <div class="domain-group">
+          <label><strong>2. Shopping</strong></label>
+          <div class="radio-grid" id="iadl-shopping-group">
+            <div class="radio-option" onclick="selectIADL('shopping', 1, this)">1 - Indipendente</div>
+            <div class="radio-option" onclick="selectIADL('shopping', 0, this)">0 - Dipendente</div>
+          </div>
+        </div>
+
+        <div class="domain-group">
+          <label><strong>3. Preparazione del cibo</strong></label>
+          <div class="radio-grid" id="iadl-food-group">
+            <div class="radio-option" onclick="selectIADL('food', 1, this)">1 - Indipendente</div>
+            <div class="radio-option" onclick="selectIADL('food', 0, this)">0 - Dipendente</div>
+          </div>
+        </div>
+
+        <div class="domain-group">
+          <label><strong>4. Gestione casa</strong></label>
+          <div class="radio-grid" id="iadl-housekeeping-group">
+            <div class="radio-option" onclick="selectIADL('housekeeping', 1, this)">1 - Indipendente</div>
+            <div class="radio-option" onclick="selectIADL('housekeeping', 0, this)">0 - Dipendente</div>
+          </div>
+        </div>
+
+        <div class="domain-group">
+          <label><strong>5. Lavanderia</strong></label>
+          <div class="radio-grid" id="iadl-laundry-group">
+            <div class="radio-option" onclick="selectIADL('laundry', 1, this)">1 - Indipendente</div>
+            <div class="radio-option" onclick="selectIADL('laundry', 0, this)">0 - Dipendente</div>
+          </div>
+        </div>
+
+        <div class="domain-group">
+          <label><strong>6. Trasporti</strong></label>
+          <div class="radio-grid" id="iadl-transport-group">
+            <div class="radio-option" onclick="selectIADL('transport', 1, this)">1 - Indipendente</div>
+            <div class="radio-option" onclick="selectIADL('transport', 0, this)">0 - Dipendente</div>
+          </div>
+        </div>
+
+        <div class="domain-group">
+          <label><strong>7. Gestione farmaci</strong></label>
+          <div class="radio-grid" id="iadl-medications-group">
+            <div class="radio-option" onclick="selectIADL('medications', 1, this)">1 - Indipendente</div>
+            <div class="radio-option" onclick="selectIADL('medications', 0, this)">0 - Dipendente</div>
+          </div>
+        </div>
+
+        <div class="domain-group">
+          <label><strong>8. Gestione finanze</strong></label>
+          <div class="radio-grid" id="iadl-finances-group">
+            <div class="radio-option" onclick="selectIADL('finances', 1, this)">1 - Indipendente</div>
+            <div class="radio-option" onclick="selectIADL('finances', 0, this)">0 - Dipendente</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="iadl-results" class="score-display" style="display: none;">
+        <div class="score-number" id="iadl-score">-</div>
+        <div class="score-interpretation" id="iadl-interpretation">-</div>
+        <div class="score-description" id="iadl-description">-</div>
+      </div>
+
       <div class="action-buttons">
-        <button class="btn btn-success" onclick="window.open('#', '_blank')">
-          <i class="fas fa-external-link-alt"></i>Versione Online Completa
+        <button class="btn btn-success" onclick="printPerformanceSheet('iadl')">
+          <i class="fas fa-print"></i>Stampa Scheda
+        </button>
+        <button class="btn btn-danger" onclick="resetPerformanceForm('iadl')">
+          <i class="fas fa-redo"></i>Azzera
         </button>
       </div>
     </div>
@@ -825,38 +884,95 @@
 
       <div class="info-box">
         <h5><i class="fas fa-info-circle"></i>Istruzioni BADL</h5>
-        <p>Valuta le 6 attività di base usando la scala 0-3 per ogni attività. Tempo di compilazione: 5-10 minuti. Versione completa disponibile tramite template.</p>
-      </div>
-
-      <div class="form-section">
-        <h4>Attività di base da valutare</h4>
-        <p><strong>Scala:</strong> 0 = Nessuna difficoltà | 1 = Qualche difficoltà | 2 = Grande difficoltà | 3 = Impossibile</p>
-        <div class="info-box">
-          <h5><i class="fas fa-tasks"></i>Le 6 attività BADL</h5>
-          <ul>
-            <li><strong>Igiene personale</strong> - Lavarsi, cura denti, capelli, rasarsi</li>
-            <li><strong>Vestirsi</strong> - Indossare e togliere vestiti, scarpe</li>
-            <li><strong>Alimentarsi</strong> - Portare cibo alla bocca, masticare, deglutire</li>
-            <li><strong>Trasferimenti</strong> - Alzarsi, sedersi, spostarsi da letto a sedia</li>
-            <li><strong>Mobilità nel letto</strong> - Girarsi, alzarsi, posizionarsi</li>
-            <li><strong>Controllo sfinterico</strong> - Controllo vescica e intestino</li>
-          </ul>
-        </div>
+        <p>Per ogni attività seleziona il livello di difficoltà da 0 (nessuna) a 3 (impossibile).</p>
       </div>
 
       <div class="progress-container">
         <div class="progress-label">
-          <span>Per valutazione completa</span>
-          <span>Utilizza template</span>
+          <span>Completamento valutazione</span>
+          <span id="badl-progress-text">0%</span>
         </div>
         <div class="progress-bar">
-          <div class="progress-fill" style="width: 0%"></div>
+          <div class="progress-fill" id="badl-progress" style="width: 0%"></div>
         </div>
       </div>
 
+      <div class="form-section">
+        <h4>Attività di base</h4>
+
+        <div class="domain-group">
+          <label><strong>1. Igiene personale</strong></label>
+          <div class="radio-grid" id="badl-hygiene-group">
+            <div class="radio-option" onclick="selectBADL('hygiene', 0, this)"><strong>0</strong> Nessuna difficoltà</div>
+            <div class="radio-option" onclick="selectBADL('hygiene', 1, this)"><strong>1</strong> Qualche difficoltà</div>
+            <div class="radio-option" onclick="selectBADL('hygiene', 2, this)"><strong>2</strong> Grande difficoltà</div>
+            <div class="radio-option" onclick="selectBADL('hygiene', 3, this)"><strong>3</strong> Impossibile</div>
+          </div>
+        </div>
+
+        <div class="domain-group">
+          <label><strong>2. Vestirsi</strong></label>
+          <div class="radio-grid" id="badl-dressing-group">
+            <div class="radio-option" onclick="selectBADL('dressing', 0, this)"><strong>0</strong> Nessuna difficoltà</div>
+            <div class="radio-option" onclick="selectBADL('dressing', 1, this)"><strong>1</strong> Qualche difficoltà</div>
+            <div class="radio-option" onclick="selectBADL('dressing', 2, this)"><strong>2</strong> Grande difficoltà</div>
+            <div class="radio-option" onclick="selectBADL('dressing', 3, this)"><strong>3</strong> Impossibile</div>
+          </div>
+        </div>
+
+        <div class="domain-group">
+          <label><strong>3. Alimentarsi</strong></label>
+          <div class="radio-grid" id="badl-feeding-group">
+            <div class="radio-option" onclick="selectBADL('feeding', 0, this)"><strong>0</strong> Nessuna difficoltà</div>
+            <div class="radio-option" onclick="selectBADL('feeding', 1, this)"><strong>1</strong> Qualche difficoltà</div>
+            <div class="radio-option" onclick="selectBADL('feeding', 2, this)"><strong>2</strong> Grande difficoltà</div>
+            <div class="radio-option" onclick="selectBADL('feeding', 3, this)"><strong>3</strong> Impossibile</div>
+          </div>
+        </div>
+
+        <div class="domain-group">
+          <label><strong>4. Trasferimenti</strong></label>
+          <div class="radio-grid" id="badl-transfer-group">
+            <div class="radio-option" onclick="selectBADL('transfer', 0, this)"><strong>0</strong> Nessuna difficoltà</div>
+            <div class="radio-option" onclick="selectBADL('transfer', 1, this)"><strong>1</strong> Qualche difficoltà</div>
+            <div class="radio-option" onclick="selectBADL('transfer', 2, this)"><strong>2</strong> Grande difficoltà</div>
+            <div class="radio-option" onclick="selectBADL('transfer', 3, this)"><strong>3</strong> Impossibile</div>
+          </div>
+        </div>
+
+        <div class="domain-group">
+          <label><strong>5. Mobilità nel letto</strong></label>
+          <div class="radio-grid" id="badl-mobility-group">
+            <div class="radio-option" onclick="selectBADL('mobility', 0, this)"><strong>0</strong> Nessuna difficoltà</div>
+            <div class="radio-option" onclick="selectBADL('mobility', 1, this)"><strong>1</strong> Qualche difficoltà</div>
+            <div class="radio-option" onclick="selectBADL('mobility', 2, this)"><strong>2</strong> Grande difficoltà</div>
+            <div class="radio-option" onclick="selectBADL('mobility', 3, this)"><strong>3</strong> Impossibile</div>
+          </div>
+        </div>
+
+        <div class="domain-group">
+          <label><strong>6. Controllo sfinterico</strong></label>
+          <div class="radio-grid" id="badl-continence-group">
+            <div class="radio-option" onclick="selectBADL('continence', 0, this)"><strong>0</strong> Nessuna difficoltà</div>
+            <div class="radio-option" onclick="selectBADL('continence', 1, this)"><strong>1</strong> Qualche difficoltà</div>
+            <div class="radio-option" onclick="selectBADL('continence', 2, this)"><strong>2</strong> Grande difficoltà</div>
+            <div class="radio-option" onclick="selectBADL('continence', 3, this)"><strong>3</strong> Impossibile</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="badl-results" class="score-display" style="display: none;">
+        <div class="score-number" id="badl-score">-</div>
+        <div class="score-interpretation" id="badl-interpretation">-</div>
+        <div class="score-description" id="badl-description">-</div>
+      </div>
+
       <div class="action-buttons">
-        <button class="btn btn-success" onclick="window.open('#', '_blank')">
-          <i class="fas fa-external-link-alt"></i>Versione Online Completa
+        <button class="btn btn-success" onclick="printPerformanceSheet('badl')">
+          <i class="fas fa-print"></i>Stampa Scheda
+        </button>
+        <button class="btn btn-danger" onclick="resetPerformanceForm('badl')">
+          <i class="fas fa-redo"></i>Azzera
         </button>
       </div>
     </div>
