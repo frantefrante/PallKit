@@ -859,7 +859,7 @@
                                         </ul>
                                         <h6><strong>Polmonare:</strong></h6>
                                         <ul>
-                                            <li>VEMS < 30% del predetto</li>
+                                            <li>VEMS &lt; 30% del predetto</li>
                                             <li>Dispnea per minimi sforzi</li>
                                             <li>O₂ terapia domiciliare</li>
                                             <li>Riacutizzazioni frequenti (> 3/anno)</li>
@@ -867,7 +867,7 @@
                                         <h6><strong>Cardiaca:</strong></h6>
                                         <ul>
                                             <li>NYHA III-IV</li>
-                                            <li>FE < 30%</li>
+                                            <li>FE &lt; 30%</li>
                                             <li>Ricoveri per scompenso (> 2/anno)</li>
                                             <li>Inotropi cronici</li>
                                         </ul>
@@ -882,7 +882,7 @@
                                         </ul>
                                         <h6><strong>Renale:</strong></h6>
                                         <ul>
-                                            <li>eGFR < 15 ml/min/1.73m²</li>
+                                            <li>eGFR &lt; 15 ml/min/1.73m²</li>
                                             <li>Dialisi rifiutata/sospesa</li>
                                             <li>Complicanze uremiche</li>
                                             <li>Non candidabile a trapianto</li>
@@ -1133,8 +1133,30 @@
             }
         }
 
-        function printNecpal40() { window.print(); }
-        function printNecpal40Template() { switchNecpal40Mode('visualize'); setTimeout(() => window.print(), 100); }
+        function printNecpal40() {
+            const name = document.getElementById('necpal40-patient-name')?.value || '';
+            const birth = document.getElementById('necpal40-birth-date')?.value || '';
+            const evalDate = document.getElementById('necpal40-eval-date')?.value || '';
+            const status = document.getElementById('necpal40-status')?.textContent || '';
+            const stage = document.getElementById('stage40')?.textContent || '';
+            const prognosis = document.getElementById('prognosis40')?.textContent || '';
+            const itemsHtml = necpal40Data.items.map(id => `<li>${document.querySelector('label[for="${id}"]').textContent.trim()}</li>`).join('');
+            const total = necpal40Data.items.length;
+            const win = window.open('', '_blank');
+            win.document.write(`<!DOCTYPE html><html lang="it"><head><meta charset="UTF-8"><title>NECPAL 4.0 - Report</title><style>body{font-family:Arial,sans-serif;margin:20px;line-height:1.4;color:#333;}h1{color:#20c997;} ul{margin:0;padding-left:20px;}</style></head><body><h1>NECPAL 4.0 - Report</h1><p><strong>Paziente:</strong> ${name}<br><strong>Nascita:</strong> ${birth}<br><strong>Valutazione:</strong> ${evalDate}</p><p><strong>Totale items:</strong> ${total}<br><strong>Stato:</strong> ${status}<br><strong>Stadio:</strong> ${stage}<br><strong>Prognosi:</strong> ${prognosis}</p><h3>Items selezionati</h3><ul>${itemsHtml}</ul></body></html>`);
+            win.document.close();
+            win.focus();
+            win.onload = function(){ win.print(); };
+        }
+
+        function printNecpal40Template() {
+            const content = document.getElementById('necpal40-visualize-section').innerHTML;
+            const win = window.open('', '_blank');
+            win.document.write(`<!DOCTYPE html><html lang="it"><head><meta charset="UTF-8"><title>NECPAL 4.0 - Template</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"><style>body{padding:20px;}</style></head><body>${content}</body></html>`);
+            win.document.close();
+            win.focus();
+            win.onload = function(){ win.print(); };
+        }
         function resetNecpal40() {
             if (confirm('Sei sicuro di voler resettare la valutazione?')) {
                 necpal40Data = { surprise: null, items: [], patientInfo: {} };

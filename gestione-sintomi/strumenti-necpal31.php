@@ -544,7 +544,7 @@
                         <div class="checkbox-item" onclick="toggleNecpal31Item(this, 'dipendenza-grave')">
                             <input type="checkbox" id="dipendenza-grave">
                             <label class="checkbox-label" for="dipendenza-grave">
-                                <strong>Dipendenza grave:</strong> Karnofsky < 50 o Barthel < 20
+                                <strong>Dipendenza grave:</strong> Karnofsky &lt; 50 o Barthel &lt; 20
                             </label>
                         </div>
                         <div class="checkbox-item" onclick="toggleNecpal31Item(this, 'sindromi-geriatriche')">
@@ -601,13 +601,13 @@
                         <div class="checkbox-item" onclick="toggleNecpal31Item(this, 'bpco')">
                             <input type="checkbox" id="bpco">
                             <label class="checkbox-label" for="bpco">
-                                <strong>Patologie polmonari croniche:</strong> Dispnea per minimi sforzi, VEMS < 30%, O₂ terapia domiciliare
+                                <strong>Patologie polmonari croniche:</strong> Dispnea per minimi sforzi, VEMS &lt; 30%, O₂ terapia domiciliare
                             </label>
                         </div>
                         <div class="checkbox-item" onclick="toggleNecpal31Item(this, 'cardiache')">
                             <input type="checkbox" id="cardiache">
                             <label class="checkbox-label" for="cardiache">
-                                <strong>Patologie cardiache croniche:</strong> NYHA III-IV, FE < 30%, insufficienza renale associata
+                                <strong>Patologie cardiache croniche:</strong> NYHA III-IV, FE &lt; 30%, insufficienza renale associata
                             </label>
                         </div>
                         <div class="checkbox-item" onclick="toggleNecpal31Item(this, 'demenza')">
@@ -625,7 +625,7 @@
                         <div class="checkbox-item" onclick="toggleNecpal31Item(this, 'ictus')">
                             <input type="checkbox" id="ictus">
                             <label class="checkbox-label" for="ictus">
-                                <strong>Patologie neurovascolari (ictus):</strong> Stato vegetativo < 3 mesi o complicanze mediche > 3 mesi
+                                <strong>Patologie neurovascolari (ictus):</strong> Stato vegetativo &lt; 3 mesi o complicanze mediche > 3 mesi
                             </label>
                         </div>
                         <div class="checkbox-item" onclick="toggleNecpal31Item(this, 'neurologiche')">
@@ -643,7 +643,7 @@
                         <div class="checkbox-item" onclick="toggleNecpal31Item(this, 'renali')">
                             <input type="checkbox" id="renali">
                             <label class="checkbox-label" for="renali">
-                                <strong>Patologia renale cronica:</strong> FG < 15 ml/min, sospensione dialisi, fallimento trapianto
+                                <strong>Patologia renale cronica:</strong> FG &lt; 15 ml/min, sospensione dialisi, fallimento trapianto
                             </label>
                         </div>
                     </div>
@@ -725,7 +725,7 @@
                                 <li>Declino nutrizionale: Perdita di peso > 10%</li>
                                 <li>Declino funzionale: Karnofsky/Barthel riduzione > 30%</li>
                                 <li>Declino cognitivo: Perdita ≥ 5 punti MMSE</li>
-                                <li>Dipendenza grave: Karnofsky < 50</li>
+                                <li>Dipendenza grave: Karnofsky &lt; 50</li>
                                 <li>Sindromi geriatriche ≥ 2</li>
                                 <li>Sintomi persistenti: ESAS ≥ 2 sintomi</li>
                                 <li>Aspetti psico-sociali: DME > 9</li>
@@ -758,7 +758,7 @@
                         <div class="criteria-content">
                             <ul class="criteria-list">
                                 <li>Dispnea per minimi sforzi</li>
-                                <li>Criteri spirometrici: VEMS < 30%</li>
+                                <li>Criteri spirometrici: VEMS &lt; 30%</li>
                                 <li>O₂ terapia domiciliare</li>
                                 <li>Terapia corticosteroidea continuativa</li>
                                 <li>Insufficienza cardiaca associata</li>
@@ -774,8 +774,8 @@
                         <div class="criteria-content">
                             <ul class="criteria-list">
                                 <li>Insufficienza cardiaca NYHA III-IV</li>
-                                <li>Ecocardiografia: FE < 30%</li>
-                                <li>Insufficienza renale associata (FG < 30)</li>
+                                <li>Ecocardiografia: FE &lt; 30%</li>
+                                <li>Insufficienza renale associata (FG &lt; 30)</li>
                                 <li>Iponatriemia persistente</li>
                             </ul>
                         </div>
@@ -846,7 +846,7 @@
                         </div>
                         <div class="criteria-content">
                             <ul class="criteria-list">
-                                <li>Insufficienza renale grave (FG < 15 ml/min)</li>
+                                <li>Insufficienza renale grave (FG &lt; 15 ml/min)</li>
                                 <li>Non candidabili a trapianto/dialisi</li>
                                 <li>Sospensione della dialisi</li>
                                 <li>Fallimento del trapianto</li>
@@ -900,9 +900,9 @@
                         <div id="collapseScales" class="accordion-collapse collapse" data-bs-parent="#glossaryAccordion">
                             <div class="accordion-body">
                                 <h6><strong>Australian Karnofsky Performance Status (AKPS)</strong></h6>
-                                <p>Scala da 0 a 100 che valuta le capacità funzionali del paziente. Un punteggio < 50 indica dipendenza grave.</p>
+                                <p>Scala da 0 a 100 che valuta le capacità funzionali del paziente. Un punteggio &lt; 50 indica dipendenza grave.</p>
                                 <h6><strong>Indice di Barthel</strong></h6>
-                                <p>Scala che valuta l'autonomia nelle attività della vita quotidiana. Una riduzione > 30% o punteggio < 20 indica compromissione significativa.</p>
+                                <p>Scala che valuta l'autonomia nelle attività della vita quotidiana. Una riduzione > 30% o punteggio &lt; 20 indica compromissione significativa.</p>
                                 <h6><strong>Activities of Daily Living (ADL)</strong></h6>
                                 <p>Valuta 6 funzioni base: alimentazione, controllo sfinterico, trasferimenti, uso del WC, vestirsi, lavarsi.</p>
                             </div>
@@ -952,7 +952,7 @@
                                 <h6><strong>NYHA (New York Heart Association)</strong></h6>
                                 <p>Classificazione funzionale dell'insufficienza cardiaca. Stadio III-IV indica limitazioni severe nell'attività fisica.</p>
                                 <h6><strong>VEMS (Volume Espiratorio Massimo al 1° secondo)</strong></h6>
-                                <p>Parametro spirometrico. VEMS < 30% indica ostruzione grave delle vie aeree.</p>
+                                <p>Parametro spirometrico. VEMS &lt; 30% indica ostruzione grave delle vie aeree.</p>
                                 <h6><strong>Child-Pugh Score</strong></h6>
                                 <p>Classificazione della cirrosi epatica. Stadio C indica prognosi severa con sopravvivenza mediana 1-3 anni.</p>
                                 <h6><strong>MELD-Na Score</strong></h6>
@@ -975,15 +975,40 @@
             indicatoriSpecifici: 0
         };
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const evalDateInput = document.getElementById('necpal31-eval-date');
-            if (evalDateInput) {
-                evalDateInput.value = new Date().toISOString().split('T')[0];
+        (function initNecpal31Safe() {
+            function init() {
+                const root = document.getElementById('necpal31-home');
+                if (!root) return;
+                const evalDate = root.querySelector('#necpal31-eval-date');
+                if (evalDate && !evalDate.value) evalDate.value = new Date().toISOString().split('T')[0];
+                root.querySelectorAll('input[name="surprise"]').forEach(radio => {
+                    radio.removeEventListener('change', handleSurpriseQuestion);
+                    radio.addEventListener('change', handleSurpriseQuestion);
+                });
+                root.querySelectorAll('.checkbox-item label').forEach(lbl => {
+                    lbl.addEventListener('click', e => e.stopPropagation());
+                });
+                root.querySelectorAll('.checkbox-item input[type="checkbox"]').forEach(cb => {
+                    cb.addEventListener('change', e => {
+                        const itemDiv = e.target.closest('.checkbox-item');
+                        const id = e.target.id;
+                        if (e.target.checked) {
+                            itemDiv.classList.add('selected');
+                            if (!necpal31Data.items.includes(id)) necpal31Data.items.push(id);
+                        } else {
+                            itemDiv.classList.remove('selected');
+                            necpal31Data.items = necpal31Data.items.filter(x => x !== id);
+                        }
+                        updateResults();
+                    });
+                });
             }
-            document.querySelectorAll('#necpal31-home input[name="surprise"]').forEach(radio => {
-                radio.addEventListener('change', handleSurpriseQuestion);
-            });
-        });
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', init);
+            } else {
+                init();
+            }
+        })();
 
         function switchNecpal31Mode(mode) {
             const container = document.getElementById('necpal31-home');
@@ -1020,16 +1045,7 @@
             const checkbox = element.querySelector('input[type="checkbox"]');
             if (!checkbox) return;
             checkbox.checked = !checkbox.checked;
-            if (checkbox.checked) {
-                element.classList.add('selected');
-                if (!necpal31Data.items.includes(itemId)) {
-                    necpal31Data.items.push(itemId);
-                }
-            } else {
-                element.classList.remove('selected');
-                necpal31Data.items = necpal31Data.items.filter(item => item !== itemId);
-            }
-            updateResults();
+            checkbox.dispatchEvent(new Event('change'));
         }
 
         function updateResults() {
@@ -1121,12 +1137,27 @@
         }
 
         function printNecpal31() {
-            window.print();
+            const name = document.getElementById('necpal31-patient-name')?.value || '';
+            const birth = document.getElementById('necpal31-birth-date')?.value || '';
+            const evalDate = document.getElementById('necpal31-eval-date')?.value || '';
+            const status = document.getElementById('necpal31-status')?.textContent || '';
+            const recommendation = document.getElementById('necpal31-recommendation')?.textContent || '';
+            const itemsHtml = necpal31Data.items.map(id => `<li>${document.querySelector('label[for="${id}"]').textContent.trim()}</li>`).join('');
+            const total = necpal31Data.items.length;
+            const win = window.open('', '_blank');
+            win.document.write(`<!DOCTYPE html><html lang="it"><head><meta charset="UTF-8"><title>NECPAL 3.1 - Report</title><style>body{font-family:Arial,sans-serif;margin:20px;line-height:1.4;color:#333;}h1{color:#28a745;} ul{margin:0;padding-left:20px;}</style></head><body><h1>NECPAL 3.1 - Report</h1><p><strong>Paziente:</strong> ${name}<br><strong>Nascita:</strong> ${birth}<br><strong>Valutazione:</strong> ${evalDate}</p><p><strong>Totale items:</strong> ${total}<br><strong>Stato:</strong> ${status}<br><strong>Raccomandazione:</strong> ${recommendation}</p><h3>Items selezionati</h3><ul>${itemsHtml}</ul></body></html>`);
+            win.document.close();
+            win.focus();
+            win.onload = function(){ win.print(); };
         }
 
         function printNecpal31Template() {
-            switchNecpal31Mode('visualize');
-            setTimeout(() => window.print(), 100);
+            const content = document.getElementById('necpal31-visualize-section').innerHTML;
+            const win = window.open('', '_blank');
+            win.document.write(`<!DOCTYPE html><html lang="it"><head><meta charset="UTF-8"><title>NECPAL 3.1 - Template</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"><style>body{padding:20px;}</style></head><body>${content}</body></html>`);
+            win.document.close();
+            win.focus();
+            win.onload = function(){ win.print(); };
         }
 
         function resetNecpal31() {

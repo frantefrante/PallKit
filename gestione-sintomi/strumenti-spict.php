@@ -222,8 +222,30 @@
             spictData.pathology = Array.from(document.querySelectorAll('#spict-home .pathology-content input[type="checkbox"]:checked')).map(cb => cb.id);
             spictData.actions = Array.from(document.querySelectorAll('#spict-home .action-section input[type="checkbox"]:checked')).map(cb => cb.id);
         }
-        function printSpictResults() { window.print(); }
-        function printSpictTemplate() { switchSpictMode('visualize'); setTimeout(() => window.print(), 100); }
+        function printSpictResults() {
+            const name = document.getElementById('spict-patient-name')?.value || '';
+            const birth = document.getElementById('spict-birth-date')?.value || '';
+            const evalDate = document.getElementById('spict-eval-date')?.value || '';
+            const general = document.getElementById('general-count')?.textContent || '0';
+            const pathology = document.getElementById('pathology-count')?.textContent || '0';
+            const action = document.getElementById('action-count')?.textContent || '0';
+            const total = document.getElementById('total-count')?.textContent || '0';
+            const selected = Array.from(document.querySelectorAll('#spict-compile-section input[type="checkbox"]:checked')).map(cb => `<li>${document.querySelector('label[for="${cb.id}"]').textContent.trim()}</li>`).join('');
+            const win = window.open('', '_blank');
+            win.document.write(`<!DOCTYPE html><html lang="it"><head><meta charset="UTF-8"><title>SPICT - Report</title><style>body{font-family:Arial,sans-serif;margin:20px;line-height:1.4;color:#333;}h1{color:#2c5aa0;} ul{margin:0;padding-left:20px;}</style></head><body><h1>SPICT™ - Report</h1><p><strong>Paziente:</strong> ${name}<br><strong>Nascita:</strong> ${birth}<br><strong>Valutazione:</strong> ${evalDate}</p><p><strong>Indicatori generali:</strong> ${general}<br><strong>Indicatori patologie:</strong> ${pathology}<br><strong>Azioni pianificate:</strong> ${action}<br><strong>Totale:</strong> ${total}</p><h3>Items selezionati</h3><ul>${selected}</ul></body></html>`);
+            win.document.close();
+            win.focus();
+            win.onload = function(){ win.print(); };
+        }
+
+        function printSpictTemplate() {
+            const content = document.getElementById('spict-visualize-section').innerHTML;
+            const win = window.open('', '_blank');
+            win.document.write(`<!DOCTYPE html><html lang="it"><head><meta charset="UTF-8"><title>SPICT - Template</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"><style>body{padding:20px;}</style></head><body>${content}</body></html>`);
+            win.document.close();
+            win.focus();
+            win.onload = function(){ win.print(); };
+        }
         function resetSpictForm() {
             if (confirm('Sei sicuro di voler resettare la valutazione?')) {
                 spictData = { general: [], pathology: [], actions: [], patientInfo: {} };
