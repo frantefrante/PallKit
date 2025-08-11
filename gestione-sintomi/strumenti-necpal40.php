@@ -1087,6 +1087,13 @@
                     updateResults40();
                 });
             });
+            document.querySelectorAll('#necpal40-home .checkbox-item').forEach(div => {
+                div.addEventListener('click', () => {
+                    const cb = div.querySelector('input[type="checkbox"]');
+                    cb.checked = !cb.checked;
+                    cb.dispatchEvent(new Event('change'));
+                });
+            });
         });
 
         function switchNecpal40Mode(mode) {
@@ -1152,7 +1159,7 @@
             }).join('');
             const total = necpal40Data.items.length;
             const win = window.open('', '_blank');
-            win.document.write(`<!DOCTYPE html><html lang="it"><head><meta charset="UTF-8"><title>NECPAL 4.0 - Report</title><style>body{font-family:Arial,sans-serif;margin:20px;line-height:1.4;color:#333;}h1{color:#20c997;} ul{margin:0;padding-left:20px;}</style></head><body><h1>NECPAL 4.0 - Report</h1><p><strong>Paziente:</strong> ${name}<br><strong>Nascita:</strong> ${birth}<br><strong>Valutazione:</strong> ${evalDate}</p><p><strong>Totale items:</strong> ${total}<br><strong>Stato:</strong> ${status}<br><strong>Stadio:</strong> ${stage}<br><strong>Prognosi:</strong> ${prognosis}</p><h3>Items selezionati</h3><ul>${itemsHtml}</ul></body></html>`);
+            win.document.write(`<!DOCTYPE html><html lang="it"><head><meta charset="UTF-8"><title>NECPAL 4.0 - Report</title><style>body{font-family:Arial,sans-serif;margin:20px;line-height:1.4;color:#333;} .header{text-align:center;margin-bottom:30px;border-bottom:2px solid #20c997;padding-bottom:20px;} .header h1{color:#20c997;margin-bottom:10px;} .patient-info{border:2px solid #20c997;padding:20px;margin-bottom:25px;border-radius:8px;background:#f8f9fa;} .result-section{margin-top:30px;padding:20px;border:2px solid #20c997;border-radius:8px;background:#f8f9fa;} .form-row{display:flex;justify-content:space-between;margin-bottom:15px;} .form-field{flex:1;margin-right:20px;} .form-field:last-child{margin-right:0;} ul{margin-top:10px;padding-left:20px;} .footer{margin-top:40px;padding-top:20px;border-top:1px solid #ddd;font-size:12px;color:#666;text-align:center;}</style></head><body><div class="header"><h1>NECPAL 4.0</h1><p><strong>Scheda di Valutazione</strong></p><p>www.medbox.it - Strumenti per le Cure Palliative</p></div><div class="patient-info"><div class="form-row"><div class="form-field"><strong>Nome:</strong> ${name}</div><div class="form-field"><strong>Data di nascita:</strong> ${birth}</div></div><div class="form-row"><div class="form-field"><strong>Data valutazione:</strong> ${evalDate}</div></div></div><div class="result-section"><h3>Risultati</h3><div class="form-row"><div class="form-field"><strong>Totale items:</strong> ${total}</div><div class="form-field"><strong>Stato:</strong> ${status}</div></div><div class="form-row"><div class="form-field"><strong>Stadio:</strong> ${stage}</div><div class="form-field"><strong>Prognosi:</strong> ${prognosis}</div></div><div><strong>Items selezionati:</strong><ul>${itemsHtml}</ul></div></div><div class="footer"><p>${new Date().toLocaleDateString('it-IT')}</p></div></body></html>`);
             win.document.close();
             win.focus();
             win.onload = function(){ win.print(); };
@@ -1161,7 +1168,7 @@
         function printNecpal40Template() {
             const content = document.getElementById('necpal40-visualize-section').innerHTML;
             const win = window.open('', '_blank');
-            win.document.write(`<!DOCTYPE html><html lang="it"><head><meta charset="UTF-8"><title>NECPAL 4.0 - Template</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"><style>body{padding:20px;} i{display:none !important;}</style></head><body>${content}</body></html>`);
+            win.document.write(`<!DOCTYPE html><html lang="it"><head><meta charset="UTF-8"><title>NECPAL 4.0 - Template</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"><style>body{padding:20px;} i,[class^="fa"]{display:none !important;}</style></head><body>${content}</body></html>`);
             win.document.close();
             win.focus();
             win.onload = function(){ win.print(); };
