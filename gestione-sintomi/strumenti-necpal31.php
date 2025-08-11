@@ -975,25 +975,22 @@
             indicatoriSpecifici: 0
         };
 
-        (function initNecpal31Safe() {
+        (function initNecpal31() {
             function init() {
                 const root = document.getElementById('necpal31-home');
                 if (!root) return;
                 const evalDate = root.querySelector('#necpal31-eval-date');
-                if (evalDate && !evalDate.value) evalDate.value = new Date().toISOString().split('T')[0];
+                if (evalDate && !evalDate.value) {
+                    evalDate.value = new Date().toISOString().split('T')[0];
+                }
                 root.querySelectorAll('input[name="surprise"]').forEach(radio => {
-                    radio.removeEventListener('change', handleSurpriseQuestion);
                     radio.addEventListener('change', handleSurpriseQuestion);
                 });
-                root.querySelectorAll('.checkbox-item label').forEach(lbl => {
-                    lbl.addEventListener('click', e => e.stopPropagation());
-                });
-                root.querySelectorAll('.checkbox-item input[type="checkbox"]').forEach(cb => {
-                    cb.addEventListener('click', e => e.stopPropagation());
-                    cb.addEventListener('change', e => {
-                        const itemDiv = e.target.closest('.checkbox-item');
-                        const id = e.target.id;
-                        if (e.target.checked) {
+                root.querySelectorAll('#necpal31-home input[type="checkbox"]').forEach(cb => {
+                    cb.addEventListener('change', function () {
+                        const itemDiv = this.closest('.checkbox-item');
+                        const id = this.id;
+                        if (this.checked) {
                             itemDiv.classList.add('selected');
                             if (!necpal31Data.items.includes(id)) necpal31Data.items.push(id);
                         } else {
@@ -1001,13 +998,6 @@
                             necpal31Data.items = necpal31Data.items.filter(x => x !== id);
                         }
                         updateResults();
-                    });
-                });
-                root.querySelectorAll('.checkbox-item').forEach(div => {
-                    div.addEventListener('click', () => {
-                        const cb = div.querySelector('input[type="checkbox"]');
-                        cb.checked = !cb.checked;
-                        cb.dispatchEvent(new Event('change'));
                     });
                 });
             }

@@ -1069,15 +1069,11 @@
             document.querySelectorAll('#necpal40-home input[name="surprise40"]').forEach(radio => {
                 radio.addEventListener('change', handleSurprise40Question);
             });
-            document.querySelectorAll('#necpal40-home .checkbox-item label').forEach(lbl => {
-                lbl.addEventListener('click', e => e.stopPropagation());
-            });
-            document.querySelectorAll('#necpal40-home .checkbox-item input[type="checkbox"]').forEach(cb => {
-                cb.addEventListener('click', e => e.stopPropagation());
-                cb.addEventListener('change', e => {
-                    const itemDiv = e.target.closest('.checkbox-item');
-                    const id = e.target.id;
-                    if (e.target.checked) {
+            document.querySelectorAll('#necpal40-home input[type="checkbox"]').forEach(cb => {
+                cb.addEventListener('change', function () {
+                    const itemDiv = this.closest('.checkbox-item');
+                    const id = this.id;
+                    if (this.checked) {
                         itemDiv.classList.add('selected');
                         if (!necpal40Data.items.includes(id)) necpal40Data.items.push(id);
                     } else {
@@ -1085,13 +1081,6 @@
                         necpal40Data.items = necpal40Data.items.filter(x => x !== id);
                     }
                     updateResults40();
-                });
-            });
-            document.querySelectorAll('#necpal40-home .checkbox-item').forEach(div => {
-                div.addEventListener('click', () => {
-                    const cb = div.querySelector('input[type="checkbox"]');
-                    cb.checked = !cb.checked;
-                    cb.dispatchEvent(new Event('change'));
                 });
             });
         });
