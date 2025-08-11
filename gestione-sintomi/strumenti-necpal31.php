@@ -496,13 +496,13 @@
                         Richiesta o Bisogni
                     </div>
                     <div class="checkbox-group">
-                        <div class="checkbox-item" onclick="toggleNecpal31Item(this, 'richiesta-scelta')">
+                        <div class="checkbox-item">
                             <input type="checkbox" id="richiesta-scelta">
                             <label class="checkbox-label" for="richiesta-scelta">
                                 <strong>Scelta/Richiesta:</strong> il paziente, i familiari o il team curante hanno richiesto, in modo implicito o esplicito, un approccio palliativo o una limitazione ai trattamenti specifici con finalità curative
                             </label>
                         </div>
-                        <div class="checkbox-item" onclick="toggleNecpal31Item(this, 'bisogni-team')">
+                        <div class="checkbox-item">
                             <input type="checkbox" id="bisogni-team">
                             <label class="checkbox-label" for="bisogni-team">
                                 <strong>Bisogni:</strong> identificati dai sanitari del team curante
@@ -517,67 +517,67 @@
                         Indicatori Clinici Generali (ultimi 6 mesi)
                     </div>
                     <div class="checkbox-group">
-                        <div class="checkbox-item" onclick="toggleNecpal31Item(this, 'declino-nutrizionale')">
+                        <div class="checkbox-item">
                             <input type="checkbox" id="declino-nutrizionale">
                             <label class="checkbox-label" for="declino-nutrizionale">
                                 <strong>Declino nutrizionale:</strong> Perdita di peso > 10%
                             </label>
                         </div>
-                        <div class="checkbox-item" onclick="toggleNecpal31Item(this, 'declino-funzionale-karnofsky')">
+                        <div class="checkbox-item">
                             <input type="checkbox" id="declino-funzionale-karnofsky">
                             <label class="checkbox-label" for="declino-funzionale-karnofsky">
                                 <strong>Declino funzionale:</strong> Karnofsky o Barthel riduzione > 30%
                             </label>
                         </div>
-                        <div class="checkbox-item" onclick="toggleNecpal31Item(this, 'declino-funzionale-adl')">
+                        <div class="checkbox-item">
                             <input type="checkbox" id="declino-funzionale-adl">
                             <label class="checkbox-label" for="declino-funzionale-adl">
                                 <strong>Declino funzionale:</strong> ADL riduzione > 2 funzioni
                             </label>
                         </div>
-                        <div class="checkbox-item" onclick="toggleNecpal31Item(this, 'declino-cognitivo')">
+                        <div class="checkbox-item">
                             <input type="checkbox" id="declino-cognitivo">
                             <label class="checkbox-label" for="declino-cognitivo">
                                 <strong>Declino cognitivo:</strong> Perdita ≥ 5 punti del minimental
                             </label>
                         </div>
-                        <div class="checkbox-item" onclick="toggleNecpal31Item(this, 'dipendenza-grave')">
+                        <div class="checkbox-item">
                             <input type="checkbox" id="dipendenza-grave">
                             <label class="checkbox-label" for="dipendenza-grave">
                                 <strong>Dipendenza grave:</strong> Karnofsky &lt; 50 o Barthel &lt; 20
                             </label>
                         </div>
-                        <div class="checkbox-item" onclick="toggleNecpal31Item(this, 'sindromi-geriatriche')">
+                        <div class="checkbox-item">
                             <input type="checkbox" id="sindromi-geriatriche">
                             <label class="checkbox-label" for="sindromi-geriatriche">
                                 <strong>Sindromi geriatriche:</strong> ≥ 2 sindromi (cadute, disfagia, delirium, ulcere da decubito, infezioni ricorrenti)
                             </label>
                         </div>
-                        <div class="checkbox-item" onclick="toggleNecpal31Item(this, 'sintomi-persistenti')">
+                        <div class="checkbox-item">
                             <input type="checkbox" id="sintomi-persistenti">
                             <label class="checkbox-label" for="sintomi-persistenti">
                                 <strong>Sintomi persistenti:</strong> ESAS ≥ 2 sintomi persistenti o refrattari
                             </label>
                         </div>
-                        <div class="checkbox-item" onclick="toggleNecpal31Item(this, 'aspetti-psicosociali')">
+                        <div class="checkbox-item">
                             <input type="checkbox" id="aspetti-psicosociali">
                             <label class="checkbox-label" for="aspetti-psicosociali">
                                 <strong>Aspetti psico-sociali:</strong> Distress e/o gravi disturbi dell'adattamento (DME > 9)
                             </label>
                         </div>
-                        <div class="checkbox-item" onclick="toggleNecpal31Item(this, 'vulnerabilita-sociale')">
+                        <div class="checkbox-item">
                             <input type="checkbox" id="vulnerabilita-sociale">
                             <label class="checkbox-label" for="vulnerabilita-sociale">
                                 <strong>Vulnerabilità sociale grave:</strong> Valutazione sociale e familiare
                             </label>
                         </div>
-                        <div class="checkbox-item" onclick="toggleNecpal31Item(this, 'multimorbidita')">
+                        <div class="checkbox-item">
                             <input type="checkbox" id="multimorbidita">
                             <label class="checkbox-label" for="multimorbidita">
                                 <strong>Multi-morbidità:</strong> > 2 malattie croniche
                             </label>
                         </div>
-                        <div class="checkbox-item" onclick="toggleNecpal31Item(this, 'utilizzo-risorse')">
+                        <div class="checkbox-item">
                             <input type="checkbox" id="utilizzo-risorse">
                             <label class="checkbox-label" for="utilizzo-risorse">
                                 <strong>Utilizzo di risorse:</strong> > 2 ricoveri urgenti o non pianificati negli ultimi 6 mesi
@@ -592,55 +592,55 @@
                         Indicatori Specifici di Severità/Progressione
                     </div>
                     <div class="checkbox-group">
-                        <div class="checkbox-item" onclick="toggleNecpal31Item(this, 'cancro')">
+                        <div class="checkbox-item">
                             <input type="checkbox" id="cancro">
                             <label class="checkbox-label" for="cancro">
                                 <strong>Cancro:</strong> Metastatico o avanzato a livello locoregionale, in progressione, sintomi persistenti
                             </label>
                         </div>
-                        <div class="checkbox-item" onclick="toggleNecpal31Item(this, 'bpco')">
+                        <div class="checkbox-item">
                             <input type="checkbox" id="bpco">
                             <label class="checkbox-label" for="bpco">
                                 <strong>Patologie polmonari croniche:</strong> Dispnea per minimi sforzi, VEMS &lt; 30%, O₂ terapia domiciliare
                             </label>
                         </div>
-                        <div class="checkbox-item" onclick="toggleNecpal31Item(this, 'cardiache')">
+                        <div class="checkbox-item">
                             <input type="checkbox" id="cardiache">
                             <label class="checkbox-label" for="cardiache">
                                 <strong>Patologie cardiache croniche:</strong> NYHA III-IV, FE &lt; 30%, insufficienza renale associata
                             </label>
                         </div>
-                        <div class="checkbox-item" onclick="toggleNecpal31Item(this, 'demenza')">
+                        <div class="checkbox-item">
                             <input type="checkbox" id="demenza">
                             <label class="checkbox-label" for="demenza">
                                 <strong>Demenza:</strong> GDS ≥ 6c, progressione del declino funzionale/nutrizionale/cognitivo
                             </label>
                         </div>
-                        <div class="checkbox-item" onclick="toggleNecpal31Item(this, 'fragilita')">
+                        <div class="checkbox-item">
                             <input type="checkbox" id="fragilita">
                             <label class="checkbox-label" for="fragilita">
                                 <strong>Fragilità:</strong> Indice di fragilità ≥ 0,5, CGA suggestiva di fragilità avanzata
                             </label>
                         </div>
-                        <div class="checkbox-item" onclick="toggleNecpal31Item(this, 'ictus')">
+                        <div class="checkbox-item">
                             <input type="checkbox" id="ictus">
                             <label class="checkbox-label" for="ictus">
                                 <strong>Patologie neurovascolari (ictus):</strong> Stato vegetativo &lt; 3 mesi o complicanze mediche > 3 mesi
                             </label>
                         </div>
-                        <div class="checkbox-item" onclick="toggleNecpal31Item(this, 'neurologiche')">
+                        <div class="checkbox-item">
                             <input type="checkbox" id="neurologiche">
                             <label class="checkbox-label" for="neurologiche">
                                 <strong>Patologie neurologiche:</strong> SM/SLA/Parkinson con declino progressivo, disfagia, insufficienza respiratoria
                             </label>
                         </div>
-                        <div class="checkbox-item" onclick="toggleNecpal31Item(this, 'epatiche')">
+                        <div class="checkbox-item">
                             <input type="checkbox" id="epatiche">
                             <label class="checkbox-label" for="epatiche">
                                 <strong>Patologie epatiche croniche:</strong> Cirrosi Child C, MELD-Na > 30, epatocarcinoma C-D
                             </label>
                         </div>
-                        <div class="checkbox-item" onclick="toggleNecpal31Item(this, 'renali')">
+                        <div class="checkbox-item">
                             <input type="checkbox" id="renali">
                             <label class="checkbox-label" for="renali">
                                 <strong>Patologia renale cronica:</strong> FG &lt; 15 ml/min, sospensione dialisi, fallimento trapianto
@@ -989,6 +989,7 @@
                     lbl.addEventListener('click', e => e.stopPropagation());
                 });
                 root.querySelectorAll('.checkbox-item input[type="checkbox"]').forEach(cb => {
+                    cb.addEventListener('click', e => e.stopPropagation());
                     cb.addEventListener('change', e => {
                         const itemDiv = e.target.closest('.checkbox-item');
                         const id = e.target.id;
@@ -1039,13 +1040,6 @@
                 if (sectionsDiv) sectionsDiv.style.display = 'block';
                 updateResults();
             }
-        }
-
-        function toggleNecpal31Item(element, itemId) {
-            const checkbox = element.querySelector('input[type="checkbox"]');
-            if (!checkbox) return;
-            checkbox.checked = !checkbox.checked;
-            checkbox.dispatchEvent(new Event('change'));
         }
 
         function updateResults() {
@@ -1142,7 +1136,11 @@
             const evalDate = document.getElementById('necpal31-eval-date')?.value || '';
             const status = document.getElementById('necpal31-status')?.textContent || '';
             const recommendation = document.getElementById('necpal31-recommendation')?.textContent || '';
-            const itemsHtml = necpal31Data.items.map(id => `<li>${document.querySelector('label[for="${id}"]').textContent.trim()}</li>`).join('');
+            const itemsHtml = necpal31Data.items.map(id => {
+                const lbl = document.querySelector(`label[for="${id}"]`);
+                const text = lbl ? lbl.textContent.trim() : id;
+                return `<li>${text}</li>`;
+            }).join('');
             const total = necpal31Data.items.length;
             const win = window.open('', '_blank');
             win.document.write(`<!DOCTYPE html><html lang="it"><head><meta charset="UTF-8"><title>NECPAL 3.1 - Report</title><style>body{font-family:Arial,sans-serif;margin:20px;line-height:1.4;color:#333;}h1{color:#28a745;} ul{margin:0;padding-left:20px;}</style></head><body><h1>NECPAL 3.1 - Report</h1><p><strong>Paziente:</strong> ${name}<br><strong>Nascita:</strong> ${birth}<br><strong>Valutazione:</strong> ${evalDate}</p><p><strong>Totale items:</strong> ${total}<br><strong>Stato:</strong> ${status}<br><strong>Raccomandazione:</strong> ${recommendation}</p><h3>Items selezionati</h3><ul>${itemsHtml}</ul></body></html>`);
@@ -1154,7 +1152,7 @@
         function printNecpal31Template() {
             const content = document.getElementById('necpal31-visualize-section').innerHTML;
             const win = window.open('', '_blank');
-            win.document.write(`<!DOCTYPE html><html lang="it"><head><meta charset="UTF-8"><title>NECPAL 3.1 - Template</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"><style>body{padding:20px;}</style></head><body>${content}</body></html>`);
+            win.document.write(`<!DOCTYPE html><html lang="it"><head><meta charset="UTF-8"><title>NECPAL 3.1 - Template</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"><style>body{padding:20px;} i{display:none !important;}</style></head><body>${content}</body></html>`);
             win.document.close();
             win.focus();
             win.onload = function(){ win.print(); };
@@ -1192,7 +1190,6 @@
         }
 
         window.switchNecpal31Mode = switchNecpal31Mode;
-        window.toggleNecpal31Item = toggleNecpal31Item;
         window.printNecpal31 = printNecpal31;
         window.printNecpal31Template = printNecpal31Template;
         window.resetNecpal31 = resetNecpal31;

@@ -410,7 +410,7 @@
                         Bisogni Palliativi
                     </div>
                     <div class="checkbox-group">
-                        <div class="checkbox-item" onclick="toggleNecpal40Item(this, 'bisogni-palliativi')">
+                        <div class="checkbox-item">
                             <input type="checkbox" id="bisogni-palliativi">
                             <label class="checkbox-label" for="bisogni-palliativi">
                                 Il paziente stesso, i professionisti e/o i suoi familiari ritengono che il malato abbia attualmente bisogni di cure palliative
@@ -425,31 +425,31 @@
                         Indicatori Clinici (Almeno 1 necessario per NECPAL positivo)
                     </div>
                     <div class="checkbox-group">
-                        <div class="checkbox-item" onclick="toggleNecpal40Item(this, 'perdita-funzionale')">
+                        <div class="checkbox-item">
                             <input type="checkbox" id="perdita-funzionale">
                             <label class="checkbox-label" for="perdita-funzionale">
                                 <strong>Perdita funzionale:</strong> Giudizio clinico di deterioramento funzionale prolungato, grave, progressivo e irreversibile e/o perdita > 30% dell'indice di Barthel in 6 mesi
                             </label>
                         </div>
-                        <div class="checkbox-item" onclick="toggleNecpal40Item(this, 'perdita-nutrizionale')">
+                        <div class="checkbox-item">
                             <input type="checkbox" id="perdita-nutrizionale">
                             <label class="checkbox-label" for="perdita-nutrizionale">
                                 <strong>Perdita nutrizionale:</strong> Giudizio clinico di calo nutrizionale/ponderale prolungato, grave, progressivo e irreversibile e/o perdita di peso > 10% in 6 mesi
                             </label>
                         </div>
-                        <div class="checkbox-item" onclick="toggleNecpal40Item(this, 'multimorbidita40')">
+                        <div class="checkbox-item">
                             <input type="checkbox" id="multimorbidita40">
                             <label class="checkbox-label" for="multimorbidita40">
                                 <strong>Multimorbidità:</strong> ≥ 2 malattie croniche concomitanti alla malattia principale
                             </label>
                         </div>
-                        <div class="checkbox-item" onclick="toggleNecpal40Item(this, 'utilizzo-risorse40')">
+                        <div class="checkbox-item">
                             <input type="checkbox" id="utilizzo-risorse40">
                             <label class="checkbox-label" for="utilizzo-risorse40">
                                 <strong>Utilizzo di risorse:</strong> ≥ 2 ricoveri urgenti in ospedale nell'ultimo anno e/o necessità di cure continuative complesse/intense
                             </label>
                         </div>
-                        <div class="checkbox-item" onclick="toggleNecpal40Item(this, 'malattia-avanzata')">
+                        <div class="checkbox-item">
                             <input type="checkbox" id="malattia-avanzata">
                             <label class="checkbox-label" for="malattia-avanzata">
                                 <strong>Malattia avanzata:</strong> Criteri di gravità e/o progressione di malattia cronica oncologica, polmonare, cardiaca, epatica, renale o neurologica
@@ -1069,6 +1069,24 @@
             document.querySelectorAll('#necpal40-home input[name="surprise40"]').forEach(radio => {
                 radio.addEventListener('change', handleSurprise40Question);
             });
+            document.querySelectorAll('#necpal40-home .checkbox-item label').forEach(lbl => {
+                lbl.addEventListener('click', e => e.stopPropagation());
+            });
+            document.querySelectorAll('#necpal40-home .checkbox-item input[type="checkbox"]').forEach(cb => {
+                cb.addEventListener('click', e => e.stopPropagation());
+                cb.addEventListener('change', e => {
+                    const itemDiv = e.target.closest('.checkbox-item');
+                    const id = e.target.id;
+                    if (e.target.checked) {
+                        itemDiv.classList.add('selected');
+                        if (!necpal40Data.items.includes(id)) necpal40Data.items.push(id);
+                    } else {
+                        itemDiv.classList.remove('selected');
+                        necpal40Data.items = necpal40Data.items.filter(x => x !== id);
+                    }
+                    updateResults40();
+                });
+            });
         });
 
         function switchNecpal40Mode(mode) {
@@ -1093,19 +1111,6 @@
                 document.getElementById('necpal40-sections').style.display = 'block';
                 updateResults40();
             }
-        }
-
-        function toggleNecpal40Item(element, itemId) {
-            const checkbox = element.querySelector('input[type="checkbox"]');
-            checkbox.checked = !checkbox.checked;
-            if (checkbox.checked) {
-                element.classList.add('selected');
-                if (!necpal40Data.items.includes(itemId)) necpal40Data.items.push(itemId);
-            } else {
-                element.classList.remove('selected');
-                necpal40Data.items = necpal40Data.items.filter(item => item !== itemId);
-            }
-            updateResults40();
         }
 
         function updateResults40() {
@@ -1140,7 +1145,11 @@
             const status = document.getElementById('necpal40-status')?.textContent || '';
             const stage = document.getElementById('stage40')?.textContent || '';
             const prognosis = document.getElementById('prognosis40')?.textContent || '';
-            const itemsHtml = necpal40Data.items.map(id => `<li>${document.querySelector('label[for="${id}"]').textContent.trim()}</li>`).join('');
+            const itemsHtml = necpal40Data.items.map(id => {
+                const lbl = document.querySelector(`label[for="${id}"]`);
+                const text = lbl ? lbl.textContent.trim() : id;
+                return `<li>${text}</li>`;
+            }).join('');
             const total = necpal40Data.items.length;
             const win = window.open('', '_blank');
             win.document.write(`<!DOCTYPE html><html lang="it"><head><meta charset="UTF-8"><title>NECPAL 4.0 - Report</title><style>body{font-family:Arial,sans-serif;margin:20px;line-height:1.4;color:#333;}h1{color:#20c997;} ul{margin:0;padding-left:20px;}</style></head><body><h1>NECPAL 4.0 - Report</h1><p><strong>Paziente:</strong> ${name}<br><strong>Nascita:</strong> ${birth}<br><strong>Valutazione:</strong> ${evalDate}</p><p><strong>Totale items:</strong> ${total}<br><strong>Stato:</strong> ${status}<br><strong>Stadio:</strong> ${stage}<br><strong>Prognosi:</strong> ${prognosis}</p><h3>Items selezionati</h3><ul>${itemsHtml}</ul></body></html>`);
@@ -1152,7 +1161,7 @@
         function printNecpal40Template() {
             const content = document.getElementById('necpal40-visualize-section').innerHTML;
             const win = window.open('', '_blank');
-            win.document.write(`<!DOCTYPE html><html lang="it"><head><meta charset="UTF-8"><title>NECPAL 4.0 - Template</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"><style>body{padding:20px;}</style></head><body>${content}</body></html>`);
+            win.document.write(`<!DOCTYPE html><html lang="it"><head><meta charset="UTF-8"><title>NECPAL 4.0 - Template</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"><style>body{padding:20px;} i{display:none !important;}</style></head><body>${content}</body></html>`);
             win.document.close();
             win.focus();
             win.onload = function(){ win.print(); };
