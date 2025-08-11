@@ -403,7 +403,7 @@
         <button class="btn btn-outline-success me-2" onclick="navigateToSection('identificazione-home')">
             <i class="fas fa-arrow-left me-2"></i>Torna a Identificazione
         </button>
-        <button class="btn btn-outline-primary" onclick="navigateToSection('strumenti-valutazione-home')">
+        <button class="btn btn-outline-primary" onclick="navigateToSection('strumenti-valutazione-home'); showCategories();">
             <i class="fas fa-arrow-left me-2"></i>Torna alle Categorie
         </button>
     </div>
@@ -976,7 +976,10 @@
         };
 
         document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('necpal31-eval-date').value = new Date().toISOString().split('T')[0];
+            const evalDateInput = document.getElementById('necpal31-eval-date');
+            if (evalDateInput) {
+                evalDateInput.value = new Date().toISOString().split('T')[0];
+            }
             document.querySelectorAll('#necpal31-home input[name="surprise"]').forEach(radio => {
                 radio.addEventListener('change', handleSurpriseQuestion);
             });
@@ -984,30 +987,38 @@
 
         function switchNecpal31Mode(mode) {
             const container = document.getElementById('necpal31-home');
+            if (!container) return;
             container.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
-            const btn = container.querySelector(`.mode-btn[data-mode="${mode}"]`);
-            if (btn) btn.classList.add('active');
+            const targetBtn = container.querySelector(`.mode-btn[data-mode="${mode}"]`);
+            if (targetBtn) targetBtn.classList.add('active');
             container.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
-            const target = container.querySelector(`#necpal31-${mode}-section`);
-            if (target) target.classList.add('active');
+            const targetSection = container.querySelector(`#necpal31-${mode}-section`);
+            if (targetSection) targetSection.classList.add('active');
         }
 
         function handleSurpriseQuestion() {
-            const surprise = document.querySelector('#necpal31-home input[name="surprise"]:checked').value;
+            const surpriseRadio = document.querySelector('#necpal31-home input[name="surprise"]:checked');
+            if (!surpriseRadio) return;
+            const surprise = surpriseRadio.value;
             necpal31Data.surprise = surprise;
+            const negativeDiv = document.getElementById('necpal31-negative');
+            const sectionsDiv = document.getElementById('necpal31-sections');
+            const resultsDiv = document.getElementById('necpal31-results-section');
             if (surprise === 'yes') {
-                document.getElementById('necpal31-negative').style.display = 'block';
-                document.getElementById('necpal31-sections').style.display = 'none';
-                document.getElementById('necpal31-results-section').style.display = 'none';
+                if (negativeDiv) negativeDiv.style.display = 'block';
+                if (sectionsDiv) sectionsDiv.style.display = 'none';
+                if (resultsDiv) resultsDiv.style.display = 'none';
+                hideDetailedBreakdown();
             } else {
-                document.getElementById('necpal31-negative').style.display = 'none';
-                document.getElementById('necpal31-sections').style.display = 'block';
+                if (negativeDiv) negativeDiv.style.display = 'none';
+                if (sectionsDiv) sectionsDiv.style.display = 'block';
                 updateResults();
             }
         }
 
         function toggleNecpal31Item(element, itemId) {
             const checkbox = element.querySelector('input[type="checkbox"]');
+            if (!checkbox) return;
             checkbox.checked = !checkbox.checked;
             if (checkbox.checked) {
                 element.classList.add('selected');
@@ -1032,23 +1043,24 @@
 
             const totalItems = necpal31Data.items.length;
             const resultsSection = document.getElementById('necpal31-results-section');
-
             if (necpal31Data.surprise === 'no') {
-                resultsSection.style.display = 'block';
-                document.getElementById('necpal31-total-items').textContent = totalItems;
-
+                if (resultsSection) resultsSection.style.display = 'block';
+                const totalEl = document.getElementById('necpal31-total-items');
+                const statusEl = document.getElementById('necpal31-status');
+                const recEl = document.getElementById('necpal31-recommendation');
+                if (totalEl) totalEl.textContent = totalItems;
                 if (totalItems >= 1) {
-                    document.getElementById('necpal31-status').textContent = 'POSITIVO';
+                    if (statusEl) statusEl.textContent = 'POSITIVO';
                     const recommendation = determineRecommendation31(richiestaBisogni, indicatoriGenerali, indicatoriSpecifici);
-                    document.getElementById('necpal31-recommendation').textContent = recommendation;
+                    if (recEl) recEl.textContent = recommendation;
                     showDetailedBreakdown(richiestaBisogni, indicatoriGenerali, indicatoriSpecifici);
                 } else {
-                    document.getElementById('necpal31-status').textContent = 'NEGATIVO';
-                    document.getElementById('necpal31-recommendation').textContent = 'RIVALUTARE';
+                    if (statusEl) statusEl.textContent = 'NEGATIVO';
+                    if (recEl) recEl.textContent = 'RIVALUTARE';
                     hideDetailedBreakdown();
                 }
             } else {
-                resultsSection.style.display = 'none';
+                if (resultsSection) resultsSection.style.display = 'none';
                 hideDetailedBreakdown();
             }
         }
@@ -1072,32 +1084,34 @@
                 breakdownDiv.id = 'detailed-breakdown';
                 breakdownDiv.className = 'mt-3 p-3 bg-light rounded';
                 const resultsContainer = document.querySelector('#necpal31-results-section .results-grid');
-                if (resultsContainer) resultsContainer.parentNode.appendChild(breakdownDiv);
+                if (resultsContainer && resultsContainer.parentNode) {
+                    resultsContainer.parentNode.appendChild(breakdownDiv);
+                }
             }
             breakdownDiv.innerHTML = `
-                <h6 class="text-dark mb-3"><i class="fas fa-chart-bar me-2"></i>Analisi Dettagliata</h6>
+                <h6 class="text-dark mb-3"><i class="fas fa-chart-bar me-2" style="color: var(--primary-green);"></i>Analisi Dettagliata NECPAL 3.1</h6>
                 <div class="row text-dark">
                     <div class="col-md-4">
-                        <div class="text-center p-2 border rounded">
-                            <div class="h5 mb-1">${richiesta}</div>
-                            <small>Richiesta/Bisogni</small>
+                        <div class="text-center p-3 border rounded" style="border-color: var(--primary-green) !important; background: rgba(40,167,69,0.1);">
+                            <div class="h4 mb-1" style="color: var(--primary-green); font-weight:700;">${richiesta}</div>
+                            <small style="font-weight:600;">Richiesta/Bisogni</small>
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="text-center p-2 border rounded">
-                            <div class="h5 mb-1">${generali}</div>
-                            <small>Indicatori Generali</small>
+                        <div class="text-center p-3 border rounded" style="border-color: var(--primary-green) !important; background: rgba(40,167,69,0.1);">
+                            <div class="h4 mb-1" style="color: var(--primary-green); font-weight:700;">${generali}</div>
+                            <small style="font-weight:600;">Indicatori Generali</small>
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="text-center p-2 border rounded">
-                            <div class="h5 mb-1">${specifici}</div>
-                            <small>Indicatori Specifici</small>
+                        <div class="text-center p-3 border rounded" style="border-color: var(--primary-green) !important; background: rgba(40,167,69,0.1);">
+                            <div class="h4 mb-1" style="color: var(--primary-green); font-weight:700;">${specifici}</div>
+                            <small style="font-weight:600;">Indicatori Specifici</small>
                         </div>
                     </div>
                 </div>
-                <div class="mt-3">
-                    <small class="text-muted"><strong>Criteri NECPAL 3.1:</strong> Positivo se ≥1 parametro. Raccomandazioni basate su distribuzione e gravità degli indicatori.</small>
+                <div class="mt-3 p-2" style="background: rgba(40,167,69,0.05); border-radius:8px;">
+                    <small class="text-muted"><strong style="color: var(--primary-green);">Criteri NECPAL 3.1:</strong> Positivo se ≥1 parametro totale. Raccomandazioni basate su distribuzione e gravità degli indicatori.</small>
                 </div>`;
         }
 
@@ -1116,21 +1130,46 @@
         }
 
         function resetNecpal31() {
-            if (confirm('Sei sicuro di voler resettare la valutazione?')) {
-                necpal31Data = { surprise: null, items: [], patientInfo: {}, richiestaBisogni: 0, indicatoriGenerali: 0, indicatoriSpecifici: 0 };
-                document.getElementById('necpal31-patient-name').value = '';
-                document.getElementById('necpal31-birth-date').value = '';
-                document.getElementById('necpal31-eval-date').value = new Date().toISOString().split('T')[0];
-                document.querySelectorAll('#necpal31-home input[name="surprise"]').forEach(radio => radio.checked = false);
-                document.querySelectorAll('#necpal31-home .checkbox-item').forEach(item => {
-                    item.classList.remove('selected');
-                    item.querySelector('input[type="checkbox"]').checked = false;
-                });
-                document.getElementById('necpal31-negative').style.display = 'none';
-                document.getElementById('necpal31-sections').style.display = 'none';
-                document.getElementById('necpal31-results-section').style.display = 'none';
-                hideDetailedBreakdown();
-            }
+            if (!confirm('Sei sicuro di voler resettare la valutazione?')) return;
+            necpal31Data = {
+                surprise: null,
+                items: [],
+                patientInfo: {},
+                richiestaBisogni: 0,
+                indicatoriGenerali: 0,
+                indicatoriSpecifici: 0
+            };
+            const nameInput = document.getElementById('necpal31-patient-name');
+            const birthInput = document.getElementById('necpal31-birth-date');
+            const evalInput = document.getElementById('necpal31-eval-date');
+            if (nameInput) nameInput.value = '';
+            if (birthInput) birthInput.value = '';
+            if (evalInput) evalInput.value = new Date().toISOString().split('T')[0];
+            document.querySelectorAll('#necpal31-home input[name="surprise"]').forEach(radio => { radio.checked = false; });
+            document.querySelectorAll('#necpal31-home .checkbox-item').forEach(item => {
+                item.classList.remove('selected');
+                const cb = item.querySelector('input[type="checkbox"]');
+                if (cb) cb.checked = false;
+            });
+            const negativeDiv = document.getElementById('necpal31-negative');
+            const sectionsDiv = document.getElementById('necpal31-sections');
+            const resultsDiv = document.getElementById('necpal31-results-section');
+            if (negativeDiv) negativeDiv.style.display = 'none';
+            if (sectionsDiv) sectionsDiv.style.display = 'none';
+            if (resultsDiv) resultsDiv.style.display = 'none';
+            hideDetailedBreakdown();
         }
+
+        window.switchNecpal31Mode = switchNecpal31Mode;
+        window.toggleNecpal31Item = toggleNecpal31Item;
+        window.printNecpal31 = printNecpal31;
+        window.printNecpal31Template = printNecpal31Template;
+        window.resetNecpal31 = resetNecpal31;
     </script>
+    <style>
+        @keyframes fadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+        #detailed-breakdown { animation: fadeIn 0.3s ease; border:2px solid var(--primary-green) !important; background:white; box-shadow:0 4px 16px rgba(40,167,69,0.1) !important; border-radius:12px; }
+        #detailed-breakdown .border { border-color: var(--primary-green) !important; }
+        #detailed-breakdown .h4 { color: var(--primary-green) !important; font-weight:700 !important; }
+    </style>
 </section>

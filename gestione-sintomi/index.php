@@ -237,7 +237,7 @@
         <!-- Categories Grid -->
         <div class="categories-grid">
           <!-- IDENTIFICAZIONE -->
-          <div class="category-card identificazione" onclick="openCategoryView('identificazione')">
+          <div class="category-card identificazione" onclick="navigateToSection('identificazione-home')">
             <div class="category-header">
               <div class="category-icon">🔍</div>
               <div class="category-info">
