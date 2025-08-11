@@ -4,15 +4,8 @@
 let performanceData = {
   akps: { score: null, patientName: '', date: '' },
   pps: { score: null, patientName: '', date: '' },
-  adl: { scores: {}, total: 0, patientName: '', date: '' },
-  badl: { scores: {}, total: 0, patientName: '', date: '' }
-};
-
-// ADL scores specifici
-let adlScores = {
-  feeding: null, bathing: null, grooming: null, dressing: null, 
-  bowel: null, bladder: null, toilet: null, transfer: null, 
-  mobility: null, stairs: null
+  badl: { scores: {}, total: 0, patientName: '', date: '' },
+  iadl: { scores: {}, total: 0, patientName: '', date: '' }
 };
 
 // BADL scores specifici  
@@ -151,95 +144,6 @@ function showPPSResult(score) {
   resultsDiv.style.display = 'block';
 }
 
-// === ADL FUNCTIONS ===
-function selectADL(domain, score, element) {
-  adlScores[domain] = parseInt(score);
-  
-  // Visual feedback
-  const domainGroup = document.getElementById(`adl-${domain}-group`);
-  if (domainGroup) {
-    domainGroup.querySelectorAll('.radio-option').forEach(option => {
-      option.classList.remove('selected');
-    });
-  }
-  
-  if (element) element.classList.add('selected');
-  
-  calculateADLScore();
-}
-
-function calculateADLScore() {
-  let totalScore = 0;
-  let completedItems = 0;
-  const totalItems = Object.keys(adlScores).length;
-  
-  for (let domain in adlScores) {
-    if (adlScores[domain] !== null) {
-      totalScore += adlScores[domain];
-      completedItems++;
-    }
-  }
-  
-  // Calcola percentuale completamento
-  const progressPercentage = Math.round((completedItems / totalItems) * 100);
-  updateProgress('adl', progressPercentage);
-  
-  // Mostra risultati se completato
-  if (completedItems === totalItems) {
-    showADLResult(totalScore);
-  } else {
-    showPartialADLResult(totalScore, completedItems, totalItems);
-  }
-}
-
-function showADLResult(totalScore) {
-  const resultsDiv = document.getElementById('adl-results');
-  const scoreNum = document.getElementById('adl-score');
-  const interpretation = document.getElementById('adl-interpretation');
-  const description = document.getElementById('adl-description');
-  
-  if (!resultsDiv || !scoreNum || !interpretation || !description) return;
-  
-  // Il punteggio totale massimo per ADL è 20, convertiamo in scala 0-100
-  const scaledScore = Math.round((totalScore / 20) * 100);
-  
-  scoreNum.textContent = scaledScore;
-  performanceData.adl.total = scaledScore;
-  
-  let interp, desc;
-  if (scaledScore >= 91) {
-    interp = "Indipendenza completa";
-    desc = "Il paziente è completamente autonomo in tutte le attività della vita quotidiana.";
-  } else if (scaledScore >= 61) {
-    interp = "Dipendenza moderata";
-    desc = "Il paziente necessita di assistenza limitata per alcune attività.";
-  } else if (scaledScore >= 21) {
-    interp = "Dipendenza severa";
-    desc = "Il paziente richiede assistenza significativa per la maggior parte delle attività.";
-  } else {
-    interp = "Dipendenza totale";
-    desc = "Il paziente necessita di assistenza completa per tutte le attività quotidiane.";
-  }
-  
-  interpretation.textContent = interp;
-  description.textContent = desc;
-  resultsDiv.style.display = 'block';
-}
-
-function showPartialADLResult(currentScore, completed, total) {
-  const resultsDiv = document.getElementById('adl-results');
-  const scoreNum = document.getElementById('adl-score');
-  const interpretation = document.getElementById('adl-interpretation');
-  const description = document.getElementById('adl-description');
-  
-  if (!resultsDiv || !scoreNum || !interpretation || !description) return;
-  
-  scoreNum.textContent = currentScore;
-  interpretation.textContent = `Valutazione parziale (${completed}/${total})`;
-  description.textContent = "Completa tutte le attività per ottenere il punteggio finale.";
-  resultsDiv.style.display = 'block';
-}
-
 // === BADL FUNCTIONS ===
 function selectBADL(domain, score, element) {
   badlScores[domain] = parseInt(score);
@@ -353,17 +257,13 @@ function resetPerformanceForm(toolId) {
   if (results) results.style.display = 'none';
   
   // Reset dati specifici per strumento
-  if (toolId === 'adl') {
-    adlScores = {
-      feeding: null, bathing: null, grooming: null, dressing: null, 
-      bowel: null, bladder: null, toilet: null, transfer: null, 
-      mobility: null, stairs: null
-    };
-  } else if (toolId === 'badl') {
+  if (toolId === 'badl') {
     badlScores = {
-      hygiene: null, dressing: null, feeding: null, 
+      hygiene: null, dressing: null, feeding: null,
       transfer: null, mobility: null, continence: null
     };
+  } else if (toolId === 'iadl') {
+    performanceData.iadl.scores = {};
   }
   
   // Reset dati generali
@@ -407,8 +307,8 @@ function generateSheetContent(toolId, patientName, date, score, interpretation, 
   const toolNames = {
     'akps': 'AKPS - Australia-modified Karnofsky Performance Status',
     'pps': 'PPS - Palliative Performance Scale',
-    'adl': 'ADL - Activities of Daily Living (Indice di Barthel)',
-    'badl': 'BADL - Basic Activities of Daily Living'
+    'badl': 'BADL - Basic Activities of Daily Living',
+    'iadl': 'IADL - Instrumental Activities of Daily Living'
   };
 
   return `
@@ -446,7 +346,7 @@ function generateSheetContent(toolId, patientName, date, score, interpretation, 
   <div class="result-section">
     <h3>📊 Risultati</h3>
     <div class="form-row">
-      <div class="form-field"><strong>Punteggio totale:</strong> ${score}${toolId === 'pps' ? '%' : (toolId === 'badl' ? '/18' : '/100')}</div>
+      <div class="form-field"><strong>Punteggio totale:</strong> ${score}${toolId === 'pps' ? '%' : (toolId === 'badl' ? '/18' : (toolId === 'iadl' ? '/8' : '/100'))}</div>
       <div class="form-field"><strong>Interpretazione:</strong> ${interpretation}</div>
     </div>
     <div style="margin-top:20px;"><strong>Descrizione:</strong><br>${description}</div>
@@ -480,18 +380,19 @@ function getRecommendations(toolId, score) {
     return "• Cure di fine vita\n• Comfort care esclusivo\n• Accompagnamento famiglia\n• Gestione transizione";
   }
   
-  if (toolId === 'adl') {
-    if (score >= 91) return "• Mantenimento autonomia\n• Prevenzione decline funzionale\n• Attività fisica adattata";
-    if (score >= 61) return "• Ausili per autonomia\n• Riabilitazione mirata\n• Valutazione ambientale";
-    if (score >= 21) return "• Assistenza domiciliare\n• Ausili maggiori\n• Supporto caregiver";
-    return "• Assistenza continua\n• Valutazione istituzionalizzazione\n• Supporto famiglia";
-  }
-  
   if (toolId === 'badl') {
     if (score <= 3) return "• Mantenimento autonomia\n• Monitoraggio periodico\n• Prevenzione cadute";
     if (score <= 9) return "• Supporto domiciliare limitato\n• Ausili di base\n• Training caregiver";
     if (score <= 15) return "• Assistenza domiciliare integrata\n• Ausili complessi\n• Valutazione sociale";
     return "• Assistenza continua\n• Valutazione long-term care\n• Supporto intensivo famiglia";
+  }
+
+  if (toolId === 'iadl') {
+    if (score >= 7) return "• Mantenimento indipendenza\n• Monitoraggio periodico\n• Supporto mirato";
+    if (score >= 5) return "• Supporto leggero\n• Servizi domiciliari selettivi\n• Ausili tecnologici";
+    if (score >= 3) return "• Assistenza domiciliare estesa\n• Supporto per farmaci e finanze\n• Valutazione centro diurno";
+    if (score >= 1) return "• Assistenza intensiva\n• Valutazione struttura protetta\n• Gestione completa farmaci e finanze";
+    return "• Ricovero in struttura assistita\n• Assistenza completa\n• Supporto familiare intensivo";
   }
   
   return "• Valutazione multidisciplinare\n• Pianificazione assistenziale\n• Monitoraggio periodico";
@@ -526,21 +427,6 @@ DOMINI VALUTATI:
 4. Assunzione di cibo
 5. Livello di coscienza`,
 
-    'adl': `
-DOMINI BARTHEL INDEX:
-1. Alimentazione (0-2 punti)
-2. Bagno (0-1 punto)
-3. Cura personale (0-1 punto)
-4. Vestirsi (0-2 punti)
-5. Controllo intestinale (0-2 punti)
-6. Controllo vescicale (0-2 punti)
-7. Uso WC (0-2 punti)
-8. Trasferimento (0-3 punti)
-9. Mobilità (0-3 punti)
-10. Scale (0-2 punti)
-
-VALIDITÀ: Gold standard per valutazione ADL`,
-
     'badl': `
 DOMINI BADL (scala 0-3 ciascuno):
 1. Igiene personale
@@ -550,7 +436,20 @@ DOMINI BADL (scala 0-3 ciascuno):
 5. Mobilità nel letto
 6. Controllo sfinterico
 
-UTILIZZO: Screening rapido, monitoraggio, pianificazione assistenziale`
+UTILIZZO: Screening rapido, monitoraggio, pianificazione assistenziale`,
+
+    'iadl': `
+DOMINI IADL:
+1. Uso del telefono
+2. Shopping
+3. Preparazione del cibo
+4. Gestione casa
+5. Lavanderia
+6. Trasporti
+7. Gestione farmaci
+8. Gestione finanze
+
+UTILIZZO: Valutazione autonomia nella comunità`
   };
   
   return info[toolId] || '';
@@ -560,8 +459,8 @@ function getBibliography(toolId) {
   const biblio = {
     'akps': '- Abernethy AP, et al. J Pain Symptom Manage. 2005;29(3):224-7\n- Currow DC, et al. J Clin Oncol. 2008;26(23):3883-8',
     'pps': '- Anderson F, et al. J Palliat Care. 1996;12(4):5-11\n- Virik K, Glare P. J Clin Oncol. 2002;20(21):4376-80',
-    'adl': '- Mahoney FI, Barthel DW. Md State Med J. 1965;14:61-5\n- Collin C, et al. Int Disabil Stud. 1988;10(2):64-7',
-    'badl': '- Katz S, et al. JAMA. 1963;185:914-9\n- Lawton MP, Brody EM. Gerontologist. 1969;9(3):179-86'
+    'badl': '- Katz S, et al. JAMA. 1963;185:914-9\n- Lawton MP, Brody EM. Gerontologist. 1969;9(3):179-86',
+    'iadl': '- Lawton MP, Brody EM. Gerontologist. 1969;9(3):179-86'
   };
   
   return biblio[toolId] || 'Bibliografia disponibile nella documentazione completa';
@@ -585,9 +484,9 @@ function printPerformanceTemplate(toolId) {
 function generatePrintTemplate(toolId) {
   const toolNames = {
     'akps': 'AKPS - Australia-modified Karnofsky Performance Status',
-    'pps': 'PPS - Palliative Performance Scale', 
-    'adl': 'ADL - Activities of Daily Living (Indice di Barthel)',
-    'badl': 'BADL - Basic Activities of Daily Living'
+    'pps': 'PPS - Palliative Performance Scale',
+    'badl': 'BADL - Basic Activities of Daily Living',
+    'iadl': 'IADL - Instrumental Activities of Daily Living'
   };
   
   return `
@@ -806,71 +705,6 @@ function getTemplateItems(toolId) {
     `;
   }
   
-  if (toolId === 'adl') {
-    return `
-        <div class="scale-item">
-            <strong>1. Alimentazione</strong><br>
-            <span class="checkbox"></span> 0 - Necessita assistenza &nbsp;&nbsp;
-            <span class="checkbox"></span> 1 - Assistenza per tagliare &nbsp;&nbsp;
-            <span class="checkbox"></span> 2 - Indipendente
-        </div>
-        <div class="scale-item">
-            <strong>2. Bagno</strong><br>
-            <span class="checkbox"></span> 0 - Dipendente &nbsp;&nbsp;
-            <span class="checkbox"></span> 1 - Indipendente
-        </div>
-        <div class="scale-item">
-            <strong>3. Cura personale</strong><br>
-            <span class="checkbox"></span> 0 - Necessita assistenza &nbsp;&nbsp;
-            <span class="checkbox"></span> 1 - Indipendente
-        </div>
-        <div class="scale-item">
-            <strong>4. Vestirsi</strong><br>
-            <span class="checkbox"></span> 0 - Dipendente &nbsp;&nbsp;
-            <span class="checkbox"></span> 1 - Necessita assistenza &nbsp;&nbsp;
-            <span class="checkbox"></span> 2 - Indipendente
-        </div>
-        <div class="scale-item">
-            <strong>5. Controllo intestinale</strong><br>
-            <span class="checkbox"></span> 0 - Incontinente &nbsp;&nbsp;
-            <span class="checkbox"></span> 1 - Incidenti occasionali &nbsp;&nbsp;
-            <span class="checkbox"></span> 2 - Continente
-        </div>
-        <div class="scale-item">
-            <strong>6. Controllo vescicale</strong><br>
-            <span class="checkbox"></span> 0 - Incontinente &nbsp;&nbsp;
-            <span class="checkbox"></span> 1 - Incidenti occasionali &nbsp;&nbsp;
-            <span class="checkbox"></span> 2 - Continente
-        </div>
-        <div class="scale-item">
-            <strong>7. Uso del WC</strong><br>
-            <span class="checkbox"></span> 0 - Dipendente &nbsp;&nbsp;
-            <span class="checkbox"></span> 1 - Necessita assistenza &nbsp;&nbsp;
-            <span class="checkbox"></span> 2 - Indipendente
-        </div>
-        <div class="scale-item">
-            <strong>8. Trasferimento letto-sedia</strong><br>
-            <span class="checkbox"></span> 0 - Incapace &nbsp;&nbsp;
-            <span class="checkbox"></span> 1 - Assistenza maggiore &nbsp;&nbsp;
-            <span class="checkbox"></span> 2 - Assistenza minore &nbsp;&nbsp;
-            <span class="checkbox"></span> 3 - Indipendente
-        </div>
-        <div class="scale-item">
-            <strong>9. Mobilità (su superfici piane)</strong><br>
-            <span class="checkbox"></span> 0 - Immobile &nbsp;&nbsp;
-            <span class="checkbox"></span> 1 - Sedia a rotelle &nbsp;&nbsp;
-            <span class="checkbox"></span> 2 - Deambula con aiuto &nbsp;&nbsp;
-            <span class="checkbox"></span> 3 - Indipendente
-        </div>
-        <div class="scale-item">
-            <strong>10. Scale</strong><br>
-            <span class="checkbox"></span> 0 - Incapace &nbsp;&nbsp;
-            <span class="checkbox"></span> 1 - Necessita assistenza &nbsp;&nbsp;
-            <span class="checkbox"></span> 2 - Indipendente
-        </div>
-    `;
-  }
-  
   if (toolId === 'badl') {
     return `
         <p><em>Valutare ogni attività su scala 0-3: 0=Nessuna difficoltà, 1=Qualche difficoltà, 2=Grande difficoltà, 3=Impossibile</em></p>
@@ -897,6 +731,44 @@ function getTemplateItems(toolId) {
         <div class="scale-item">
             <strong>6. Controllo sfinterico</strong> (vescica e intestino)<br>
             <span class="checkbox"></span> 0 &nbsp;&nbsp; <span class="checkbox"></span> 1 &nbsp;&nbsp; <span class="checkbox"></span> 2 &nbsp;&nbsp; <span class="checkbox"></span> 3
+        </div>
+    `;
+  }
+
+  if (toolId === 'iadl') {
+    return `
+        <p><em>Segna 1 se il paziente è indipendente, 0 se dipendente</em></p>
+        <div class="scale-item">
+            <strong>1. Uso del telefono</strong><br>
+            <span class="checkbox"></span> 1 &nbsp;&nbsp; <span class="checkbox"></span> 0
+        </div>
+        <div class="scale-item">
+            <strong>2. Shopping</strong><br>
+            <span class="checkbox"></span> 1 &nbsp;&nbsp; <span class="checkbox"></span> 0
+        </div>
+        <div class="scale-item">
+            <strong>3. Preparazione del cibo</strong><br>
+            <span class="checkbox"></span> 1 &nbsp;&nbsp; <span class="checkbox"></span> 0
+        </div>
+        <div class="scale-item">
+            <strong>4. Gestione casa</strong><br>
+            <span class="checkbox"></span> 1 &nbsp;&nbsp; <span class="checkbox"></span> 0
+        </div>
+        <div class="scale-item">
+            <strong>5. Lavanderia</strong><br>
+            <span class="checkbox"></span> 1 &nbsp;&nbsp; <span class="checkbox"></span> 0
+        </div>
+        <div class="scale-item">
+            <strong>6. Trasporti</strong><br>
+            <span class="checkbox"></span> 1 &nbsp;&nbsp; <span class="checkbox"></span> 0
+        </div>
+        <div class="scale-item">
+            <strong>7. Gestione farmaci</strong><br>
+            <span class="checkbox"></span> 1 &nbsp;&nbsp; <span class="checkbox"></span> 0
+        </div>
+        <div class="scale-item">
+            <strong>8. Gestione finanze</strong><br>
+            <span class="checkbox"></span> 1 &nbsp;&nbsp; <span class="checkbox"></span> 0
         </div>
     `;
   }

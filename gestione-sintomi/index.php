@@ -296,8 +296,8 @@
             <div class="category-tools">
               <span class="tool-badge available">AKPS</span>
               <span class="tool-badge available">PPS</span>
-              <span class="tool-badge available">ADL</span>
               <span class="tool-badge available">BADL</span>
+              <span class="tool-badge available">IADL</span>
             </div>
           </div>
 

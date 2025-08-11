@@ -84,33 +84,33 @@
         </div>
       </div>
 
-      <!-- ADL Card -->
-      <div class="tool-card tool-card-compact h-100 adl-card">
+      <!-- IADL Card -->
+      <div class="tool-card tool-card-compact h-100 iadl-card">
         <div class="tool-header">
           <div class="tool-icon-large">
-            <span class="tool-letters">ADL</span>
+            <span class="tool-letters">IA</span>
           </div>
           <div class="tool-info">
-            <h4>ADL</h4>
-            <div class="tool-subtitle">Activities of Daily Living (Indice di Barthel)</div>
+            <h4>IADL</h4>
+            <div class="tool-subtitle">Instrumental Activities of Daily Living</div>
           </div>
         </div>
-        
+
         <div class="tool-description">
-          Indice di Barthel per valutare l'autonomia nelle attività della vita quotidiana. Strumento gold standard per la valutazione funzionale con 10 domini specifici.
+          Valutazione delle attività strumentali necessarie per vivere in modo indipendente nella comunità.
         </div>
-        
+
         <div class="tool-features">
-          <span class="feature-badge">10 attività</span>
-          <span class="feature-badge">Scala 0-100</span>
-          <span class="feature-badge">Gold standard</span>
+          <span class="feature-badge">8 attività</span>
+          <span class="feature-badge">Scala 0-1</span>
+          <span class="feature-badge">Vita indipendente</span>
         </div>
-        
+
         <div class="tool-actions">
-          <button class="btn btn-primary btn-action" onclick="openADLCompile()">
+          <button class="btn btn-primary btn-action" onclick="openIADLCompile()">
             <i class="fas fa-edit me-2"></i>Compila
           </button>
-          <button class="btn btn-outline-primary btn-action" onclick="openADLVisualize()">
+          <button class="btn btn-outline-primary btn-action" onclick="openIADLVisualize()">
             <i class="fas fa-table me-2"></i>Visualizza
           </button>
         </div>
@@ -658,8 +658,8 @@
     </details>
   </div>
 </section>
-<!-- ADL -->
-<section id="adl-home" class="p-4" style="display:none;">
+<!-- IADL -->
+<section id="iadl-home" class="p-4" style="display:none;">
   <div class="mb-3">
     <button class="btn btn-outline-success me-2" onclick="navigateToSection('strumenti-valutazione-home')">
       <i class="fas fa-arrow-left me-2"></i>Torna alle Categorie
@@ -669,55 +669,53 @@
     </button>
   </div>
   <div class="modal-header">
-    <h3>ADL - Activities of Daily Living (Indice di Barthel)</h3>
-    <p>Valutazione dell'autonomia nelle attività della vita quotidiana</p>
+    <h3>IADL - Instrumental Activities of Daily Living</h3>
+    <p>Valutazione delle attività strumentali della vita quotidiana</p>
   </div>
   <div class="modal-body">
     <div class="mode-selector">
-      <button class="mode-btn active" onclick="switchPerformanceMode('adl', 'compile')">
+      <button class="mode-btn active" onclick="switchPerformanceMode('iadl', 'compile')">
         <i class="fas fa-edit me-2"></i>Compila
       </button>
-      <button class="mode-btn" onclick="switchPerformanceMode('adl', 'view')">
+      <button class="mode-btn" onclick="switchPerformanceMode('iadl', 'view')">
         <i class="fas fa-table me-2"></i>Visualizza Scala
       </button>
     </div>
 
-    <div id="adl-compile" class="content-section active">
+    <div id="iadl-compile" class="content-section active">
       <div class="patient-info">
         <h4><i class="fas fa-user me-2"></i>Dati Paziente</h4>
         <div class="form-row">
           <div class="form-group">
             <label class="form-label">Nome Paziente</label>
-            <input type="text" class="form-control" id="adl-patient-name" placeholder="Inserisci nome paziente">
+            <input type="text" class="form-control" id="iadl-patient-name" placeholder="Inserisci nome paziente">
           </div>
           <div class="form-group">
             <label class="form-label">Data Valutazione</label>
-            <input type="date" class="form-control" id="adl-date">
+            <input type="date" class="form-control" id="iadl-date">
           </div>
         </div>
       </div>
 
       <div class="info-box">
-        <h5><i class="fas fa-info-circle"></i>Istruzioni</h5>
-        <p>L'Indice di Barthel valuta 10 attività della vita quotidiana. Per una valutazione completa e accurata, si consiglia di utilizzare il template stampabile.</p>
+        <h5><i class="fas fa-info-circle"></i>Istruzioni IADL</h5>
+        <p>Valuta le 8 attività strumentali utilizzando la scala binaria: 1 = indipendente, 0 = dipendente. Per la valutazione completa è disponibile il template stampabile.</p>
       </div>
 
       <div class="form-section">
-        <h4>Attività da valutare</h4>
-        <p><strong>Nota:</strong> Questa è una versione semplificata. Per la valutazione completa utilizzare il modulo cartaceo o la versione online dedicata.</p>
+        <h4>Attività strumentali da valutare</h4>
+        <p><strong>Scala:</strong> 1 = Indipendente | 0 = Dipendente</p>
         <div class="info-box">
-          <h5><i class="fas fa-list"></i>Le 10 attività del Barthel Index</h5>
+          <h5><i class="fas fa-tasks"></i>Le 8 attività IADL</h5>
           <ul>
-            <li><strong>Alimentazione</strong> (0-2 punti) - Capacità di portare il cibo alla bocca</li>
-            <li><strong>Bagno</strong> (0-1 punto) - Capacità di lavarsi completamente</li>
-            <li><strong>Cura personale</strong> (0-1 punto) - Igiene di base, denti, capelli</li>
-            <li><strong>Vestirsi</strong> (0-2 punti) - Indossare e togliere i vestiti</li>
-            <li><strong>Controllo intestinale</strong> (0-2 punti) - Continenza fecale</li>
-            <li><strong>Controllo vescicale</strong> (0-2 punti) - Continenza urinaria</li>
-            <li><strong>Uso del WC</strong> (0-2 punti) - Transfert e igiene al WC</li>
-            <li><strong>Trasferimento letto-sedia</strong> (0-3 punti) - Capacità di spostarsi</li>
-            <li><strong>Mobilità</strong> (0-3 punti) - Deambulazione su superfici piane</li>
-            <li><strong>Scale</strong> (0-2 punti) - Salire e scendere le scale</li>
+            <li>Capacità di usare il telefono</li>
+            <li>Shopping</li>
+            <li>Preparazione del cibo</li>
+            <li>Gestione della casa</li>
+            <li>Lavanderia</li>
+            <li>Trasporti</li>
+            <li>Gestione dei farmaci</li>
+            <li>Gestione delle finanze</li>
           </ul>
         </div>
       </div>
@@ -739,10 +737,10 @@
       </div>
     </div>
 
-    <div id="adl-view" class="content-section">
+    <div id="iadl-view" class="content-section">
       <div class="info-box">
-        <h5><i class="fas fa-info-circle"></i>Informazioni ADL (Indice di Barthel)</h5>
-        <p>L'Indice di Barthel è lo strumento gold standard per valutare l'autonomia nelle attività della vita quotidiana. Punteggio massimo: 100 punti.</p>
+        <h5><i class="fas fa-info-circle"></i>Informazioni IADL</h5>
+        <p>Le Instrumental Activities of Daily Living valutano la capacità di vivere in autonomia nella comunità. Punteggio totale: 0-8 punti.</p>
       </div>
 
       <table class="scale-table">
@@ -750,36 +748,34 @@
           <tr>
             <th>Attività</th>
             <th>Punteggio</th>
-            <th>Criteri di valutazione</th>
+            <th>Descrizione</th>
           </tr>
         </thead>
         <tbody>
-          <tr><td><strong>Alimentazione</strong></td><td>0-2</td><td>0=assistenza; 1=aiuto tagliare; 2=indipendente</td></tr>
-          <tr><td><strong>Bagno</strong></td><td>0-1</td><td>0=dipendente; 1=indipendente</td></tr>
-          <tr><td><strong>Cura personale</strong></td><td>0-1</td><td>0=assistenza; 1=indipendente</td></tr>
-          <tr><td><strong>Vestirsi</strong></td><td>0-2</td><td>0=dipendente; 1=assistenza; 2=indipendente</td></tr>
-          <tr><td><strong>Controllo intestinale</strong></td><td>0-2</td><td>0=incontinente; 1=occasionale; 2=continente</td></tr>
-          <tr><td><strong>Controllo vescicale</strong></td><td>0-2</td><td>0=incontinente; 1=occasionale; 2=continente</td></tr>
-          <tr><td><strong>Uso WC</strong></td><td>0-2</td><td>0=dipendente; 1=assistenza; 2=indipendente</td></tr>
-          <tr><td><strong>Trasferimento</strong></td><td>0-3</td><td>0=incapace; 1=assistenza maggiore; 2=minore; 3=indipendente</td></tr>
-          <tr><td><strong>Mobilità</strong></td><td>0-3</td><td>0=immobile; 1=sedia rotelle; 2=aiuto; 3=indipendente</td></tr>
-          <tr><td><strong>Scale</strong></td><td>0-2</td><td>0=incapace; 1=assistenza; 2=indipendente</td></tr>
+          <tr><td>Uso del telefono</td><td>1/0</td><td>1 = indipendente, 0 = non usa il telefono</td></tr>
+          <tr><td>Shopping</td><td>1/0</td><td>1 = fa acquisti autonomamente</td></tr>
+          <tr><td>Preparazione del cibo</td><td>1/0</td><td>1 = prepara pasti adeguati</td></tr>
+          <tr><td>Gestione casa</td><td>1/0</td><td>1 = mantiene la casa in ordine</td></tr>
+          <tr><td>Lavanderia</td><td>1/0</td><td>1 = lava i propri vestiti</td></tr>
+          <tr><td>Trasporti</td><td>1/0</td><td>1 = viaggia autonomamente</td></tr>
+          <tr><td>Gestione farmaci</td><td>1/0</td><td>1 = assume correttamente i farmaci</td></tr>
+          <tr><td>Gestione finanze</td><td>1/0</td><td>1 = gestisce denaro e bollette</td></tr>
         </tbody>
       </table>
 
       <div class="info-box">
-        <h5><i class="fas fa-chart-bar"></i>Interpretazione Punteggi</h5>
+        <h5><i class="fas fa-chart-pie"></i>Interpretazione Punteggio Totale (0-8)</h5>
         <ul>
-          <li><strong>0-20:</strong> Dipendenza totale - Necessita assistenza completa</li>
-          <li><strong>21-60:</strong> Dipendenza severa - Richiede assistenza maggiore</li>
-          <li><strong>61-90:</strong> Dipendenza moderata - Necessita supporto parziale</li>
-          <li><strong>91-99:</strong> Dipendenza lieve - Quasi indipendente</li>
-          <li><strong>100:</strong> Indipendenza completa - Totalmente autonomo</li>
+          <li><strong>0:</strong> Massima dipendenza</li>
+          <li><strong>1-2:</strong> Dipendenza severa</li>
+          <li><strong>3-4:</strong> Dipendenza moderata</li>
+          <li><strong>5-6:</strong> Dipendenza lieve</li>
+          <li><strong>7-8:</strong> Indipendenza elevata</li>
         </ul>
       </div>
 
       <div class="action-buttons">
-        <button class="btn btn-warning" onclick="printPerformanceTemplate('adl')">
+        <button class="btn btn-warning" onclick="printPerformanceTemplate('iadl')">
           <i class="fas fa-print"></i>Stampa Template
         </button>
       </div>
