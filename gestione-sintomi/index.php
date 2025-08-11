@@ -317,8 +317,8 @@
               Strumenti per la valutazione prognostica
             </div>
             <div class="category-tools">
-              <span class="tool-badge">PPI</span>
-              <span class="tool-badge">PaP Score</span>
+              <span class="tool-badge available">PPI</span>
+              <span class="tool-badge available">PaP Score</span>
             </div>
           </div>
 
