@@ -19,7 +19,7 @@
       </p>
     </div>
 
-    <div class="row g-4">
+    <div class="row g-4 justify-content-center">
       <div class="col-md-6">
       <div class="tool-card">
         <div class="tool-header">
@@ -60,7 +60,9 @@
       </div>
       </div>
 
-      <div class="col-md-6 mx-auto">
+    </div>
+    <div class="row g-4 justify-content-center">
+      <div class="col-md-6 col-lg-4">
       <div class="tool-card">
         <div class="tool-header">
           <div class="tool-icon">SP</div>
@@ -73,8 +75,8 @@
           Tool clinico per identificare pazienti che potrebbero beneficiare di cure palliative specialistiche.
         </div>
         <div class="tool-actions">
-          <a href="#" class="action-btn btn-primary-custom" onclick="openSPICTCompile()"><i class="fas fa-edit"></i>Compila</a>
-          <a href="#" class="action-btn btn-outline-custom" onclick="openSPICTVisualize()"><i class="fas fa-eye"></i>Visualizza</a>
+          <a href="#" class="action-btn btn-primary-custom" onclick="openSpictCompile()"><i class="fas fa-edit"></i>Compila</a>
+          <a href="#" class="action-btn btn-outline-custom" onclick="openSpictVisualize()"><i class="fas fa-eye"></i>Visualizza</a>
         </div>
       </div>
       </div>

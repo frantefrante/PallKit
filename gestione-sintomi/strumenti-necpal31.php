@@ -369,6 +369,21 @@
             left: 0;
         }
 
+        #detailed-breakdown {
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        #detailed-breakdown .border {
+            border-color: var(--primary-green) !important;
+        }
+        #detailed-breakdown .h5 {
+            color: var(--primary-green);
+            font-weight: 700;
+        }
+
         @media (max-width: 768px) {
             .surprise-options {
                 flex-direction: column;
@@ -954,7 +969,10 @@
         let necpal31Data = {
             surprise: null,
             items: [],
-            patientInfo: {}
+            patientInfo: {},
+            richiestaBisogni: 0,
+            indicatoriGenerali: 0,
+            indicatoriSpecifici: 0
         };
 
         document.addEventListener('DOMContentLoaded', function() {
@@ -985,7 +1003,7 @@
                 document.getElementById('necpal31-negative').style.display = 'none';
                 document.getElementById('necpal31-sections').style.display = 'block';
                 updateResults();
-        }
+            }
         }
 
         function toggleNecpal31Item(element, itemId) {
@@ -1004,26 +1022,88 @@
         }
 
         function updateResults() {
+            const richiestaBisogni = necpal31Data.items.filter(item => ['richiesta-scelta','bisogni-team'].includes(item)).length;
+            const indicatoriGenerali = necpal31Data.items.filter(item => ['declino-nutrizionale','declino-funzionale-karnofsky','declino-funzionale-adl','declino-cognitivo','dipendenza-grave','sindromi-geriatriche','sintomi-persistenti','aspetti-psicosociali','vulnerabilita-sociale','multimorbidita','utilizzo-risorse'].includes(item)).length;
+            const indicatoriSpecifici = necpal31Data.items.filter(item => ['cancro','bpco','cardiache','demenza','fragilita','ictus','neurologiche','epatiche','renali'].includes(item)).length;
+
+            necpal31Data.richiestaBisogni = richiestaBisogni;
+            necpal31Data.indicatoriGenerali = indicatoriGenerali;
+            necpal31Data.indicatoriSpecifici = indicatoriSpecifici;
+
             const totalItems = necpal31Data.items.length;
             const resultsSection = document.getElementById('necpal31-results-section');
-            if (necpal31Data.surprise === 'no' && totalItems > 0) {
+
+            if (necpal31Data.surprise === 'no') {
                 resultsSection.style.display = 'block';
                 document.getElementById('necpal31-total-items').textContent = totalItems;
+
                 if (totalItems >= 1) {
                     document.getElementById('necpal31-status').textContent = 'POSITIVO';
-                    document.getElementById('necpal31-recommendation').textContent = 'CURE PALLIATIVE';
+                    const recommendation = determineRecommendation31(richiestaBisogni, indicatoriGenerali, indicatoriSpecifici);
+                    document.getElementById('necpal31-recommendation').textContent = recommendation;
+                    showDetailedBreakdown(richiestaBisogni, indicatoriGenerali, indicatoriSpecifici);
                 } else {
                     document.getElementById('necpal31-status').textContent = 'NEGATIVO';
                     document.getElementById('necpal31-recommendation').textContent = 'RIVALUTARE';
+                    hideDetailedBreakdown();
                 }
-            } else if (necpal31Data.surprise === 'no') {
-                resultsSection.style.display = 'block';
-                document.getElementById('necpal31-total-items').textContent = '0';
-                document.getElementById('necpal31-status').textContent = 'NEGATIVO';
-                document.getElementById('necpal31-recommendation').textContent = 'RIVALUTARE';
             } else {
                 resultsSection.style.display = 'none';
+                hideDetailedBreakdown();
             }
+        }
+
+        function determineRecommendation31(richiesta, generali, specifici) {
+            if (specifici >= 2 || (specifici >= 1 && generali >= 3)) {
+                return 'CURE SPECIALISTICHE';
+            } else if (specifici >= 1 || generali >= 2 || richiesta >= 1) {
+                return 'CURE PALLIATIVE';
+            } else if (generali >= 1) {
+                return 'MONITORAGGIO';
+            } else {
+                return 'RIVALUTARE';
+            }
+        }
+
+        function showDetailedBreakdown(richiesta, generali, specifici) {
+            let breakdownDiv = document.getElementById('detailed-breakdown');
+            if (!breakdownDiv) {
+                breakdownDiv = document.createElement('div');
+                breakdownDiv.id = 'detailed-breakdown';
+                breakdownDiv.className = 'mt-3 p-3 bg-light rounded';
+                const resultsContainer = document.querySelector('#necpal31-results-section .results-grid');
+                if (resultsContainer) resultsContainer.parentNode.appendChild(breakdownDiv);
+            }
+            breakdownDiv.innerHTML = `
+                <h6 class="text-dark mb-3"><i class="fas fa-chart-bar me-2"></i>Analisi Dettagliata</h6>
+                <div class="row text-dark">
+                    <div class="col-md-4">
+                        <div class="text-center p-2 border rounded">
+                            <div class="h5 mb-1">${richiesta}</div>
+                            <small>Richiesta/Bisogni</small>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="text-center p-2 border rounded">
+                            <div class="h5 mb-1">${generali}</div>
+                            <small>Indicatori Generali</small>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="text-center p-2 border rounded">
+                            <div class="h5 mb-1">${specifici}</div>
+                            <small>Indicatori Specifici</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <small class="text-muted"><strong>Criteri NECPAL 3.1:</strong> Positivo se ≥1 parametro. Raccomandazioni basate su distribuzione e gravità degli indicatori.</small>
+                </div>`;
+        }
+
+        function hideDetailedBreakdown() {
+            const breakdownDiv = document.getElementById('detailed-breakdown');
+            if (breakdownDiv) breakdownDiv.remove();
         }
 
         function printNecpal31() {
@@ -1037,7 +1117,7 @@
 
         function resetNecpal31() {
             if (confirm('Sei sicuro di voler resettare la valutazione?')) {
-                necpal31Data = { surprise: null, items: [], patientInfo: {} };
+                necpal31Data = { surprise: null, items: [], patientInfo: {}, richiestaBisogni: 0, indicatoriGenerali: 0, indicatoriSpecifici: 0 };
                 document.getElementById('necpal31-patient-name').value = '';
                 document.getElementById('necpal31-birth-date').value = '';
                 document.getElementById('necpal31-eval-date').value = new Date().toISOString().split('T')[0];
@@ -1049,6 +1129,7 @@
                 document.getElementById('necpal31-negative').style.display = 'none';
                 document.getElementById('necpal31-sections').style.display = 'none';
                 document.getElementById('necpal31-results-section').style.display = 'none';
+                hideDetailedBreakdown();
             }
         }
     </script>

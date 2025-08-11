@@ -663,7 +663,400 @@
                 <p class="text-muted mb-4">
                     Definizioni e criteri aggiornati per la corretta applicazione dello strumento NECPAL 4.0 (2021).
                 </p>
-                <!-- Glossary accordion as in provided code -->
+
+                <div class="accordion" id="glossary40Accordion">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingNew">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNew">
+                                <i class="fas fa-star me-2"></i>Novità NECPAL 4.0
+                            </button>
+                        </h2>
+                        <div id="collapseNew" class="accordion-collapse collapse show" data-bs-parent="#glossary40Accordion">
+                            <div class="accordion-body">
+                                <p><strong>Principali aggiornamenti rispetto alla versione 3.1:</strong></p>
+                                <ul>
+                                    <li><strong>Criteri semplificati:</strong> Riduzione da 13 a 6 elementi principali più specifici</li>
+                                    <li><strong>Stima prognostica integrata:</strong> 3 stadi con prognosi mediana validata</li>
+                                    <li><strong>Validazione clinica:</strong> Basata su studi prospettici multicentrici (2021)</li>
+                                    <li><strong>Maggiore specificità:</strong> Criteri più precisi per ridurre falsi positivi</li>
+                                    <li><strong>Focus funzionale:</strong> Enfasi su perdita funzionale e nutrizionale progressive</li>
+                                </ul>
+                                <div class="alert alert-info">
+                                    <strong>Utilizzo raccomandato:</strong> Per pazienti con aspettativa di vita ≤ 12 mesi identificati dalla domanda sorprendente.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingDS40">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDS40">
+                                <i class="fas fa-question-circle me-2"></i>Domanda Sorprendente
+                            </button>
+                        </h2>
+                        <div id="collapseDS40" class="accordion-collapse collapse" data-bs-parent="#glossary40Accordion">
+                            <div class="accordion-body">
+                                <p><strong>Definizione:</strong> "Saresti sorpreso se questo paziente morisse entro 1 anno?"</p>
+                                <p>La domanda sorprendente rimane l'elemento discriminante fondamentale nel NECPAL 4.0, mantenendo la stessa formulazione della versione precedente.</p>
+                                <h6><strong>Considerazioni Cliniche:</strong></h6>
+                                <ul>
+                                    <li><strong>Soggettività controllata:</strong> Basata su esperienza clinica e conoscenza del paziente</li>
+                                    <li><strong>Sensibilità:</strong> Alta capacità di identificare pazienti a rischio</li>
+                                    <li><strong>Specificità:</strong> Migliore nel NECPAL 4.0 grazie ai criteri raffinati</li>
+                                </ul>
+                                <div class="alert alert-warning">
+                                    <strong>Importante:</strong> Se la risposta è "SÌ", il NECPAL è considerato negativo. Una risposta "NO" richiede la valutazione dei 6 criteri specifici.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingNeeds">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNeeds">
+                                <i class="fas fa-hand-holding-heart me-2"></i>Bisogni Palliativi
+                            </button>
+                        </h2>
+                        <div id="collapseNeeds" class="accordion-collapse collapse" data-bs-parent="#glossary40Accordion">
+                            <div class="accordion-body">
+                                <p><strong>Definizione:</strong> Il paziente stesso, i professionisti e/o i suoi familiari ritengono che il malato abbia attualmente bisogni di cure palliative.</p>
+                                <h6><strong>Criteri di Valutazione:</strong></h6>
+                                <ul>
+                                    <li><strong>Richiesta esplicita:</strong> Paziente o famiglia chiedono cure palliative</li>
+                                    <li><strong>Richiesta implicita:</strong> Domande su prognosi, qualità di vita, pianificazione</li>
+                                    <li><strong>Valutazione professionale:</strong> Team sanitario identifica bisogni palliativi</li>
+                                    <li><strong>Indicatori comportamentali:</strong> Ritiro sociale, cambiamenti nell'approccio alle cure</li>
+                                </ul>
+                                <div class="alert alert-success">
+                                    <strong>Nota:</strong> Questo criterio è obbligatorio per NECPAL 4.0 positivo, insieme ad almeno 1 dei 5 criteri clinici.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingFunctional">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFunctional">
+                                <i class="fas fa-walking me-2"></i>Perdita Funzionale
+                            </button>
+                        </h2>
+                        <div id="collapseFunctional" class="accordion-collapse collapse" data-bs-parent="#glossary40Accordion">
+                            <div class="accordion-body">
+                                <p><strong>Definizione:</strong> Giudizio clinico di deterioramento funzionale prolungato, grave, progressivo e irreversibile e/o perdita > 30% dell'indice di Barthel in 6 mesi.</p>
+                                <h6><strong>Caratteristiche Essenziali:</strong></h6>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h6><strong>Prolungato</strong></h6>
+                                        <ul>
+                                            <li>Durata: > 3 mesi consecutivi</li>
+                                            <li>Trend costante di peggioramento</li>
+                                            <li>Non episodi isolati o acuti</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6><strong>Grave</strong></h6>
+                                        <ul>
+                                            <li>Compromissione significativa ADL/IADL</li>
+                                            <li>Riduzione Barthel > 30%</li>
+                                            <li>Impatto sulla qualità di vita</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-md-6">
+                                        <h6><strong>Progressivo</strong></h6>
+                                        <ul>
+                                            <li>Peggioramento continuo nel tempo</li>
+                                            <li>Assenza di plateau stabili</li>
+                                            <li>Trend documentabile</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6><strong>Irreversibile</strong></h6>
+                                        <ul>
+                                            <li>Non responsivo a trattamenti</li>
+                                            <li>Non correlato a cause reversibili</li>
+                                            <li>Prognosi funzionale infausta</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <h6><strong>Strumenti di Valutazione:</strong></h6>
+                                <ul>
+                                    <li><strong>Indice di Barthel:</strong> Scala 0-100, riduzione > 30 punti in 6 mesi</li>
+                                    <li><strong>ADL (Katz):</strong> Perdita di ≥ 2 funzioni base</li>
+                                    <li><strong>IADL (Lawton):</strong> Compromissione attività strumentali</li>
+                                    <li><strong>Performance Status:</strong> ECOG ≥ 3, Karnofsky ≤ 50</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingNutritional">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNutritional">
+                                <i class="fas fa-weight me-2"></i>Perdita Nutrizionale
+                            </button>
+                        </h2>
+                        <div id="collapseNutritional" class="accordion-collapse collapse" data-bs-parent="#glossary40Accordion">
+                            <div class="accordion-body">
+                                <p><strong>Definizione:</strong> Giudizio clinico di calo nutrizionale/ponderale prolungato, grave, progressivo e irreversibile e/o perdita di peso > 10% in 6 mesi.</p>
+                                <h6><strong>Criteri Quantitativi:</strong></h6>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>Timeframe</th>
+                                                <th>Perdita Peso</th>
+                                                <th>Significato Clinico</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr><td>1 mese</td><td>> 5%</td><td>Severa malnutrizione acuta</td></tr>
+                                            <tr><td>3 mesi</td><td>> 7.5%</td><td>Malnutrizione grave</td></tr>
+                                            <tr><td>6 mesi</td><td>> 10%</td><td>Cachessia (criterio NECPAL 4.0)</td></tr>
+                                            <tr><td>12 mesi</td><td>> 15%</td><td>Cachessia severa</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <h6><strong>Criteri Qualitativi:</strong></h6>
+                                <ul>
+                                    <li><strong>Sarcopenia:</strong> Perdita massa muscolare visibile</li>
+                                    <li><strong>Anoressia:</strong> Riduzione significativa dell'appetito</li>
+                                    <li><strong>Disfagia:</strong> Difficoltà progressiva alla deglutizione</li>
+                                    <li><strong>Malassorbimento:</strong> Non correlato a cause trattabili</li>
+                                </ul>
+                                <h6><strong>Indicatori di Intensità:</strong></h6>
+                                <ul>
+                                    <li><strong>Polifarmacoterapia:</strong> > 10 farmaci/die</li>
+                                    <li><strong>Dispositivi medici:</strong> PEG, tracheostomia, catetere vescicale permanente</li>
+                                    <li><strong>Monitoraggio frequente:</strong> Parametri vitali quotidiani</li>
+                                    <li><strong>Assistenza h24:</strong> Necessità di supervisione continua</li>
+                                </ul>
+                                <div class="alert alert-warning">
+                                    <strong>Esclusioni:</strong> Non considerare perdite di peso dovute a diuretici, dialisi, o altre cause acute reversibili.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingAdvanced">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAdvanced">
+                                <i class="fas fa-disease me-2"></i>Malattia Avanzata
+                            </button>
+                        </h2>
+                        <div id="collapseAdvanced" class="accordion-collapse collapse" data-bs-parent="#glossary40Accordion">
+                            <div class="accordion-body">
+                                <p><strong>Definizione:</strong> Criteri di gravità e/o progressione di malattia cronica oncologica, polmonare, cardiaca, epatica, renale o neurologica.</p>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h6><strong>Oncologica:</strong></h6>
+                                        <ul>
+                                            <li>Metastatico o avanzato locoregionale</li>
+                                            <li>Progressione nonostante terapie</li>
+                                            <li>Performance Status ≤ 60 (Karnofsky)</li>
+                                            <li>Sintomi non controllati</li>
+                                        </ul>
+                                        <h6><strong>Polmonare:</strong></h6>
+                                        <ul>
+                                            <li>VEMS < 30% del predetto</li>
+                                            <li>Dispnea per minimi sforzi</li>
+                                            <li>O₂ terapia domiciliare</li>
+                                            <li>Riacutizzazioni frequenti (> 3/anno)</li>
+                                        </ul>
+                                        <h6><strong>Cardiaca:</strong></h6>
+                                        <ul>
+                                            <li>NYHA III-IV</li>
+                                            <li>FE < 30%</li>
+                                            <li>Ricoveri per scompenso (> 2/anno)</li>
+                                            <li>Inotropi cronici</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6><strong>Epatica:</strong></h6>
+                                        <ul>
+                                            <li>Child-Pugh C</li>
+                                            <li>MELD-Na > 30</li>
+                                            <li>Complicanze: ascite, encefalopatia</li>
+                                            <li>Epatocarcinoma stadio C-D</li>
+                                        </ul>
+                                        <h6><strong>Renale:</strong></h6>
+                                        <ul>
+                                            <li>eGFR < 15 ml/min/1.73m²</li>
+                                            <li>Dialisi rifiutata/sospesa</li>
+                                            <li>Complicanze uremiche</li>
+                                            <li>Non candidabile a trapianto</li>
+                                        </ul>
+                                        <h6><strong>Neurologica:</strong></h6>
+                                        <ul>
+                                            <li>Demenza GDS ≥ 6c</li>
+                                            <li>SLA con disfagia/dispnea</li>
+                                            <li>Parkinson avanzato</li>
+                                            <li>Sclerosi multipla progressiva</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingPrognosis40">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePrognosis40">
+                                <i class="fas fa-hourglass-half me-2"></i>Valutazione Prognostica
+                            </button>
+                        </h2>
+                        <div id="collapsePrognosis40" class="accordion-collapse collapse" data-bs-parent="#glossary40Accordion">
+                            <div class="accordion-body">
+                                <p><strong>Il NECPAL 4.0 fornisce una stima prognostica stratificata basata sul numero di criteri positivi:</strong></p>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="card border-success">
+                                            <div class="card-header bg-success text-white"><strong>Stadio I</strong></div>
+                                            <div class="card-body">
+                                                <p><strong>Criteri:</strong> DS + Bisogni + 1-2 criteri clinici</p>
+                                                <p><strong>Prognosi:</strong> 38 mesi (mediana)</p>
+                                                <p><strong>IC 95%:</strong> 28-52 mesi</p>
+                                                <p><strong>Raccomandazione:</strong> Cure palliative precoci integrate</p>
+                                                <p><small>Focalizzare su controllo sintomi e pianificazione anticipata</small></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="card border-warning">
+                                            <div class="card-header bg-warning text-dark"><strong>Stadio II</strong></div>
+                                            <div class="card-body">
+                                                <p><strong>Criteri:</strong> DS + Bisogni + 3-4 criteri clinici</p>
+                                                <p><strong>Prognosi:</strong> 17.2 mesi (mediana)</p>
+                                                <p><strong>IC 95%:</strong> 12-24 mesi</p>
+                                                <p><strong>Raccomandazione:</strong> Cure palliative specialistiche</p>
+                                                <p><small>Intensificare controllo sintomi e supporto psicosociale</small></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="card border-danger">
+                                            <div class="card-header bg-danger text-white"><strong>Stadio III</strong></div>
+                                            <div class="card-body">
+                                                <p><strong>Criteri:</strong> DS + Bisogni + 5 criteri clinici</p>
+                                                <p><strong>Prognosi:</strong> 3.6 mesi (mediana)</p>
+                                                <p><strong>IC 95%:</strong> 2-6 mesi</p>
+                                                <p><strong>Raccomandazione:</strong> Cure di fine vita</p>
+                                                <p><small>Focus su comfort care e supporto familiare</small></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-4 alert alert-info">
+                                    <h6><strong>Note Metodologiche:</strong></h6>
+                                    <ul class="mb-0">
+                                        <li><strong>Validazione:</strong> Studio prospettico su 1,347 pazienti (Gomez-Batiste et al. 2021)</li>
+                                        <li><strong>Follow-up:</strong> 24 mesi mediano</li>
+                                        <li><strong>C-index:</strong> 0.76 (buona capacità discriminativa)</li>
+                                        <li><strong>Applicabilità:</strong> Validato in contesti ospedalieri, cure primarie e lungodegenza</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingApplication40">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseApplication40">
+                                <i class="fas fa-user-md me-2"></i>Applicazione Clinica
+                            </button>
+                        </h2>
+                        <div id="collapseApplication40" class="accordion-collapse collapse" data-bs-parent="#glossary40Accordion">
+                            <div class="accordion-body">
+                                <h6><strong>Quando utilizzare NECPAL 4.0:</strong></h6>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <strong>Setting Ospedaliero:</strong>
+                                        <ul>
+                                            <li>Screening sistematico in medicina interna</li>
+                                            <li>Valutazione pre-dimissione</li>
+                                            <li>Identificazione per consulenza palliativa</li>
+                                            <li>Pianificazione percorso post-acuto</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <strong>Cure Primarie:</strong>
+                                        <ul>
+                                            <li>Valutazione periodica pazienti cronici</li>
+                                            <li>Trigger per Advanced Care Planning</li>
+                                            <li>Identificazione per ADI palliative</li>
+                                            <li>Coordinamento con specialisti</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <h6><strong>Frequenza di Rivalutazione:</strong></h6>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>Stato NECPAL</th>
+                                                <th>Frequenza</th>
+                                                <th>Obiettivi</th>
+                                                <th>Azioni</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr><td>Negativo</td><td>Ogni 6 mesi</td><td>Monitoring cambiamenti</td><td>Valutazione clinica standard</td></tr>
+                                            <tr><td>Stadio I</td><td>Ogni 3-4 mesi</td><td>Cure palliative precoci</td><td>ACP, controllo sintomi</td></tr>
+                                            <tr><td>Stadio II</td><td>Ogni 2-3 mesi</td><td>Cure specialistiche</td><td>Consulenza palliativista</td></tr>
+                                            <tr><td>Stadio III</td><td>Ogni 1-2 mesi</td><td>End-of-life care</td><td>Comfort care, supporto famiglia</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <h6><strong>Limitazioni e Considerazioni:</strong></h6>
+                                <ul>
+                                    <li><strong>Non sostitutivo:</strong> Non sostituisce il giudizio clinico</li>
+                                    <li><strong>Popolazione target:</strong> Ottimale per pazienti > 65 anni</li>
+                                    <li><strong>Contesto culturale:</strong> Validato in popolazione europea</li>
+                                    <li><strong>Variabilità individuale:</strong> La prognosi individuale può variare significativamente</li>
+                                </ul>
+                                <div class="alert alert-success">
+                                    <strong>Best Practice:</strong> Utilizzare NECPAL 4.0 come parte di una valutazione multidimensionale completa, integrando il giudizio clinico e le preferenze del paziente.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingBiblio">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBiblio">
+                                <i class="fas fa-book-open me-2"></i>Bibliografia e Riferimenti
+                            </button>
+                        </h2>
+                        <div id="collapseBiblio" class="accordion-collapse collapse" data-bs-parent="#glossary40Accordion">
+                            <div class="accordion-body">
+                                <h6><strong>Riferimenti Principali NECPAL 4.0:</strong></h6>
+                                <ol>
+                                    <li>Gomez-Batiste X, et al. Desarrollo y validación del instrumento NECPAL 4.0 para la identificación de pacientes con enfermedades crónicas avanzadas y necesidades paliativas. Med Clin (Barc). 2021;156(8):391-397.</li>
+                                    <li>Amblàs-Novellas J, et al. Effectiveness of the NECPAL instrument to identify patients with advanced chronic conditions in need of palliative care: a systematic review. BMJ Support Palliat Care. 2022;12(1):27-34.</li>
+                                    <li>Costa X, et al. The NECPAL instrument as a predictor of early mortality: a validation study in patients with advanced chronic diseases. J Pain Symptom Manage. 2021;61(4):714-722.</li>
+                                </ol>
+                                <h6><strong>Linee Guida Correlate:</strong></h6>
+                                <ul>
+                                    <li>WHO Definition of Palliative Care (2020)</li>
+                                    <li>EAPC White Paper on improving care for patients with chronic diseases (2021)</li>
+                                    <li>ESMO Guidelines for Early Palliative Care in Adults with Advanced Cancer (2020)</li>
+                                    <li>Consensus Document on Palliative Care in Spain (2021)</li>
+                                </ul>
+                                <h6><strong>Strumenti Correlati:</strong></h6>
+                                <ul>
+                                    <li><strong>SPICT:</strong> Supportive and Palliative Care Indicators Tool</li>
+                                    <li><strong>GSF-PIG:</strong> Gold Standards Framework Prognostic Indicator Guidance</li>
+                                    <li><strong>RADboud-UCP:</strong> Radboud Indicators for Palliative Care Needs</li>
+                                    <li><strong>PALCOM:</strong> Palliative Care Complexity Scale</li>
+                                </ul>
+                                <div class="mt-3 p-3 bg-light rounded">
+                                    <small class="text-muted"><strong>Nota:</strong> NECPAL 4.0 è protetto da copyright CCOMS-ICO © 2021. L'utilizzo clinico è gratuito previa registrazione sul sito ufficiale. Per ulteriori informazioni: www.necpal.org</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -79,7 +79,7 @@ function loadCategoryContent(categoryName) {
         { name: 'NECPAL 4.0', subtitle: 'Versione Aggiornata', description: 'Ultima versione del NECPAL con criteri rivisti e maggiore specificità per diverse patologie.', available: true,
           actions:[{name:'Compila',class:'btn-success',icon:'fas fa-edit',action:'openNecpal40Compile()'},{name:'Visualizza',class:'btn-outline-success',icon:'fas fa-eye',action:'openNecpal40Visualize()'},{name:'Glossario',class:'btn-outline-secondary',icon:'fas fa-book',action:'openNecpal40Glossary()'}] },
         { name: 'SPICT', subtitle: 'Supportive & Palliative Care Indicators', description: 'Tool clinico per identificare pazienti che potrebbero beneficiare di cure palliative specialistiche.', available: true,
-          actions:[{name:'Compila',class:'btn-primary',icon:'fas fa-edit',action:'openSPICTCompile()'},{name:'Visualizza',class:'btn-outline-primary',icon:'fas fa-eye',action:'openSPICTVisualize()'}] }
+          actions:[{name:'Compila',class:'btn-primary',icon:'fas fa-edit',action:'openSpictCompile()'},{name:'Visualizza',class:'btn-outline-primary',icon:'fas fa-eye',action:'openSpictVisualize()'}] }
       ]
     },
     'multidimensionale': {
@@ -288,12 +288,12 @@ function openNecpal40Glossary() {
   if (typeof switchNecpal40Mode === 'function') switchNecpal40Mode('glossary');
 }
 
-function openSPICTCompile() {
+function openSpictCompile() {
   navigateToSection('spict-home');
   if (typeof switchSpictMode === 'function') switchSpictMode('compile');
 }
 
-function openSPICTVisualize() {
+function openSpictVisualize() {
   navigateToSection('spict-home');
   if (typeof switchSpictMode === 'function') switchSpictMode('visualize');
 }
