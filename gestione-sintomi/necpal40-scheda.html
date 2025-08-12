@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NECPAL 4.0 - Scheda Stampabile</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 15mm;
+        }
+        
+        @media print {
+            body { margin: 0; font-size: 10pt; line-height: 1.3; }
+            .no-print { display: none !important; }
+            .page-break { page-break-before: always; }
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.4;
+            color: #333;
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 10px;
+            background: white;
+            font-size: 10pt;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 3px solid #007bff;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .header h1 {
+            color: #007bff;
+            font-size: 16pt;
+            margin: 0;
+            font-weight: bold;
+        }
+
+        .header h2 {
+            color: #666;
+            font-size: 12pt;
+            margin: 3px 0;
+            font-weight: normal;
+        }
+
+        .header p {
+            font-size: 9pt;
+            color: #666;
+            margin: 2px 0;
+        }
+
+        .patient-data {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            padding: 10px;
+            margin-bottom: 15px;
+        }
+
+        .patient-data h3 {
+            color: #007bff;
+            margin: 0 0 8px 0;
+            font-size: 11pt;
+        }
+
+        .data-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .data-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+
+        .data-label {
+            font-weight: bold;
+            min-width: 90px;
+            color: #495057;
+            font-size: 9pt;
+        }
+
+        .data-input {
+            flex: 1;
+            border-bottom: 1px solid #333;
+            min-height: 18px;
+            margin-left: 8px;
+        }
+
+        .surprise-question {
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            color: white;
+            padding: 12px;
+            border-radius: 8px;
+            margin: 12px 0;
+            text-align: center;
+        }
+
+        .surprise-question h3 {
+            margin: 0 0 10px 0;
+            font-size: 12pt;
+        }
+
+        .surprise-question p {
+            font-size: 11pt;
+            margin: 8px 0;
+            font-weight: 500;
+        }
+
+        .answer-boxes {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 10px;
+        }
+
+        .answer-box {
+            background: white;
+            color: #007bff;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            border: 2px solid white;
+            font-size: 10pt;
+        }
+
+        .necpal-parameters {
+            margin: 15px 0;
+        }
+
+        .necpal-item {
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            overflow: hidden;
+            break-inside: avoid;
+        }
+
+        .item-header {
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            color: white;
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .item-icon-title {
+            display: flex;
+            align-items: center;
+            flex: 1;
+        }
+
+        .item-icon {
+            width: 30px;
+            height: 30px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-size: 14pt;
+        }
+
+        .item-title {
+            font-weight: bold;
+            font-size: 11pt;
+        }
+
+        .check-box {
+            width: 20px;
+            height: 20px;
+            border: 2px solid white;
+            border-radius: 3px;
+            background: rgba(255,255,255,0.9);
+            flex-shrink: 0;
+        }
+
+        .item-content {
+            padding: 10px 12px;
+            background: white;
+            font-size: 9pt;
+            line-height: 1.3;
+            color: #495057;
+        }
+
+        .result-section {
+            background: #e7f3ff;
+            border: 2px solid #007bff;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: center;
+        }
+
+        .result-section h3 {
+            color: #007bff;
+            margin: 0 0 10px 0;
+            font-size: 13pt;
+        }
+
+        .result-formula {
+            font-size: 11pt;
+            font-weight: bold;
+            color: #495057;
+            margin: 8px 0;
+        }
+
+        .result-line {
+            border-bottom: 1px solid #333;
+            display: inline-block;
+            min-width: 80px;
+            margin: 0 8px;
+        }
+
+        .prognosis-section {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 12px;
+            margin: 15px 0;
+        }
+
+        .prognosis-section h3 {
+            color: #007bff;
+            margin-bottom: 10px;
+            font-size: 12pt;
+            text-align: center;
+        }
+
+        .stages-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px;
+        }
+
+        .stage-box {
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            color: white;
+            padding: 10px;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        .stage-title {
+            font-weight: bold;
+            font-size: 11pt;
+            margin-bottom: 6px;
+        }
+
+        .stage-criteria {
+            font-size: 9pt;
+            margin: 4px 0;
+        }
+
+        .stage-prognosis {
+            background: rgba(255,255,255,0.2);
+            padding: 4px;
+            border-radius: 4px;
+            margin-top: 6px;
+            font-weight: bold;
+        }
+
+        .specific-indicators {
+            margin-top: 20px;
+            font-size: 9pt;
+        }
+
+        .specific-indicators h3 {
+            color: #007bff;
+            margin-bottom: 10px;
+            font-size: 11pt;
+            text-align: center;
+        }
+
+        .indicator-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .indicator-group {
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            overflow: hidden;
+            break-inside: avoid;
+        }
+
+        .indicator-header {
+            background: #f8f9fa;
+            padding: 6px 8px;
+            font-weight: bold;
+            color: #495057;
+            border-bottom: 1px solid #dee2e6;
+            font-size: 9pt;
+        }
+
+        .indicator-content {
+            padding: 6px 8px;
+            font-size: 8pt;
+        }
+
+        .indicator-content ul {
+            margin: 2px 0;
+            padding-left: 15px;
+        }
+
+        .indicator-content li {
+            margin: 2px 0;
+            line-height: 1.2;
+        }
+
+        .footer-note {
+            border-top: 2px solid #dee2e6;
+            padding-top: 8px;
+            margin-top: 15px;
+            font-size: 8pt;
+            color: #666;
+            text-align: center;
+        }
+
+        .signature-line {
+            border-bottom: 1px solid #333;
+            display: inline-block;
+            min-width: 100px;
+            margin: 0 8px;
+        }
+
+        .print-controls {
+            text-align: center;
+            margin: 15px 0;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 6px;
+        }
+
+        .btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            margin: 0 4px;
+        }
+
+        .btn:hover {
+            background: #0056b3;
+        }
+
+        .version-badge {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 15px;
+            font-size: 8pt;
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="version-badge no-print">VERSIONE 4.0</div>
+    
+    <div class="header">
+        <h1>NECPAL 4.0</h1>
+        <h2>Identificazione di pazienti con bisogni di Cure Palliative</h2>
+        <p>Versione italiana 2021 - Xavier Gomez-Batiste et al.</p>
+    </div>
+
+    <div class="print-controls no-print">
+        <button class="btn" onclick="window.print()">🖨️ Stampa Scheda</button>
+        <p style="margin: 8px 0; font-size: 12px; color: #666;">
+            Scheda NECPAL 4.0 ottimizzata per stampa A4 fronte-retro
+        </p>
+    </div>
+
+    <div class="patient-data">
+        <h3>📋 Dati Paziente e Compilazione</h3>
+        <div class="data-grid">
+            <div class="data-row">
+                <span class="data-label">Nome:</span>
+                <div class="data-input"></div>
+            </div>
+            <div class="data-row">
+                <span class="data-label">Cognome:</span>
+                <div class="data-input"></div>
+            </div>
+            <div class="data-row">
+                <span class="data-label">Data nascita:</span>
+                <div class="data-input"></div>
+            </div>
+            <div class="data-row">
+                <span class="data-label">Codice Fiscale:</span>
+                <div class="data-input"></div>
+            </div>
+            <div class="data-row">
+                <span class="data-label">Data compil.:</span>
+                <div class="data-input"></div>
+            </div>
+            <div class="data-row">
+                <span class="data-label">Compilatore:</span>
+                <div class="data-input"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="surprise-question">
+        <h3>🎯 DOMANDA SORPRENDENTE</h3>
+        <p><strong>"Saresti sorpreso se questo paziente morisse entro 1 anno?"</strong></p>
+        <div class="answer-boxes">
+            <div class="answer-box">☐ SÌ, sarei sorpreso</div>
+            <div class="answer-box">☐ NO, non sarei sorpreso</div>
+        </div>
+        <p style="margin-top: 8px; font-size: 9pt; font-style: italic;">
+            Se SÌ → <strong>NECPAL negativo</strong> | Se NO → <strong>Valuta i 6 parametri sotto</strong>
+        </p>
+    </div>
+
+    <div class="necpal-parameters">
+        <div class="necpal-item">
+            <div class="item-header">
+                <div class="item-icon-title">
+                    <div class="item-icon">🎯</div>
+                    <div class="item-title">Bisogni palliativi</div>
+                </div>
+                <div class="check-box"></div>
+            </div>
+            <div class="item-content">
+                Il paziente stesso, i professionisti e/o i suoi familiari ritengono che il malato abbia attualmente bisogni di cure palliative
+            </div>
+        </div>
+
+        <div class="necpal-item">
+            <div class="item-header">
+                <div class="item-icon-title">
+                    <div class="item-icon">🚶</div>
+                    <div class="item-title">Perdita funzionale</div>
+                </div>
+                <div class="check-box"></div>
+            </div>
+            <div class="item-content">
+                Giudizio clinico di deterioramento funzionale prolungato, grave, progressivo e irreversibile e/o perdita > 30% dell'indice di Barthel in 6 mesi
+            </div>
+        </div>
+
+        <div class="necpal-item">
+            <div class="item-header">
+                <div class="item-icon-title">
+                    <div class="item-icon">🍽️</div>
+                    <div class="item-title">Perdita nutrizionale</div>
+                </div>
+                <div class="check-box"></div>
+            </div>
+            <div class="item-content">
+                Giudizio clinico di calo nutrizionale/ponderale prolungato, grave, progressivo e irreversibile e/o perdita di peso > 10% in 6 mesi
+            </div>
+        </div>
+
+        <div class="necpal-item">
+            <div class="item-header">
+                <div class="item-icon-title">
+                    <div class="item-icon">🌐</div>
+                    <div class="item-title">Multimorbidità</div>
+                </div>
+                <div class="check-box"></div>
+            </div>
+            <div class="item-content">
+                ≥ 2 malattie croniche concomitanti alla malattia principale
+            </div>
+        </div>
+
+        <div class="necpal-item">
+            <div class="item-header">
+                <div class="item-icon-title">
+                    <div class="item-icon">🏥</div>
+                    <div class="item-title">Utilizzo di risorse</div>
+                </div>
+                <div class="check-box"></div>
+            </div>
+            <div class="item-content">
+                ≥ 2 ricoveri urgenti in ospedale nell'ultimo anno e/o necessità di cure continuative complesse/intense
+            </div>
+        </div>
+
+        <div class="necpal-item">
+            <div class="item-header">
+                <div class="item-icon-title">
+                    <div class="item-icon">⚕️</div>
+                    <div class="item-title">Malattia avanzata</div>
+                </div>
+                <div class="check-box"></div>
+            </div>
+            <div class="item-content">
+                Criteri di gravità e/o progressione di malattia cronica oncologica, polmonare, cardiaca, epatica, renale o neurologica (vedi dettagli nel retro)
+            </div>
+        </div>
+    </div>
+
+    <div class="result-section">
+        <h3>📊 RISULTATO NECPAL 4.0</h3>
+        <div class="result-formula">
+            NECPAL POSITIVO = DS + ("Non sarei sorpreso") + Almeno 1 SÌ
+        </div>
+        <p style="margin: 10px 0; font-size: 11pt;">
+            <strong>Parametri positivi:</strong> <span class="result-line"></span> / 6<br>
+            <strong>Esito finale:</strong> <span class="result-line"></span>
+        </p>
+    </div>
+
+    <div class="prognosis-section">
+        <h3>📈 Stima Prognostica NECPAL 4.0</h3>
+        <div class="stages-grid">
+            <div class="stage-box">
+                <div class="stage-title">Stadio I</div>
+                <div class="stage-criteria">DS + 1-2 items</div>
+                <div class="stage-prognosis">Mediana: 38 mesi</div>
+            </div>
+            <div class="stage-box">
+                <div class="stage-title">Stadio II</div>
+                <div class="stage-criteria">DS + 3-4 items</div>
+                <div class="stage-prognosis">Mediana: 17.2 mesi</div>
+            </div>
+            <div class="stage-box">
+                <div class="stage-title">Stadio III</div>
+                <div class="stage-criteria">DS + 5-6 items</div>
+                <div class="stage-prognosis">Mediana: 3.6 mesi</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <div class="specific-indicators">
+        <h3>🔍 Criteri Specifici di Malattia Avanzata</h3>
+
+        <div class="indicator-grid">
+            <div class="indicator-group">
+                <div class="indicator-header">🎯 Cancro</div>
+                <div class="indicator-content">
+                    <ul>
+                        <li>Metastatico o avanzato a livello locoregionale</li>
+                        <li>Cancro in progressione (tumori solidi)</li>
+                        <li>Sintomi persistenti, non controllati o refrattari nonostante l'ottimizzazione del trattamento specifico</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="indicator-group">
+                <div class="indicator-header">🫁 Patologie polmonari croniche</div>
+                <div class="indicator-content">
+                    <ul>
+                        <li>Dispnea per minimi sforzi</li>
+                        <li>Paziente confinato a casa con gravi limitazioni</li>
+                        <li>Criteri spirometrici: VEMS < 30% o CV < 40% / DLCO < 40%</li>
+                        <li>Criteri emogasanalitici per O₂ terapia domiciliare</li>
+                        <li>Necessità terapia corticosteroidea continuativa</li>
+                        <li>Insufficienza cardiaca sintomatica associata</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="indicator-group">
+                <div class="indicator-header">❤️ Patologie cardiache croniche</div>
+                <div class="indicator-content">
+                    <ul>
+                        <li>Dispnea a riposo o per minimi sforzi</li>
+                        <li>Insufficienza cardiaca NYHA III-IV, valvolare grave non operabile o coronarica avanzata non operabile</li>
+                        <li>Ecocardiografia: FE < 30% o HTPA grave (PAPs > 60)</li>
+                        <li>Insufficienza renale associata (FG < 30 ml/min)</li>
+                        <li>Associazione con insufficienza renale e iponatriemia persistente</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="indicator-group">
+                <div class="indicator-header">🧠 Demenza</div>
+                <div class="indicator-content">
+                    <ul>
+                        <li>GDS (Global Deterioration Scale) ≥ 6c (Reisberg B et al, 1992)</li>
+                        <li>Progressione del declino funzionale, nutrizionale e/o cognitivo</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="indicator-group">
+                <div class="indicator-header">👴 Fragilità</div>
+                <div class="indicator-content">
+                    <ul>
+                        <li>Indice di fragilità ≥ 0,5 (Rockwood K et al, 2005)</li>
+                        <li>CGA (comprehensive geriatric assessment) suggestiva di fragilità avanzata (Stuck A et al, 2011)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="indicator-group">
+                <div class="indicator-header">🧠 Patologie neurovascolari (ictus)</div>
+                <div class="indicator-content">
+                    <ul>
+                        <li>Fase acuta/subacuta (< 3 mesi): stato vegetativo o livello minimo di coscienza</li>
+                        <li>Fase cronica (> 3 mesi): complicanze mediche ripetute o grave demenza post-ictale</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="indicator-group">
+                <div class="indicator-header">🔗 Patologie neurologiche croniche</div>
+                <div class="indicator-content">
+                    <p><strong>Motoneurone, SM, SLA, Parkinson:</strong></p>
+                    <ul>
+                        <li>Declino progressivo delle funzionalità fisiche e/o cognitive</li>
+                        <li>Sintomi complessi o refrattari</li>
+                        <li>Disfagia persistente</li>
+                        <li>Aumento difficoltà di comunicazione</li>
+                        <li>Frequenti polmoniti ab ingestis, dispnea o insufficienza respiratoria</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="indicator-group">
+                <div class="indicator-header">🫘 Patologie epatiche croniche</div>
+                <div class="indicator-content">
+                    <ul>
+                        <li>Cirrosi avanzata: stadio Child C, MELD-Na score > 30</li>
+                        <li>Complicanze: ascite refrattaria, sindrome epatorenale, emorragia digestiva alta da ipertensione portale con fallimento trattamenti</li>
+                        <li>Epatocarcinoma stadio C o D</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="indicator-group">
+                <div class="indicator-header">🩺 Patologia renale cronica</div>
+                <div class="indicator-content">
+                    <ul>
+                        <li>Insufficienza renale grave (FG < 15 ml/min) in pazienti non candidabili o che rifiutino trapianto/dialisi</li>
+                        <li>Sospensione della dialisi o fallimento del trapianto</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-note">
+        <p><strong>NECPAL 4.0 (2021)</strong> - Xavier Gomez-Batiste et al.<br>
+        Versione italiana - Identificazione di pazienti con bisogni di Cure Palliative</p>
+        
+        <p style="margin-top: 10px;">
+            Data: <span class="signature-line"></span> | 
+            Firma: <span class="signature-line"></span> | 
+            Servizio/Reparto: <span class="signature-line"></span>
+        </p>
+    </div>
+
+</body>
+</html>

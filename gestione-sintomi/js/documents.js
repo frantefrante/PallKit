@@ -28,6 +28,12 @@ const SPECIFICI = [
     "Patologia renale cronica"
   ];
 
+// Carica il modello della scheda NECPAL 4.0 stampabile
+let necpal4Template = '';
+fetch('necpal40-scheda.html')
+  .then(r => r.text())
+  .then(t => { necpal4Template = t; });
+
 function formatDateIt(str) {
   if (!str) return '';
   if (str.includes('/')) return str;
@@ -111,15 +117,13 @@ document.addEventListener('DOMContentLoaded', function () {
         break;
       case 'necpal4':
         if (doc.html) {
-          const preview = document.createElement('div');
-          preview.innerHTML = doc.html;
           const opt = {
             margin: 0.5,
             image: { type: 'jpeg', quality: 0.98 },
             html2canvas: { scale: 2 },
             jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
           };
-          html2pdf().set(opt).from(preview).toPdf().get('pdf').then(pdf => {
+          html2pdf().set(opt).from(doc.html).toPdf().get('pdf').then(pdf => {
             const url = pdf.output('bloburl');
             window.open(url, '_blank');
           });
@@ -165,6 +169,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function showDoc(doc) {
     if (!doc.html) return alert('Anteprima non disponibile.');
+    if (doc.type === 'necpal4') {
+      const w = window.open('', '_blank');
+      w.document.write(doc.html);
+      w.document.close();
+      return;
+    }
     const modalBody = document.getElementById('preview-content-home');
     if (!modalBody) return alert('Anteprima non disponibile.');
     modalBody.innerHTML = doc.html;
@@ -217,17 +227,14 @@ window.downloadNecpalPdf = downloadNecpalPdf;
 
 // Scarica il PDF del NECPAL 4 aprendo il documento in una nuova scheda
 function downloadNecpal4Pdf() {
-  const preview = document.getElementById('necpal4-preview');
-  if (!preview || !preview.innerHTML.trim()) return alert('Anteprima non disponibile.');
-  const tmp = document.createElement('div');
-  tmp.innerHTML = preview.innerHTML;
+  if (!necpal4Template.trim()) return alert('Anteprima non disponibile.');
   const opt = {
     margin: 0.5,
     image: { type: 'jpeg', quality: 0.98 },
     html2canvas: { scale: 2 },
     jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
   };
-  html2pdf().set(opt).from(tmp).toPdf().get('pdf').then(pdf => {
+  html2pdf().set(opt).from(necpal4Template).toPdf().get('pdf').then(pdf => {
     const url = pdf.output('bloburl');
     window.open(url, '_blank');
   });
@@ -427,57 +434,18 @@ document.addEventListener('DOMContentLoaded', function () {
   // ─────── NECPAL 4 ───────
   const necpal4Form = document.getElementById('necpal4-form');
   const resultBox4 = document.getElementById('necpal4-result');
-  const previewBox4 = document.getElementById('necpal4-preview');
-  const viewBtn4 = document.getElementById('btn-view-necpal4');
+    const viewBtn4 = document.getElementById('btn-view-necpal4');
   const savePdf4 = document.getElementById('btn-save-pdf4');
 
-  if (savePdf4 && previewBox4) {
+  if (savePdf4) {
     savePdf4.addEventListener('click', () => {
-      if (!previewBox4.innerHTML.trim()) return alert('Anteprima non disponibile.');
+      if (!necpal4Template.trim()) return alert('Anteprima non disponibile.');
       downloadNecpal4Pdf();
     });
   }
 
-  function buildNecpal4Html(fd) {
-    const date = formatDateIt(fd.get('date_1'));
-    const name = fd.get('text_1');
-    const dob  = formatDateIt(fd.get('date_2'));
-    const sq   = fd.get('sq');
-    const items = [
-      ['Bisogni palliativi', fd.get('bisogni_pall') ? true : false],
-      ['Perdita funzionale', fd.get('perdita_funz') ? true : false],
-      ['Perdita nutrizionale', fd.get('perdita_nutr') ? true : false],
-      ['Multimorbidità', fd.get('multimorbidita') ? true : false],
-      ['Utilizzo di risorse', fd.get('uso_risorse') ? true : false],
-      ['Malattia avanzata', fd.getAll('patologie[]').length > 0]
-    ];
-    const rows = items.map((it,i)=>{
-      const bg = i % 2 ? '#f2f2f2' : '#ffffff';
-      return `<tr style="background:${bg};"><td style="width:40px;text-align:center;border:1px solid #ccc;">${it[1] ? 'X' : ''}</td><td style="border:1px solid #ccc;padding:4px 6px;">${it[0]}</td></tr>`;
-    }).join('');
-    let stadioTxt = '';
-    if (sq === 'no') {
-      const n = items.filter(it => it[1]).length;
-      if (n > 0) {
-        if (n <= 2)      stadioTxt = 'Stadio I – mediana 38 mesi';
-        else if (n <= 4) stadioTxt = 'Stadio II – mediana 17.2 mesi';
-        else             stadioTxt = 'Stadio III – mediana 3.6 mesi';
-      }
-    }
-    const esito = (sq === 'no' && items.some(i=>i[1])) ? 'POSITIVO' : 'NEGATIVO';
-    const stageHtml = stadioTxt ? `<div style="margin-top:10px;">${stadioTxt}</div>` : '';
-    return `
-      <div style="font-family: Helvetica, Arial, sans-serif; font-size:11pt;">
-        <div style="background:#f7f7f7; padding:8px; margin-top:10px;">
-          <strong>Nome paziente:</strong> ${name}<br>
-          <strong>Data di nascita:</strong> ${dob}<br>
-          <strong>Data di compilazione:</strong> ${date}
-        </div>
-        <h4 style="background:#e0e0e0; padding:4px; margin-top:20px; font-size:1rem;">Item NECPAL 4.0</h4>
-        <table style="width:100%; border-collapse:collapse; font-size:11pt;">${rows}</table>
-        <div style="background:#cccccc; padding:6px; margin-top:20px; font-weight:bold;">Esito finale: ${esito}</div>
-        ${stageHtml}
-      </div>`;
+  function buildNecpal4Html() {
+    return necpal4Template;
   }
 
   if (necpal4Form) {
@@ -490,19 +458,15 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(r => r.ok ? r.json() : Promise.reject())
         .then(res => {
           if (res.success) {
-            const html = buildNecpal4Html(fd);
-            if (resultBox4) resultBox4.style.display = 'block';
-            if (previewBox4) {
-              previewBox4.innerHTML = html;
-              previewBox4.style.display = 'block';
-            }
-            addPatientDoc({
-              title: 'NECPAL 4',
-              date: formatDateIt(new Date().toISOString().slice(0,10)),
-              desc: 'Valutazione NECPAL 4',
-              type: 'necpal4',
-              html: html
-            });
+          const html = buildNecpal4Html();
+          if (resultBox4) resultBox4.style.display = 'block';
+          addPatientDoc({
+            title: 'NECPAL 4',
+            date: formatDateIt(new Date().toISOString().slice(0,10)),
+            desc: 'Valutazione NECPAL 4',
+            type: 'necpal4',
+            html: html
+          });
           } else {
             const msg = res.errors ? res.errors.join('\n') : (res.error || 'Errore durante il salvataggio');
             alert(msg);
@@ -515,16 +479,11 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  if (viewBtn4 && previewBox4) {
-    viewBtn4.addEventListener('click', () => {
-      const html = previewBox4.innerHTML.trim();
-      if (!html) return alert('Anteprima non disponibile.');
-      const modalBody = document.getElementById('preview-content-home');
-      if (!modalBody) return alert('Anteprima non disponibile.');
-      modalBody.innerHTML = html;
-      new bootstrap.Modal(document.getElementById('preview-modal-home')).show();
-    });
-  }
+    if (viewBtn4) {
+      viewBtn4.addEventListener('click', () => {
+        window.open('necpal40-scheda.html', '_blank');
+      });
+    }
 
   // ─────── IDC-PAL ───────
   const idcpalForm = document.getElementById('idcpal-form');
