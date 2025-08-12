@@ -314,10 +314,10 @@
         }
     </style>
     <div class="mb-3">
-        <button class="btn btn-outline-success me-2" onclick="navigateToSection('identificazione-home')">
+        <button class="btn btn-outline-primary me-2" onclick="navigateToSection('identificazione-home')">
             <i class="fas fa-arrow-left me-2"></i>Torna a Identificazione
         </button>
-        <button class="btn btn-outline-primary" onclick="navigateToSection('strumenti-valutazione-home'); showCategories();">
+        <button class="btn btn-outline-success" onclick="navigateToSection('strumenti-valutazione-home'); showCategories();">
             <i class="fas fa-arrow-left me-2"></i>Torna alle Categorie
         </button>
     </div>
