@@ -118,7 +118,12 @@
 .badge-versions { background: #d4edda; color: #449d44; padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.85rem; font-weight: 600; margin-top: 1rem; display: inline-block; }
 .version-modal .modal-content { border: none; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.2); }
 .version-modal .modal-header { background: linear-gradient(135deg, #5cb85c, #449d44); color: white; border-radius: 16px 16px 0 0; }
-.version-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 1rem; }
+.version-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
 .version-card { border: 2px solid #e9ecef; border-radius: 12px; padding: 1.5rem; text-align: center; transition: all 0.3s ease; cursor: pointer; }
 .version-card:hover { border-color: #5cb85c; background: #d4edda; transform: translateY(-2px); }
 .version-icon { font-size: 2rem; color: #5cb85c; margin-bottom: 1rem; }
@@ -128,6 +133,7 @@
 @media (max-width: 768px) {
   .tools-grid { grid-template-columns: 1fr; }
   .tool-actions { gap: 0.75rem; }
+  .version-grid { grid-template-columns: 1fr; }
   .action-btn { font-size: 0.9rem; padding: 0.6rem 1rem; }
   .page-title { font-size: 2rem; }
 }
