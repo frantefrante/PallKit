@@ -1197,4 +1197,6 @@
         #detailed-breakdown .border { border-color: var(--primary-green) !important; }
         #detailed-breakdown .h4 { color: var(--primary-green) !important; font-weight:700 !important; }
     </style>
+    <!-- Fix JavaScript -->
+<script src="necpal31-fix.js"></script>
 </section>
