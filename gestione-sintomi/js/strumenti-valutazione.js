@@ -248,11 +248,6 @@ function openIPOSCompile() {
   navigateToSection('ipos-home');
 }
 
-function openIPOSVisualize() {
-  const modal = new bootstrap.Modal(document.getElementById('iposVersionModal'));
-  modal.show();
-}
-
 function openESASCompile() {
   navigateToSection('esas-home');
   if (typeof switchMode === 'function') switchMode('compile');
@@ -351,27 +346,6 @@ function openIDCPALVisualize() {
 function openIDCPALGlossary() {
   navigateToSection('idcpal-home');
   if (typeof switchIDCPALMode === 'function') switchIDCPALMode('glossary');
-}
-
-function showIPOSTemplate(tipo, giorni) {
-  const versionModal = bootstrap.Modal.getInstance(document.getElementById('iposVersionModal'));
-  if (versionModal) versionModal.hide();
-  const tipoText = tipo === 'paziente' ? 'Paziente' : 'Staff';
-  const titolo = `IPOS ${tipoText} - ${giorni} giorni`;
-  const titleEl = document.getElementById('templateModalTitle');
-  if (titleEl) titleEl.textContent = titolo;
-  const frame = document.getElementById('iposTemplateFrame');
-  if (frame) frame.src = `ipos-templates.html#${tipo}-${giorni}`;
-  const modal = new bootstrap.Modal(document.getElementById('iposTemplateModal'));
-  modal.show();
-}
-
-function printTemplate() {
-  const frame = document.getElementById('iposTemplateFrame');
-  if (frame && frame.contentWindow) {
-    frame.contentWindow.focus();
-    frame.contentWindow.print();
-  }
 }
 
 // Funzioni Performance per navigazione dai box
