@@ -237,7 +237,7 @@
         <!-- Categories Grid -->
         <div class="categories-grid">
           <!-- IDENTIFICAZIONE -->
-          <div class="category-card identificazione" onclick="openCategoryView('identificazione')">
+          <div class="category-card identificazione" onclick="navigateToSection('identificazione-home')">
             <div class="category-header">
               <div class="category-icon">🔍</div>
               <div class="category-info">
@@ -444,8 +444,11 @@
     <!-- SEZIONE Identificazione -->
     <?php include __DIR__ . '/identificazione.php'; ?>
 
+    <!-- SEZIONE NECPAL 3.1 -->
+    <?php include __DIR__ . '/strumenti-necpal31.php'; ?>
+
     <!-- SEZIONE NECPAL 4.0 -->
-    <?php include __DIR__ . '/strumenti-necpal4.php'; ?>
+    <?php include __DIR__ . '/strumenti-necpal40.php'; ?>
 
     <!-- SEZIONE SPICT -->
     <?php include __DIR__ . '/strumenti-spict.php'; ?>

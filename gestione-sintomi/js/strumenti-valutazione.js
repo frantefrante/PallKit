@@ -74,9 +74,12 @@ function loadCategoryContent(categoryName) {
       icon: '🔍',
       description: 'Strumenti per identificare pazienti eleggibili per cure palliative',
       tools: [
-        { name: 'NECPAL 3.1', subtitle: 'Necessidades Paliativas', description: 'Strumento di screening per identificare pazienti con bisogni palliativi. Versione 3.1 con criteri aggiornati.', available: false },
-        { name: 'NECPAL 4.0', subtitle: 'Versione Aggiornata', description: 'Ultima versione del NECPAL con criteri rivisti e maggiore specificità per diverse patologie.', available: false },
-        { name: 'SPICT', subtitle: 'Supportive & Palliative Care Indicators', description: 'Tool clinico per identificare pazienti che potrebbero beneficiare di cure palliative specialistiche.', available: false }
+        { name: 'NECPAL 3.1', subtitle: 'Necessidades Paliativas', description: 'Strumento di screening per identificare pazienti con bisogni palliativi. Versione 3.1 con criteri aggiornati.', available: true,
+          actions:[{name:'Compila',class:'btn-success',icon:'fas fa-edit',action:'openNecpal31Compile()'},{name:'Visualizza',class:'btn-outline-success',icon:'fas fa-eye',action:'openNecpal31Visualize()'},{name:'Glossario',class:'btn-outline-secondary',icon:'fas fa-book',action:'openNecpal31Glossary()'}] },
+        { name: 'NECPAL 4.0', subtitle: 'Versione Aggiornata', description: 'Ultima versione del NECPAL con criteri rivisti e maggiore specificità per diverse patologie.', available: true,
+          actions:[{name:'Compila',class:'btn-success',icon:'fas fa-edit',action:'openNecpal40Compile()'},{name:'Visualizza',class:'btn-outline-success',icon:'fas fa-eye',action:'openNecpal40Visualize()'},{name:'Glossario',class:'btn-outline-secondary',icon:'fas fa-book',action:'openNecpal40Glossary()'}] },
+        { name: 'SPICT', subtitle: 'Supportive & Palliative Care Indicators', description: 'Tool clinico per identificare pazienti che potrebbero beneficiare di cure palliative specialistiche.', available: true,
+          actions:[{name:'Compila',class:'btn-primary',icon:'fas fa-edit',action:'openSpictCompile()'},{name:'Visualizza',class:'btn-outline-primary',icon:'fas fa-eye',action:'openSpictVisualize()'}] }
       ]
     },
     'multidimensionale': {
@@ -253,6 +256,46 @@ function openIPOSVisualize() {
 function openESASCompile() {
   navigateToSection('esas-home');
   if (typeof switchMode === 'function') switchMode('compile');
+}
+
+function openNecpal31Compile() {
+  navigateToSection('necpal31-home');
+  if (typeof switchNecpal31Mode === 'function') switchNecpal31Mode('compile');
+}
+
+function openNecpal31Visualize() {
+  navigateToSection('necpal31-home');
+  if (typeof switchNecpal31Mode === 'function') switchNecpal31Mode('visualize');
+}
+
+function openNecpal31Glossary() {
+  navigateToSection('necpal31-home');
+  if (typeof switchNecpal31Mode === 'function') switchNecpal31Mode('glossary');
+}
+
+function openNecpal40Compile() {
+  navigateToSection('necpal40-home');
+  if (typeof switchNecpal40Mode === 'function') switchNecpal40Mode('compile');
+}
+
+function openNecpal40Visualize() {
+  navigateToSection('necpal40-home');
+  if (typeof switchNecpal40Mode === 'function') switchNecpal40Mode('visualize');
+}
+
+function openNecpal40Glossary() {
+  navigateToSection('necpal40-home');
+  if (typeof switchNecpal40Mode === 'function') switchNecpal40Mode('glossary');
+}
+
+function openSpictCompile() {
+  navigateToSection('spict-home');
+  if (typeof switchSpictMode === 'function') switchSpictMode('compile');
+}
+
+function openSpictVisualize() {
+  navigateToSection('spict-home');
+  if (typeof switchSpictMode === 'function') switchSpictMode('visualize');
 }
 
 function openESASVisualize() {
