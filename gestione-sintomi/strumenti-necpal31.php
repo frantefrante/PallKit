@@ -681,185 +681,11 @@
         </div>
 
         <div id="necpal31-visualize-section" class="content-section">
-            <div class="patient-info-card">
-                <h3 class="patient-info-title">
-                    <i class="fas fa-file-medical me-2"></i>
-                    NECPAL 3.1 - Schema di Valutazione
-                </h3>
-                <p class="text-muted mb-4">
-                    Schema completo per l'identificazione precoce di pazienti con bisogni di cure palliative secondo i criteri NECPAL 3.1 (CCOMS-ICO © 2017).
-                </p>
-                <div class="surprise-question mb-4">
-                    <h4>
-                        <i class="fas fa-question-circle me-2"></i>
-                        Domanda Sorprendente
-                    </h4>
-                    <p class="mb-0"><strong>Saresti sorpreso se questo paziente morisse entro 1 anno?</strong></p>
-                    <div class="mt-3">
-                        <span class="badge bg-success me-2">SÌ → NECPAL Negativo</span>
-                        <span class="badge bg-warning">NO → Procedi con valutazione</span>
-                    </div>
-                </div>
-
-                <div class="criteria-grid">
-                    <div class="criteria-card">
-                        <div class="criteria-header">
-                            <i class="fas fa-hand-holding-heart me-2"></i>
-                            Richiesta o Bisogni
-                        </div>
-                        <div class="criteria-content">
-                            <ul class="criteria-list">
-                                <li>Scelta/Richiesta: il paziente, i familiari o il team curante hanno richiesto un approccio palliativo</li>
-                                <li>Bisogni identificati dai sanitari del team curante</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="criteria-card">
-                        <div class="criteria-header">
-                            <i class="fas fa-stethoscope me-2"></i>
-                            Indicatori Clinici Generali
-                        </div>
-                        <div class="criteria-content">
-                            <ul class="criteria-list">
-                                <li>Declino nutrizionale: Perdita di peso > 10%</li>
-                                <li>Declino funzionale: Karnofsky/Barthel riduzione > 30%</li>
-                                <li>Declino cognitivo: Perdita ≥ 5 punti MMSE</li>
-                                <li>Dipendenza grave: Karnofsky &lt; 50</li>
-                                <li>Sindromi geriatriche ≥ 2</li>
-                                <li>Sintomi persistenti: ESAS ≥ 2 sintomi</li>
-                                <li>Aspetti psico-sociali: DME > 9</li>
-                                <li>Vulnerabilità sociale grave</li>
-                                <li>Multi-morbidità > 2 malattie croniche</li>
-                                <li>Utilizzo risorse: > 2 ricoveri urgenti</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="criteria-card">
-                        <div class="criteria-header">
-                            <i class="fas fa-ribbon me-2"></i>
-                            Cancro
-                        </div>
-                        <div class="criteria-content">
-                            <ul class="criteria-list">
-                                <li>Metastatico o avanzato a livello locoregionale</li>
-                                <li>Cancro in progressione (tumori solidi)</li>
-                                <li>Sintomi persistenti, non controllati o refrattari</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="criteria-card">
-                        <div class="criteria-header">
-                            <i class="fas fa-lungs me-2"></i>
-                            Patologie Polmonari
-                        </div>
-                        <div class="criteria-content">
-                            <ul class="criteria-list">
-                                <li>Dispnea per minimi sforzi</li>
-                                <li>Criteri spirometrici: VEMS &lt; 30%</li>
-                                <li>O₂ terapia domiciliare</li>
-                                <li>Terapia corticosteroidea continuativa</li>
-                                <li>Insufficienza cardiaca associata</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="criteria-card">
-                        <div class="criteria-header">
-                            <i class="fas fa-heart me-2"></i>
-                            Patologie Cardiache
-                        </div>
-                        <div class="criteria-content">
-                            <ul class="criteria-list">
-                                <li>Insufficienza cardiaca NYHA III-IV</li>
-                                <li>Ecocardiografia: FE &lt; 30%</li>
-                                <li>Insufficienza renale associata (FG &lt; 30)</li>
-                                <li>Iponatriemia persistente</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="criteria-card">
-                        <div class="criteria-header">
-                            <i class="fas fa-brain me-2"></i>
-                            Demenza
-                        </div>
-                        <div class="criteria-content">
-                            <ul class="criteria-list">
-                                <li>GDS ≥ 6c</li>
-                                <li>Progressione del declino funzionale</li>
-                                <li>Progressione del declino nutrizionale</li>
-                                <li>Progressione del declino cognitivo</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="criteria-card">
-                        <div class="criteria-header">
-                            <i class="fas fa-walking me-2"></i>
-                            Fragilità
-                        </div>
-                        <div class="criteria-content">
-                            <ul class="criteria-list">
-                                <li>Indice di fragilità ≥ 0,5</li>
-                                <li>CGA suggestiva di fragilità avanzata</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="criteria-card">
-                        <div class="criteria-header">
-                            <i class="fas fa-head-side-virus me-2"></i>
-                            Patologie Neurologiche
-                        </div>
-                        <div class="criteria-content">
-                            <ul class="criteria-list">
-                                <li>Declino progressivo funzioni fisiche/cognitive</li>
-                                <li>Sintomi complessi o refrattari</li>
-                                <li>Disfagia persistente</li>
-                                <li>Difficoltà di comunicazione</li>
-                                <li>Polmoniti ab ingestis ricorrenti</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="criteria-card">
-                        <div class="criteria-header">
-                            <i class="fas fa-procedures me-2"></i>
-                            Patologie Epatiche
-                        </div>
-                        <div class="criteria-content">
-                            <ul class="criteria-list">
-                                <li>Cirrosi avanzata stadio Child C</li>
-                                <li>MELD-Na score > 30</li>
-                                <li>Epatocarcinoma stadio C o D</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="criteria-card">
-                        <div class="criteria-header">
-                            <i class="fas fa-kidneys me-2"></i>
-                            Patologie Renali
-                        </div>
-                        <div class="criteria-content">
-                            <ul class="criteria-list">
-                                <li>Insufficienza renale grave (FG &lt; 15 ml/min)</li>
-                                <li>Non candidabili a trapianto/dialisi</li>
-                                <li>Sospensione della dialisi</li>
-                                <li>Fallimento del trapianto</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="action-buttons mt-4">
-                    <button class="btn-action btn-primary-necpal" onclick="printNecpal31Template()">
-                        <i class="fas fa-print me-2"></i>Stampa Template
-                    </button>
-                </div>
+            <iframe src="necpal31-scheda.html" style="width:100%; height:2000px; border:none;"></iframe>
+            <div class="action-buttons mt-4">
+                <button class="btn-action btn-primary-necpal" onclick="printNecpal31Template()">
+                    <i class="fas fa-print me-2"></i>Stampa Template
+                </button>
             </div>
         </div>
 
@@ -1147,12 +973,10 @@
         }
 
         function printNecpal31Template() {
-            const content = document.getElementById('necpal31-visualize-section').innerHTML;
-            const win = window.open('', '_blank');
-            win.document.write(`<!DOCTYPE html><html lang="it"><head><meta charset="UTF-8"><title>NECPAL 3.1 - Template</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"><style>body{padding:20px;} i,[class^="fa"]{display:none !important;}</style></head><body>${content}</body></html>`);
-            win.document.close();
-            win.focus();
-            win.onload = function(){ win.print(); };
+            const win = window.open('necpal31-scheda.html', '_blank');
+            if (win) {
+                win.onload = function() { win.print(); };
+            }
         }
 
         function resetNecpal31() {
