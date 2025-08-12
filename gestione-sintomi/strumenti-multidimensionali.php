@@ -91,28 +91,28 @@
       <div class="modal-body">
         <p class="text-muted mb-4">Scegli la versione del questionario IPOS più appropriata per il tuo caso clinico:</p>
         <div class="version-grid">
-          <div class="version-card" onclick="showIPOSPDF('paziente',3)">
+          <div class="version-card" onclick="showIPOSTemplate('paziente',3)">
             <div class="version-icon">
               <i class="fas fa-user"></i>
             </div>
             <div class="version-title">Paziente - 3 giorni</div>
             <div class="version-desc">Questionario auto-compilato dal paziente per valutazione degli ultimi 3 giorni</div>
           </div>
-          <div class="version-card" onclick="showIPOSPDF('paziente',7)">
+          <div class="version-card" onclick="showIPOSTemplate('paziente',7)">
             <div class="version-icon">
               <i class="fas fa-user-clock"></i>
             </div>
             <div class="version-title">Paziente - 7 giorni</div>
             <div class="version-desc">Questionario auto-compilato dal paziente per valutazione dell'ultima settimana</div>
           </div>
-          <div class="version-card" onclick="showIPOSPDF('staff',3)">
+          <div class="version-card" onclick="showIPOSTemplate('staff',3)">
             <div class="version-icon">
               <i class="fas fa-user-md"></i>
             </div>
             <div class="version-title">Staff - 3 giorni</div>
             <div class="version-desc">Versione per operatori sanitari - valutazione degli ultimi 3 giorni</div>
           </div>
-          <div class="version-card" onclick="showIPOSPDF('staff',7)">
+          <div class="version-card" onclick="showIPOSTemplate('staff',7)">
             <div class="version-icon">
               <i class="fas fa-stethoscope"></i>
             </div>
@@ -125,22 +125,19 @@
   </div>
 </div>
 
-<!-- Modal per visualizzazione PDF -->
-<div class="modal fade" id="pdfViewModal" tabindex="-1">
+<!-- Modal per visualizzazione template IPOS -->
+<div class="modal fade" id="iposTemplateModal" tabindex="-1">
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header bg-light">
-        <h5 class="modal-title" id="pdfModalTitle">
-          <i class="fas fa-file-pdf text-danger me-2"></i>
-          IPOS - Versione
-        </h5>
+        <h5 class="modal-title" id="templateModalTitle">IPOS</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
       <div class="modal-body p-0">
-        <iframe id="pdfFrame" src="" style="width:100%;height:80vh;" frameborder="0"></iframe>
+        <iframe id="iposTemplateFrame" src="" style="width:100%;height:80vh;" frameborder="0"></iframe>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" onclick="printPDF()">
+        <button type="button" class="btn btn-primary" onclick="printTemplate()">
           <i class="fas fa-print me-2"></i>
           Stampa
         </button>

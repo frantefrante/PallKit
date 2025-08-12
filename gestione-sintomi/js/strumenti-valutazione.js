@@ -353,27 +353,21 @@ function openIDCPALGlossary() {
   if (typeof switchIDCPALMode === 'function') switchIDCPALMode('glossary');
 }
 
-function showIPOSPDF(tipo, giorni) {
+function showIPOSTemplate(tipo, giorni) {
   const versionModal = bootstrap.Modal.getInstance(document.getElementById('iposVersionModal'));
   if (versionModal) versionModal.hide();
   const tipoText = tipo === 'paziente' ? 'Paziente' : 'Staff';
-  document.getElementById('pdfModalTitle').innerHTML = `<i class="fas fa-file-pdf text-danger me-2"></i> IPOS ${tipoText} - ${giorni} giorni`;
-  const fileMap = {
-    'paziente_3': 'IPOSv1-P3-IT.pdf',
-    'paziente_7': 'IPOSv1-P7-IT.pdf',
-    'staff_3': 'IPOSv1-S3-IT.pdf',
-    'staff_7': 'IPOSv1-S7-IT.pdf'
-  };
-  const key = `${tipo}_${giorni}`;
-  const pdfPath = `ipos%20pdf/${fileMap[key]}`;
-  const frame = document.getElementById('pdfFrame');
-  if (frame) frame.src = pdfPath;
-  const pdfModal = new bootstrap.Modal(document.getElementById('pdfViewModal'));
-  pdfModal.show();
+  const titolo = `IPOS ${tipoText} - ${giorni} giorni`;
+  const titleEl = document.getElementById('templateModalTitle');
+  if (titleEl) titleEl.textContent = titolo;
+  const frame = document.getElementById('iposTemplateFrame');
+  if (frame) frame.src = `ipos-templates.html#${tipo}-${giorni}`;
+  const modal = new bootstrap.Modal(document.getElementById('iposTemplateModal'));
+  modal.show();
 }
 
-function printPDF() {
-  const frame = document.getElementById('pdfFrame');
+function printTemplate() {
+  const frame = document.getElementById('iposTemplateFrame');
   if (frame && frame.contentWindow) {
     frame.contentWindow.focus();
     frame.contentWindow.print();

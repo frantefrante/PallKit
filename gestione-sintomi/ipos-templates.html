@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>IPOS Templates</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:Arial,sans-serif;background:#f8f9fa;padding:20px;}
+    .template-selector{text-align:center;background:#fff;padding:30px;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.1);}
+    .template-selector h1{color:#28a745;margin-bottom:15px;font-size:2rem;}
+    .template-selector p{color:#6c757d;margin-bottom:30px;font-size:1.1rem;}
+    .template-buttons{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;max-width:800px;margin:0 auto;}
+    .template-btn{background:#28a745;color:#fff;border:none;border-radius:10px;padding:20px;cursor:pointer;font-size:1rem;font-weight:600;transition:all .3s;}
+    .template-btn:hover{background:#218838;}
+    .ipos-template{display:none;}
+    .template-header{text-align:right;margin-bottom:20px;}
+    .back-btn,.print-btn{padding:10px 20px;border:none;border-radius:5px;cursor:pointer;margin-left:10px;}
+    .back-btn{background:#6c757d;color:#fff;}
+    .print-btn{background:#28a745;color:#fff;}
+    .print-header{display:none;text-align:center;margin-bottom:20px;border-bottom:2px solid #28a745;padding-bottom:10px;}
+    .ipos-form{max-width:800px;margin:0 auto;background:#fff;padding:40px;border:2px solid #28a745;border-radius:12px;}
+    .form-title{text-align:center;color:#28a745;font-size:1.6rem;font-weight:bold;margin-bottom:30px;padding-bottom:15px;border-bottom:3px solid #28a745;}
+    .patient-info{background:#f8f9fa;padding:20px;border-radius:8px;margin-bottom:25px;display:grid;grid-template-columns:2fr 1fr 1fr;gap:20px;align-items:end;}
+    .patient-info label{font-weight:600;color:#495057;margin-bottom:5px;display:block;}
+    .patient-info input{width:100%;padding:8px;border:2px solid #dee2e6;border-radius:4px;font-size:1rem;}
+    .date-input{display:flex;gap:5px;align-items:center;}
+    .date-box{width:40px;height:40px;border:2px solid #dee2e6;text-align:center;line-height:36px;font-weight:bold;}
+    .question-section{margin-bottom:30px;}
+    .question-title{background:#28a745;color:#fff;padding:12px 20px;border-radius:8px 8px 0 0;font-weight:600;font-size:1.1rem;}
+    .question-content{border:2px solid #28a745;border-top:none;padding:20px;border-radius:0 0 8px 8px;}
+    .symptom-table,.psychosocial-table{width:100%;border-collapse:collapse;margin-top:15px;}
+    .symptom-table th,.symptom-table td,.psychosocial-table th,.psychosocial-table td{border:1px solid #dee2e6;padding:10px;text-align:center;vertical-align:middle;}
+    .symptom-table th,.psychosocial-table th{background:#f8f9fa;font-weight:600;font-size:.9rem;color:#495057;}
+    .symptom-name,.question-text{text-align:left;font-weight:500;background:#f8f9fa;}
+    .checkbox-cell{width:60px;}
+    .score-checkbox{width:18px;height:18px;}
+    .additional-symptoms{margin-top:20px;padding-top:20px;border-top:2px solid #dee2e6;}
+    .additional-symptom-row{display:grid;grid-template-columns:200px repeat(5,1fr);gap:10px;align-items:center;margin-bottom:10px;}
+    .additional-symptom-input{padding:8px;border:1px solid #dee2e6;border-radius:4px;}
+    .completion-info{background:#e9ecef;padding:15px;border-radius:8px;margin-top:20px;font-style:italic;color:#6c757d;}
+    @media print{
+      body{background:#fff;padding:0;margin:0;}
+      .template-selector,.template-header{display:none!important;}
+      .print-header{display:block!important;}
+      .ipos-form{border:none;padding:20px;}
+    }
+  </style>
+</head>
+<body>
+  <div id="templateSelector" class="template-selector">
+    <h1>Template IPOS</h1>
+    <p>Seleziona la versione da stampare</p>
+    <div class="template-buttons">
+      <button class="template-btn" onclick="showTemplate('staff',7)">IPOS Staff - 7 Giorni</button>
+      <button class="template-btn" onclick="showTemplate('staff',3)">IPOS Staff - 3 Giorni</button>
+      <button class="template-btn" onclick="showTemplate('paziente',7)">IPOS Paziente - 7 Giorni</button>
+      <button class="template-btn" onclick="showTemplate('paziente',3)">IPOS Paziente - 3 Giorni</button>
+    </div>
+  </div>
+
+  <div id="ipos-template" class="ipos-template">
+    <div class="template-header">
+      <button class="back-btn" onclick="showSelector()">← Torna alla Selezione</button>
+      <button class="print-btn" onclick="printTemplate()">🖨️ Stampa</button>
+    </div>
+    <div class="print-header">
+      <h1 id="templateTitle"></h1>
+      <p>In collaborazione con: www.pos-pal.org - www.fondazionefaro.it - TORINO</p>
+    </div>
+    <form class="ipos-form" id="templateForm"></form>
+  </div>
+
+  <script>
+    const sintomi = [
+      'Dolore','Mancanza di fiato','Debolezza o mancanza di energia','Nausea','Vomito','Scarso appetito','Stitichezza','Problemi al cavo orale','Sonnolenza','Problemi di mobilizzazione'
+    ];
+
+    function buildTemplate(tipo, giorni){
+      const form = document.getElementById('templateForm');
+      const title = document.getElementById('templateTitle');
+      const isStaff = tipo === 'staff';
+      const intervallo = giorni === 3 ? 'ultimi 3 giorni' : 'ultima settimana';
+      title.textContent = `IPOS Versione ${isStaff ? 'Staff' : 'Paziente'} (${giorni} giorni)`;
+
+      let html = '';
+      html += `<div class="form-title">IPOS Versione ${isStaff ? 'Staff' : 'Paziente'}</div>`;
+
+      html += `<div class="patient-info">
+        <div>
+          <label>Nome del paziente:</label>
+          <input type="text">
+        </div>
+        <div>
+          <label>Numero identificativo del paziente:</label>
+          <input type="text">
+        </div>
+        <div>
+          <label>Data odierna (gg/mm/anno):</label>
+          <div class="date-input">
+            <div class="date-box"></div><div class="date-box"></div><span>-</span>
+            <div class="date-box"></div><div class="date-box"></div><span>-</span>
+            <div class="date-box"></div><div class="date-box"></div><div class="date-box"></div><div class="date-box"></div>
+          </div>
+        </div>
+      </div>`;
+
+      const q1 = isStaff ?
+        `Q1. Quali sono stati i problemi più importanti del paziente nel corso degli ${intervallo}?` :
+        `Q1. Quali sono stati i suoi problemi o le sue preoccupazioni più importanti nel corso degli ${intervallo}?`;
+      html += `<div class="question-section"><div class="question-title">${q1}</div><div class="question-content">
+        <div class="open-question"><label>1.</label><div class="open-line"></div></div>
+        <div class="open-question"><label>2.</label><div class="open-line"></div></div>
+        <div class="open-question"><label>3.</label><div class="open-line"></div></div>
+      </div></div>`;
+
+      // Q2
+      html += `<div class="question-section"><div class="question-title">
+        Q2. A seguire troverà una lista di sintomi. Per ciascun sintomo, segni la casella che descrive meglio quanto quel sintomo ha disturbato ${isStaff ? 'il paziente' : 'la persona'} nel corso degli ${intervallo}<br><small>(nel caso il sintomo abbia avuto delle fluttuazioni indicare un valore medio)</small>
+      </div><div class="question-content">`;
+      html += `<table class="symptom-table"><thead><tr><th></th><th>No, per<br>niente</th><th>Legger-<br>mente</th><th>Moderata-<br>mente</th><th>In modo<br>severo</th><th>In modo<br>intollerabile</th>${isStaff?'<th>Non<br>valutabile</th>':''}</tr></thead><tbody>`;
+      sintomi.forEach(nome=>{
+        html += `<tr><td class="symptom-name">${nome}</td>`;
+        for(let i=0;i<5;i++) html += `<td class="checkbox-cell"><input type="checkbox" class="score-checkbox"><br>${i}</td>`;
+        if(isStaff) html += `<td class="checkbox-cell"><input type="checkbox" class="score-checkbox"></td>`;
+        html += `</tr>`;
+      });
+      html += `</tbody></table>`;
+      html += `<div class="additional-symptoms"><label>Per favore elenchi eventuali altri sintomi non presenti nell'elenco precedente.</label>`;
+      for(let i=1;i<=3;i++){
+        html += `<div class="additional-symptom-row"><input type="text" class="additional-symptom-input" placeholder="${i}. ____________________">`;
+        for(let j=0;j<5;j++) html += `<div class="checkbox-cell"><input type="checkbox" class="score-checkbox"><br>${j}</div>`;
+        if(isStaff) html += `<div class="checkbox-cell"><input type="checkbox" class="score-checkbox"></div>`;
+        html += `</div>`;
+      }
+      html += `</div></div></div>`;
+
+      // Q3-5
+      const q1set = isStaff ? [
+        'Q3. Il paziente si è sentito in ansia o preoccupato per la sua malattia o per le terapie?',
+        'Q4. Qualcuno dei suoi cari è stato in ansia o preoccupato per il paziente?',
+        'Q5. Pensi che il paziente si sia sentito depresso?'
+      ] : [
+        'Q3. Si è sentito in ansia o preoccupato per la Sua malattia o per le terapie?',
+        'Q4. Qualcuno dei suoi cari è stato in ansia o preoccupato per Lei?',
+        'Q5. Si è sentito depresso?'
+      ];
+      html += `<div class="question-section"><div class="question-title">Nel corso degli ${intervallo}:</div><div class="question-content">`;
+      html += `<table class="psychosocial-table"><thead><tr><th></th><th>No, per<br>niente</th><th>Raramente</th><th>Qualche<br>volta</th><th>Per la<br>maggior<br>parte del<br>tempo</th><th>Sempre</th>${isStaff?'<th>Non<br>valutabile</th>':''}</tr></thead><tbody>`;
+      q1set.forEach(q=>{
+        html += `<tr><td class="question-text">${q}</td>`;
+        for(let i=0;i<5;i++) html += `<td><input type="checkbox" class="score-checkbox"><br>${i}</td>`;
+        if(isStaff) html += `<td><input type="checkbox" class="score-checkbox"></td>`;
+        html += `</tr>`;
+      });
+      html += `</tbody></table>`;
+
+      // Q6-8
+      const q2set = isStaff ? [
+        'Q6. Pensi che il paziente si sia sentito in pace con se stesso?',
+        "Q7. Pensi che il paziente abbia potuto condividere i suoi stati d'animo con i suoi cari nel modo che desiderava?",
+        'Q8. Pensi che il paziente abbia ricevuto tutte le informazioni che desiderava?'
+      ] : [
+        'Q6. Si è sentito in pace con sé stesso?',
+        "Q7. Ha potuto condividere i Suoi stati d'animo con i suoi cari nel modo che desiderava?",
+        'Q8. Ha ricevuto tutte le informazioni che desiderava?'
+      ];
+      html += `<table class="psychosocial-table" style="margin-top:20px;"><thead><tr><th></th><th>Sempre</th><th>Per la<br>maggior<br>parte del<br>tempo</th><th>Qualche<br>volta</th><th>Raramente</th><th>No, per<br>niente</th>${isStaff?'<th>Non<br>valutabile</th>':''}</tr></thead><tbody>`;
+      q2set.forEach(q=>{
+        html += `<tr><td class="question-text">${q}</td>`;
+        for(let i=0;i<5;i++) html += `<td><input type="checkbox" class="score-checkbox"><br>${i}</td>`;
+        if(isStaff) html += `<td><input type="checkbox" class="score-checkbox"></td>`;
+        html += `</tr>`;
+      });
+      html += `</tbody></table>`;
+
+      // Q9
+      html += `<table class="psychosocial-table" style="margin-top:20px;"><thead><tr><th></th><th>Problemi<br>affrontati/<br>Assenza di<br>problemi</th><th>Problemi in<br>maggior<br>parte<br>affrontati</th><th>Problemi<br>parzial-<br>mente<br>affrontati</th><th>Problemi<br>affrontati<br>in minima<br>parte</th><th>Problemi<br>non<br>affrontati</th>${isStaff?'<th>Non<br>valutabile</th>':''}</tr></thead><tbody>`;
+      html += `<tr><td class="question-text">Q9. Sono stati affrontati eventuali problemi pratici, personali o economici derivanti dalla malattia?</td>`;
+      for(let i=0;i<5;i++) html += `<td><input type="checkbox" class="score-checkbox"><br>${i}</td>`;
+      if(isStaff) html += `<td><input type="checkbox" class="score-checkbox"></td>`;
+      html += `</tr></tbody></table>`;
+
+      if(!isStaff){
+        html += `<table class="psychosocial-table" style="margin-top:20px;"><thead><tr><th></th><th>Da solo</th><th>Con l'aiuto di un<br>familiare o di un<br>amico</th><th>Con l'aiuto di<br>un membro<br>dello staff</th></tr></thead><tbody>`;
+        html += `<tr><td class="question-text">Q10. Come ha completato il questionario?</td><td><input type="checkbox" class="score-checkbox"></td><td><input type="checkbox" class="score-checkbox"></td><td><input type="checkbox" class="score-checkbox"></td></tr>`;
+        html += `</tbody></table>`;
+      }
+
+      html += `<div class="completion-info">Se si sente preoccupato per qualsiasi aspetto sollevato dal questionario per favore si senta libero di parlarne con il suo medico o infermiere</div>`;
+      html += `</div></div>`; // close question-content and question-section
+
+      form.innerHTML = html;
+
+      // auto-fill date boxes
+      const today = new Date();
+      const day = String(today.getDate()).padStart(2,'0');
+      const month = String(today.getMonth()+1).padStart(2,'0');
+      const year = String(today.getFullYear());
+      document.querySelectorAll('.date-box').forEach((box,index)=>{
+        const pos = index % 8;
+        switch(pos){
+          case 0: box.textContent = day[0]; break;
+          case 1: box.textContent = day[1]; break;
+          case 2: box.textContent = month[0]; break;
+          case 3: box.textContent = month[1]; break;
+          case 4: box.textContent = year[0]; break;
+          case 5: box.textContent = year[1]; break;
+          case 6: box.textContent = year[2]; break;
+          case 7: box.textContent = year[3]; break;
+        }
+      });
+    }
+
+    function showTemplate(tipo, giorni){
+      document.getElementById('templateSelector').style.display='none';
+      document.getElementById('ipos-template').style.display='block';
+      buildTemplate(tipo, giorni);
+    }
+
+    function showSelector(){
+      document.getElementById('ipos-template').style.display='none';
+      document.getElementById('templateSelector').style.display='block';
+    }
+
+    function printTemplate(){
+      window.print();
+    }
+
+    document.addEventListener('DOMContentLoaded', ()=>{
+      const hash = window.location.hash.substring(1);
+      if(hash){
+        const parts = hash.split('-');
+        if(parts.length===2) showTemplate(parts[0], parseInt(parts[1],10));
+      }
+    });
+  </script>
+</body>
+</html>
+
