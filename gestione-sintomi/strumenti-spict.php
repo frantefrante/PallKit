@@ -61,8 +61,8 @@
         @media(max-width:768px){.pathology-grid{grid-template-columns:1fr;} .mode-selector{flex-direction:column;} .summary-stats{grid-template-columns:1fr;}}
     </style>
     <div class="mb-3">
-        <button class="btn btn-outline-success me-2" onclick="navigateToSection('identificazione-home')"><i class="fas fa-arrow-left me-2"></i>Torna a Identificazione</button>
-        <button class="btn btn-outline-primary" onclick="navigateToSection('strumenti-valutazione-home')"><i class="fas fa-arrow-left me-2"></i>Torna alle Categorie</button>
+        <button class="btn btn-outline-primary me-2" onclick="navigateToSection('identificazione-home')"><i class="fas fa-arrow-left me-2"></i>Torna a Identificazione</button>
+        <button class="btn btn-outline-success" onclick="navigateToSection('strumenti-valutazione-home')"><i class="fas fa-arrow-left me-2"></i>Torna alle Categorie</button>
     </div>
     <div class="spict-container">
         <div class="spict-header">
