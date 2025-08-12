@@ -3,21 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <title>IPOS Templates</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/strumenti-valutazione.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     *{box-sizing:border-box;margin:0;padding:0;}
-    body{font-family:Arial,sans-serif;background:#f8f9fa;padding:20px;}
-    .template-selector{text-align:center;background:#fff;padding:30px;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.1);}
-    .template-selector h1{color:#28a745;margin-bottom:15px;font-size:2rem;}
-    .template-selector p{color:#6c757d;margin-bottom:30px;font-size:1.1rem;}
-    .template-buttons{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;max-width:800px;margin:0 auto;}
-    .template-btn{background:#28a745;color:#fff;border:none;border-radius:10px;padding:20px;cursor:pointer;font-size:1rem;font-weight:600;transition:all .3s;}
-    .template-btn:hover{background:#218838;}
+    body{font-family:Arial,sans-serif;background:#f8f9fa;}
+    .template-container{max-width:1200px;margin:0 auto;padding:2rem 1rem;}
+    .template-selector h2{color:#5cb85c;font-weight:600;}
+    .template-selector p{color:#6c757d;}
     .ipos-template{display:none;}
-    .template-header{text-align:right;margin-bottom:20px;}
-    .back-btn,.print-btn{padding:10px 20px;border:none;border-radius:5px;cursor:pointer;margin-left:10px;}
-    .back-btn{background:#6c757d;color:#fff;}
-    .print-btn{background:#28a745;color:#fff;}
-    .print-header{display:none;text-align:center;margin-bottom:20px;border-bottom:2px solid #28a745;padding-bottom:10px;}
+    .print-header{display:none;text-align:center;margin-bottom:1.5rem;border-bottom:2px solid #28a745;padding-bottom:0.5rem;}
     .ipos-form{max-width:800px;margin:0 auto;background:#fff;padding:40px;border:2px solid #28a745;border-radius:12px;}
     .form-title{text-align:center;color:#28a745;font-size:1.6rem;font-weight:bold;margin-bottom:30px;padding-bottom:15px;border-bottom:3px solid #28a745;}
     .patient-info{background:#f8f9fa;padding:20px;border-radius:8px;margin-bottom:25px;display:grid;grid-template-columns:2fr 1fr 1fr;gap:20px;align-items:end;}
@@ -40,28 +36,44 @@
     .completion-info{background:#e9ecef;padding:15px;border-radius:8px;margin-top:20px;font-style:italic;color:#6c757d;}
     @media print{
       body{background:#fff;padding:0;margin:0;}
-      .template-selector,.template-header{display:none!important;}
+      #templateSelector,.no-print{display:none!important;}
       .print-header{display:block!important;}
       .ipos-form{border:none;padding:20px;}
     }
   </style>
 </head>
 <body>
-  <div id="templateSelector" class="template-selector">
-    <h1>Template IPOS</h1>
-    <p>Seleziona la versione da stampare</p>
-    <div class="template-buttons">
-      <button class="template-btn" onclick="showTemplate('staff',7)">IPOS Staff - 7 Giorni</button>
-      <button class="template-btn" onclick="showTemplate('staff',3)">IPOS Staff - 3 Giorni</button>
-      <button class="template-btn" onclick="showTemplate('paziente',7)">IPOS Paziente - 7 Giorni</button>
-      <button class="template-btn" onclick="showTemplate('paziente',3)">IPOS Paziente - 3 Giorni</button>
+  <div id="templateSelector" class="template-container template-selector">
+    <h2 class="text-center mb-3"><i class="fas fa-file-alt me-2"></i>Seleziona versione IPOS</h2>
+    <p class="text-center mb-4">Scegli il questionario da stampare e compilare manualmente</p>
+    <div class="version-grid">
+      <div class="version-card" onclick="showTemplate('paziente',3)">
+        <div class="version-icon"><i class="fas fa-user"></i></div>
+        <div class="version-title">Paziente - 3 giorni</div>
+        <div class="version-desc">Questionario per gli ultimi 3 giorni</div>
+      </div>
+      <div class="version-card" onclick="showTemplate('paziente',7)">
+        <div class="version-icon"><i class="fas fa-user-clock"></i></div>
+        <div class="version-title">Paziente - 7 giorni</div>
+        <div class="version-desc">Questionario per l'ultima settimana</div>
+      </div>
+      <div class="version-card" onclick="showTemplate('staff',3)">
+        <div class="version-icon"><i class="fas fa-user-md"></i></div>
+        <div class="version-title">Staff - 3 giorni</div>
+        <div class="version-desc">Valutazione operatori ultimi 3 giorni</div>
+      </div>
+      <div class="version-card" onclick="showTemplate('staff',7)">
+        <div class="version-icon"><i class="fas fa-stethoscope"></i></div>
+        <div class="version-title">Staff - 7 giorni</div>
+        <div class="version-desc">Valutazione operatori ultima settimana</div>
+      </div>
     </div>
   </div>
 
-  <div id="ipos-template" class="ipos-template">
-    <div class="template-header">
-      <button class="back-btn" onclick="showSelector()">← Torna alla Selezione</button>
-      <button class="print-btn" onclick="printTemplate()">🖨️ Stampa</button>
+  <div id="ipos-template" class="template-container ipos-template">
+    <div class="d-flex justify-content-between mb-3 no-print">
+      <button class="btn btn-outline-success" onclick="showSelector()"><i class="fas fa-arrow-left me-2"></i>Torna alla Selezione</button>
+      <button class="btn btn-success" onclick="printTemplate()"><i class="fas fa-print me-2"></i>Stampa</button>
     </div>
     <div class="print-header">
       <h1 id="templateTitle"></h1>
