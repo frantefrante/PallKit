@@ -6,6 +6,9 @@
     <button class="btn btn-outline-success" onclick="navigateToSection('strumenti-valutazione-home'); showCategories();">
       <i class="fas fa-arrow-left me-2"></i>Torna alle Categorie
     </button>
+    <button class="btn btn-outline-warning ms-2" onclick="navigateToSection('strumenti-valutazione-home'); openCategoryView('dolore');">
+      <i class="fas fa-arrow-left me-2"></i>Torna a Dolore
+    </button>
   </div>
   <div class="container-fluid">
     <div class="dn4-container">

@@ -99,6 +99,8 @@ function loadCategoryContent(categoryName) {
     </div>
   </div>
 </div>`;
+    const box = categoryDetails.querySelector('.dn4-box');
+    if (box) box.scrollIntoView({behavior: 'smooth', block: 'start'});
     return;
   }
 

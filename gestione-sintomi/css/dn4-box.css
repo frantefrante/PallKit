@@ -7,7 +7,8 @@
 }
 
 .dn4-box {
-    max-width: 360px;
+    width: 95%;
+    max-width: 900px;
     margin: 0;
     background: white;
     border-radius: 16px;
@@ -29,7 +30,7 @@
 }
 
 .dn4-box-header {
-    padding: 2rem;
+    padding: 1.5rem 1.5rem 1rem;
     text-align: center;
     position: relative;
     z-index: 1;
@@ -97,8 +98,8 @@
     font-size: 0.9rem;
     color: #495057;
     line-height: 1.4;
-    margin-bottom: 1rem;
-    max-width: 500px;
+    margin-bottom: 0.5rem;
+    max-width: 100%;
     margin-left: auto;
     margin-right: auto;
 }
@@ -107,8 +108,8 @@
     background: linear-gradient(135deg, var(--dn4-light), #fff);
     border: 2px solid var(--dn4-border);
     border-radius: 12px;
-    padding: 1rem;
-    margin: 1rem 0;
+    padding: 0.8rem;
+    margin: 0.5rem 0;
     position: relative;
     z-index: 1;
 }
@@ -123,7 +124,7 @@
 }
 
 .dn4-box-actions {
-    padding: 0 1rem 2rem;
+    padding: 0 1rem 1.5rem;
     display: flex;
     gap: 1rem;
     position: relative;
