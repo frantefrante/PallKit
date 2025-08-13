@@ -519,139 +519,7 @@
         </div>
 
         <div id="necpal40-visualize-section" class="content-section">
-            <div class="patient-info-card">
-                <h3 class="patient-info-title">
-                    <i class="fas fa-file-medical me-2"></i>
-                    NECPAL 4.0 - Schema di Valutazione
-                </h3>
-                <p class="text-muted mb-4">
-                    Schema completo per l'identificazione di pazienti con bisogni di cure palliative secondo i criteri NECPAL 4.0 (2021). Include valutazione prognostica a stadi.
-                </p>
-
-                <div class="surprise-question mb-4">
-                    <h4>
-                        <i class="fas fa-question-circle me-2"></i>
-                        Domanda Sorprendente
-                    </h4>
-                    <p class="mb-0"><strong>Saresti sorpreso se questo paziente morisse entro 1 anno?</strong></p>
-                    <div class="mt-3">
-                        <span class="badge bg-success me-2">SÌ → NECPAL Negativo</span>
-                        <span class="badge bg-warning">NO → Procedi con valutazione</span>
-                    </div>
-                </div>
-
-                <div class="criteria-grid">
-                    <div class="criteria-card">
-                        <div class="criteria-header">
-                            <i class="fas fa-hand-holding-heart me-2"></i>
-                            Bisogni Palliativi
-                        </div>
-                        <div class="criteria-content">
-                            <p>Il paziente stesso, i professionisti e/o i suoi familiari ritengono che il malato abbia attualmente bisogni di cure palliative</p>
-                        </div>
-                    </div>
-
-                    <div class="criteria-card">
-                        <div class="criteria-header">
-                            <i class="fas fa-walking me-2"></i>
-                            Perdita Funzionale
-                        </div>
-                        <div class="criteria-content">
-                            <ul class="criteria-list">
-                                <li>Giudizio clinico di deterioramento funzionale prolungato, grave, progressivo e irreversibile</li>
-                                <li>Perdita > 30% dell'indice di Barthel in 6 mesi</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="criteria-card">
-                        <div class="criteria-header">
-                            <i class="fas fa-weight me-2"></i>
-                            Perdita Nutrizionale
-                        </div>
-                        <div class="criteria-content">
-                            <ul class="criteria-list">
-                                <li>Giudizio clinico di calo nutrizionale/ponderale prolungato, grave, progressivo e irreversibile</li>
-                                <li>Perdita di peso > 10% in 6 mesi</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="criteria-card">
-                        <div class="criteria-header">
-                            <i class="fas fa-pills me-2"></i>
-                            Multimorbidità
-                        </div>
-                        <div class="criteria-content">
-                            <p>≥ 2 malattie croniche concomitanti alla malattia principale</p>
-                        </div>
-                    </div>
-
-                    <div class="criteria-card">
-                        <div class="criteria-header">
-                            <i class="fas fa-hospital me-2"></i>
-                            Utilizzo di Risorse
-                        </div>
-                        <div class="criteria-content">
-                            <ul class="criteria-list">
-                                <li>≥ 2 ricoveri urgenti in ospedale nell'ultimo anno</li>
-                                <li>Necessità di cure continuative complesse/intense</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="criteria-card">
-                        <div class="criteria-header">
-                            <i class="fas fa-disease me-2"></i>
-                            Malattia Avanzata
-                        </div>
-                        <div class="criteria-content">
-                            <p>Criteri di gravità e/o progressione di malattia cronica:</p>
-                            <ul class="criteria-list">
-                                <li>Oncologica</li>
-                                <li>Polmonare</li>
-                                <li>Cardiaca</li>
-                                <li>Epatica</li>
-                                <li>Renale</li>
-                                <li>Neurologica</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="prognosis-card mt-4">
-                    <div class="prognosis-title">
-                        <i class="fas fa-hourglass-half me-2"></i>
-                        Stima Prognostica NECPAL 4.0
-                    </div>
-                    <div class="stage-grid">
-                        <div class="stage-card">
-                            <div class="stage-name">Stadio I</div>
-                            <div class="stage-criteria">DS + 1-2 items</div>
-                            <div class="stage-prognosis">Mediana: 38 mesi</div>
-                        </div>
-                        <div class="stage-card">
-                            <div class="stage-name">Stadio II</div>
-                            <div class="stage-criteria">DS + 3-4 items</div>
-                            <div class="stage-prognosi">Mediana: 17.2 mesi</div>
-                        </div>
-                        <div class="stage-card">
-                            <div class="stage-name">Stadio III</div>
-                            <div class="stage-criteria">DS + 5-6 items</div>
-                            <div class="stage-prognosi">Mediana: 3.6 mesi</div>
-                        </div>
-                    </div>
-                    <div class="mt-3">
-                        <small class="text-light"><i class="fas fa-info-circle me-2"></i>Fonte: Xavier Gomez-Batiste et al. 2021</small>
-                    </div>
-                </div>
-
-                <div class="action-buttons mt-4">
-                    <button class="btn-action btn-primary-necpal40" onclick="printNecpal40Template()">
-                        <i class="fas fa-print me-2"></i>Stampa Template
-                    </button>
-                </div>
-            </div>
+            <iframe src="necpal4-scheda.html" style="width:100%;height:1600px;border:none;"></iframe>
         </div>
 
         <div id="necpal40-glossary-section" class="content-section">
@@ -1155,10 +1023,8 @@
         }
 
         function printNecpal40Template() {
-            const content = document.getElementById('necpal40-visualize-section').innerHTML;
-            const win = window.open('', '_blank');
-            win.document.write(`<!DOCTYPE html><html lang="it"><head><meta charset="UTF-8"><title>NECPAL 4.0 - Template</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"><style>body{padding:20px;} i,[class^="fa"]{display:none !important;}</style></head><body>${content}</body></html>`);
-            win.document.close();
+            const win = window.open("necpal4-scheda.html", "_blank");
+            if (!win) return;
             win.focus();
             win.onload = function(){ win.print(); };
         }

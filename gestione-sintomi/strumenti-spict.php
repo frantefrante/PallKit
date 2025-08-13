@@ -245,9 +245,26 @@
         }
 
         function printSpictTemplate() {
-            const content = document.getElementById('spict-visualize-section').innerHTML;
+            const section = document.getElementById('spict-visualize-section');
+            if (!section) return;
+
+            // Clona la sezione e rimuove il pulsante di stampa
+            const clone = section.cloneNode(true);
+            clone.querySelector('.btn-spict')?.remove();
+
+            // Elimina eventuali icone Font Awesome convertite in SVG o elementi <i>
+            clone.querySelectorAll('svg,i,[class^="fa"]').forEach(el => el.remove());
+
+            // Recupera gli stili definiti nella pagina originale
+            const styleTag = document.querySelector('#spict-home style');
+            const baseStyles = styleTag ? styleTag.innerHTML : '';
+
+            // Contenuto HTML da stampare
+            const content = clone.innerHTML;
+
+            // Apre una nuova finestra con gli stili originali e quelli di stampa
             const win = window.open('', '_blank');
-            win.document.write(`<!DOCTYPE html><html lang="it"><head><meta charset="UTF-8"><title>SPICT - Template</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"><style>body{padding:20px;} i,[class^="fa"]{display:none !important;}</style></head><body>${content}</body></html>`);
+            win.document.write(`<!DOCTYPE html><html lang="it"><head><meta charset="UTF-8"><title>SPICT - Template</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"><style>${baseStyles} @page{size:A4;margin:15mm;} body{font-family:Arial,sans-serif;padding:20px;} input[type=checkbox]{transform:scale(1.2);}</style></head><body>${content}</body></html>`);
             win.document.close();
             win.focus();
             win.onload = function(){ win.print(); };

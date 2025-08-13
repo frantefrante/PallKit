@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', function () {
         else if (window.downloadNecpalPdf) window.downloadNecpalPdf();
         break;
       case 'necpal4':
-        if (doc.html) {
+        if (doc.html && !doc.html.includes('iframe')) {
           const preview = document.createElement('div');
           preview.innerHTML = doc.html;
           const opt = {
@@ -123,6 +123,8 @@ document.addEventListener('DOMContentLoaded', function () {
             const url = pdf.output('bloburl');
             window.open(url, '_blank');
           });
+        } else if (window.downloadNecpal4Pdf) {
+          window.downloadNecpal4Pdf();
         }
         break;
       case 'sedazione':
@@ -217,20 +219,23 @@ window.downloadNecpalPdf = downloadNecpalPdf;
 
 // Scarica il PDF del NECPAL 4 aprendo il documento in una nuova scheda
 function downloadNecpal4Pdf() {
-  const preview = document.getElementById('necpal4-preview');
-  if (!preview || !preview.innerHTML.trim()) return alert('Anteprima non disponibile.');
-  const tmp = document.createElement('div');
-  tmp.innerHTML = preview.innerHTML;
-  const opt = {
-    margin: 0.5,
-    image: { type: 'jpeg', quality: 0.98 },
-    html2canvas: { scale: 2 },
-    jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
-  };
-  html2pdf().set(opt).from(tmp).toPdf().get('pdf').then(pdf => {
-    const url = pdf.output('bloburl');
-    window.open(url, '_blank');
-  });
+  fetch('necpal4-scheda.html')
+    .then(r => r.text())
+    .then(html => {
+      const tmp = document.createElement('div');
+      tmp.innerHTML = html;
+      const opt = {
+        margin: 0.5,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+      };
+      html2pdf().set(opt).from(tmp).toPdf().get('pdf').then(pdf => {
+        const url = pdf.output('bloburl');
+        window.open(url, '_blank');
+      });
+    })
+    .catch(() => alert('Anteprima non disponibile.'));
 }
 window.downloadNecpal4Pdf = downloadNecpal4Pdf;
 
@@ -439,45 +444,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function buildNecpal4Html(fd) {
-    const date = formatDateIt(fd.get('date_1'));
-    const name = fd.get('text_1');
-    const dob  = formatDateIt(fd.get('date_2'));
-    const sq   = fd.get('sq');
-    const items = [
-      ['Bisogni palliativi', fd.get('bisogni_pall') ? true : false],
-      ['Perdita funzionale', fd.get('perdita_funz') ? true : false],
-      ['Perdita nutrizionale', fd.get('perdita_nutr') ? true : false],
-      ['Multimorbidità', fd.get('multimorbidita') ? true : false],
-      ['Utilizzo di risorse', fd.get('uso_risorse') ? true : false],
-      ['Malattia avanzata', fd.getAll('patologie[]').length > 0]
-    ];
-    const rows = items.map((it,i)=>{
-      const bg = i % 2 ? '#f2f2f2' : '#ffffff';
-      return `<tr style="background:${bg};"><td style="width:40px;text-align:center;border:1px solid #ccc;">${it[1] ? 'X' : ''}</td><td style="border:1px solid #ccc;padding:4px 6px;">${it[0]}</td></tr>`;
-    }).join('');
-    let stadioTxt = '';
-    if (sq === 'no') {
-      const n = items.filter(it => it[1]).length;
-      if (n > 0) {
-        if (n <= 2)      stadioTxt = 'Stadio I – mediana 38 mesi';
-        else if (n <= 4) stadioTxt = 'Stadio II – mediana 17.2 mesi';
-        else             stadioTxt = 'Stadio III – mediana 3.6 mesi';
-      }
-    }
-    const esito = (sq === 'no' && items.some(i=>i[1])) ? 'POSITIVO' : 'NEGATIVO';
-    const stageHtml = stadioTxt ? `<div style="margin-top:10px;">${stadioTxt}</div>` : '';
-    return `
-      <div style="font-family: Helvetica, Arial, sans-serif; font-size:11pt;">
-        <div style="background:#f7f7f7; padding:8px; margin-top:10px;">
-          <strong>Nome paziente:</strong> ${name}<br>
-          <strong>Data di nascita:</strong> ${dob}<br>
-          <strong>Data di compilazione:</strong> ${date}
-        </div>
-        <h4 style="background:#e0e0e0; padding:4px; margin-top:20px; font-size:1rem;">Item NECPAL 4.0</h4>
-        <table style="width:100%; border-collapse:collapse; font-size:11pt;">${rows}</table>
-        <div style="background:#cccccc; padding:6px; margin-top:20px; font-weight:bold;">Esito finale: ${esito}</div>
-        ${stageHtml}
-      </div>`;
+    return `<iframe src="necpal4-scheda.html" style="width:100%;height:1600px;border:none;"></iframe>`;
   }
 
   if (necpal4Form) {
