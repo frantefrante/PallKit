@@ -72,14 +72,13 @@ function loadCategoryContent(categoryName) {
   if (categoryName === 'dolore') {
     categoryDetails.innerHTML = `
 <div class="valutazione-detail-section">
-  <div class="page-header">
+  <div class="page-header mb-2">
     <div class="page-icon mb-3">😣</div>
     <h1 class="page-title">Valutazione del Dolore</h1>
     <p class="page-subtitle">Strumenti specializzati per la valutazione del dolore</p>
   </div>
-  <div class="d-flex justify-content-center">
+  <div class="d-flex justify-content-start mt-n2">
     <div class="dn4-box">
-      <div class="dn4-box-badge"><i class="fas fa-check-circle me-1"></i>Validato</div>
       <div class="dn4-box-header">
         <div class="dn4-box-icon">
           <span class="dn4-box-letters">DN4</span>

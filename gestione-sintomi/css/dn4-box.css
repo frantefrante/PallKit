@@ -7,10 +7,10 @@
 }
 
 .dn4-box {
-    max-width: 600px;
-    margin: 0 auto;
+    max-width: 360px;
+    margin: 0;
     background: white;
-    border-radius: 25px;
+    border-radius: 16px;
     border: 4px solid var(--dn4-primary);
     box-shadow: 0 12px 40px rgba(255, 193, 7, 0.2);
     overflow: hidden;
@@ -29,21 +29,21 @@
 }
 
 .dn4-box-header {
-    padding: 3rem 2rem 2rem;
+    padding: 2rem;
     text-align: center;
     position: relative;
     z-index: 1;
 }
 
 .dn4-box-icon {
-    width: 120px;
-    height: 120px;
+    width: 60px;
+    height: 60px;
     background: linear-gradient(135deg, var(--dn4-primary), var(--dn4-secondary));
-    border-radius: 25px;
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 2rem;
+    margin: 0 auto 1rem;
     box-shadow: 0 8px 25px rgba(255, 193, 7, 0.3);
     position: relative;
     overflow: hidden;
@@ -68,17 +68,17 @@
 }
 
 .dn4-box-letters {
-    font-size: 3rem;
+    font-size: 1.6rem;
     font-weight: 900;
     color: white;
     text-shadow: 0 2px 8px rgba(0,0,0,0.2);
     position: relative;
     z-index: 2;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
 }
 
 .dn4-box-title {
-    font-size: 3.5rem;
+    font-size: 1.8rem;
     font-weight: 800;
     color: #2c3e50;
     margin-bottom: 0.5rem;
@@ -86,18 +86,18 @@
 }
 
 .dn4-box-subtitle {
-    font-size: 1.4rem;
+    font-size: 1rem;
     color: #6c757d;
     font-weight: 600;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     line-height: 1.4;
 }
 
 .dn4-box-description {
-    font-size: 1.1rem;
+    font-size: 0.9rem;
     color: #495057;
-    line-height: 1.6;
-    margin-bottom: 2rem;
+    line-height: 1.4;
+    margin-bottom: 1rem;
     max-width: 500px;
     margin-left: auto;
     margin-right: auto;
@@ -106,9 +106,9 @@
 .dn4-box-features {
     background: linear-gradient(135deg, var(--dn4-light), #fff);
     border: 2px solid var(--dn4-border);
-    border-radius: 20px;
-    padding: 1.5rem 2rem;
-    margin: 2rem;
+    border-radius: 12px;
+    padding: 1rem;
+    margin: 1rem 0;
     position: relative;
     z-index: 1;
 }
@@ -123,19 +123,19 @@
 }
 
 .dn4-box-actions {
-    padding: 0 2rem 3rem;
+    padding: 0 1rem 2rem;
     display: flex;
-    gap: 1.5rem;
+    gap: 1rem;
     position: relative;
     z-index: 1;
 }
 
 .btn-dn4 {
     flex: 1;
-    padding: 1.2rem 2rem;
-    border-radius: 20px;
+    padding: 0.8rem 1rem;
+    border-radius: 12px;
     font-weight: 700;
-    font-size: 1.2rem;
+    font-size: 1rem;
     border: none;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
@@ -188,56 +188,43 @@
     left: 100%;
 }
 
-.dn4-box-badge {
-    position: absolute;
-    top: -10px;
-    right: -10px;
-    background: linear-gradient(135deg, #28a745, #20c997);
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 25px;
-    font-size: 0.8rem;
-    font-weight: 700;
-    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
-    z-index: 3;
-}
 
 @media (max-width: 768px) {
     .dn4-box {
         margin: 0 1rem;
-        border-radius: 20px;
+        border-radius: 16px;
     }
     .dn4-box-header {
-        padding: 2rem 1rem 1.5rem;
+        padding: 1.5rem 1rem;
     }
     .dn4-box-icon {
-        width: 100px;
-        height: 100px;
-        border-radius: 20px;
+        width: 50px;
+        height: 50px;
+        border-radius: 10px;
     }
     .dn4-box-letters {
-        font-size: 2.5rem;
+        font-size: 1.4rem;
     }
     .dn4-box-title {
-        font-size: 2.5rem;
+        font-size: 1.5rem;
     }
     .dn4-box-subtitle {
-        font-size: 1.2rem;
+        font-size: 0.9rem;
     }
     .dn4-box-description {
-        font-size: 1rem;
+        font-size: 0.85rem;
     }
     .dn4-box-features {
-        margin: 1.5rem;
-        padding: 1rem 1.5rem;
+        margin: 1rem;
+        padding: 0.8rem 1rem;
     }
     .dn4-box-actions {
-        padding: 0 1.5rem 2.5rem;
+        padding: 0 1rem 1.5rem;
         flex-direction: column;
     }
     .btn-dn4 {
-        padding: 1rem 1.5rem;
-        font-size: 1.1rem;
+        padding: 0.8rem 1rem;
+        font-size: 0.95rem;
     }
 }
 
