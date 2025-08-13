@@ -245,16 +245,16 @@
                 <small>3 strumenti</small>
               </div>
               <div class="category-status">
-                <span class="badge bg-warning">In Sviluppo</span>
+                <span class="badge bg-success">✅ Disponibile</span>
               </div>
             </div>
             <div class="category-description">
               Strumenti per identificare pazienti eleggibili per cure palliative
             </div>
             <div class="category-tools">
-              <span class="tool-badge">NECPAL 3.1</span>
-              <span class="tool-badge">NECPAL 4.0</span>
-              <span class="tool-badge">SPICT</span>
+              <span class="tool-badge available">NECPAL 3.1</span>
+              <span class="tool-badge available">NECPAL 4.0</span>
+              <span class="tool-badge available">SPICT</span>
             </div>
           </div>
 
