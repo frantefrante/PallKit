@@ -40,7 +40,7 @@
             <i class="fas fa-edit"></i>
             Compila
           </a>
-          <a href="#" class="action-btn btn-outline-custom" onclick="openIPOSVisualize()">
+          <a href="ipos-templates.html" class="action-btn btn-outline-custom">
             <i class="fas fa-eye"></i>
             Visualizza
           </a>
@@ -76,79 +76,3 @@
     </div>
   </div>
 </section>
-
-<!-- Modal per selezione versione IPOS -->
-<div class="modal fade version-modal" id="iposVersionModal" tabindex="-1">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">
-          <i class="fas fa-file-alt me-2"></i>
-          Seleziona versione IPOS
-        </h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body">
-        <p class="text-muted mb-4">Scegli la versione del questionario IPOS più appropriata per il tuo caso clinico:</p>
-        <div class="version-grid">
-          <div class="version-card" onclick="showIPOSPDF('paziente',3)">
-            <div class="version-icon">
-              <i class="fas fa-user"></i>
-            </div>
-            <div class="version-title">Paziente - 3 giorni</div>
-            <div class="version-desc">Questionario auto-compilato dal paziente per valutazione degli ultimi 3 giorni</div>
-          </div>
-          <div class="version-card" onclick="showIPOSPDF('paziente',7)">
-            <div class="version-icon">
-              <i class="fas fa-user-clock"></i>
-            </div>
-            <div class="version-title">Paziente - 7 giorni</div>
-            <div class="version-desc">Questionario auto-compilato dal paziente per valutazione dell'ultima settimana</div>
-          </div>
-          <div class="version-card" onclick="showIPOSPDF('staff',3)">
-            <div class="version-icon">
-              <i class="fas fa-user-md"></i>
-            </div>
-            <div class="version-title">Staff - 3 giorni</div>
-            <div class="version-desc">Versione per operatori sanitari - valutazione degli ultimi 3 giorni</div>
-          </div>
-          <div class="version-card" onclick="showIPOSPDF('staff',7)">
-            <div class="version-icon">
-              <i class="fas fa-stethoscope"></i>
-            </div>
-            <div class="version-title">Staff - 7 giorni</div>
-            <div class="version-desc">Versione per operatori sanitari - valutazione dell'ultima settimana</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Modal per visualizzazione PDF -->
-<div class="modal fade" id="pdfViewModal" tabindex="-1">
-  <div class="modal-dialog modal-xl">
-    <div class="modal-content">
-      <div class="modal-header bg-light">
-        <h5 class="modal-title" id="pdfModalTitle">
-          <i class="fas fa-file-pdf text-danger me-2"></i>
-          IPOS - Versione
-        </h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body p-0">
-        <iframe id="pdfFrame" src="" style="width:100%;height:80vh;" frameborder="0"></iframe>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" onclick="printPDF()">
-          <i class="fas fa-print me-2"></i>
-          Stampa
-        </button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Chiudi
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
-

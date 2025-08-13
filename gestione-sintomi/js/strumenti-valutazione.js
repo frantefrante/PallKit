@@ -159,7 +159,7 @@ function navigateToSection(sectionId) {
 }
 
 function showSection(sectionId) {
-  document.querySelectorAll('section[id]').forEach(section => {
+  document.querySelectorAll('section[id], #dashboard-home').forEach(section => {
     section.style.display = 'none';
   });
   const targetSection = document.getElementById(sectionId);
@@ -246,11 +246,6 @@ setTimeout(() => {
 
 function openIPOSCompile() {
   navigateToSection('ipos-home');
-}
-
-function openIPOSVisualize() {
-  const modal = new bootstrap.Modal(document.getElementById('iposVersionModal'));
-  modal.show();
 }
 
 function openESASCompile() {
@@ -351,33 +346,6 @@ function openIDCPALVisualize() {
 function openIDCPALGlossary() {
   navigateToSection('idcpal-home');
   if (typeof switchIDCPALMode === 'function') switchIDCPALMode('glossary');
-}
-
-function showIPOSPDF(tipo, giorni) {
-  const versionModal = bootstrap.Modal.getInstance(document.getElementById('iposVersionModal'));
-  if (versionModal) versionModal.hide();
-  const tipoText = tipo === 'paziente' ? 'Paziente' : 'Staff';
-  document.getElementById('pdfModalTitle').innerHTML = `<i class="fas fa-file-pdf text-danger me-2"></i> IPOS ${tipoText} - ${giorni} giorni`;
-  const fileMap = {
-    'paziente_3': 'IPOSv1-P3-IT.pdf',
-    'paziente_7': 'IPOSv1-P7-IT.pdf',
-    'staff_3': 'IPOSv1-S3-IT.pdf',
-    'staff_7': 'IPOSv1-S7-IT.pdf'
-  };
-  const key = `${tipo}_${giorni}`;
-  const pdfPath = `ipos%20pdf/${fileMap[key]}`;
-  const frame = document.getElementById('pdfFrame');
-  if (frame) frame.src = pdfPath;
-  const pdfModal = new bootstrap.Modal(document.getElementById('pdfViewModal'));
-  pdfModal.show();
-}
-
-function printPDF() {
-  const frame = document.getElementById('pdfFrame');
-  if (frame && frame.contentWindow) {
-    frame.contentWindow.focus();
-    frame.contentWindow.print();
-  }
 }
 
 // Funzioni Performance per navigazione dai box
