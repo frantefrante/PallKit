@@ -50,10 +50,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-function switchDN4Mode(e, mode) {
-    e.preventDefault();
+function switchDN4Mode(mode) {
+    if (!dn4Container) return;
     dn4Container.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
-    e.currentTarget.classList.add('active');
+    const targetBtn = dn4Container.querySelector(`.mode-btn[data-mode="${mode}"]`);
+    if (targetBtn) targetBtn.classList.add('active');
     dn4Container.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
     const target = dn4Container.querySelector(`#${mode}-section`);
     if (target) target.classList.add('active');

@@ -352,14 +352,14 @@
                 <small>1 strumento</small>
               </div>
               <div class="category-status">
-                <span class="badge bg-warning">In Sviluppo</span>
+                <span class="badge bg-success">✅ Disponibile</span>
               </div>
             </div>
             <div class="category-description">
               Strumenti specializzati per la valutazione del dolore
             </div>
             <div class="category-tools">
-              <span class="tool-badge">DN4</span>
+              <span class="tool-badge available">DN4</span>
             </div>
           </div>
 

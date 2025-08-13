@@ -96,7 +96,8 @@ function loadCategoryContent(categoryName) {
       icon: '😣',
       description: 'Strumenti specializzati per la valutazione del dolore',
       tools: [
-        { name: 'DN4', subtitle: 'Douleur Neuropathique en 4 questions', description: 'Questionario per lo screening del dolore neuropatico in 4 domande.', available: false }
+        { name: 'DN4', subtitle: 'Douleur Neuropathique en 4 questions', description: 'Questionario per lo screening del dolore neuropatico in 4 domande.', available: true,
+          actions:[{name:'Compila',class:'btn-warning',icon:'fas fa-edit',action:'openDN4Compile()'},{name:'Visualizza',class:'btn-outline-warning',icon:'fas fa-eye',action:'openDN4Visualize()'}] }
       ]
     },
     'delirium': {
@@ -403,4 +404,14 @@ function openBADLVisualize() {
   if (typeof switchPerformanceMode === 'function') {
     switchPerformanceMode('badl', 'view');
   }
+}
+
+function openDN4Compile() {
+  navigateToSection('dn4-home');
+  if (typeof switchDN4Mode === 'function') switchDN4Mode('compile');
+}
+
+function openDN4Visualize() {
+  navigateToSection('dn4-home');
+  if (typeof switchDN4Mode === 'function') switchDN4Mode('visualize');
 }

@@ -15,10 +15,10 @@
       </div>
 
       <div class="mode-selector">
-        <a href="#" class="mode-btn active" onclick="switchDN4Mode(event,'compile')">
+        <a href="#" class="mode-btn active" data-mode="compile" onclick="switchDN4Mode('compile');return false;">
           <i class="fas fa-edit me-2"></i>Compila
         </a>
-        <a href="#" class="mode-btn" onclick="switchDN4Mode(event,'visualize')">
+        <a href="#" class="mode-btn" data-mode="visualize" onclick="switchDN4Mode('visualize');return false;">
           <i class="fas fa-table me-2"></i>Visualizza Scala
         </a>
       </div>
