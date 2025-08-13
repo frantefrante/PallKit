@@ -817,6 +817,8 @@
   document.addEventListener('DOMContentLoaded', function () {
     const d = document.getElementById("today-date-home");
     if (d) d.textContent = new Date().toLocaleDateString("it-IT");
+    const hash = window.location.hash.substring(1);
+    if (hash) navigateToSection(hash);
   });
 </script>
 </body>
