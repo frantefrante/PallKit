@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="css/dn4.css">
 <section id="dn4-home" class="p-4" style="display:none;">
   <div class="mb-3">
-    <button class="btn btn-outline-success" onclick="navigateToSection('strumenti-valutazione-home')">
+    <button class="btn btn-outline-success" onclick="navigateToSection('strumenti-valutazione-home'); showCategories();">
       <i class="fas fa-arrow-left me-2"></i>Torna alle Categorie
     </button>
   </div>
@@ -105,8 +105,7 @@
         </div>
 
         <div class="action-buttons">
-          <button class="btn btn-primary-dn4 btn-dn4" onclick="saveDN4()"><i class="fas fa-save me-2"></i>Salva Valutazione</button>
-          <button class="btn btn-outline-dn4 btn-dn4" onclick="printDN4()"><i class="fas fa-print me-2"></i>Stampa Report</button>
+          <button class="btn btn-outline-dn4 btn-dn4" onclick="printDN4()"><i class="fas fa-print me-2"></i>Stampa Scheda</button>
           <button class="btn btn-danger-dn4 btn-dn4" onclick="resetDN4()"><i class="fas fa-redo me-2"></i>Reset</button>
         </div>
       </div>

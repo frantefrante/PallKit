@@ -20,34 +20,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const today = new Date().toISOString().split('T')[0];
     dn4Container.querySelector('#dn4-compile-date').value = today;
     updateProgress();
-
-    const autoSave = localStorage.getItem('dn4_autosave');
-    if (autoSave) {
-        const data = JSON.parse(autoSave);
-        if (confirm('🔄 Trovata valutazione non salvata. Vuoi ripristinarla?')) {
-            dn4Container.querySelector('#dn4-patient-name').value = data.patient.name || '';
-            dn4Container.querySelector('#dn4-birth-date').value = data.patient.birthDate || '';
-            dn4Container.querySelector('#dn4-compile-date').value = data.patient.compileDate || '';
-            dn4Data = { ...dn4Data, ...data.answers };
-            Object.keys(dn4Data).forEach(key => {
-                if (dn4Data[key] !== null) {
-                    const el = dn4Container.querySelector(`[onclick*="${key}"]`);
-                    if (el) {
-                        el.classList.add('selected');
-                        if (dn4Data[key] === 1) {
-                            el.classList.add('si');
-                        } else {
-                            el.classList.add('no');
-                        }
-                    }
-                }
-            });
-            recomputeQuestionStatusFromState();
-            updateProgress();
-            calculateScore();
-        }
-        localStorage.removeItem('dn4_autosave');
-    }
 });
 
 function switchDN4Mode(mode) {
@@ -163,26 +135,6 @@ function showResults(score) {
     resultsSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
-function saveDN4() {
-    const patientName = dn4Container.querySelector('#dn4-patient-name').value;
-    const birthDate = dn4Container.querySelector('#dn4-birth-date').value;
-    const compileDate = dn4Container.querySelector('#dn4-compile-date').value;
-    if (!patientName) {
-        alert('Inserire il nome del paziente prima di salvare.');
-        return;
-    }
-    const saveData = {
-        patient: { name: patientName, birthDate: birthDate, compileDate: compileDate },
-        answers: { ...dn4Data },
-        score: Object.values(dn4Data).reduce((sum, val) => sum + (val || 0), 0),
-        timestamp: new Date().toISOString()
-    };
-    const saved = JSON.parse(localStorage.getItem('dn4_evaluations') || '[]');
-    saved.push(saveData);
-    localStorage.setItem('dn4_evaluations', JSON.stringify(saved));
-    alert('✅ Valutazione DN4 salvata con successo!');
-}
-
 function printDN4() {
     const patientName = dn4Container.querySelector('#dn4-patient-name').value || 'Paziente';
     const birthDate = dn4Container.querySelector('#dn4-birth-date').value || 'Non specificata';
@@ -219,36 +171,17 @@ function resetDN4() {
     }
 }
 
-setInterval(function() {
-    const patientName = dn4Container.querySelector('#dn4-patient-name').value;
-    if (patientName && Object.values(dn4Data).some(val => val !== null)) {
-        const autoSave = {
-            patient: {
-                name: patientName,
-                birthDate: dn4Container.querySelector('#dn4-birth-date').value,
-                compileDate: dn4Container.querySelector('#dn4-compile-date').value
-            },
-            answers: { ...dn4Data },
-            isAutoSave: true,
-            timestamp: new Date().toISOString()
-        };
-        localStorage.setItem('dn4_autosave', JSON.stringify(autoSave));
-    }
-}, 30000);
-
-function recomputeQuestionStatusFromState() {
-    questionStatus = { q1: false, q2: false, q3: false, q4: false };
-    dn4Container.querySelectorAll('.question-item').forEach(item => {
-        const main = item.dataset.question;
-        const hasSel = item.querySelector('.answer-option.selected') !== null;
-        if (hasSel) {
-            questionStatus[main] = true;
-            item.classList.add('answered');
-        }
-    });
-}
-
-
 function printDN4Template() {
-    window.print();
+    if (!dn4Container) return;
+    const template = dn4Container.querySelector('#visualize-section .template-section');
+    if (!template) return;
+    const win = window.open('', '', 'width=800,height=600');
+    win.document.write(`<!DOCTYPE html><html><head><title>DN4 Template</title>`);
+    win.document.write(`<link rel="stylesheet" href="css/dn4.css">`);
+    win.document.write(`<style>@page { size: A4; margin: 15mm; } body { margin:0; } .action-buttons, .mode-selector { display: none; }</style>`);
+    win.document.write(`</head><body>${template.outerHTML}</body></html>`);
+    win.document.close();
+    win.focus();
+    win.print();
+    win.close();
 }
