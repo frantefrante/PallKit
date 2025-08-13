@@ -432,5 +432,9 @@
     .content-section {
         display: block !important;
     }
+
+    .template-section i {
+        display: none;
+    }
 }
 
