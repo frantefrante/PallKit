@@ -159,7 +159,7 @@ function navigateToSection(sectionId) {
 }
 
 function showSection(sectionId) {
-  document.querySelectorAll('section[id]').forEach(section => {
+  document.querySelectorAll('section[id], #dashboard-home').forEach(section => {
     section.style.display = 'none';
   });
   const targetSection = document.getElementById(sectionId);

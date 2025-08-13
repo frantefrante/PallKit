@@ -40,7 +40,7 @@
             <i class="fas fa-edit"></i>
             Compila
           </a>
-          <a href="ipos-templates.html" class="action-btn btn-outline-custom" target="_blank">
+          <a href="ipos-templates.html" class="action-btn btn-outline-custom">
             <i class="fas fa-eye"></i>
             Visualizza
           </a>
