@@ -481,7 +481,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (viewBtn4) {
       viewBtn4.addEventListener('click', () => {
-        window.open('necpal40-scheda.html', '_blank');
+        const w = window.open('', '_blank');
+        if (w) {
+          w.document.write(necpal4Template);
+          w.document.close();
+        }
       });
     }
 
