@@ -3,10 +3,10 @@
 <link rel="stylesheet" href="css/dn4.css">
 <section id="dn4-home" class="p-4" style="display:none;">
   <div class="mb-3">
-    <button class="btn btn-outline-success" onclick="navigateToSection('strumenti-valutazione-home'); showCategories();">
+    <button class="btn btn-outline-success" onclick="window.location.href='index.php#strumenti-valutazione-home';">
       <i class="fas fa-arrow-left me-2"></i>Torna alle Categorie
     </button>
-    <button class="btn btn-outline-warning ms-2" onclick="navigateToSection('strumenti-valutazione-home'); openCategoryView('dolore');">
+    <button class="btn btn-outline-warning ms-2" onclick="window.location.href='dolore.php';">
       <i class="fas fa-arrow-left me-2"></i>Torna a Dolore
     </button>
   </div>
