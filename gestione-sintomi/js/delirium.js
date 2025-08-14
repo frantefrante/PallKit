@@ -14,32 +14,18 @@ function showMainView() {
   document.getElementById('cam-assessment').classList.remove('active');
 }
 
-function show4ATAssessment() {
+function show4ATAssessment(mode = 'compile') {
   document.getElementById('main-view').style.display = 'none';
   document.getElementById('4at-assessment').classList.add('active');
   document.getElementById('cam-assessment').classList.remove('active');
-  switch4ATMode('compile');
+  switch4ATMode(mode);
 }
 
-function show4ATReference() {
-  document.getElementById('main-view').style.display = 'none';
-  document.getElementById('4at-assessment').classList.add('active');
-  document.getElementById('cam-assessment').classList.remove('active');
-  switch4ATMode('reference');
-}
-
-function showCAMAssessment() {
+function showCAMAssessment(mode = 'compile') {
   document.getElementById('main-view').style.display = 'none';
   document.getElementById('cam-assessment').classList.add('active');
   document.getElementById('4at-assessment').classList.remove('active');
-  switchCAMMode('compile');
-}
-
-function showCAMReference() {
-  document.getElementById('main-view').style.display = 'none';
-  document.getElementById('cam-assessment').classList.add('active');
-  document.getElementById('4at-assessment').classList.remove('active');
-  switchCAMMode('reference');
+  switchCAMMode(mode);
 }
 
 function switch4ATMode(mode) {
@@ -104,12 +90,39 @@ function reset4AT() {
   document.querySelectorAll('#4at-assessment input[type="radio"]').forEach(i => i.checked = false);
   document.querySelectorAll('#4at-assessment .radio-option').forEach(o => o.classList.remove('selected'));
   document.querySelectorAll('#4at-assessment .question-item').forEach(i => i.classList.remove('completed'));
+  document.querySelectorAll('#4at-assessment input[type="text"]').forEach(i => i.value = '');
+  const today = new Date().toISOString().split('T')[0];
+  document.querySelectorAll('#4at-assessment input[type="date"]').forEach(i => i.value = today);
   update4ATProgress();
   document.getElementById('4at-results').classList.add('hidden');
 }
 
 function print4AT() {
-  window.print();
+  const name = document.getElementById('4at-patient-name').value || '';
+  const birth = document.getElementById('4at-patient-birth').value || '';
+  const date = document.getElementById('4at-date').value || '';
+  const total = document.getElementById('4at-score').textContent;
+  const interpretation = document.getElementById('4at-interpretation').textContent;
+  const description = document.getElementById('4at-description').textContent;
+  const labels = {
+    1: 'Allerta',
+    2: 'Test di Attenzione',
+    3: 'Attenzione (alternativo)',
+    4: 'Cambiamento Acuto'
+  };
+  const w = window.open('', '_blank');
+  w.document.write('<html><head><title>4AT - Stampa</title><style>body{font-family:Arial,sans-serif;margin:20px;}h2{text-align:center;}table{width:100%;border-collapse:collapse;margin-top:20px;}td,th{border:1px solid #000;padding:6px;}p{margin:4px 0;}</style></head><body>');
+  w.document.write('<h2>4AT - 4 \u201CA\u2019s Test</h2>');
+  w.document.write(`<p><strong>Paziente:</strong> ${name}<br><strong>Nascita:</strong> ${birth}<br><strong>Data valutazione:</strong> ${date}</p>`);
+  w.document.write('<table><thead><tr><th>Parametro</th><th>Punteggio</th></tr></thead><tbody>');
+  for (let i = 1; i <= 4; i++) {
+    w.document.write(`<tr><td>${labels[i]}</td><td>${current4ATScores[i] ?? ''}</td></tr>`);
+  }
+  w.document.write(`</tbody></table><p><strong>Punteggio Totale:</strong> ${total}</p>`);
+  w.document.write(`<p><strong>Interpretazione:</strong> ${interpretation}</p><p>${description}</p>`);
+  w.document.write('</body></html>');
+  w.document.close();
+  w.print();
 }
 
 function switchCAMMode(mode) {
@@ -177,5 +190,31 @@ function resetCAM() {
 }
 
 function printCAM() {
-  window.print();
+  const name = document.getElementById('cam-patient-name').value || '';
+  const birth = document.getElementById('cam-patient-birth').value || '';
+  const date = document.getElementById('cam-date').value || '';
+  const diagnosis = document.getElementById('cam-diagnosis').textContent;
+  const interpretation = document.getElementById('cam-interpretation').textContent;
+  const description = document.getElementById('cam-description').textContent;
+  const labels = {
+    1: 'Esordio acuto e corso fluttuante',
+    2: 'Disattenzione',
+    3: 'Pensiero disorganizzato',
+    4: 'Livello di coscienza alterato'
+  };
+  const w = window.open('', '_blank');
+  w.document.write('<html><head><title>CAM - Stampa</title><style>body{font-family:Arial,sans-serif;margin:20px;}h2{text-align:center;}table{width:100%;border-collapse:collapse;margin-top:20px;}td,th{border:1px solid #000;padding:6px;}p{margin:4px 0;}</style></head><body>');
+  w.document.write('<h2>CAM - Confusion Assessment Method</h2>');
+  w.document.write(`<p><strong>Paziente:</strong> ${name}<br><strong>Nascita:</strong> ${birth}<br><strong>Data valutazione:</strong> ${date}</p>`);
+  w.document.write('<table><thead><tr><th>Caratteristica</th><th>Presente</th></tr></thead><tbody>');
+  for (let i = 1; i <= 4; i++) {
+    const val = currentCAMFeatures[i] ? 'S\u00ec' : 'No';
+    w.document.write(`<tr><td>${labels[i]}</td><td>${val}</td></tr>`);
+  }
+  w.document.write('</tbody></table>');
+  w.document.write(`<p><strong>Risultato:</strong> ${diagnosis}</p>`);
+  w.document.write(`<p><strong>Interpretazione:</strong> ${interpretation}</p><p>${description}</p>`);
+  w.document.write('</body></html>');
+  w.document.close();
+  w.print();
 }

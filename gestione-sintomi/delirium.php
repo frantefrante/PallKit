@@ -35,7 +35,7 @@
                     </div>
                     <div class="tool-actions">
                         <button class="btn btn-primary btn-action" onclick="show4ATAssessment()"><i class="fas fa-edit me-2"></i>Compila</button>
-                        <button class="btn btn-outline-primary btn-action" onclick="show4ATReference()"><i class="fas fa-eye me-2"></i>Visualizza</button>
+                        <button class="btn btn-outline-primary btn-action" onclick="show4ATAssessment('reference')"><i class="fas fa-eye me-2"></i>Visualizza</button>
                     </div>
                 </div>
                 <div class="tool-card">
@@ -54,7 +54,7 @@
                     </div>
                     <div class="tool-actions">
                         <button class="btn btn-primary btn-action" onclick="showCAMAssessment()"><i class="fas fa-edit me-2"></i>Compila</button>
-                        <button class="btn btn-outline-primary btn-action" onclick="showCAMReference()"><i class="fas fa-eye me-2"></i>Visualizza</button>
+                        <button class="btn btn-outline-primary btn-action" onclick="showCAMAssessment('reference')"><i class="fas fa-eye me-2"></i>Visualizza</button>
                     </div>
                 </div>
             </div>
