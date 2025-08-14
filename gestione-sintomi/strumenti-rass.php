@@ -3,10 +3,10 @@
 <link rel="stylesheet" href="css/rass.css">
 <section id="rass-home" class="p-4" style="display:none;">
   <div class="mb-3 print-hide">
-    <button class="btn btn-outline-secondary" onclick="navigateToSection('strumenti-valutazione-home'); showCategories();">
+    <button class="btn btn-outline-secondary" onclick="window.location.href='index.php#strumenti-valutazione-home';">
       <i class="fas fa-arrow-left me-2"></i>Torna alle Categorie
     </button>
-    <button class="btn btn-outline-secondary ms-2" onclick="navigateToSection('strumenti-valutazione-home'); openCategoryView('sedazione');">
+    <button class="btn btn-outline-secondary ms-2" onclick="window.location.href='sedazione.php';">
       <i class="fas fa-arrow-left me-2"></i>Torna a Sedazione
     </button>
   </div>

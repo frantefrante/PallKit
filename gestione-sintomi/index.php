@@ -451,7 +451,7 @@
           </div>
 
           <!-- COMPLESSITÀ -->
-          <div class="category-card complessita" onclick="openCategoryView('complessita')">
+          <div class="category-card complessita" onclick="window.location.href='complessita.php'">
             <div class="category-header">
               <div class="category-icon">🧠</div>
               <div class="category-info">
@@ -536,7 +536,7 @@
           </div>
 
           <!-- DOLORE -->
-          <div class="category-card dolore" onclick="openCategoryView('dolore')">
+          <div class="category-card dolore" onclick="window.location.href='dolore.php'">
             <div class="category-header">
               <div class="category-icon">😣</div>
               <div class="category-info">
@@ -577,7 +577,7 @@
           </div>
 
           <!-- SEDAZIONE -->
-          <div class="category-card sedazione" onclick="openCategoryView('sedazione')">
+          <div class="category-card sedazione" onclick="window.location.href='sedazione.php'">
             <div class="category-header">
               <div class="category-icon">💤</div>
               <div class="category-info">
@@ -598,7 +598,7 @@
           </div>
 
           <!-- CAREGIVING -->
-          <div class="category-card caregiving" onclick="openCategoryView('caregiving')">
+          <div class="category-card caregiving" onclick="window.location.href='caregiving.php'">
             <div class="category-header">
               <div class="category-icon">👥</div>
               <div class="category-info">
