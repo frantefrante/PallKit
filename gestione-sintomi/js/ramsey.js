@@ -126,3 +126,9 @@ Report generato il: ${new Date().toLocaleString('it-IT')}
   link.download = `Ramsey_Report_${patientName.replace(/\s+/g, '_')}_${date}.txt`;
   link.click();
 }
+
+function printRamsey() {
+  document.body.classList.add('print-ramsey');
+  window.print();
+  document.body.classList.remove('print-ramsey');
+}

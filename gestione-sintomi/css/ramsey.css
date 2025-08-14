@@ -50,6 +50,8 @@
 #ramsey-home .btn { padding: 1rem 2rem; border: none; border-radius: 12px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; gap: 0.5rem; }
 #ramsey-home .btn-primary { background: linear-gradient(135deg, var(--ramsey-primary), var(--ramsey-secondary)); color: white; }
 #ramsey-home .btn-danger { background: var(--danger); color: white; }
+#ramsey-home .btn-outline-primary { background: white; color: var(--ramsey-primary); border: 2px solid var(--ramsey-primary); }
+#ramsey-home .btn-outline-primary:hover { background: var(--ramsey-primary); color: white; }
 #ramsey-home .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.2); }
 
 #ramsey-home .print-template { background: white; padding: 2rem; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
@@ -68,9 +70,14 @@
 #ramsey-home .clinical-notes h4 { color: #856404; margin-bottom: 1rem; }
 
 @media print {
-  #ramsey-home .ramsey-header, #ramsey-home .mode-selector, #ramsey-home .action-buttons { display: none; }
-  #ramsey-home .print-template { box-shadow: none; page-break-inside: avoid; }
-  #ramsey-home .scale-table { font-size: 0.8rem; }
+  body.print-ramsey * { visibility: hidden; }
+  body.print-ramsey #ramsey-home, body.print-ramsey #ramsey-home * { visibility: visible; }
+  body.print-ramsey #ramsey-home { position: absolute; left: 0; top: 0; width: 100%; }
+  body.print-ramsey .print-hide,
+  body.print-ramsey #ramsey-home .mode-selector,
+  body.print-ramsey #ramsey-home .action-buttons { display: none !important; }
+  body.print-ramsey #ramsey-home .print-template { box-shadow: none; page-break-inside: avoid; }
+  body.print-ramsey #ramsey-home .scale-table { font-size: 0.8rem; }
 }
 
 @media (max-width: 768px) {

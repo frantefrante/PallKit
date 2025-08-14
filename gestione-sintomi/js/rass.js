@@ -123,3 +123,9 @@ Report generato il: ${new Date().toLocaleString('it-IT')}
   link.download = `RASS_Report_${patientName.replace(/\s+/g, '_')}_${date}.txt`;
   link.click();
 }
+
+function printRASS() {
+  document.body.classList.add('print-rass');
+  window.print();
+  document.body.classList.remove('print-rass');
+}

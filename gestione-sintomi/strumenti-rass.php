@@ -2,7 +2,7 @@
 ?>
 <link rel="stylesheet" href="css/rass.css">
 <section id="rass-home" class="p-4" style="display:none;">
-  <div class="mb-3">
+  <div class="mb-3 print-hide">
     <button class="btn btn-outline-secondary" onclick="navigateToSection('strumenti-valutazione-home'); showCategories();">
       <i class="fas fa-arrow-left me-2"></i>Torna alle Categorie
     </button>
@@ -104,8 +104,11 @@
           <button class="btn btn-danger" onclick="resetRASSForm()">
             <i class="fas fa-undo me-2"></i>Reset
           </button>
-          <button class="btn btn-primary" onclick="printRASSReport()">
-            <i class="fas fa-print me-2"></i>Stampa Report
+          <button class="btn btn-primary" onclick="printRASS();return false;">
+            <i class="fas fa-print me-2"></i>Stampa Scheda
+          </button>
+          <button class="btn btn-outline-primary" onclick="printRASSReport();return false;">
+            <i class="fas fa-file-arrow-down me-2"></i>Scarica Report
           </button>
         </div>
       </div>
@@ -169,7 +172,7 @@
           </div>
         </div>
         <div class="action-buttons" style="margin-top: 2rem; page-break-inside: avoid;">
-          <button class="btn btn-primary" onclick="window.print()">
+          <button class="btn btn-primary" onclick="printRASS();return false;">
             <i class="fas fa-print me-2"></i>Stampa Template
           </button>
           <button class="btn" style="background: white; color: var(--rass-primary); border: 2px solid var(--rass-primary);" onclick="switchRASSMode('compile');return false;">
