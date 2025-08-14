@@ -223,6 +223,75 @@ function loadCategoryContent(categoryName) {
     return;
   }
 
+  if (categoryName === 'caregiving') {
+    const zcb7Card = `<div class="tool-card tool-card-compact h-100">
+      <div class="tool-header">
+        <div class="tool-icon-large" style="background: linear-gradient(135deg, #e83e8c, #d91a72);">
+          <span class="tool-letters">ZC</span>
+        </div>
+        <div class="tool-info">
+          <h4>ZCB-7</h4>
+          <div class="tool-subtitle">Zarit Caregiver Burden - 7 items</div>
+        </div>
+      </div>
+      <div class="tool-description">
+        Versione breve della scala Zarit per valutare il burden del caregiver in 7 domande. Validata in ambito palliativo con ottima accuratezza (AUC ~0,98).
+      </div>
+      <div class="tool-features">
+        <span class="feature-badge">7 item scala 0-4, punteggio 0-28, tempo 3-5 minuti, correlazione ZBI-22 ρ≈0,90</span>
+      </div>
+      <div class="tool-actions">
+        <button class="btn btn-primary btn-action" onclick="openZCB7Compile()">
+          <i class="fas fa-edit me-2"></i>Compila
+        </button>
+        <button class="btn btn-outline-primary btn-action" onclick="openZCB7Visualize()">
+          <i class="fas fa-eye me-2"></i>Visualizza
+        </button>
+      </div>
+    </div>`;
+
+    const famcare2Card = `<div class="tool-card tool-card-compact h-100">
+      <div class="tool-header">
+        <div class="tool-icon-large" style="background: linear-gradient(135deg, #e83e8c, #d91a72);">
+          <span class="tool-letters">FC</span>
+        </div>
+        <div class="tool-info">
+          <h4>FAMCARE-2</h4>
+          <div class="tool-subtitle">Family Satisfaction with Care</div>
+        </div>
+      </div>
+      <div class="tool-description">
+        Scala di 17 item per misurare la soddisfazione dei familiari rispetto alle cure palliative ricevute dal paziente.
+      </div>
+      <div class="tool-features">
+        <span class="feature-badge">17 item Likert 1-5, punteggio 17-85, 4 domini clinici</span>
+      </div>
+      <div class="tool-actions">
+        <button class="btn btn-primary btn-action" onclick="openFAMCARE2Compile()">
+          <i class="fas fa-edit me-2"></i>Compila
+        </button>
+        <button class="btn btn-outline-primary btn-action" onclick="openFAMCARE2Visualize()">
+          <i class="fas fa-eye me-2"></i>Visualizza
+        </button>
+      </div>
+    </div>`;
+
+    categoryDetails.innerHTML = `
+<div class="valutazione-detail-section">
+  <div class="page-header">
+    <div class="page-icon mb-3">👥</div>
+    <h1 class="page-title">Valutazione Caregiving</h1>
+    <p class="page-subtitle">Strumenti per valutare burden e soddisfazione dei caregiver</p>
+  </div>
+  <div class="tools-grid">
+    ${zcb7Card}
+    ${famcare2Card}
+  </div>
+</div>`;
+    animateToolCards(categoryDetails);
+    return;
+  }
+
 
   const categoryData = {
     'identificazione': {
@@ -257,15 +326,6 @@ function loadCategoryContent(categoryName) {
           actions:[{name:'Compila',class:'btn-success',icon:'fas fa-edit',action:'openRASSCompile()'},{name:'Visualizza',class:'btn-outline-success',icon:'fas fa-eye',action:'openRASSVisualize()'}] },
         { name: 'Ramsey', subtitle: 'Ramsey Sedation Scale', description: 'Scala classica per la valutazione del livello di sedazione in 6 livelli.', available: true,
           actions:[{name:'Compila',class:'btn-success',icon:'fas fa-edit',action:'openRamseyCompile()'},{name:'Visualizza',class:'btn-outline-success',icon:'fas fa-eye',action:'openRamseyVisualize()'}] }
-      ]
-    },
-    'caregiving': {
-      title: 'Valutazione Caregiving',
-      icon: '👥',
-      description: 'Strumenti per valutare burden e soddisfazione dei caregiver',
-      tools: [
-        { name: 'ZCB-7', subtitle: 'Zarit Caregiver Burden - 7 items', description: 'Versione breve della scala Zarit per valutare il burden del caregiver in 7 domande.', available: false },
-        { name: 'FAMCARE-2', subtitle: 'Family Satisfaction with Care', description: 'Strumento per misurare la soddisfazione delle famiglie rispetto alle cure ricevute.', available: false }
       ]
     }
   };
@@ -591,6 +651,36 @@ function openCAMCompile() {
 
 function openCAMVisualize() {
   navigateToSection('cam-home');
+}
+
+function openZCB7Compile() {
+  navigateToSection('zcb7-home');
+  if (typeof switchZCB7Mode === 'function') switchZCB7Mode('compile');
+}
+
+function openZCB7Visualize() {
+  navigateToSection('zcb7-home');
+  if (typeof switchZCB7Mode === 'function') switchZCB7Mode('visualize');
+}
+
+function openZCB7Glossary() {
+  navigateToSection('zcb7-home');
+  if (typeof switchZCB7Mode === 'function') switchZCB7Mode('glossary');
+}
+
+function openFAMCARE2Compile() {
+  navigateToSection('famcare2-home');
+  if (typeof switchFAMCARE2Mode === 'function') switchFAMCARE2Mode('compile');
+}
+
+function openFAMCARE2Visualize() {
+  navigateToSection('famcare2-home');
+  if (typeof switchFAMCARE2Mode === 'function') switchFAMCARE2Mode('visualize');
+}
+
+function openFAMCARE2Glossary() {
+  navigateToSection('famcare2-home');
+  if (typeof switchFAMCARE2Mode === 'function') switchFAMCARE2Mode('glossary');
 }
 
 function animateToolCards(container) {

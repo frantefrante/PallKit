@@ -405,15 +405,15 @@
                 <small>2 strumenti</small>
               </div>
               <div class="category-status">
-                <span class="badge bg-warning">In Sviluppo</span>
+                <span class="badge bg-success">✅ Disponibile</span>
               </div>
             </div>
             <div class="category-description">
               Strumenti per valutare burden e soddisfazione dei caregiver
             </div>
             <div class="category-tools">
-              <span class="tool-badge">ZCB-7</span>
-              <span class="tool-badge">FAMCARE-2</span>
+              <span class="tool-badge available">ZCB-7</span>
+              <span class="tool-badge available">FAMCARE-2</span>
             </div>
           </div>
         </div>
