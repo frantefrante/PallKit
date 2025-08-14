@@ -23,7 +23,7 @@ body {
 }
 
 .dashboard-header h1 {
-    color: #2c3e50;
+    color: #5cb85c;
     font-size: 2.5rem;
     font-weight: 700;
     margin-bottom: 0.5rem;
@@ -61,7 +61,7 @@ body {
 .stat-icon {
     width: 50px;
     height: 50px;
-    background: linear-gradient(135deg, #6c757d, #495057);
+    background: linear-gradient(135deg, #5cb85c, #449d44);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -74,7 +74,7 @@ body {
 .stat-number {
     font-size: 1.8rem;
     font-weight: 700;
-    color: #2c3e50;
+    color: #5cb85c;
     margin-bottom: 0.5rem;
 }
 
@@ -93,7 +93,7 @@ body {
 }
 
 .categories-section h2 {
-    color: #2c3e50;
+    color: #5cb85c;
     margin-bottom: 1.5rem;
     font-size: 1.8rem;
 }
@@ -155,7 +155,7 @@ body {
 .category-title {
     font-weight: 600;
     margin-bottom: 0.5rem;
-    color: #2c3e50;
+    color: #5cb85c;
     font-size: 1.1rem;
 }
 
@@ -180,7 +180,7 @@ body {
 }
 
 .featured-tools h2 {
-    color: #2c3e50;
+    color: #5cb85c;
     margin-bottom: 1.5rem;
     font-size: 1.8rem;
 }
@@ -224,7 +224,7 @@ body {
 .tool-preview-title {
     font-weight: 600;
     margin-bottom: 0.5rem;
-    color: #2c3e50;
+    color: #5cb85c;
     font-size: 0.9rem;
 }
 
@@ -249,7 +249,7 @@ body {
 }
 
 .content-card h3 {
-    color: #2c3e50;
+    color: #5cb85c;
     margin-bottom: 1rem;
     font-size: 1.4rem;
 }

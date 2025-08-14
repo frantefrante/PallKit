@@ -1,9 +1,32 @@
 function openCategory(category) {
-    console.log(`Apertura categoria: ${category}`);
+    const routes = {
+        identificazione: 'identificazione.php',
+        complessita: 'strumenti-idcpal.php',
+        prognosi: 'strumenti-prognosi.php',
+        multidimensionale: 'strumenti-multidimensionali.php',
+        performance: 'strumenti-performance.php'
+    };
+    const url = routes[category];
+    if (url) {
+        window.location.href = url;
+    }
 }
 
 function openTool(tool) {
-    console.log(`Apertura strumento: ${tool}`);
+    const routes = {
+        ppi: 'strumenti-prognosi.php',
+        necpal: 'strumenti-necpal40.php',
+        akps: 'strumenti-performance.php',
+        equianalgesia: () => navigateToSection('equianalgesia-section'),
+        esas: 'strumenti-esas.php',
+        ipos: 'strumenti-ipos.php'
+    };
+    const action = routes[tool];
+    if (typeof action === 'function') {
+        action();
+    } else if (action) {
+        window.location.href = action;
+    }
 }
 
 document.addEventListener('DOMContentLoaded', function() {
