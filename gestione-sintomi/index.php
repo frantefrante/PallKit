@@ -365,7 +365,7 @@
           </div>
 
           <!-- DELIRIUM -->
-          <div class="category-card delirium" onclick="openCategoryView('delirium')">
+          <div class="category-card delirium" onclick="window.location.href='delirium.php'">
             <div class="category-header">
               <div class="category-icon">🧩</div>
               <div class="category-info">
@@ -373,15 +373,15 @@
                 <small>2 strumenti</small>
               </div>
               <div class="category-status">
-                <span class="badge bg-warning">In Sviluppo</span>
+                <span class="badge bg-success">✅ Disponibile</span>
               </div>
             </div>
             <div class="category-description">
               Strumenti per assessment e screening del delirium
             </div>
             <div class="category-tools">
-              <span class="tool-badge">4AT</span>
-              <span class="tool-badge">CAM</span>
+              <span class="tool-badge available">4AT</span>
+              <span class="tool-badge available">CAM</span>
             </div>
           </div>
 
@@ -474,12 +474,6 @@
 
     <!-- SEZIONE DN4 -->
     <?php include __DIR__ . '/strumenti-dn4.php'; ?>
-
-    <!-- SEZIONE 4AT -->
-    <?php include __DIR__ . '/strumenti-4at.php'; ?>
-
-    <!-- SEZIONE CAM -->
-    <?php include __DIR__ . '/strumenti-cam.php'; ?>
 
     <!-- SEZIONE RASS -->
     <?php include __DIR__ . '/strumenti-rass.php'; ?>
