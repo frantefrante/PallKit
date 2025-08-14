@@ -88,7 +88,7 @@
           <button class="btn btn-danger" onclick="resetRamseyForm()">
             <i class="fas fa-undo me-2"></i>Reset
           </button>
-          <button class="btn btn-primary" onclick="printRamsey();return false;">
+          <button class="btn btn-primary" onclick="printRamsey('compile');return false;">
             <i class="fas fa-print me-2"></i>Stampa Scheda
           </button>
           <button class="btn btn-outline-primary" onclick="printRamseyReport();return false;">
@@ -182,7 +182,7 @@
           </p>
         </div>
         <div class="action-buttons" style="margin-top: 2rem; page-break-inside: avoid;">
-          <button class="btn btn-primary" onclick="printRamsey();return false;">
+          <button class="btn btn-primary" onclick="printRamsey('visualize');return false;">
             <i class="fas fa-print me-2"></i>Stampa Template
           </button>
           <button class="btn" style="background: white; color: var(--ramsey-primary); border: 2px solid var(--ramsey-primary);" onclick="switchRamseyMode('compile');return false;">

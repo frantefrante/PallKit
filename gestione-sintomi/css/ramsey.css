@@ -76,8 +76,8 @@
   body.print-ramsey .print-hide,
   body.print-ramsey #ramsey-home .mode-selector,
   body.print-ramsey #ramsey-home .action-buttons { display: none !important; }
-  body.print-ramsey #ramsey-home .print-template { box-shadow: none; page-break-inside: avoid; }
-  body.print-ramsey #ramsey-home .scale-table { font-size: 0.8rem; }
+  body.print-ramsey #ramsey-home .print-template { box-shadow: none; }
+  body.print-ramsey #ramsey-home .scale-table { font-size: 0.8rem; page-break-inside: avoid; }
 }
 
 @media (max-width: 768px) {

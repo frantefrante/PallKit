@@ -124,8 +124,17 @@ Report generato il: ${new Date().toLocaleString('it-IT')}
   link.click();
 }
 
-function printRASS() {
+function printRASS(section) {
+  const compile = document.getElementById('compile-section');
+  const visualize = document.getElementById('visualize-section');
+  if (section === 'visualize') {
+    compile.classList.add('print-hide');
+  } else {
+    visualize.classList.add('print-hide');
+  }
   document.body.classList.add('print-rass');
   window.print();
   document.body.classList.remove('print-rass');
+  compile.classList.remove('print-hide');
+  visualize.classList.remove('print-hide');
 }

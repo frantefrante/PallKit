@@ -104,7 +104,7 @@
           <button class="btn btn-danger" onclick="resetRASSForm()">
             <i class="fas fa-undo me-2"></i>Reset
           </button>
-          <button class="btn btn-primary" onclick="printRASS();return false;">
+          <button class="btn btn-primary" onclick="printRASS('compile');return false;">
             <i class="fas fa-print me-2"></i>Stampa Scheda
           </button>
           <button class="btn btn-outline-primary" onclick="printRASSReport();return false;">
@@ -172,7 +172,7 @@
           </div>
         </div>
         <div class="action-buttons" style="margin-top: 2rem; page-break-inside: avoid;">
-          <button class="btn btn-primary" onclick="printRASS();return false;">
+          <button class="btn btn-primary" onclick="printRASS('visualize');return false;">
             <i class="fas fa-print me-2"></i>Stampa Template
           </button>
           <button class="btn" style="background: white; color: var(--rass-primary); border: 2px solid var(--rass-primary);" onclick="switchRASSMode('compile');return false;">

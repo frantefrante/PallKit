@@ -89,8 +89,8 @@
   body.print-rass .print-hide,
   body.print-rass #rass-home .mode-selector,
   body.print-rass #rass-home .action-buttons { display: none !important; }
-  body.print-rass #rass-home .print-template { box-shadow: none; page-break-inside: avoid; }
-  body.print-rass #rass-home .scale-table { font-size: 0.8rem; }
+  body.print-rass #rass-home .print-template { box-shadow: none; }
+  body.print-rass #rass-home .scale-table { font-size: 0.8rem; page-break-inside: avoid; }
 }
 
 @media (max-width: 768px) {

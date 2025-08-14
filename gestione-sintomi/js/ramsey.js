@@ -127,8 +127,17 @@ Report generato il: ${new Date().toLocaleString('it-IT')}
   link.click();
 }
 
-function printRamsey() {
+function printRamsey(section) {
+  const compile = document.getElementById('compile-section');
+  const visualize = document.getElementById('visualize-section');
+  if (section === 'visualize') {
+    compile.classList.add('print-hide');
+  } else {
+    visualize.classList.add('print-hide');
+  }
   document.body.classList.add('print-ramsey');
   window.print();
   document.body.classList.remove('print-ramsey');
+  compile.classList.remove('print-hide');
+  visualize.classList.remove('print-hide');
 }
