@@ -12,9 +12,9 @@
   <!-- FontAwesome -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" rel="stylesheet">
   <!-- Avada compatibility styles -->
-  <link href="/css/avada-compat.css" rel="stylesheet">
+  <link href="css/avada-compat.css" rel="stylesheet">
   <!-- Document cards styles -->
-  <link href="/css/documents.css" rel="stylesheet">
+  <link href="css/documents.css" rel="stylesheet">
   <!-- Sedation tables styles -->
   <link href="css/sedazione.css" rel="stylesheet">
   <link href="css/strumenti-valutazione.css" rel="stylesheet">
