@@ -52,11 +52,11 @@ function selectScore(symptom, value, element) {
   const marker = document.getElementById('marker-' + symptom);
   const percentage = (value / 10) * 100;
   marker.style.left = percentage + '%';
-  updateResults();
+ updateESASResults();
 }
 
 // Funzione per aggiornare i risultati
-function updateResults() {
+function updateESASResults() {
   const scores = Object.values(esasScores).filter(score => score !== null);
   if (scores.length === 0) {
     document.getElementById('results-summary').style.display = 'none';
