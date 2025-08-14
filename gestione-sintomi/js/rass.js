@@ -82,41 +82,53 @@ function resetRASSForm() {
   }
 }
 
+function printRASSTemplate() {
+  if (!rassContainer) return;
+  const template = rassContainer.querySelector('.print-template').cloneNode(true);
+  template.querySelectorAll('.action-buttons').forEach(btn => btn.remove());
+  const w = window.open('', '', 'width=900,height=700');
+  w.document.write(`<!DOCTYPE html><html><head><link rel="stylesheet" href="css/rass.css"></head><body>${template.outerHTML}</body></html>`);
+  w.document.close();
+  w.focus();
+  w.print();
+}
+
 function printRASSReport() {
   if (!rassContainer || selectedRASSScore === null) {
-    alert('Seleziona un punteggio RASS prima di scaricare il report.');
+    alert('Seleziona un punteggio RASS prima di stampare il report.');
     return;
   }
-  
+
   const patientName = rassContainer.querySelector('#rass-patient-name').value || 'Non specificato';
   const date = rassContainer.querySelector('#rass-date').value;
   const time = rassContainer.querySelector('#rass-time').value;
   const operator = rassContainer.querySelector('#rass-operator').value || 'Non specificato';
   const level = rassContainer.querySelector('#rass-level-display').textContent;
   const description = rassContainer.querySelector('#rass-description-display').textContent;
-  
-  const reportContent = `
-REPORT VALUTAZIONE RASS
-========================
+  const score = selectedRASSScore > 0 ? `+${selectedRASSScore}` : selectedRASSScore;
 
-DATI PAZIENTE:
-Nome: ${patientName}
-Data: ${date}
-Ora: ${time}
-Operatore: ${operator}
+  const reportHTML = `
+  <div class="print-template">
+    <div class="template-header">
+      <div class="template-title">Report Valutazione RASS</div>
+      <div class="template-subtitle">Richmond Agitation-Sedation Scale</div>
+    </div>
+    <div class="patient-info-box">
+      <strong>Paziente:</strong> ${patientName}<br>
+      <strong>Data:</strong> ${date} &nbsp; <strong>Ora:</strong> ${time}<br>
+      <strong>Operatore:</strong> ${operator}
+    </div>
+    <div class="results-display show">
+      <div class="result-score">${score}</div>
+      <div class="result-level">${level}</div>
+      <div class="result-description">${description}</div>
+    </div>
+  </div>`;
 
-RISULTATI:
-Punteggio RASS: ${selectedRASSScore > 0 ? '+' : ''}${selectedRASSScore}
-Livello: ${level}
-Interpretazione: ${description}
-
-Report generato il: ${new Date().toLocaleString('it-IT')}
-  `.trim();
-  
-  const blob = new Blob([reportContent], {type: 'text/plain;charset=utf-8'});
-  const link = document.createElement('a');
-  link.href = URL.createObjectURL(blob);
-  link.download = `RASS_Report_${patientName.replace(/\s+/g, '_')}_${date}.txt`;
-  link.click();
+  const w = window.open('', '', 'width=900,height=700');
+  w.document.write(`<!DOCTYPE html><html><head><link rel="stylesheet" href="css/rass.css"></head><body>${reportHTML}</body></html>`);
+  w.document.close();
+  w.focus();
+  w.print();
 }
 

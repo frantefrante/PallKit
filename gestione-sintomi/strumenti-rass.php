@@ -169,7 +169,7 @@
           </div>
         </div>
           <div class="action-buttons" style="margin-top: 2rem; page-break-inside: avoid;">
-            <button class="btn btn-primary" onclick="window.print();return false;">
+            <button class="btn btn-primary" onclick="printRASSTemplate();return false;">
               <i class="fas fa-print me-2"></i>Stampa Template
             </button>
             <button class="btn" style="background: white; color: var(--rass-primary); border: 2px solid var(--rass-primary);" onclick="switchRASSMode('compile');return false;">

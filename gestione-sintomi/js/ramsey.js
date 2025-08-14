@@ -79,9 +79,20 @@ function resetRamseyForm() {
   }
 }
 
+function printRamseyTemplate() {
+  if (!ramseyContainer) return;
+  const template = ramseyContainer.querySelector('.print-template').cloneNode(true);
+  template.querySelectorAll('.action-buttons').forEach(btn => btn.remove());
+  const w = window.open('', '', 'width=900,height=700');
+  w.document.write(`<!DOCTYPE html><html><head><link rel="stylesheet" href="css/ramsey.css"></head><body>${template.outerHTML}</body></html>`);
+  w.document.close();
+  w.focus();
+  w.print();
+}
+
 function printRamseyReport() {
   if (!ramseyContainer || selectedRamseyScore === null) {
-    alert('Seleziona un punteggio Ramsey prima di scaricare il report.');
+    alert('Seleziona un punteggio Ramsey prima di stampare il report.');
     return;
   }
   const patientName = ramseyContainer.querySelector('#ramsey-patient-name').value || 'Non specificato';
@@ -90,27 +101,29 @@ function printRamseyReport() {
   const operator = ramseyContainer.querySelector('#ramsey-operator').value || 'Non specificato';
   const level = ramseyContainer.querySelector('#ramsey-level-display').textContent;
   const description = ramseyContainer.querySelector('#ramsey-description-display').textContent;
-  const reportContent = `
-REPORT VALUTAZIONE RAMSEY
-=========================
 
-DATI PAZIENTE:
-Nome: ${patientName}
-Data: ${date}
-Ora: ${time}
-Operatore: ${operator}
+  const reportHTML = `
+  <div class="print-template">
+    <div class="template-header">
+      <div class="template-title">Report Valutazione Ramsey</div>
+      <div class="template-subtitle">Ramsey Sedation Scale</div>
+    </div>
+    <div class="patient-info-box">
+      <strong>Paziente:</strong> ${patientName}<br>
+      <strong>Data:</strong> ${date} &nbsp; <strong>Ora:</strong> ${time}<br>
+      <strong>Operatore:</strong> ${operator}
+    </div>
+    <div class="results-display show">
+      <div class="result-score">${selectedRamseyScore}</div>
+      <div class="result-level">${level}</div>
+      <div class="result-description">${description}</div>
+    </div>
+  </div>`;
 
-RISULTATI:
-Punteggio Ramsey: ${selectedRamseyScore}
-Livello: ${level}
-Interpretazione: ${description}
-
-Report generato il: ${new Date().toLocaleString('it-IT')}
-  `.trim();
-  const blob = new Blob([reportContent], {type: 'text/plain;charset=utf-8'});
-  const link = document.createElement('a');
-  link.href = URL.createObjectURL(blob);
-  link.download = `Ramsey_Report_${patientName.replace(/\s+/g, '_')}_${date}.txt`;
-  link.click();
+  const w = window.open('', '', 'width=900,height=700');
+  w.document.write(`<!DOCTYPE html><html><head><link rel="stylesheet" href="css/ramsey.css"></head><body>${reportHTML}</body></html>`);
+  w.document.close();
+  w.focus();
+  w.print();
 }
 

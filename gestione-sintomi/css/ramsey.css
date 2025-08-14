@@ -217,7 +217,10 @@
 @media print {
   #ramsey-home .ramsey-header,
   #ramsey-home .mode-selector,
-  #ramsey-home .action-buttons { display: none !important; }
+  #ramsey-home .action-buttons,
+  #ramsey-home .print-hide { display: none !important; }
   #ramsey-home .print-template { box-shadow: none; }
+  #ramsey-home .print-template .instructions,
+  #ramsey-home .print-template .clinical-notes { page-break-before: avoid; }
 }
 

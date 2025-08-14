@@ -211,7 +211,10 @@
 @media print {
   #rass-home .rass-header,
   #rass-home .mode-selector,
-  #rass-home .action-buttons { display: none !important; }
+  #rass-home .action-buttons,
+  #rass-home .print-hide { display: none !important; }
   #rass-home .print-template { box-shadow: none; }
+  #rass-home .print-template .instructions,
+  #rass-home .print-template .clinical-notes { page-break-before: avoid; }
 }
 
