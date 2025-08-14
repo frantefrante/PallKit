@@ -376,17 +376,28 @@ function showSection(sectionId) {
 function initStrumentiValutazione() {
   const searchInput = document.getElementById('searchCategories');
   if (searchInput) {
-    searchInput.addEventListener('input', function(e) {
-      const term = e.target.value.toLowerCase();
-      document.querySelectorAll('.category-card').forEach(card => {
-        const title = card.querySelector('h5').textContent.toLowerCase();
-        const descEl = card.querySelector('.category-description');
-        const desc = descEl ? descEl.textContent.toLowerCase() : '';
-        const tools = Array.from(card.querySelectorAll('.tool-badge')).map(b => b.textContent.toLowerCase()).join(' ');
-        const match = title.includes(term) || desc.includes(term) || tools.includes(term);
-        card.style.display = (match || term === '') ? 'block' : 'none';
-      });
-    });
+  searchInput.addEventListener('input', function(e) {
+  const term = e.target.value.toLowerCase();
+  document.querySelectorAll('.category-card').forEach(card => {
+    // 🔧 FIX: Controllo sicuro per il titolo
+    const titleEl = card.querySelector('h5');
+    const title = titleEl ? titleEl.textContent.toLowerCase() : '';
+    
+    // ✅ Questa riga era già corretta
+    const descEl = card.querySelector('.category-description');
+    const desc = descEl ? descEl.textContent.toLowerCase() : '';
+    
+    // 🔧 FIX: Controllo sicuro per i tool badges
+    const toolBadges = card.querySelectorAll('.tool-badge');
+    const tools = toolBadges.length > 0 ? 
+      Array.from(toolBadges)
+        .map(b => b.textContent ? b.textContent.toLowerCase() : '')
+        .join(' ') : '';
+    
+    const match = title.includes(term) || desc.includes(term) || tools.includes(term);
+    card.style.display = (match || term === '') ? 'block' : 'none';
+  });
+});
   }
 
   const link = document.querySelector('[data-target="strumenti-valutazione-home"]');
