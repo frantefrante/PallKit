@@ -1,0 +1,83 @@
+:root {
+  --ramsey-primary: #6c757d;
+  --ramsey-secondary: #495057;
+  --ramsey-light: rgba(108, 117, 125, 0.1);
+  --ramsey-border: rgba(108, 117, 125, 0.2);
+  --success: #28a745;
+  --warning: #ffc107;
+  --danger: #dc3545;
+  --info: #17a2b8;
+}
+
+.section-container { max-width: 1000px; margin: 0 auto; padding: 2rem; }
+
+.ramsey-header { background: linear-gradient(135deg, var(--ramsey-primary), var(--ramsey-secondary)); color: white; padding: 2rem; border-radius: 20px; margin-bottom: 2rem; box-shadow: 0 8px 32px rgba(0,0,0,0.1); }
+.ramsey-header h1 { font-size: 2.5rem; font-weight: 700; margin: 0 0 0.5rem 0; }
+.ramsey-header p { font-size: 1.2rem; margin: 0; opacity: 0.9; }
+.ramsey-header .mode-selector { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
+.ramsey-header .mode-btn { padding: 1rem 2rem; background: rgba(255,255,255,0.2); color: white; text-decoration: none; border-radius: 12px; font-weight: 600; transition: all 0.3s ease; border: 2px solid transparent; }
+.ramsey-header .mode-btn:hover,
+.ramsey-header .mode-btn.active { background: white; color: var(--ramsey-primary); border-color: white; }
+
+#ramsey-home .content-section { display: none; }
+#ramsey-home .content-section.active { display: block; }
+
+#ramsey-home .compile-container { background: white; border-radius: 20px; border: 3px solid var(--ramsey-primary); padding: 2rem; box-shadow: 0 8px 32px rgba(0,0,0,0.1); }
+#ramsey-home .patient-data { background: #f8f9fa; padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem; border: 1px solid #dee2e6; }
+#ramsey-home .patient-data h4 { color: var(--ramsey-primary); margin-bottom: 1rem; font-size: 1.3rem; }
+#ramsey-home .form-row { display: flex; gap: 1rem; margin-bottom: 1rem; }
+#ramsey-home .form-group { flex: 1; }
+#ramsey-home .form-label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: #495057; }
+#ramsey-home .form-control { width: 100%; padding: 0.75rem; border: 2px solid #dee2e6; border-radius: 8px; font-size: 1rem; transition: border-color 0.3s ease; }
+#ramsey-home .form-control:focus { outline: none; border-color: var(--ramsey-primary); box-shadow: 0 0 0 3px rgba(108,117,125,0.1); }
+
+#ramsey-home .scale-section { margin-bottom: 2rem; }
+#ramsey-home .scale-title { font-size: 1.4rem; font-weight: 700; color: var(--ramsey-primary); margin-bottom: 1.5rem; }
+#ramsey-home .option-item { background: #f8f9fa; border: 2px solid #dee2e6; border-radius: 12px; padding: 1.5rem; margin-bottom: 0.75rem; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; }
+#ramsey-home .option-item:hover { border-color: var(--ramsey-primary); background: var(--ramsey-light); }
+#ramsey-home .option-item.selected { border-color: var(--ramsey-primary); background: linear-gradient(135deg, var(--ramsey-primary), var(--ramsey-secondary)); color: white; }
+#ramsey-home .option-score { font-size: 1.5rem; font-weight: 700; margin-right: 1.5rem; min-width: 50px; text-align: center; background: rgba(255,255,255,0.8); border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; color: var(--ramsey-primary); }
+#ramsey-home .option-item.selected .option-score { background: white; color: var(--ramsey-primary); }
+#ramsey-home .option-description { flex: 1; font-weight: 500; font-size: 1.1rem; }
+
+#ramsey-home .results-display { background: linear-gradient(135deg, var(--ramsey-primary), var(--ramsey-secondary)); color: white; padding: 2rem; border-radius: 16px; text-align: center; margin: 2rem 0; display: none; }
+#ramsey-home .results-display.show { display: block; }
+#ramsey-home .result-score { font-size: 3rem; font-weight: 700; margin-bottom: 0.5rem; }
+#ramsey-home .result-level { font-size: 1.5rem; margin-bottom: 1rem; }
+#ramsey-home .result-description { font-size: 1.1rem; opacity: 0.9; line-height: 1.5; }
+
+#ramsey-home .action-buttons { display: flex; gap: 1rem; justify-content: center; margin-top: 2rem; }
+#ramsey-home .btn { padding: 1rem 2rem; border: none; border-radius: 12px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; gap: 0.5rem; }
+#ramsey-home .btn-primary { background: linear-gradient(135deg, var(--ramsey-primary), var(--ramsey-secondary)); color: white; }
+#ramsey-home .btn-danger { background: var(--danger); color: white; }
+#ramsey-home .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.2); }
+
+#ramsey-home .print-template { background: white; padding: 2rem; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+#ramsey-home .template-header { text-align: center; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 3px solid var(--ramsey-primary); }
+#ramsey-home .template-title { font-size: 2rem; color: var(--ramsey-primary); margin-bottom: 0.5rem; font-weight: 700; }
+#ramsey-home .template-subtitle { font-size: 1.2rem; color: #6c757d; }
+#ramsey-home .scale-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.95rem; }
+#ramsey-home .scale-table th,
+#ramsey-home .scale-table td { border: 1px solid #dee2e6; padding: 1rem; text-align: left; }
+#ramsey-home .scale-table th { background: var(--ramsey-primary); color: white; font-weight: 600; }
+#ramsey-home .scale-table tbody tr:nth-child(even) { background: #f8f9fa; }
+#ramsey-home .patient-info-box { background: #f8f9fa; padding: 1rem; border-radius: 8px; margin: 1rem 0; border: 1px solid #dee2e6; }
+#ramsey-home .instructions { background: #e7f3ff; padding: 1.5rem; border-radius: 12px; border-left: 5px solid var(--info); margin: 1.5rem 0; }
+#ramsey-home .instructions h4 { color: var(--info); margin-bottom: 1rem; }
+#ramsey-home .clinical-notes { background: #fff3cd; border: 1px solid #ffeaa7; padding: 1.5rem; border-radius: 12px; margin: 1.5rem 0; }
+#ramsey-home .clinical-notes h4 { color: #856404; margin-bottom: 1rem; }
+
+@media print {
+  #ramsey-home .ramsey-header, #ramsey-home .mode-selector, #ramsey-home .action-buttons { display: none; }
+  #ramsey-home .print-template { box-shadow: none; page-break-inside: avoid; }
+  #ramsey-home .scale-table { font-size: 0.8rem; }
+}
+
+@media (max-width: 768px) {
+  #ramsey-home .form-row { flex-direction: column; }
+  #ramsey-home .action-buttons { flex-direction: column; }
+  #ramsey-home .mode-selector { justify-content: center; }
+  #ramsey-home .section-container { padding: 1rem; }
+  #ramsey-home .option-item { flex-direction: column; text-align: center; }
+  #ramsey-home .option-score { margin: 0 0 1rem 0; }
+}

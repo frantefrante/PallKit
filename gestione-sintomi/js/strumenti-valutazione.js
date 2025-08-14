@@ -104,6 +104,112 @@ function loadCategoryContent(categoryName) {
     return;
   }
 
+  if (categoryName === 'sedazione') {
+    categoryDetails.innerHTML = `
+<div class="valutazione-detail-section">
+  <div class="page-header">
+    <div class="page-icon mb-3">💤</div>
+    <h1 class="page-title">Strumenti di Sedazione</h1>
+    <p class="page-subtitle">Scale di valutazione del livello di sedazione e agitazione</p>
+  </div>
+  <div class="tools-grid">
+    <div class="tool-card sedazione-card">
+      <div class="tool-header">
+        <div class="tool-icon-large"><span class="tool-letters">RASS</span></div>
+        <div class="tool-info">
+          <h4>RASS</h4>
+          <div class="tool-subtitle">Richmond Agitation-Sedation Scale</div>
+        </div>
+      </div>
+      <div class="tool-description">
+        Scala validata per la valutazione del livello di sedazione e agitazione nei pazienti critici.
+      </div>
+      <div class="tool-features">
+        <span class="feature-badge">Scala a 10 livelli da +4 a -5</span>
+      </div>
+      <div class="tool-actions">
+        <button class="btn btn-primary action-btn" onclick="openRASSCompile()"><i class="fas fa-edit me-2"></i>Compila</button>
+        <button class="btn btn-outline-primary action-btn" onclick="openRASSVisualize()"><i class="fas fa-eye me-2"></i>Visualizza</button>
+      </div>
+    </div>
+    <div class="tool-card sedazione-card">
+      <div class="tool-header">
+        <div class="tool-icon-large"><span class="tool-letters">RAM</span></div>
+        <div class="tool-info">
+          <h4>Ramsey</h4>
+          <div class="tool-subtitle">Ramsey Sedation Scale</div>
+        </div>
+      </div>
+      <div class="tool-description">
+        Scala tradizionale per la valutazione della sedazione in sei livelli progressivi.
+      </div>
+      <div class="tool-features">
+        <span class="feature-badge">Scala a 6 livelli da ansioso a non responsivo</span>
+      </div>
+      <div class="tool-actions">
+        <button class="btn btn-primary action-btn" onclick="openRamseyCompile()"><i class="fas fa-edit me-2"></i>Compila</button>
+        <button class="btn btn-outline-primary action-btn" onclick="openRamseyVisualize()"><i class="fas fa-eye me-2"></i>Visualizza</button>
+      </div>
+    </div>
+  </div>
+</div>`;
+    animateToolCards(categoryDetails);
+    return;
+  }
+
+  if (categoryName === 'delirium') {
+    categoryDetails.innerHTML = `
+<div class="valutazione-detail-section">
+  <div class="page-header">
+    <div class="page-icon mb-3">🧩</div>
+    <h1 class="page-title">Assessment Delirium</h1>
+    <p class="page-subtitle">Strumenti per assessment e screening del delirium</p>
+  </div>
+  <div class="tools-grid">
+    <div class="tool-card delirium-card">
+      <div class="tool-header">
+        <div class="tool-icon-large"><span class="tool-letters">4AT</span></div>
+        <div class="tool-info">
+          <h4>4AT</h4>
+          <div class="tool-subtitle">4 'A's Test</div>
+        </div>
+      </div>
+      <div class="tool-description">
+        Strumento rapido di screening per delirium e deterioramento cognitivo.
+      </div>
+      <div class="tool-features">
+        <span class="feature-badge">Screening rapido, non richiede formazione specialistica</span>
+      </div>
+      <div class="tool-actions">
+        <button class="btn btn-primary action-btn" onclick="open4ATCompile()"><i class="fas fa-edit me-2"></i>Compila</button>
+        <button class="btn btn-outline-primary action-btn" onclick="open4ATVisualize()"><i class="fas fa-eye me-2"></i>Visualizza</button>
+      </div>
+    </div>
+    <div class="tool-card delirium-card">
+      <div class="tool-header">
+        <div class="tool-icon-large"><span class="tool-letters">CAM</span></div>
+        <div class="tool-info">
+          <h4>CAM</h4>
+          <div class="tool-subtitle">Confusion Assessment Method</div>
+        </div>
+      </div>
+      <div class="tool-description">
+        Metodo standard per la diagnosi di delirium validato in ambito clinico.
+      </div>
+      <div class="tool-features">
+        <span class="feature-badge">Diagnosi accurata con osservazione clinica</span>
+      </div>
+      <div class="tool-actions">
+        <button class="btn btn-primary action-btn" onclick="openCAMCompile()"><i class="fas fa-edit me-2"></i>Compila</button>
+        <button class="btn btn-outline-primary action-btn" onclick="openCAMVisualize()"><i class="fas fa-eye me-2"></i>Visualizza</button>
+      </div>
+    </div>
+  </div>
+</div>`;
+    animateToolCards(categoryDetails);
+    return;
+  }
+
 
   const categoryData = {
     'identificazione': {
@@ -133,8 +239,10 @@ function loadCategoryContent(categoryName) {
       icon: '🧩',
       description: 'Strumenti per assessment e screening del delirium',
       tools: [
-        { name: '4AT', subtitle: "4 'A's Test", description: 'Strumento rapido di screening per delirium e deterioramento cognitivo.', available: false },
-        { name: 'CAM', subtitle: 'Confusion Assessment Method', description: 'Metodo standard per la diagnosi di delirium validato in ambito clinico.', available: false }
+        { name: '4AT', subtitle: "4 'A's Test", description: 'Strumento rapido di screening per delirium e deterioramento cognitivo.', available: true,
+          actions:[{name:'Compila',class:'btn-success',icon:'fas fa-edit',action:'open4ATCompile()'},{name:'Visualizza',class:'btn-outline-success',icon:'fas fa-eye',action:'open4ATVisualize()'}] },
+        { name: 'CAM', subtitle: 'Confusion Assessment Method', description: 'Metodo standard per la diagnosi di delirium validato in ambito clinico.', available: true,
+          actions:[{name:'Compila',class:'btn-success',icon:'fas fa-edit',action:'openCAMCompile()'},{name:'Visualizza',class:'btn-outline-success',icon:'fas fa-eye',action:'openCAMVisualize()'}] }
       ]
     },
     'sedazione': {
@@ -142,8 +250,10 @@ function loadCategoryContent(categoryName) {
       icon: '💤',
       description: 'Scale per monitoraggio del livello di sedazione',
       tools: [
-        { name: 'RASS', subtitle: 'Richmond Agitation-Sedation Scale', description: 'Scala per valutare il livello di agitazione e sedazione del paziente.', available: false },
-        { name: 'Ramsey', subtitle: 'Ramsey Sedation Scale', description: 'Scala classica per la valutazione del livello di sedazione in 6 livelli.', available: false }
+        { name: 'RASS', subtitle: 'Richmond Agitation-Sedation Scale', description: 'Scala per valutare il livello di agitazione e sedazione del paziente.', available: true,
+          actions:[{name:'Compila',class:'btn-success',icon:'fas fa-edit',action:'openRASSCompile()'},{name:'Visualizza',class:'btn-outline-success',icon:'fas fa-eye',action:'openRASSVisualize()'}] },
+        { name: 'Ramsey', subtitle: 'Ramsey Sedation Scale', description: 'Scala classica per la valutazione del livello di sedazione in 6 livelli.', available: true,
+          actions:[{name:'Compila',class:'btn-success',icon:'fas fa-edit',action:'openRamseyCompile()'},{name:'Visualizza',class:'btn-outline-success',icon:'fas fa-eye',action:'openRamseyVisualize()'}] }
       ]
     },
     'caregiving': {
@@ -442,4 +552,53 @@ function openDN4Compile() {
 function openDN4Visualize() {
   navigateToSection('dn4-home');
   if (typeof switchDN4Mode === 'function') switchDN4Mode('visualize');
+}
+
+function openRASSCompile() {
+  navigateToSection('rass-home');
+  if (typeof switchRASSMode === 'function') switchRASSMode('compile');
+}
+
+function openRASSVisualize() {
+  navigateToSection('rass-home');
+  if (typeof switchRASSMode === 'function') switchRASSMode('visualize');
+}
+
+function openRamseyCompile() {
+  navigateToSection('ramsey-home');
+  if (typeof switchRamseyMode === 'function') switchRamseyMode('compile');
+}
+
+function openRamseyVisualize() {
+  navigateToSection('ramsey-home');
+  if (typeof switchRamseyMode === 'function') switchRamseyMode('visualize');
+}
+
+function open4ATCompile() {
+  navigateToSection('4at-home');
+}
+
+function open4ATVisualize() {
+  navigateToSection('4at-home');
+}
+
+function openCAMCompile() {
+  navigateToSection('cam-home');
+}
+
+function openCAMVisualize() {
+  navigateToSection('cam-home');
+}
+
+function animateToolCards(container) {
+  const cards = container.querySelectorAll('.tool-card');
+  cards.forEach((card, index) => {
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(30px)';
+    setTimeout(() => {
+      card.style.transition = 'all 0.6s ease';
+      card.style.opacity = '1';
+      card.style.transform = 'translateY(0)';
+    }, index * 200);
+  });
 }
