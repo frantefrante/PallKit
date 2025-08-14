@@ -1,0 +1,349 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #f8f9fa;
+    color: #333;
+    line-height: 1.6;
+}
+
+.dashboard-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.dashboard-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.dashboard-header h1 {
+    color: #5cb85c;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.dashboard-header p {
+    color: #6c757d;
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Quick Stats Section */
+.quick-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.stat-card {
+    background: white;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    border: 1px solid #e9ecef;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+}
+
+.stat-icon {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #5cb85c, #449d44);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    color: white;
+    font-size: 1.2rem;
+}
+
+.stat-number {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #5cb85c;
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+/* Categories Grid */
+.categories-section {
+    background: white;
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    margin-bottom: 3rem;
+}
+
+.categories-section h2 {
+    color: #5cb85c;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+}
+
+.categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.category-card {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 1.5rem;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.category-card:hover {
+    background: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(0,0,0,0.1);
+}
+
+/* Colori specifici per categoria */
+.category-gestione:hover { border-color: #28a745; }
+.category-sedazione:hover { border-color: #6c757d; }
+.category-equianalgesia:hover { border-color: #007bff; }
+.category-rescue:hover { border-color: #dc3545; }
+.category-identificazione:hover { border-color: #28a745; }
+.category-complessita:hover { border-color: #007bff; }
+.category-prognosi:hover { border-color: #e74c3c; }
+.category-monitoraggio:hover { border-color: #dc3545; }
+.category-performance:hover { border-color: #6f42c1; }
+
+.category-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.category-gestione .category-icon { background: linear-gradient(135deg, #28a745, #20c997); }
+.category-sedazione .category-icon { background: linear-gradient(135deg, #6c757d, #495057); }
+.category-equianalgesia .category-icon { background: linear-gradient(135deg, #007bff, #0056b3); }
+.category-rescue .category-icon { background: linear-gradient(135deg, #dc3545, #c82333); }
+.category-identificazione .category-icon { background: linear-gradient(135deg, #28a745, #20c997); }
+.category-complessita .category-icon { background: linear-gradient(135deg, #007bff, #0056b3); }
+.category-prognosi .category-icon { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+.category-monitoraggio .category-icon { background: linear-gradient(135deg, #dc3545, #c82333); }
+.category-performance .category-icon { background: linear-gradient(135deg, #6f42c1, #563d7c); }
+
+.category-title {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #5cb85c;
+    font-size: 1.1rem;
+}
+
+.category-description {
+    color: #6c757d;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.category-count {
+    color: #495057;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+/* Featured Tools */
+.featured-tools {
+    background: white;
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    margin-bottom: 3rem;
+}
+
+.featured-tools h2 {
+    color: #5cb85c;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+}
+
+.tools-carousel {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+}
+
+.tool-preview {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+
+.tool-preview:hover {
+    background: white;
+    border-color: #5cb85c;
+    transform: translateY(-3px);
+}
+
+.tool-preview-icon {
+    width: 45px;
+    height: 45px;
+    background: linear-gradient(135deg, #5cb85c, #449d44);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    color: white;
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+.tool-preview-title {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #5cb85c;
+    font-size: 0.9rem;
+}
+
+.tool-preview-category {
+    color: #6c757d;
+    font-size: 0.75rem;
+}
+
+/* Educational Content */
+.educational-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.content-card {
+    background: white;
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+.content-card h3 {
+    color: #5cb85c;
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+}
+
+.reference-item {
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    border-left: 4px solid #5cb85c;
+}
+
+.reference-title {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #2c3e50;
+}
+
+.reference-description {
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+.clinical-item {
+    padding: 1rem;
+    background: #e8f4f8;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    border-left: 4px solid #17a2b8;
+}
+
+.clinical-title {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #2c3e50;
+}
+
+.clinical-description {
+    color: #495057;
+    font-size: 0.9rem;
+}
+
+/* Quick Start Guide */
+.quick-start {
+    background: linear-gradient(135deg, #2c3e50, #34495e);
+    color: white;
+    border-radius: 20px;
+    padding: 2.5rem;
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.quick-start h2 {
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+}
+
+.quick-start p {
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+.start-button {
+    background: #5cb85c;
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.start-button:hover {
+    background: #449d44;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .dashboard-container {
+        padding: 1rem;
+    }
+
+    .educational-content {
+        grid-template-columns: 1fr;
+    }
+
+    .quick-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .categories-grid {
+        grid-template-columns: 1fr;
+    }
+}

@@ -19,6 +19,7 @@
   <link href="css/sedazione.css" rel="stylesheet">
   <link href="css/strumenti-valutazione.css" rel="stylesheet">
   <link href="css/dn4-box.css" rel="stylesheet">
+  <link href="css/dashboard.css" rel="stylesheet">
 </head>
 <body>
 
@@ -73,22 +74,222 @@
 
     <!-- SEZIONE Dashboard -->
     <div id="dashboard-home" class="p-4">
-      <h4>Benvenuto nella dashboard</h4>
-      <p>Da qui puoi accedere a Gestione Sintomi o Identificazione.</p>
+  <div class="dashboard-container">
+    <!-- Header -->
+    <div class="dashboard-header">
+      <h1><i class="fas fa-notes-medical me-3"></i>PallKit Dashboard</h1>
+      <p>Strumenti clinici per cure palliative moderne e patient-centered</p>
+    </div>
 
-      <h5 class="mt-4 mb-3">Documenti paziente</h5>
-      <div id="documenti-container" class="dashboard-cards mb-4"></div>
-      <h5 class="mt-4 mb-3">Sedazione Palliativa</h5>
-      <div id="documenti-sedazione" class="dashboard-cards"></div>
-
-      <h5 class="mt-4 mb-3">Archivio Locale</h5>
-      <div class="table-responsive">
-        <table class="table table-sm" id="archivio-table">
-          <thead><tr><th>Data</th><th>Tipo</th><th>Visualizza</th><th>Stampa</th><th>Cancella</th></tr></thead>
-          <tbody></tbody>
-        </table>
+    <!-- Quick Stats -->
+    <div class="quick-stats">
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="fas fa-tools"></i>
+        </div>
+        <div class="stat-number">20+</div>
+        <div class="stat-label">Strumenti Clinici</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="fas fa-layer-group"></i>
+        </div>
+        <div class="stat-number">9</div>
+        <div class="stat-label">Aree Cliniche</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="fas fa-certificate"></i>
+        </div>
+        <div class="stat-number">&#10003;</div>
+        <div class="stat-label">Validati</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="fas fa-mobile-alt"></i>
+        </div>
+        <div class="stat-number">&#10003;</div>
+        <div class="stat-label">Responsive</div>
       </div>
     </div>
+
+    <!-- Categories Section -->
+    <div class="categories-section">
+      <h2><i class="fas fa-th-large me-2"></i>Aree Cliniche</h2>
+      <div class="categories-grid">
+        <div class="category-card category-gestione" onclick="navigateToSection('gestione-home')">
+          <div class="category-icon">
+            <i class="fas fa-pills"></i>
+          </div>
+          <div class="category-title">Gestione Sintomi</div>
+          <div class="category-description">Valutazione e management dei sintomi più comuni in cure palliative</div>
+          <div class="category-count">8 protocolli disponibili</div>
+        </div>
+
+        <div class="category-card category-sedazione" onclick="navigateToSection('sedazione-home')">
+          <div class="category-icon">
+            <i class="fas fa-procedures"></i>
+          </div>
+          <div class="category-title">Sedazione Palliativa</div>
+          <div class="category-description">Schemi e protocolli per sedazione palliativa controllata</div>
+          <div class="category-count">Protocolli e monitoraggio</div>
+        </div>
+
+        <div class="category-card category-equianalgesia" onclick="navigateToSection('equianalgesia-section')">
+          <div class="category-icon">
+            <i class="fas fa-balance-scale"></i>
+          </div>
+          <div class="category-title">Calcolo Equianalgesia</div>
+          <div class="category-description">Conversione tra oppioidi con calcolo tolleranza crociata</div>
+          <div class="category-count">Calcolo automatico</div>
+        </div>
+
+        <div class="category-card category-rescue" onclick="navigateToSection('rescue-section')">
+          <div class="category-icon">
+            <i class="fas fa-syringe"></i>
+          </div>
+          <div class="category-title">Dose Rescue</div>
+          <div class="category-description">Calcolo dose di soccorso per dolore breakthrough</div>
+          <div class="category-count">Calculator integrato</div>
+        </div>
+
+        <div class="category-card category-identificazione" onclick="openCategory('identificazione')">
+          <div class="category-icon">
+            <i class="fas fa-search"></i>
+          </div>
+          <div class="category-title">Identificazione</div>
+          <div class="category-description">Strumenti per identificare pazienti eleggibili per cure palliative</div>
+          <div class="category-count">3 strumenti (NECPAL, SPICT)</div>
+        </div>
+
+        <div class="category-card category-complessita" onclick="openCategory('complessita')">
+          <div class="category-icon">
+            <i class="fas fa-layer-group"></i>
+          </div>
+          <div class="category-title">Complessità</div>
+          <div class="category-description">Valutazione della complessità clinica e assistenziale</div>
+          <div class="category-count">1 strumento (IDC-PAL)</div>
+        </div>
+
+        <div class="category-card category-prognosi" onclick="openCategory('prognosi')">
+          <div class="category-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <div class="category-title">Prognosi</div>
+          <div class="category-description">Scale prognostiche per stratificazione del rischio</div>
+          <div class="category-count">2 strumenti (PPI, PaP Score)</div>
+        </div>
+
+        <div class="category-card category-monitoraggio" onclick="openCategory('multidimensionale')">
+          <div class="category-icon">
+            <i class="fas fa-chart-bar"></i>
+          </div>
+          <div class="category-title">Monitoraggio</div>
+          <div class="category-description">Assessment multidimensionale del paziente</div>
+          <div class="category-count">2 strumenti (IPOS, ESAS)</div>
+        </div>
+
+        <div class="category-card category-performance" onclick="openCategory('performance')">
+          <div class="category-icon">
+            <i class="fas fa-running"></i>
+          </div>
+          <div class="category-title">Performance</div>
+          <div class="category-description">Scale di valutazione funzionale e performance status</div>
+          <div class="category-count">4 strumenti (AKPS, PPS, ADL, BADL)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Featured Tools -->
+    <div class="featured-tools">
+      <h2><i class="fas fa-star me-2"></i>Strumenti Più Utilizzati</h2>
+      <div class="tools-carousel">
+        <div class="tool-preview" onclick="openTool('ppi')">
+          <div class="tool-preview-icon">PPI</div>
+          <div class="tool-preview-title">PPI Score</div>
+          <div class="tool-preview-category">Prognosi</div>
+        </div>
+        <div class="tool-preview" onclick="openTool('necpal')">
+          <div class="tool-preview-icon">NP</div>
+          <div class="tool-preview-title">NECPAL 4.0</div>
+          <div class="tool-preview-category">Identificazione</div>
+        </div>
+        <div class="tool-preview" onclick="openTool('akps')">
+          <div class="tool-preview-icon">AK</div>
+          <div class="tool-preview-title">AKPS</div>
+          <div class="tool-preview-category">Performance</div>
+        </div>
+        <div class="tool-preview" onclick="openTool('equianalgesia')">
+          <div class="tool-preview-icon">EQ</div>
+          <div class="tool-preview-title">Equianalgesia</div>
+          <div class="tool-preview-category">Calcolo</div>
+        </div>
+        <div class="tool-preview" onclick="openTool('esas')">
+          <div class="tool-preview-icon">ES</div>
+          <div class="tool-preview-title">ESAS</div>
+          <div class="tool-preview-category">Monitoraggio</div>
+        </div>
+        <div class="tool-preview" onclick="openTool('ipos')">
+          <div class="tool-preview-icon">IP</div>
+          <div class="tool-preview-title">IPOS</div>
+          <div class="tool-preview-category">Multidimensionale</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Educational Content -->
+    <div class="educational-content">
+      <div class="content-card">
+        <h3><i class="fas fa-book-medical me-2"></i>Riferimenti Scientifici</h3>
+        <div class="reference-item">
+          <div class="reference-title">AIOM-SICP 2015</div>
+          <div class="reference-description">"Cure Palliative Precoci e Simultanee" - Documento di consenso italiano</div>
+        </div>
+        <div class="reference-item">
+          <div class="reference-title">NCCN Guidelines</div>
+          <div class="reference-description">Linee guida internazionali per cure palliative in oncologia</div>
+        </div>
+        <div class="reference-item">
+          <div class="reference-title">Gold Standard Framework</div>
+          <div class="reference-description">Approccio sistematico per identificazione e care planning</div>
+        </div>
+        <div class="reference-item">
+          <div class="reference-title">EAPC Basic Dataset</div>
+          <div class="reference-description">Standard europeo per la valutazione multidimensionale</div>
+        </div>
+      </div>
+
+      <div class="content-card">
+        <h3><i class="fas fa-stethoscope me-2"></i>Focus Clinico</h3>
+        <div class="clinical-item">
+          <div class="clinical-title">Early Integration</div>
+          <div class="clinical-description">Le cure palliative precoci migliorano qualità di vita e sopravvivenza globale</div>
+        </div>
+        <div class="clinical-item">
+          <div class="clinical-title">Timing di Attivazione</div>
+          <div class="clinical-description">Considera attivazione quando NECPAL ≥2 indicatori o KPS ≤70%</div>
+        </div>
+        <div class="clinical-item">
+          <div class="clinical-title">Assessment Multidimensionale</div>
+          <div class="clinical-description">Valutazione olistica del paziente: fisica, psicologica, sociale, spirituale</div>
+        </div>
+        <div class="clinical-item">
+          <div class="clinical-title">Comunicazione</div>
+          <div class="clinical-description">Colloqui graduali e patient-centered per goals of care e advance care planning</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Start Guide -->
+    <div class="quick-start">
+      <h2><i class="fas fa-play-circle me-2"></i>Primo Accesso?</h2>
+      <p>Inizia con la sezione Identificazione per screening dei pazienti candidati alle cure palliative</p>
+      <button class="start-button" onclick="openCategory('identificazione')">
+        <i class="fas fa-arrow-right me-2"></i>Inizia da Identificazione
+      </button>
+    </div>
+  </div>
+</div>
 
     <!-- SEZIONE Gestione Sintomi -->
     <?php include __DIR__ . '/gestione-sintomi.php'; ?>
@@ -640,6 +841,7 @@
 <script src="/js/sedazione.js"></script>
 <script src="/js/documents.js"></script>
 <script src="/js/archivio.js"></script>
+<script src="js/dashboard.js"></script>
 <script src="js/strumenti-valutazione.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', function () {
