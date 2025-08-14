@@ -14,6 +14,9 @@
     <div class="container-fluid">
         <!-- Main View -->
         <div id="main-view">
+            <div class="mb-3">
+                <a href="index.php" class="btn btn-success"><i class="fas fa-arrow-left me-2"></i>Torna alle Categorie</a>
+            </div>
             <div class="delirium-header">
                 <h1><i class="fas fa-brain me-3"></i>Scale di Valutazione Delirium</h1>
                 <p>Strumenti clinici per la diagnosi e il monitoraggio del delirium in ambito sanitario</p>
