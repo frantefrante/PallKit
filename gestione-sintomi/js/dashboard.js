@@ -1,31 +1,29 @@
 function openCategory(category) {
-    const routes = {
-        identificazione: 'identificazione.php',
-        complessita: 'strumenti-idcpal.php',
-        prognosi: 'strumenti-prognosi.php',
-        multidimensionale: 'strumenti-multidimensionali.php',
-        performance: 'strumenti-performance.php'
+    const sections = {
+        identificazione: 'identificazione-home',
+        complessita: 'idcpal-home',
+        prognosi: 'prognosi-home',
+        multidimensionale: 'multidimensionale-home',
+        performance: 'performance-home'
     };
-    const url = routes[category];
-    if (url) {
-        window.location.href = url;
+    const sectionId = sections[category];
+    if (sectionId) {
+        navigateToSection(sectionId);
     }
 }
 
 function openTool(tool) {
-    const routes = {
-        ppi: 'strumenti-prognosi.php',
-        necpal: 'strumenti-necpal40.php',
-        akps: 'strumenti-performance.php',
-        equianalgesia: () => navigateToSection('equianalgesia-section'),
-        esas: 'strumenti-esas.php',
-        ipos: 'strumenti-ipos.php'
+    const sections = {
+        ppi: 'ppi-home',
+        necpal: 'necpal40-home',
+        akps: 'akps-home',
+        equianalgesia: 'equianalgesia-section',
+        esas: 'esas-home',
+        ipos: 'ipos-home'
     };
-    const action = routes[tool];
-    if (typeof action === 'function') {
-        action();
-    } else if (action) {
-        window.location.href = action;
+    const sectionId = sections[tool];
+    if (sectionId) {
+        navigateToSection(sectionId);
     }
 }
 
