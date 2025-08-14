@@ -373,14 +373,15 @@ function showSection(sectionId) {
   if (activeLink) activeLink.classList.add('active');
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+function initStrumentiValutazione() {
   const searchInput = document.getElementById('searchCategories');
   if (searchInput) {
     searchInput.addEventListener('input', function(e) {
       const term = e.target.value.toLowerCase();
       document.querySelectorAll('.category-card').forEach(card => {
         const title = card.querySelector('h5').textContent.toLowerCase();
-        const desc = card.querySelector('.category-description').textContent.toLowerCase();
+        const descEl = card.querySelector('.category-description');
+        const desc = descEl ? descEl.textContent.toLowerCase() : '';
         const tools = Array.from(card.querySelectorAll('.tool-badge')).map(b => b.textContent.toLowerCase()).join(' ');
         const match = title.includes(term) || desc.includes(term) || tools.includes(term);
         card.style.display = (match || term === '') ? 'block' : 'none';
@@ -410,7 +411,13 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   console.log('✅ Strumenti di Valutazione inizializzati correttamente');
-});
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initStrumentiValutazione);
+} else {
+  initStrumentiValutazione();
+}
 
 function animateStats() {
   const statNumbers = document.querySelectorAll('.stat-number');
