@@ -11,18 +11,18 @@
     </button>
   </div>
   <div class="section-container">
-    <div class="rass-header">
-      <h1><i class="fas fa-stethoscope me-3"></i>RASS</h1>
-      <p>Richmond Agitation-Sedation Scale - Valutazione del livello di sedazione</p>
-      <div class="mode-selector">
-        <a href="#" class="mode-btn active" data-mode="compile" onclick="switchRASSMode('compile');return false;">
-          <i class="fas fa-edit me-2"></i>Compila Scala
-        </a>
-        <a href="#" class="mode-btn" data-mode="visualize" onclick="switchRASSMode('visualize');return false;">
-          <i class="fas fa-eye me-2"></i>Visualizza Scala
-        </a>
+      <div class="rass-header">
+        <h1><i class="fas fa-chart-line me-3"></i>RASS</h1>
+        <p>Richmond Agitation-Sedation Scale - Valutazione precisa del livello di sedazione</p>
+        <div class="mode-selector">
+          <a href="#" class="mode-btn active" data-mode="compile" onclick="switchRASSMode('compile');return false;">
+            <i class="fas fa-edit me-2"></i>Compila Scala
+          </a>
+          <a href="#" class="mode-btn" data-mode="visualize" onclick="switchRASSMode('visualize');return false;">
+            <i class="fas fa-eye me-2"></i>Visualizza Template
+          </a>
+        </div>
       </div>
-    </div>
 
     <div id="compile-section" class="content-section active">
       <div class="compile-container">
@@ -100,17 +100,14 @@
           <div class="result-description" id="rass-description-display">-</div>
         </div>
 
-        <div class="action-buttons">
-          <button class="btn btn-danger" onclick="resetRASSForm()">
-            <i class="fas fa-undo me-2"></i>Reset
-          </button>
-          <button class="btn btn-primary" onclick="printRASS('compile');return false;">
-            <i class="fas fa-print me-2"></i>Stampa Scheda
-          </button>
-          <button class="btn btn-outline-primary" onclick="printRASSReport();return false;">
-            <i class="fas fa-file-arrow-down me-2"></i>Scarica Report
-          </button>
-        </div>
+          <div class="action-buttons">
+            <button class="btn btn-danger" onclick="resetRASSForm();return false;">
+              <i class="fas fa-undo me-2"></i>Reset
+            </button>
+            <button class="btn btn-primary" onclick="printRASSReport();return false;">
+              <i class="fas fa-print me-2"></i>Stampa Report
+            </button>
+          </div>
       </div>
     </div>
 
@@ -171,14 +168,14 @@
             <div><strong>Cure Palliative:</strong><br><span style="color: #495057;">Target: personalizzato<br>Comfort del paziente</span></div>
           </div>
         </div>
-        <div class="action-buttons" style="margin-top: 2rem; page-break-inside: avoid;">
-          <button class="btn btn-primary" onclick="printRASS('visualize');return false;">
-            <i class="fas fa-print me-2"></i>Stampa Template
-          </button>
-          <button class="btn" style="background: white; color: var(--rass-primary); border: 2px solid var(--rass-primary);" onclick="switchRASSMode('compile');return false;">
-            <i class="fas fa-edit me-2"></i>Torna a Compila
-          </button>
-        </div>
+          <div class="action-buttons" style="margin-top: 2rem; page-break-inside: avoid;">
+            <button class="btn btn-primary" onclick="window.print();return false;">
+              <i class="fas fa-print me-2"></i>Stampa Template
+            </button>
+            <button class="btn" style="background: white; color: var(--rass-primary); border: 2px solid var(--rass-primary);" onclick="switchRASSMode('compile');return false;">
+              <i class="fas fa-edit me-2"></i>Torna a Compila
+            </button>
+          </div>
       </div>
     </div>
   </div>

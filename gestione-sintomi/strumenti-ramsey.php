@@ -11,18 +11,18 @@
     </button>
   </div>
   <div class="section-container">
-    <div class="ramsey-header">
-      <h1><i class="fas fa-bed me-3"></i>Ramsey</h1>
-      <p>Ramsey Sedation Scale - Scala tradizionale per la valutazione della sedazione</p>
-      <div class="mode-selector">
-        <a href="#" class="mode-btn active" data-mode="compile" onclick="switchRamseyMode('compile');return false;">
-          <i class="fas fa-edit me-2"></i>Compila Scala
-        </a>
-        <a href="#" class="mode-btn" data-mode="visualize" onclick="switchRamseyMode('visualize');return false;">
-          <i class="fas fa-eye me-2"></i>Visualizza Scala
-        </a>
+      <div class="ramsey-header">
+        <h1><i class="fas fa-bed me-3"></i>Ramsey</h1>
+        <p>Ramsey Sedation Scale - Scala tradizionale per la valutazione della sedazione</p>
+        <div class="mode-selector">
+          <a href="#" class="mode-btn active" data-mode="compile" onclick="switchRamseyMode('compile');return false;">
+            <i class="fas fa-edit me-2"></i>Compila Scala
+          </a>
+          <a href="#" class="mode-btn" data-mode="visualize" onclick="switchRamseyMode('visualize');return false;">
+            <i class="fas fa-eye me-2"></i>Visualizza Template
+          </a>
+        </div>
       </div>
-    </div>
 
     <div id="compile-section" class="content-section active">
       <div class="compile-container">
@@ -84,17 +84,14 @@
           <div class="result-description" id="ramsey-description-display">-</div>
         </div>
 
-        <div class="action-buttons">
-          <button class="btn btn-danger" onclick="resetRamseyForm()">
-            <i class="fas fa-undo me-2"></i>Reset
-          </button>
-          <button class="btn btn-primary" onclick="printRamsey('compile');return false;">
-            <i class="fas fa-print me-2"></i>Stampa Scheda
-          </button>
-          <button class="btn btn-outline-primary" onclick="printRamseyReport();return false;">
-            <i class="fas fa-file-arrow-down me-2"></i>Scarica Report
-          </button>
-        </div>
+          <div class="action-buttons">
+            <button class="btn btn-danger" onclick="resetRamseyForm();return false;">
+              <i class="fas fa-undo me-2"></i>Reset
+            </button>
+            <button class="btn btn-primary" onclick="printRamseyReport();return false;">
+              <i class="fas fa-print me-2"></i>Stampa Report
+            </button>
+          </div>
       </div>
     </div>
 
@@ -181,14 +178,14 @@
             La scala Ramsey è stata storicamente utilizzata prima dello sviluppo della RASS. Mentre rimane utile per valutazioni rapide, la RASS offre maggiore precisione e validazione scientifica, particolarmente per pazienti critici e agitati.
           </p>
         </div>
-        <div class="action-buttons" style="margin-top: 2rem; page-break-inside: avoid;">
-          <button class="btn btn-primary" onclick="printRamsey('visualize');return false;">
-            <i class="fas fa-print me-2"></i>Stampa Template
-          </button>
-          <button class="btn" style="background: white; color: var(--ramsey-primary); border: 2px solid var(--ramsey-primary);" onclick="switchRamseyMode('compile');return false;">
-            <i class="fas fa-edit me-2"></i>Torna a Compila
-          </button>
-        </div>
+          <div class="action-buttons" style="margin-top: 2rem; page-break-inside: avoid;">
+            <button class="btn btn-primary" onclick="window.print();return false;">
+              <i class="fas fa-print me-2"></i>Stampa Template
+            </button>
+            <button class="btn" style="background: white; color: var(--ramsey-primary); border: 2px solid var(--ramsey-primary);" onclick="switchRamseyMode('compile');return false;">
+              <i class="fas fa-edit me-2"></i>Torna a Compila
+            </button>
+          </div>
       </div>
     </div>
   </div>

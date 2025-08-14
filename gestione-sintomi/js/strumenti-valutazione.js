@@ -113,42 +113,55 @@ function loadCategoryContent(categoryName) {
     <p class="page-subtitle">Scale di valutazione del livello di sedazione e agitazione</p>
   </div>
   <div class="tools-grid">
-    <div class="tool-card sedazione-card">
+    <div class="tool-card tool-card-compact h-100 sedazione-card">
       <div class="tool-header">
-        <div class="tool-icon-large"><span class="tool-letters">RASS</span></div>
+        <div class="tool-icon-large">
+          <span class="tool-letters">RASS</span>
+        </div>
         <div class="tool-info">
           <h4>RASS</h4>
           <div class="tool-subtitle">Richmond Agitation-Sedation Scale</div>
         </div>
       </div>
       <div class="tool-description">
-        Scala validata per la valutazione del livello di sedazione e agitazione nei pazienti critici.
+        Scala validata per la valutazione del livello di sedazione e agitazione nei pazienti critici. Range da +4 (combattivo) a -5 (non risvegliabile), con particolare focus sulla risposta agli stimoli verbali e fisici.
       </div>
       <div class="tool-features">
-        <span class="feature-badge">Scala a 10 livelli da +4 a -5</span>
+        <span class="feature-badge">Scala a 10 livelli da +4 a -5, validata scientificamente per terapia intensiva e cure palliative</span>
       </div>
       <div class="tool-actions">
-        <button class="btn btn-primary action-btn" onclick="openRASSCompile()"><i class="fas fa-edit me-2"></i>Compila</button>
-        <button class="btn btn-outline-primary action-btn" onclick="openRASSVisualize()"><i class="fas fa-eye me-2"></i>Visualizza</button>
+        <button class="btn btn-primary btn-action" onclick="openRASSCompile()">
+          <i class="fas fa-edit me-2"></i>Compila
+        </button>
+        <button class="btn btn-outline-primary btn-action" onclick="openRASSVisualize()">
+          <i class="fas fa-eye me-2"></i>Visualizza
+        </button>
       </div>
     </div>
-    <div class="tool-card sedazione-card">
+
+    <div class="tool-card tool-card-compact h-100 ramsey-card">
       <div class="tool-header">
-        <div class="tool-icon-large"><span class="tool-letters">RAM</span></div>
+        <div class="tool-icon-large">
+          <span class="tool-letters">RAM</span>
+        </div>
         <div class="tool-info">
           <h4>Ramsey</h4>
           <div class="tool-subtitle">Ramsey Sedation Scale</div>
         </div>
       </div>
       <div class="tool-description">
-        Scala tradizionale per la valutazione della sedazione in sei livelli progressivi.
+        Scala tradizionale per la valutazione della sedazione, ampiamente utilizzata in ambito clinico. Sei livelli progressivi che valutano lo stato di coscienza e la responsività del paziente agli stimoli esterni.
       </div>
       <div class="tool-features">
-        <span class="feature-badge">Scala a 6 livelli da ansioso a non responsivo</span>
+        <span class="feature-badge">Scala a 6 livelli da ansioso/agitato a non responsivo, storica e di facile utilizzo clinico</span>
       </div>
       <div class="tool-actions">
-        <button class="btn btn-primary action-btn" onclick="openRamseyCompile()"><i class="fas fa-edit me-2"></i>Compila</button>
-        <button class="btn btn-outline-primary action-btn" onclick="openRamseyVisualize()"><i class="fas fa-eye me-2"></i>Visualizza</button>
+        <button class="btn btn-primary btn-action" onclick="openRamseyCompile()">
+          <i class="fas fa-edit me-2"></i>Compila
+        </button>
+        <button class="btn btn-outline-primary btn-action" onclick="openRamseyVisualize()">
+          <i class="fas fa-eye me-2"></i>Visualizza
+        </button>
       </div>
     </div>
   </div>

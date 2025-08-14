@@ -269,36 +269,62 @@
   line-height: 1.5;
 }
 
+/* Categoria Sedazione */
 .tool-card.sedazione-card {
-  border: 3px solid #6c757d;
+  border: 3px solid #17a2b8;
 }
 
 .tool-card.sedazione-card .tool-icon-large {
-  background: linear-gradient(135deg, #6c757d, #495057);
-  box-shadow: 0 4px 16px rgba(108,117,125,0.3);
+  background: linear-gradient(135deg, #17a2b8, #138496);
+  box-shadow: 0 4px 16px rgba(23, 162, 184, 0.3);
 }
 
 .tool-card.sedazione-card:hover {
-  border-color: #495057;
+  border-color: #138496;
 }
 
 .tool-card.sedazione-card .btn-primary {
-  background: linear-gradient(135deg, #6c757d, #495057);
+  background: linear-gradient(135deg, #17a2b8, #138496);
 }
 
 .tool-card.sedazione-card .btn-outline-primary {
-  border: 2px solid #6c757d;
-  color: #6c757d !important;
-  background: #f8f9fa;
-}
-
-.tool-card.sedazione-card .btn-outline-primary i {
-  color: #6c757d !important;
+  border: 2px solid #17a2b8;
+  color: #17a2b8;
+  background: white;
 }
 
 .tool-card.sedazione-card .btn-outline-primary:hover {
-  background: #6c757d;
-  color: white !important;
+  background: #17a2b8;
+  color: white;
+}
+
+/* Categoria Sedazione - Ramsey variante viola */
+.tool-card.ramsey-card {
+  border: 3px solid #6f42c1;
+}
+
+.tool-card.ramsey-card .tool-icon-large {
+  background: linear-gradient(135deg, #6f42c1, #5936b4);
+  box-shadow: 0 4px 16px rgba(111, 66, 193, 0.3);
+}
+
+.tool-card.ramsey-card:hover {
+  border-color: #5936b4;
+}
+
+.tool-card.ramsey-card .btn-primary {
+  background: linear-gradient(135deg, #6f42c1, #5936b4);
+}
+
+.tool-card.ramsey-card .btn-outline-primary {
+  border: 2px solid #6f42c1;
+  color: #6f42c1;
+  background: white;
+}
+
+.tool-card.ramsey-card .btn-outline-primary:hover {
+  background: #6f42c1;
+  color: white;
 }
 
 .tool-card.delirium-card {

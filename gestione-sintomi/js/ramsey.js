@@ -14,9 +14,9 @@ document.addEventListener('DOMContentLoaded', () => {
 function switchRamseyMode(mode) {
   if (!ramseyContainer) return;
   ramseyContainer.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
+  ramseyContainer.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
   const targetBtn = ramseyContainer.querySelector(`.mode-btn[data-mode="${mode}"]`);
   if (targetBtn) targetBtn.classList.add('active');
-  ramseyContainer.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
   const targetSection = ramseyContainer.querySelector(`#${mode}-section`);
   if (targetSection) targetSection.classList.add('active');
 }
@@ -81,7 +81,7 @@ function resetRamseyForm() {
 
 function printRamseyReport() {
   if (!ramseyContainer || selectedRamseyScore === null) {
-    alert('Seleziona un punteggio Ramsey prima di stampare il report.');
+    alert('Seleziona un punteggio Ramsey prima di scaricare il report.');
     return;
   }
   const patientName = ramseyContainer.querySelector('#ramsey-patient-name').value || 'Non specificato';
@@ -105,19 +105,6 @@ Punteggio Ramsey: ${selectedRamseyScore}
 Livello: ${level}
 Interpretazione: ${description}
 
-SCALA RAMSEY COMPLETA:
-1: Paziente ansioso, agitato o irrequieto
-2: Paziente cooperativo, orientato e tranquillo
-3: Paziente risponde solo ai comandi
-4: Risposta vivace al tocco glabellare o stimolo sonoro forte
-5: Risposta debole al tocco glabellare o stimolo sonoro forte
-6: Nessuna risposta
-
-OBIETTIVI CLINICI:
-• Target ottimale: Livello 2-3
-• Sedazione procedurale: Livello 3-4
-• Evitare: Livello 1 e 6
-
 Report generato il: ${new Date().toLocaleString('it-IT')}
   `.trim();
   const blob = new Blob([reportContent], {type: 'text/plain;charset=utf-8'});
@@ -127,17 +114,3 @@ Report generato il: ${new Date().toLocaleString('it-IT')}
   link.click();
 }
 
-function printRamsey(section) {
-  const compile = document.getElementById('compile-section');
-  const visualize = document.getElementById('visualize-section');
-  if (section === 'visualize') {
-    compile.classList.add('print-hide');
-  } else {
-    visualize.classList.add('print-hide');
-  }
-  document.body.classList.add('print-ramsey');
-  window.print();
-  document.body.classList.remove('print-ramsey');
-  compile.classList.remove('print-hide');
-  visualize.classList.remove('print-hide');
-}
