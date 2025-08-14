@@ -3,15 +3,49 @@ let currentCAMFeatures = {1: null, 2: null, 3: null, 4: null};
 
 document.addEventListener('DOMContentLoaded', function() {
   const today = new Date().toISOString().split('T')[0];
-  document.querySelectorAll('#4at-home input[type="date"], #cam-home input[type="date"]').forEach(inp => {
+  document.querySelectorAll('#4at-assessment input[type="date"], #cam-assessment input[type="date"]').forEach(inp => {
     if (!inp.value) inp.value = today;
   });
 });
 
+function showMainView() {
+  document.getElementById('main-view').style.display = 'block';
+  document.getElementById('4at-assessment').classList.remove('active');
+  document.getElementById('cam-assessment').classList.remove('active');
+}
+
+function show4ATAssessment() {
+  document.getElementById('main-view').style.display = 'none';
+  document.getElementById('4at-assessment').classList.add('active');
+  document.getElementById('cam-assessment').classList.remove('active');
+  switch4ATMode('compile');
+}
+
+function show4ATReference() {
+  document.getElementById('main-view').style.display = 'none';
+  document.getElementById('4at-assessment').classList.add('active');
+  document.getElementById('cam-assessment').classList.remove('active');
+  switch4ATMode('reference');
+}
+
+function showCAMAssessment() {
+  document.getElementById('main-view').style.display = 'none';
+  document.getElementById('cam-assessment').classList.add('active');
+  document.getElementById('4at-assessment').classList.remove('active');
+  switchCAMMode('compile');
+}
+
+function showCAMReference() {
+  document.getElementById('main-view').style.display = 'none';
+  document.getElementById('cam-assessment').classList.add('active');
+  document.getElementById('4at-assessment').classList.remove('active');
+  switchCAMMode('reference');
+}
+
 function switch4ATMode(mode) {
   const compile = document.getElementById('4at-compile');
   const reference = document.getElementById('4at-reference');
-  const buttons = document.querySelectorAll('#4at-home .mode-btn');
+  const buttons = document.querySelectorAll('#4at-assessment .mode-btn');
   buttons.forEach(b => b.classList.remove('active'));
   if (mode === 'compile') {
     compile.classList.remove('hidden');
@@ -67,9 +101,9 @@ function calculate4ATScore() {
 
 function reset4AT() {
   current4ATScores = {1: null, 2: null, 3: null, 4: null};
-  document.querySelectorAll('#4at-home input[type="radio"]').forEach(i => i.checked = false);
-  document.querySelectorAll('#4at-home .radio-option').forEach(o => o.classList.remove('selected'));
-  document.querySelectorAll('#4at-home .question-item').forEach(i => i.classList.remove('completed'));
+  document.querySelectorAll('#4at-assessment input[type="radio"]').forEach(i => i.checked = false);
+  document.querySelectorAll('#4at-assessment .radio-option').forEach(o => o.classList.remove('selected'));
+  document.querySelectorAll('#4at-assessment .question-item').forEach(i => i.classList.remove('completed'));
   update4ATProgress();
   document.getElementById('4at-results').classList.add('hidden');
 }
@@ -81,7 +115,7 @@ function print4AT() {
 function switchCAMMode(mode) {
   const compile = document.getElementById('cam-compile');
   const reference = document.getElementById('cam-reference');
-  const buttons = document.querySelectorAll('#cam-home .mode-btn');
+  const buttons = document.querySelectorAll('#cam-assessment .mode-btn');
   buttons.forEach(b => b.classList.remove('active'));
   if (mode === 'compile') {
     compile.classList.remove('hidden');
@@ -135,9 +169,9 @@ function calculateCAMDiagnosis() {
 
 function resetCAM() {
   currentCAMFeatures = {1: null, 2: null, 3: null, 4: null};
-  document.querySelectorAll('#cam-home input[type="radio"]').forEach(i => i.checked = false);
-  document.querySelectorAll('#cam-home .radio-option').forEach(o => o.classList.remove('selected'));
-  document.querySelectorAll('#cam-home .question-item').forEach(i => i.classList.remove('completed'));
+  document.querySelectorAll('#cam-assessment input[type="radio"]').forEach(i => i.checked = false);
+  document.querySelectorAll('#cam-assessment .radio-option').forEach(o => o.classList.remove('selected'));
+  document.querySelectorAll('#cam-assessment .question-item').forEach(i => i.classList.remove('completed'));
   updateCAMProgress();
   document.getElementById('cam-results').classList.add('hidden');
 }

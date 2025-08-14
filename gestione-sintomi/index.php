@@ -365,7 +365,7 @@
           </div>
 
           <!-- DELIRIUM -->
-          <div class="category-card delirium" onclick="openCategoryView('delirium')">
+          <div class="category-card delirium" onclick="window.location.href='delirium.php'">
             <div class="category-header">
               <div class="category-icon">🧩</div>
               <div class="category-info">
@@ -474,12 +474,6 @@
 
     <!-- SEZIONE DN4 -->
     <?php include __DIR__ . '/strumenti-dn4.php'; ?>
-
-    <!-- SEZIONE 4AT -->
-    <?php include __DIR__ . '/strumenti-4at.php'; ?>
-
-    <!-- SEZIONE CAM -->
-    <?php include __DIR__ . '/strumenti-cam.php'; ?>
 
     <!-- SEZIONE RASS -->
     <?php include __DIR__ . '/strumenti-rass.php'; ?>
