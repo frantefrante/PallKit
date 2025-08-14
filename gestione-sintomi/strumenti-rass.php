@@ -12,14 +12,14 @@
   </div>
   <div class="section-container">
       <div class="rass-header">
-        <h1><i class="fas fa-chart-line me-3"></i>RASS</h1>
+        <h1>RASS</h1>
         <p>Richmond Agitation-Sedation Scale - Valutazione precisa del livello di sedazione</p>
         <div class="mode-selector">
           <a href="#" class="mode-btn active" data-mode="compile" onclick="switchRASSMode('compile');return false;">
-            <i class="fas fa-edit me-2"></i>Compila Scala
+            📝 Compila Scala
           </a>
           <a href="#" class="mode-btn" data-mode="visualize" onclick="switchRASSMode('visualize');return false;">
-            <i class="fas fa-eye me-2"></i>Visualizza Template
+            👁️ Visualizza Template
           </a>
         </div>
       </div>
@@ -27,7 +27,7 @@
     <div id="compile-section" class="content-section active">
       <div class="compile-container">
         <div class="patient-data">
-          <h4><i class="fas fa-user me-2"></i>Dati Paziente</h4>
+          <h4>👤 Dati Paziente</h4>
           <div class="form-row">
             <div class="form-group">
               <label class="form-label">Nome Paziente</label>
@@ -102,10 +102,10 @@
 
           <div class="action-buttons">
             <button class="btn btn-danger" onclick="resetRASSForm();return false;">
-              <i class="fas fa-undo me-2"></i>Reset
+              🔄 Reset
             </button>
             <button class="btn btn-primary" onclick="printRASSReport();return false;">
-              <i class="fas fa-print me-2"></i>Stampa Report
+              🖨️ Stampa Report
             </button>
           </div>
       </div>
@@ -152,7 +152,7 @@
           </tbody>
         </table>
         <div class="instructions">
-          <h4><i class="fas fa-info-circle me-2"></i>Istruzioni per la valutazione RASS:</h4>
+          <h4>📋 Istruzioni per la valutazione RASS:</h4>
           <ol>
             <li><strong>Osservare il paziente:</strong> Se vigile, calmo e non agitato = Punteggio 0</li>
             <li><strong>Se non vigile:</strong> Chiamare il paziente per nome e dire di aprire gli occhi e guardare chi parla</li>
@@ -161,7 +161,7 @@
           </ol>
         </div>
         <div style="background: #fff3cd; border: 1px solid #ffeaa7; padding: 1rem; border-radius: 8px; margin-top: 2rem;">
-          <h4 style="color: #856404; margin-bottom: 1rem;"><i class="fas fa-target me-2"></i>Obiettivi Clinici RASS</h4>
+          <h4 style="color: #856404; margin-bottom: 1rem;">🎯 Obiettivi Clinici RASS</h4>
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
             <div><strong>Terapia Intensiva:</strong><br><span style="color: #495057;">Target: da -2 a 0<br>V evitare: +2 o superiore</span></div>
             <div><strong>Ventilazione Meccanica:</strong><br><span style="color: #495057;">Target: da -3 a -1<br>Sedazione controllata</span></div>
@@ -170,10 +170,10 @@
         </div>
           <div class="action-buttons" style="margin-top: 2rem; page-break-inside: avoid;">
             <button class="btn btn-primary" onclick="printRASSTemplate();return false;">
-              <i class="fas fa-print me-2"></i>Stampa Template
+              🖨️ Stampa Template
             </button>
             <button class="btn" style="background: white; color: var(--rass-primary); border: 2px solid var(--rass-primary);" onclick="switchRASSMode('compile');return false;">
-              <i class="fas fa-edit me-2"></i>Torna a Compila
+              ✏️ Torna a Compila
             </button>
           </div>
       </div>

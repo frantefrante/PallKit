@@ -12,14 +12,14 @@
   </div>
   <div class="section-container">
       <div class="ramsey-header">
-        <h1><i class="fas fa-bed me-3"></i>Ramsey</h1>
+        <h1>Ramsey</h1>
         <p>Ramsey Sedation Scale - Scala tradizionale per la valutazione della sedazione</p>
         <div class="mode-selector">
           <a href="#" class="mode-btn active" data-mode="compile" onclick="switchRamseyMode('compile');return false;">
-            <i class="fas fa-edit me-2"></i>Compila Scala
+            📝 Compila Scala
           </a>
           <a href="#" class="mode-btn" data-mode="visualize" onclick="switchRamseyMode('visualize');return false;">
-            <i class="fas fa-eye me-2"></i>Visualizza Template
+            👁️ Visualizza Template
           </a>
         </div>
       </div>
@@ -27,7 +27,7 @@
     <div id="compile-section" class="content-section active">
       <div class="compile-container">
         <div class="patient-data">
-          <h4><i class="fas fa-user me-2"></i>Dati Paziente</h4>
+          <h4>👤 Dati Paziente</h4>
           <div class="form-row">
             <div class="form-group">
               <label class="form-label">Nome Paziente</label>
@@ -86,10 +86,10 @@
 
           <div class="action-buttons">
             <button class="btn btn-danger" onclick="resetRamseyForm();return false;">
-              <i class="fas fa-undo me-2"></i>Reset
+              🔄 Reset
             </button>
             <button class="btn btn-primary" onclick="printRamseyReport();return false;">
-              <i class="fas fa-print me-2"></i>Stampa Report
+              🖨️ Stampa Report
             </button>
           </div>
       </div>
@@ -132,7 +132,7 @@
           </tbody>
         </table>
         <div class="instructions">
-          <h4><i class="fas fa-info-circle me-2"></i>Istruzioni per la valutazione Ramsey:</h4>
+          <h4>📋 Istruzioni per la valutazione Ramsey:</h4>
           <ol>
             <li><strong>Livelli 1-3:</strong> Valutare paziente sveglio in base al comportamento spontaneo</li>
             <li><strong>Livelli 4-6:</strong> Valutare paziente addormentato utilizzando stimoli progressivi</li>
@@ -142,7 +142,7 @@
           </ol>
         </div>
         <div class="clinical-notes">
-          <h4><i class="fas fa-stethoscope me-2"></i>Note Cliniche</h4>
+          <h4>🩺 Note Cliniche</h4>
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
             <div>
               <strong>Obiettivi Target:</strong><br>
@@ -173,17 +173,17 @@
           </div>
         </div>
         <div style="background: #d1ecf1; border: 1px solid #bee5eb; padding: 1rem; border-radius: 8px; margin-top: 2rem;">
-          <h4 style="color: #0c5460; margin-bottom: 1rem;"><i class="fas fa-lightbulb me-2"></i>Confronto con RASS</h4>
+          <h4 style="color: #0c5460; margin-bottom: 1rem;">💡 Confronto con RASS</h4>
           <p style="margin: 0; color: #495057;">
             La scala Ramsey è stata storicamente utilizzata prima dello sviluppo della RASS. Mentre rimane utile per valutazioni rapide, la RASS offre maggiore precisione e validazione scientifica, particolarmente per pazienti critici e agitati.
           </p>
         </div>
           <div class="action-buttons" style="margin-top: 2rem; page-break-inside: avoid;">
             <button class="btn btn-primary" onclick="printRamseyTemplate();return false;">
-              <i class="fas fa-print me-2"></i>Stampa Template
+              🖨️ Stampa Template
             </button>
             <button class="btn" style="background: white; color: var(--ramsey-primary); border: 2px solid var(--ramsey-primary);" onclick="switchRamseyMode('compile');return false;">
-              <i class="fas fa-edit me-2"></i>Torna a Compila
+              ✏️ Torna a Compila
             </button>
           </div>
       </div>
