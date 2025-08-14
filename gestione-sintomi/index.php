@@ -373,15 +373,15 @@
                 <small>2 strumenti</small>
               </div>
               <div class="category-status">
-                <span class="badge bg-warning">In Sviluppo</span>
+                <span class="badge bg-success">✅ Disponibile</span>
               </div>
             </div>
             <div class="category-description">
               Strumenti per assessment e screening del delirium
             </div>
             <div class="category-tools">
-              <span class="tool-badge">4AT</span>
-              <span class="tool-badge">CAM</span>
+              <span class="tool-badge available">4AT</span>
+              <span class="tool-badge available">CAM</span>
             </div>
           </div>
 

@@ -133,8 +133,14 @@ function loadCategoryContent(categoryName) {
       icon: '🧩',
       description: 'Strumenti per assessment e screening del delirium',
       tools: [
-        { name: '4AT', subtitle: "4 'A's Test", description: 'Strumento rapido di screening per delirium e deterioramento cognitivo.', available: false },
-        { name: 'CAM', subtitle: 'Confusion Assessment Method', description: 'Metodo standard per la diagnosi di delirium validato in ambito clinico.', available: false }
+        { name: '4AT', subtitle: "4 'A's Test", description: 'Strumento rapido di screening per delirium e deterioramento cognitivo.', available: true, actions: [
+          { name: 'Compila', class: 'btn-success', icon: 'fas fa-edit', action: "navigateToSection('4at-home'); switch4ATMode('compile');" },
+          { name: 'Visualizza', class: 'btn-outline-success', icon: 'fas fa-eye', action: "navigateToSection('4at-home'); switch4ATMode('reference');" }
+        ]},
+        { name: 'CAM', subtitle: 'Confusion Assessment Method', description: 'Metodo standard per la diagnosi di delirium validato in ambito clinico.', available: true, actions: [
+          { name: 'Compila', class: 'btn-success', icon: 'fas fa-edit', action: "navigateToSection('cam-home'); switchCAMMode('compile');" },
+          { name: 'Visualizza', class: 'btn-outline-success', icon: 'fas fa-eye', action: "navigateToSection('cam-home'); switchCAMMode('reference');" }
+        ]}
       ]
     },
     'sedazione': {
