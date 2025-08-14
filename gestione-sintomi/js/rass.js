@@ -92,7 +92,7 @@ function printRASSTemplate() {
   w.onload = () => {
     w.focus();
     w.print();
-    w.onafterprint = () => w.close();
+    setTimeout(() => w.close(), 100);
   };
 }
 
@@ -110,31 +110,79 @@ function printRASSReport() {
   const description = rassContainer.querySelector('#rass-description-display').textContent;
   const score = selectedRASSScore > 0 ? `+${selectedRASSScore}` : selectedRASSScore;
 
-  const reportHTML = `
-  <div class="print-template">
-    <div class="template-header">
-      <div class="template-title">Report Valutazione RASS</div>
-      <div class="template-subtitle">Richmond Agitation-Sedation Scale</div>
+  const reportHTML = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Report Valutazione RASS</title>
+  <style>
+    body { font-family: 'Times New Roman', serif; margin: 20px; line-height: 1.6; color: #333; }
+    .report-header { text-align: center; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 3px solid #17a2b8; }
+    .report-title { font-size: 2.2rem; color: #17a2b8; margin-bottom: 0.5rem; font-weight: 700; }
+    .report-subtitle { font-size: 1.2rem; color: #6c757d; font-style: italic; }
+    .patient-info { background: #f8f9fa; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0; border-left: 5px solid #17a2b8; }
+    .patient-info h4 { color: #17a2b8; margin-bottom: 1rem; font-size: 1.3rem; }
+    .patient-info p { margin: 0.5rem 0; font-size: 1.1rem; }
+    .results-section { background: linear-gradient(135deg, #17a2b8, #138496); color: white; padding: 2rem; border-radius: 12px; text-align: center; margin: 2rem 0; page-break-inside: avoid; }
+    .result-score { font-size: 4rem; font-weight: 700; margin-bottom: 1rem; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+    .result-level { font-size: 1.8rem; margin-bottom: 1rem; font-weight: 600; }
+    .result-description { font-size: 1.2rem; line-height: 1.5; opacity: 0.95; }
+    .scale-reference { margin-top: 2rem; padding: 1.5rem; background: #f8f9fa; border-radius: 8px; page-break-inside: avoid; }
+    .scale-reference h4 { color: #17a2b8; margin-bottom: 1rem; font-size: 1.3rem; }
+    .scale-reference p { margin: 0.5rem 0; padding-left: 1rem; }
+    .clinical-section { margin-top: 1.5rem; padding: 1.5rem; background: #fff3cd; border-radius: 8px; border-left: 5px solid #ffc107; }
+    .clinical-section h4 { color: #856404; margin-bottom: 1rem; }
+    .clinical-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem; }
+    .clinical-item { background: white; padding: 1rem; border-radius: 6px; border: 1px solid #ffeaa7; }
+    .clinical-item strong { color: #856404; display: block; margin-bottom: 0.5rem; }
+    .footer { margin-top: 3rem; text-align: center; font-size: 0.9rem; color: #6c757d; border-top: 1px solid #dee2e6; padding-top: 1rem; }
+    .timestamp { font-style: italic; color: #868e96; }
+    @media print { body { margin: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; } .results-section { background: #17a2b8 !important; -webkit-print-color-adjust: exact; } }
+  </style></head><body>
+  <div class="report-header">
+    <div class="report-title">Report Valutazione RASS</div>
+    <div class="report-subtitle">Richmond Agitation-Sedation Scale</div>
+  </div>
+  <div class="patient-info">
+    <h4>📋 Dati Paziente</h4>
+    <p><strong>Paziente:</strong> ${patientName}</p>
+    <p><strong>Data:</strong> ${date} &nbsp;&nbsp; <strong>Ora:</strong> ${time}</p>
+    <p><strong>Operatore:</strong> ${operator}</p>
+  </div>
+  <div class="results-section">
+    <div class="result-score">${score}</div>
+    <div class="result-level">${level}</div>
+    <div class="result-description">${description}</div>
+  </div>
+  <div class="scale-reference">
+    <h4>📖 Scala RASS - Riferimento Completo</h4>
+    <p><strong>+4:</strong> Combattivo - Apertamente combattivo, violento</p>
+    <p><strong>+3:</strong> Molto agitato - Tira o rimuove tubi/cateteri, aggressivo</p>
+    <p><strong>+2:</strong> Agitato - Movimenti frequenti e non finalizzati</p>
+    <p><strong>+1:</strong> Irrequieto - Ansioso ma non aggressivo</p>
+    <p><strong>0:</strong> Vigile e calmo</p>
+    <p><strong>-1:</strong> Assonnato - Risveglio alla voce ≥10 sec</p>
+    <p><strong>-2:</strong> Sedazione leggera - Risveglio alla voce <10 sec</p>
+    <p><strong>-3:</strong> Sedazione moderata - Movimento alla voce senza contatto visivo</p>
+    <p><strong>-4:</strong> Sedazione profonda - Risposta solo a stimoli fisici</p>
+    <p><strong>-5:</strong> Non risvegliabile - Nessuna risposta</p>
+  </div>
+  <div class="clinical-section">
+    <h4>🎯 Obiettivi Clinici</h4>
+    <div class="clinical-grid">
+      <div class="clinical-item"><strong>Terapia Intensiva</strong> Target: da -2 a 0</div>
+      <div class="clinical-item"><strong>Ventilazione Meccanica</strong> Target: da -3 a -1</div>
+      <div class="clinical-item"><strong>Cure Palliative</strong> Target personalizzato</div>
     </div>
-    <div class="patient-info-box">
-      <strong>Paziente:</strong> ${patientName}<br>
-      <strong>Data:</strong> ${date} &nbsp; <strong>Ora:</strong> ${time}<br>
-      <strong>Operatore:</strong> ${operator}
-    </div>
-    <div class="results-display show">
-      <div class="result-score">${score}</div>
-      <div class="result-level">${level}</div>
-      <div class="result-description">${description}</div>
-    </div>
-  </div>`;
+  </div>
+  <div class="footer">
+    <p><strong>Richmond Agitation-Sedation Scale</strong> | Report generato il: <span class="timestamp">${new Date().toLocaleString('it-IT')}</span></p>
+  </div>
+  </body></html>`;
 
   const w = window.open('', '', 'width=900,height=700');
-  w.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><link rel="stylesheet" href="css/rass.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"></head><body>${reportHTML}</body></html>`);
+  w.document.write(reportHTML);
   w.document.close();
   w.onload = () => {
     w.focus();
     w.print();
-    w.onafterprint = () => w.close();
+    setTimeout(() => w.close(), 100);
   };
 }
 

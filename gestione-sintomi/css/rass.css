@@ -40,24 +40,22 @@
 }
 
 .rass-header .mode-btn {
+  display: inline-flex;
+  align-items: center;
   padding: 1rem 2rem;
-  background: rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.25);
   color: white;
   text-decoration: none;
   border-radius: 12px;
   font-weight: 600;
   transition: all 0.3s ease;
-  border: 2px solid rgba(255,255,255,0.3);
+  border: 2px solid rgba(255,255,255,0.4);
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  opacity: 1 !important;
-  visibility: visible !important;
 }
 
 .rass-header .mode-btn:hover {
-  background: rgba(255,255,255,0.3);
-  border-color: rgba(255,255,255,0.5);
+  background: rgba(255,255,255,0.35);
+  border-color: rgba(255,255,255,0.6);
   color: white;
   text-decoration: none;
 }
@@ -66,11 +64,6 @@
   background: white;
   color: var(--rass-primary);
   border-color: white;
-}
-
-.rass-header .mode-btn:not(.active) {
-  opacity: 1 !important;
-  visibility: visible !important;
 }
 
 /* Content sections */
