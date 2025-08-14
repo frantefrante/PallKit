@@ -27,6 +27,8 @@ function showCategories() {
   if (categoryDetails) categoryDetails.style.display = 'none';
   if (backButton) backButton.style.display = 'none';
   if (mainHeader) mainHeader.style.display = 'block';
+  const dn4 = document.getElementById('dn4-home');
+  if (dn4) dn4.style.display = 'none';
 }
 
 function loadCategoryContent(categoryName) {
@@ -67,6 +69,41 @@ function loadCategoryContent(categoryName) {
     return;
   }
 
+  if (categoryName === 'dolore') {
+    categoryDetails.innerHTML = `
+<div class="valutazione-detail-section">
+  <div class="page-header mb-2">
+    <div class="page-icon mb-3">😣</div>
+    <h1 class="page-title">Valutazione del Dolore</h1>
+    <p class="page-subtitle">Strumenti specializzati per la valutazione del dolore</p>
+  </div>
+  <div class="d-flex justify-content-start mt-n2">
+    <div class="dn4-box">
+      <div class="dn4-box-header">
+        <div class="dn4-box-icon">
+          <span class="dn4-box-letters">DN4</span>
+        </div>
+        <h1 class="dn4-box-title">DN4</h1>
+        <div class="dn4-box-subtitle">Douleur Neuropathique 4 Questions</div>
+        <div class="dn4-box-description">
+          Questionario diagnostico validato per l'identificazione del dolore neuropatico attraverso 4 domande specifiche su caratteristiche del dolore e segni clinici.
+        </div>
+      </div>
+      <div class="dn4-box-features">
+        <p class="dn4-box-feature-text">10 items, Cut-off ≥4/10, Sensibilità 82.9% - Specificità 89.9%</p>
+      </div>
+      <div class="dn4-box-actions">
+        <a href="#" class="btn btn-primary-dn4 btn-dn4" onclick="openDN4Compile()"><i class="fas fa-edit"></i>Compila</a>
+        <a href="#" class="btn btn-outline-dn4 btn-dn4" onclick="openDN4Visualize()"><i class="fas fa-eye"></i>Visualizza</a>
+      </div>
+    </div>
+  </div>
+</div>`;
+    const box = categoryDetails.querySelector('.dn4-box');
+    if (box) box.scrollIntoView({behavior: 'smooth', block: 'start'});
+    return;
+  }
+
 
   const categoryData = {
     'identificazione': {
@@ -89,14 +126,6 @@ function loadCategoryContent(categoryName) {
       tools: [
         { name: 'IPOS', subtitle: 'Integrated Palliative care Outcome Scale', description: 'Scala integrata per la valutazione multidimensionale di outcome in cure palliative.', available: true, action: 'navigateToSection("ipos-home")' },
         { name: 'ESAS', subtitle: 'Edmonton Symptom Assessment System', description: 'Sistema di valutazione rapida dei sintomi più comuni in cure palliative.', available: true, action: 'openESASCompile()' }
-      ]
-    },
-    'dolore': {
-      title: 'Valutazione del Dolore',
-      icon: '😣',
-      description: 'Strumenti specializzati per la valutazione del dolore',
-      tools: [
-        { name: 'DN4', subtitle: 'Douleur Neuropathique en 4 questions', description: 'Questionario per lo screening del dolore neuropatico in 4 domande.', available: false }
       ]
     },
     'delirium': {
@@ -403,4 +432,14 @@ function openBADLVisualize() {
   if (typeof switchPerformanceMode === 'function') {
     switchPerformanceMode('badl', 'view');
   }
+}
+
+function openDN4Compile() {
+  navigateToSection('dn4-home');
+  if (typeof switchDN4Mode === 'function') switchDN4Mode('compile');
+}
+
+function openDN4Visualize() {
+  navigateToSection('dn4-home');
+  if (typeof switchDN4Mode === 'function') switchDN4Mode('visualize');
 }
