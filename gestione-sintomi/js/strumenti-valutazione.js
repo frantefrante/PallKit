@@ -128,15 +128,6 @@ function loadCategoryContent(categoryName) {
         { name: 'ESAS', subtitle: 'Edmonton Symptom Assessment System', description: 'Sistema di valutazione rapida dei sintomi più comuni in cure palliative.', available: true, action: 'openESASCompile()' }
       ]
     },
-    'delirium': {
-      title: 'Assessment Delirium',
-      icon: '🧩',
-      description: 'Strumenti per assessment e screening del delirium',
-      tools: [
-        { name: '4AT', subtitle: "4 'A's Test", description: 'Strumento rapido di screening per delirium e deterioramento cognitivo.', available: false },
-        { name: 'CAM', subtitle: 'Confusion Assessment Method', description: 'Metodo standard per la diagnosi di delirium validato in ambito clinico.', available: false }
-      ]
-    },
     'sedazione': {
       title: 'Scale di Sedazione',
       icon: '💤',
