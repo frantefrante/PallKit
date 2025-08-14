@@ -21,8 +21,8 @@
 </head>
 <body>
 <div class="container my-4">
-    <div class="mb-3">
-        <a href="index.php" class="btn btn-success me-2"><i class="fas fa-arrow-left me-2"></i>Torna alle Categorie</a>
+    <div class="mb-3 no-print">
+        <a href="index.php#strumenti-valutazione-home" class="btn btn-success me-2"><i class="fas fa-arrow-left me-2"></i>Torna alle Categorie</a>
         <a href="delirium.php" class="btn btn-outline-secondary" style="border-color:#6f42c1;color:#6f42c1;"><i class="fas fa-arrow-left me-2"></i>Torna a Delirium</a>
     </div>
 
@@ -133,7 +133,7 @@
         </ul>
     </div>
 
-    <div class="text-center mt-4">
+    <div class="text-center mt-4 no-print">
         <button class="btn btn-outline-primary" onclick="printCAMTemplate()"><i class="fas fa-print me-2"></i>Stampa Template Vuoto</button>
     </div>
 </div>

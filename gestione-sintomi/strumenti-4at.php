@@ -20,8 +20,8 @@
 </head>
 <body>
 <div class="container my-4">
-    <div class="mb-3">
-        <a href="index.php" class="btn btn-success me-2"><i class="fas fa-arrow-left me-2"></i>Torna alle Categorie</a>
+    <div class="mb-3 no-print">
+        <a href="index.php#strumenti-valutazione-home" class="btn btn-success me-2"><i class="fas fa-arrow-left me-2"></i>Torna alle Categorie</a>
         <a href="delirium.php" class="btn btn-outline-secondary" style="border-color:#6f42c1;color:#6f42c1;"><i class="fas fa-arrow-left me-2"></i>Torna a Delirium</a>
     </div>
 
@@ -75,24 +75,9 @@
         <ul class="mb-0"><li>Strumento di screening, non diagnostico</li><li>Adattare per barriere linguistiche o sensoriali</li><li>Pazienti non testabili: assegnare punteggi massimi</li></ul>
     </div>
 
-    <div class="text-center mt-4">
-        <button class="btn btn-outline-primary" onclick="print4ATTemplate()"><i class="fas fa-print me-2"></i>Stampa Template Vuoto</button>
+    <div class="text-center mt-4 no-print">
+        <button class="btn btn-outline-primary" onclick="window.print()"><i class="fas fa-print me-2"></i>Stampa</button>
     </div>
 </div>
-<script>
-function print4ATTemplate(){
-    const w=window.open('', '_blank');
-    w.document.write(`<!DOCTYPE html><html><head><title>4AT - Template Vuoto</title><style>body{font-family:Arial,sans-serif;margin:2cm;font-size:12px;line-height:1.4;}h1{text-align:center;} .section{margin-top:1.5cm;} .checkbox{display:inline-block;width:18px;height:18px;border:2px solid #000;margin-right:8px;} @page{margin:1.5cm;}</style></head><body>`);
-    w.document.write('<h1>4AT - 4 \u201cA\u2019s Test</h1><p>Paziente: ____________ Data: ____________</p>');
-    w.document.write('<div class="section"><strong>1. Vigilanza</strong><br><span class="checkbox"></span>0 Normale<br><span class="checkbox"></span>0 Moderata sonnolenza<br><span class="checkbox"></span>4 Alterata</div>');
-    w.document.write('<div class="section"><strong>2. AMT4</strong><br><span class="checkbox"></span>0 Nessun errore<br><span class="checkbox"></span>1 1 errore<br><span class="checkbox"></span>2 2+ errori / non testabile</div>');
-    w.document.write('<div class="section"><strong>3. Attenzione</strong><br><span class="checkbox"></span>0 7+ mesi corretti<br><span class="checkbox"></span>1 &lt;7 mesi / rifiuta<br><span class="checkbox"></span>2 Non testabile</div>');
-    w.document.write('<div class="section"><strong>4. Cambiamento acuto</strong><br><span class="checkbox"></span>0 No<br><span class="checkbox"></span>4 Sì</div>');
-    w.document.write('<div class="section"><strong>Punteggio Totale: ___/12</strong><br>0: delirium improbabile | 1-3: possibile deterioramento | ≥4: possibile delirium</div>');
-    w.document.write('</body></html>');
-    w.document.close();
-    w.print();
-}
-</script>
 </body>
 </html>

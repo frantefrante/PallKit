@@ -64,16 +64,6 @@
       </li>
 
 
-      <li class="nav-item">
-        <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#medico-modal-home">
-          <i class="fas fa-user-md me-2"></i>Dati Medico
-        </a>
-      </li>
-      <li class="nav-item">
-        <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#paziente-modal-home">
-          <i class="fas fa-user me-2"></i>Dati Paziente
-        </a>
-      </li>
     </ul>
   </nav>
 
@@ -394,15 +384,15 @@
                 <small>2 strumenti</small>
               </div>
               <div class="category-status">
-                <span class="badge bg-warning">In Sviluppo</span>
+                <span class="badge bg-success">✅ Disponibile</span>
               </div>
             </div>
             <div class="category-description">
               Scale per monitoraggio del livello di sedazione
             </div>
             <div class="category-tools">
-              <span class="tool-badge">RASS</span>
-              <span class="tool-badge">Ramsey</span>
+              <span class="tool-badge available">RASS</span>
+              <span class="tool-badge available">Ramsey</span>
             </div>
           </div>
 
@@ -620,163 +610,6 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" id="scheda-stampa">Stampa</button>
         <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Chiudi</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Modale: Dati Medico -->
-<div class="modal fade" id="medico-modal-home" tabindex="-1">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Dati Medico</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body">
-        <form id="form-medico" class="row g-3">
-          <div class="col-12 form-check">
-            <input class="form-check-input" type="checkbox" id="medico-use-test">
-            <label class="form-check-label" for="medico-use-test">Usa dati di test</label>
-          </div>
-          <div class="col-md-3">
-            <label class="form-label">Titolo</label>
-            <select class="form-select" id="medico-titolo-select">
-              <option value="">--</option>
-              <option>Dott.</option>
-              <option>Dott.ssa</option>
-              <option>Prof.</option>
-              <option>Prof.ssa</option>
-              <option value="custom">Altro…</option>
-            </select>
-            <input type="text" class="form-control mt-2 d-none" id="medico-titolo-custom" placeholder="Titolo personalizzato">
-          </div>
-          <div class="col-md-9">
-            <label class="form-label">Nome e Cognome</label>
-            <input type="text" class="form-control" id="medico-nome-input">
-          </div>
-          <div class="col-md-6">
-            <label class="form-label">Studio/Ente</label>
-            <input type="text" class="form-control" id="medico-studio-input">
-          </div>
-          <div class="col-md-6">
-            <label class="form-label">Specializzazione</label>
-            <div id="spec-list">
-              <div class="row mb-2 spec-entry align-items-center">
-                <div class="col-10"><input type="text" class="form-control spec-input"></div>
-                <div class="col-2 d-flex justify-content-end gap-1">
-                  <button class="btn btn-secondary btn-sm add-spec" type="button">+</button>
-                  <button class="btn btn-danger btn-sm remove-spec" type="button">−</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <label class="form-label">Codice Reg.</label>
-            <input type="text" class="form-control" id="medico-codice-input">
-          </div>
-          <div class="col-md-8">
-            <label class="form-label">Indirizzo</label>
-            <div id="indirizzo-list">
-              <div class="row mb-2 indirizzo-entry align-items-center">
-                <div class="col-10"><input type="text" class="form-control indirizzo-input"></div>
-                <div class="col-2 d-flex justify-content-end gap-1">
-                  <button class="btn btn-secondary btn-sm add-indirizzo" type="button">+</button>
-                  <button class="btn btn-danger btn-sm remove-indirizzo" type="button">−</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <label class="form-label">Telefono</label>
-            <div id="tel-list">
-              <div class="row mb-2 tel-entry align-items-center">
-                <div class="col-10"><input type="text" class="form-control tel-input"></div>
-                <div class="col-2 d-flex justify-content-end gap-1">
-                  <button class="btn btn-secondary btn-sm add-tel" type="button">+</button>
-                  <button class="btn btn-danger btn-sm remove-tel" type="button">−</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <label class="form-label">Email</label>
-            <div id="mail-list">
-              <div class="row mb-2 mail-entry align-items-center">
-                <div class="col-10"><input type="email" class="form-control mail-input"></div>
-                <div class="col-2 d-flex justify-content-end gap-1">
-                  <button class="btn btn-secondary btn-sm add-mail" type="button">+</button>
-                  <button class="btn btn-danger btn-sm remove-mail" type="button">−</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <label class="form-label">Luogo</label>
-            <input type="text" class="form-control" id="medico-luogo-input">
-          </div>
-          <div class="col-md-6">
-            <label class="form-label">Data</label>
-            <input type="date" class="form-control" id="medico-data-input">
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" id="save-medico-btn" class="btn btn-primary">Salva</button>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-    </div></div>
-</div>
-
-<!-- Modale: Dati Paziente -->
-<div class="modal fade" id="paziente-modal-home" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Dati Paziente</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body">
-        <form id="form-paziente" class="row g-3">
-          <div class="col-12 form-check">
-            <input class="form-check-input" type="checkbox" id="paziente-use-test">
-            <label class="form-check-label" for="paziente-use-test">Usa dati di test</label>
-          </div>
-          <div class="col-md-8">
-            <label class="form-label">Nome e Cognome</label>
-            <input type="text" class="form-control" id="paziente-nome-input">
-          </div>
-          <div class="col-md-4">
-            <label class="form-label">Cod. Fiscale</label>
-            <input type="text" class="form-control" id="paziente-cf-input">
-          </div>
-          <div class="col-md-4">
-            <label class="form-label">Data di nascita</label>
-            <input type="date" class="form-control" id="paziente-data-input">
-          </div>
-          <div class="col-md-8">
-            <label class="form-label">Luogo di nascita</label>
-            <input type="text" class="form-control" id="paziente-luogo-input">
-          </div>
-          <div class="col-md-8">
-            <label class="form-label">Indirizzo</label>
-            <input type="text" class="form-control" id="paziente-indirizzo-input">
-          </div>
-          <div class="col-md-4">
-            <label class="form-label">Telefono</label>
-            <input type="text" class="form-control" id="paziente-tel-input">
-          </div>
-          <div class="col-12">
-            <label class="form-label">Email</label>
-            <input type="email" class="form-control" id="paziente-mail-input">
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" id="save-paziente-btn" class="btn btn-primary">Salva</button>
       </div>
     </div>
   </div>
