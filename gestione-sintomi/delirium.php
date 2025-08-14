@@ -35,7 +35,7 @@
                     </div>
                     <div class="tool-actions">
                         <button class="btn btn-primary btn-action" onclick="show4ATAssessment()"><i class="fas fa-edit me-2"></i>Compila</button>
-                        <button class="btn btn-outline-primary btn-action" onclick="show4ATAssessment('reference')"><i class="fas fa-eye me-2"></i>Visualizza</button>
+                        <a href="strumenti-4at.php" class="btn btn-outline-primary btn-action"><i class="fas fa-eye me-2"></i>Visualizza</a>
                     </div>
                 </div>
                 <div class="tool-card">
@@ -54,7 +54,7 @@
                     </div>
                     <div class="tool-actions">
                         <button class="btn btn-primary btn-action" onclick="showCAMAssessment()"><i class="fas fa-edit me-2"></i>Compila</button>
-                        <button class="btn btn-outline-primary btn-action" onclick="showCAMAssessment('reference')"><i class="fas fa-eye me-2"></i>Visualizza</button>
+                        <a href="strumenti-cam.php" class="btn btn-outline-primary btn-action"><i class="fas fa-eye me-2"></i>Visualizza</a>
                     </div>
                 </div>
             </div>
@@ -72,7 +72,7 @@
             </div>
             <div class="mode-selector">
                 <button class="mode-btn active" onclick="switch4ATMode('compile')">📝 Compila</button>
-                <button class="mode-btn" onclick="switch4ATMode('reference')">📊 Scala di Riferimento</button>
+                <a href="strumenti-4at.php" class="mode-btn">📊 Scala di Riferimento</a>
             </div>
             <div id="4at-compile" class="content-section">
                 <div class="patient-info">
@@ -206,30 +206,7 @@
                 </div>
             </div>
             <div id="4at-reference" class="content-section hidden">
-                <h3 class="text-center mb-4">Scala di Riferimento 4AT</h3>
-                <table class="scale-table">
-                    <thead><tr><th>Parametro</th><th>Punteggio</th><th>Descrizione</th></tr></thead>
-                    <tbody>
-                        <tr><td><strong>1. Allerta</strong></td><td>0</td><td>Normale (completamente allerta o facile da svegliare)</td></tr>
-                        <tr><td></td><td>4</td><td>Alterata (chiaramente anomala, soporoso/stupor)</td></tr>
-                        <tr><td><strong>2. Test Attenzione</strong></td><td>0</td><td>Nessun errore</td></tr>
-                        <tr><td></td><td>1</td><td>1 errore</td></tr>
-                        <tr><td></td><td>2</td><td>2 o più errori / non testabile</td></tr>
-                        <tr><td><strong>3. Attenzione (alternativo)</strong></td><td>0</td><td>7 o più mesi corretti all'indietro</td></tr>
-                        <tr><td></td><td>1</td><td>Meno di 7 mesi / si rifiuta</td></tr>
-                        <tr><td></td><td>2</td><td>Non testabile</td></tr>
-                        <tr><td><strong>4. Cambiamento Acuto</strong></td><td>0</td><td>Nessun cambiamento significativo</td></tr>
-                        <tr><td></td><td>4</td><td>Cambiamento acuto o corso fluttuante</td></tr>
-                    </tbody>
-                </table>
-                <div class="mt-4 p-3 bg-light rounded">
-                    <h5 class="mb-2">Interpretazione Punteggi:</h5>
-                    <ul class="mb-0">
-                        <li><strong>0 punti:</strong> Delirium improbabile</li>
-                        <li><strong>1-3 punti:</strong> Possibile deterioramento cognitivo</li>
-                        <li><strong>4+ punti:</strong> Possibile delirium ± deterioramento cognitivo</li>
-                    </ul>
-                </div>
+                <div class="alert alert-info">Consulta la scala di riferimento completa nella scheda <em>Visualizza</em>.</div>
             </div>
         </div>
 
@@ -245,7 +222,7 @@
             </div>
             <div class="mode-selector">
                 <button class="mode-btn active" onclick="switchCAMMode('compile')">📝 Compila</button>
-                <button class="mode-btn" onclick="switchCAMMode('reference')">📊 Algoritmo Diagnostico</button>
+                <a href="strumenti-cam.php" class="mode-btn">📊 Algoritmo Diagnostico</a>
             </div>
             <div id="cam-compile" class="content-section">
                 <div class="patient-info">
@@ -369,27 +346,7 @@
                 </div>
             </div>
             <div id="cam-reference" class="content-section hidden">
-                <h3 class="text-center mb-4">Algoritmo Diagnostico CAM</h3>
-                <div class="mb-3 p-3 bg-light rounded">
-                    Il delirium è diagnosticato dalla presenza di: <strong>Caratteristica 1 e Caratteristica 2</strong> e <strong>(Caratteristica 3 o Caratteristica 4)</strong>
-                </div>
-                <table class="scale-table">
-                    <thead><tr><th>Caratteristica</th><th>Descrizione</th><th>Necessaria</th></tr></thead>
-                    <tbody>
-                        <tr><td><strong>1. Esordio Acuto e Corso Fluttuante</strong></td><td>Cambiamento acuto dello stato mentale rispetto alla baseline e/o comportamento che varia durante il giorno</td><td>Richiesta</td></tr>
-                        <tr><td><strong>2. Disattenzione</strong></td><td>Difficoltà a focalizzare l'attenzione</td><td>Richiesta</td></tr>
-                        <tr><td><strong>3. Pensiero Disorganizzato</strong></td><td>Pensiero incoerente o conversazione sconnessa</td><td>3 o 4</td></tr>
-                        <tr><td><strong>4. Livello di Coscienza Alterato</strong></td><td>Diverso da allerta (vigile, letargico, stupor)</td><td>3 o 4</td></tr>
-                    </tbody>
-                </table>
-                <div class="row mt-4">
-                    <div class="col-md-6">
-                        <div class="p-3 bg-success text-white rounded">DELIRIUM PRESENTE se 1 e 2 e (3 o 4)</div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="p-3 bg-danger text-white rounded">DELIRIUM ASSENTE se manca 1 o 2 o entrambe 3 e 4</div>
-                    </div>
-                </div>
+                <div class="alert alert-info">Consulta l'algoritmo diagnostico completo nella scheda <em>Visualizza</em>.</div>
             </div>
         </div>
     </div>
