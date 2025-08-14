@@ -14,6 +14,9 @@
     <div class="container-fluid">
         <!-- Main View -->
         <div id="main-view">
+            <div class="mb-3 no-print">
+                <a href="index.php#strumenti-valutazione-home" class="btn btn-success"><i class="fas fa-arrow-left me-2"></i>Torna alle Categorie</a>
+            </div>
             <div class="delirium-header">
                 <h1><i class="fas fa-brain me-3"></i>Scale di Valutazione Delirium</h1>
                 <p>Strumenti clinici per la diagnosi e il monitoraggio del delirium in ambito sanitario</p>
@@ -62,8 +65,8 @@
 
         <!-- 4AT Assessment Section -->
         <div id="4at-assessment" class="assessment-section delirium-section">
-            <div class="mb-3">
-                <a href="index.php" class="btn btn-success me-2"><i class="fas fa-arrow-left me-2"></i>Torna alle Categorie</a>
+            <div class="mb-3 no-print">
+                <a href="index.php#strumenti-valutazione-home" class="btn btn-success me-2"><i class="fas fa-arrow-left me-2"></i>Torna alle Categorie</a>
                 <button class="btn btn-outline-secondary" style="border-color:#6f42c1;color:#6f42c1;" onclick="showMainView()"><i class="fas fa-arrow-left me-2"></i>Torna a Delirium</button>
             </div>
             <div class="assessment-header">
@@ -75,23 +78,6 @@
                 <a href="strumenti-4at.php" class="mode-btn">📊 Scala di Riferimento</a>
             </div>
             <div id="4at-compile" class="content-section">
-                <div class="patient-info">
-                    <h4><i class="fas fa-user me-2"></i>Dati Paziente</h4>
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <label class="form-label">Nome Paziente</label>
-                            <input type="text" class="form-control" id="4at-patient-name" placeholder="Nome e cognome">
-                        </div>
-                        <div class="col-md-3">
-                            <label class="form-label">Data di Nascita</label>
-                            <input type="date" class="form-control" id="4at-patient-birth">
-                        </div>
-                        <div class="col-md-3">
-                            <label class="form-label">Data Valutazione</label>
-                            <input type="date" class="form-control" id="4at-date">
-                        </div>
-                    </div>
-                </div>
                 <div class="progress-container">
                     <div class="d-flex justify-content-between align-items-center mb-2">
                         <span><strong>Progresso Compilazione</strong></span>
@@ -212,8 +198,8 @@
 
         <!-- CAM Assessment Section -->
         <div id="cam-assessment" class="assessment-section delirium-section">
-            <div class="mb-3">
-                <a href="index.php" class="btn btn-success me-2"><i class="fas fa-arrow-left me-2"></i>Torna alle Categorie</a>
+            <div class="mb-3 no-print">
+                <a href="index.php#strumenti-valutazione-home" class="btn btn-success me-2"><i class="fas fa-arrow-left me-2"></i>Torna alle Categorie</a>
                 <button class="btn btn-outline-secondary" style="border-color:#6f42c1;color:#6f42c1;" onclick="showMainView()"><i class="fas fa-arrow-left me-2"></i>Torna a Delirium</button>
             </div>
             <div class="assessment-header">
@@ -225,23 +211,6 @@
                 <a href="strumenti-cam.php" class="mode-btn">📊 Algoritmo Diagnostico</a>
             </div>
             <div id="cam-compile" class="content-section">
-                <div class="patient-info">
-                    <h4><i class="fas fa-user me-2"></i>Dati Paziente</h4>
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <label class="form-label">Nome Paziente</label>
-                            <input type="text" class="form-control" id="cam-patient-name" placeholder="Nome e cognome">
-                        </div>
-                        <div class="col-md-3">
-                            <label class="form-label">Data di Nascita</label>
-                            <input type="date" class="form-control" id="cam-patient-birth">
-                        </div>
-                        <div class="col-md-3">
-                            <label class="form-label">Data Valutazione</label>
-                            <input type="date" class="form-control" id="cam-date">
-                        </div>
-                    </div>
-                </div>
                 <div class="progress-container">
                     <div class="d-flex justify-content-between align-items-center mb-2">
                         <span><strong>Progresso Compilazione</strong></span>
