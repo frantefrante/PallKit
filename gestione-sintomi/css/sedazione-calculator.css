@@ -1,0 +1,372 @@
+/* CSS Calcolatore Sedazione Palliativa SICP 2023 */
+
+.calculator-container {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.calculator-header {
+  text-align: center;
+  border-bottom: 2px solid #e9ecef;
+  padding-bottom: 1rem;
+}
+
+.calculator-header h3 {
+  color: #2c3e50;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.breadcrumb-nav .breadcrumb {
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  justify-content: center;
+}
+
+.breadcrumb-nav .breadcrumb-item {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.breadcrumb-nav .breadcrumb-item.active {
+  color: #007bff;
+}
+
+.selected-drug-info {
+  text-align: center;
+  background: #f8f9fa;
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #e9ecef;
+}
+
+.selected-drug-info a {
+  color: #17a2b8;
+  font-weight: 500;
+}
+
+.selected-drug-info a:hover {
+  color: #138496;
+}
+
+.progress {
+  height: 8px;
+  border-radius: 4px;
+}
+
+.progress-bar {
+  background: linear-gradient(45deg, #007bff, #0056b3);
+  transition: width 0.3s ease;
+}
+
+.step-content {
+  min-height: 400px;
+}
+
+.step-card {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 2rem;
+}
+
+.step-card h4 {
+  color: #495057;
+  margin-bottom: 1.5rem;
+}
+
+/* Drug Selection Cards */
+.drug-selection-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.drug-card {
+  background: white;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.drug-card:hover {
+  border-color: #007bff;
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.drug-card.selected {
+  border-color: #28a745;
+  background: linear-gradient(135deg, #d4edda, #c3e6cb);
+}
+
+.drug-header {
+  margin-bottom: 1rem;
+}
+
+.drug-header h5 {
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.drug-class {
+  background: #6c757d;
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.drug-info p {
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+
+.drug-note {
+  font-size: 0.85rem !important;
+  line-height: 1.4;
+  color: #495057 !important;
+}
+
+.badge.bg-success {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  font-size: 0.7rem;
+}
+
+/* Button Groups */
+.btn-group-vertical .btn {
+  text-align: left;
+  padding: 1rem 1.5rem;
+  margin-bottom: 0.5rem;
+  border-radius: 6px !important;
+}
+
+.btn-group-vertical .btn strong {
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.btn-group-vertical .btn small {
+  opacity: 0.8;
+}
+
+.btn-group-vertical .btn.active {
+  background: #007bff;
+  border-color: #007bff;
+  color: white;
+}
+
+/* Patient Form */
+.patient-form .form-label {
+  font-weight: 600;
+  color: #495057;
+  margin-bottom: 0.5rem;
+}
+
+.patient-form .form-control,
+.patient-form .form-select {
+  border: 2px solid #e9ecef;
+  border-radius: 6px;
+  padding: 0.75rem;
+  transition: border-color 0.3s ease;
+}
+
+.patient-form .form-control:focus,
+.patient-form .form-select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Results Display */
+.result-summary {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.result-summary h5 {
+  color: #2c3e50;
+  border-bottom: 2px solid #e9ecef;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.result-summary .table {
+  margin-bottom: 0;
+}
+
+.result-summary .table td {
+  padding: 0.75rem;
+  vertical-align: middle;
+}
+
+.result-summary .table td:first-child {
+  background: #f8f9fa;
+  font-weight: 600;
+  width: 35%;
+}
+
+/* Navigation Controls */
+.calculator-controls {
+  border-top: 2px solid #e9ecef;
+  padding-top: 1.5rem;
+}
+
+.calculator-controls .btn {
+  min-width: 120px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 500;
+  border-radius: 6px;
+}
+
+/* Alerts */
+.alert {
+  border-radius: 6px;
+  border: none;
+}
+
+.alert-warning {
+  background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+  color: #856404;
+}
+
+.alert-info {
+  background: linear-gradient(135deg, #d1ecf1, #bee5eb);
+  color: #0c5460;
+}
+
+.alert-success {
+  background: linear-gradient(135deg, #d4edda, #c3e6cb);
+  color: #155724;
+}
+
+/* Sedation Table */
+.sedation-table-wrapper {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.sedation-table-wrapper h6 {
+  color: #2c3e50;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+#table-sedazione {
+  margin-bottom: 0;
+}
+
+#table-sedazione th {
+  background: #f8f9fa;
+  border-bottom: 2px solid #dee2e6;
+  font-weight: 600;
+  color: #495057;
+}
+
+#table-sedazione td {
+  vertical-align: middle;
+  padding: 1rem 0.75rem;
+}
+
+.del-sed-btn {
+  background: #dc3545;
+  border: none;
+  border-radius: 4px;
+  padding: 0.375rem 0.75rem;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.del-sed-btn:hover {
+  background: #c82333;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .calculator-container {
+    padding: 1rem;
+  }
+  
+  .drug-selection-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .breadcrumb-nav .breadcrumb {
+    flex-wrap: wrap;
+  }
+  
+  .breadcrumb-nav .breadcrumb-item {
+    font-size: 0.8rem;
+  }
+  
+  .calculator-controls .d-flex {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .calculator-controls .btn {
+    min-width: auto;
+    width: 100%;
+  }
+  
+  .result-summary .row {
+    flex-direction: column;
+  }
+}
+
+/* Animation for step transitions */
+.step-content {
+  animation: fadeInUp 0.4s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Loading States */
+.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.loading::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  border: 2px solid #007bff;
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

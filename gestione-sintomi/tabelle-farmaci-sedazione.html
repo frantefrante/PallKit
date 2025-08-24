@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabelle Farmaci Sedazione Palliativa</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+            font-style: italic;
+        }
+        
+        .drug-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .drug-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .drug-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+        }
+        
+        .drug-header {
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            position: relative;
+        }
+        
+        .drug-header.benzodiazepine {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+        
+        .drug-header.neurolettico {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+        
+        .drug-header.oppiaceo {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            color: #2c3e50;
+        }
+        
+        .drug-header.barbiturico {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            color: #2c3e50;
+        }
+        
+        .drug-header.anestetico {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            color: #2c3e50;
+        }
+        
+        .drug-name {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        
+        .drug-class {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        
+        .drug-routes {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+        
+        .drug-description {
+            padding: 15px 20px;
+            color: #555;
+            font-style: italic;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        
+        .dosage-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .dosage-table th {
+            background: #f8f9fa;
+            padding: 12px 15px;
+            text-align: left;
+            font-weight: 600;
+            color: #2c3e50;
+            border-bottom: 2px solid #e9ecef;
+        }
+        
+        .dosage-table td {
+            padding: 10px 15px;
+            border-bottom: 1px solid #e9ecef;
+            vertical-align: top;
+        }
+        
+        .dosage-table tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .phase-header {
+            background: #e3f2fd;
+            font-weight: bold;
+            color: #1976d2;
+        }
+        
+        .warning-box {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 12px;
+            margin: 15px 20px;
+            color: #856404;
+        }
+        
+        .warning-box .warning-icon {
+            color: #f39c12;
+            margin-right: 8px;
+        }
+        
+        .notes {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            font-size: 0.9rem;
+            color: #666;
+            border-top: 1px solid #ecf0f1;
+        }
+        
+        .notes h4 {
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+        
+        .notes ul {
+            margin-left: 20px;
+        }
+        
+        .notes li {
+            margin-bottom: 4px;
+        }
+        
+        @media (max-width: 768px) {
+            .drug-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .drug-name {
+                font-size: 1.5rem;
+            }
+            
+            .dosage-table {
+                font-size: 0.9rem;
+            }
+            
+            .dosage-table th,
+            .dosage-table td {
+                padding: 8px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Farmaci per Sedazione Palliativa</h1>
+            <p>Linee Guida SICP 2023 - Schemi di utilizzo per induzione e mantenimento</p>
+        </div>
+
+        <div class="drug-grid">
+            <!-- MIDAZOLAM -->
+            <div class="drug-card" id="midazolam">
+                <div class="drug-header benzodiazepine">
+                    <div class="drug-name">MIDAZOLAM</div>
+                    <div class="drug-class">Benzodiazepina - Prima Scelta</div>
+                    <div class="drug-routes">Vie: EV, SC</div>
+                </div>
+                <div class="drug-description">
+                    Benzodiazepina a rapido effetto e breve emivita. Ampia variabilità interindividuale e potenziale rischio di tachifilassi.
+                </div>
+                <div class="warning-box">
+                    <span class="warning-icon">⚠️</span>
+                    Se dose ≥ 20 mg/ora in infusione: valutare sostituzione o aggiunta secondo farmaco sedativo
+                </div>
+                <table class="dosage-table">
+                    <thead>
+                        <tr>
+                            <th>Modalità</th>
+                            <th>Dose Iniziale</th>
+                            <th>Mantenimento</th>
+                            <th>Note</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="phase-header">
+                            <td colspan="4"><strong>FASE DI INDUZIONE</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Bolo EV</strong></td>
+                            <td>0,5-5 mg (0,01-0,1 mg/kg)</td>
+                            <td>-</td>
+                            <td>Inizio azione: 2-5 min</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Bolo SC</strong></td>
+                            <td>0,5-5 mg (0,01-0,1 mg/kg)</td>
+                            <td>-</td>
+                            <td>Inizio azione: 10-15 min</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Bolo refratto EV</strong></td>
+                            <td>0,5-1 mg ogni 1 min</td>
+                            <td>-</td>
+                            <td>Fino al livello desiderato</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Bolo refratto SC</strong></td>
+                            <td>2,5-5 mg ogni 5-10 min</td>
+                            <td>-</td>
+                            <td>Fino al livello desiderato</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Infusione continua</strong></td>
+                            <td>0,2-5 mg/ora (0,02-0,1 mg/kg/ora)</td>
+                            <td>-</td>
+                            <td>Incremento 0,7 mg/ora</td>
+                        </tr>
+                        <tr class="phase-header">
+                            <td colspan="4"><strong>FASE DI MANTENIMENTO</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Infusione continua</strong></td>
+                            <td>-</td>
+                            <td>0,5-10 mg/ora (0,03-0,2 mg/kg/ora)</td>
+                            <td>Titolare secondo necessità</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Boli fissi</strong></td>
+                            <td>-</td>
+                            <td>5-7,5 mg ogni 4 ore</td>
+                            <td>SC o EV</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Rescue EV/SC</strong></td>
+                            <td>-</td>
+                            <td>1-5 mg (max 10 mg)</td>
+                            <td>EV: 1-5 min, SC: 10-15 min</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="notes">
+                    <h4>Note Cliniche:</h4>
+                    <ul>
+                        <li>Prima scelta secondo Indicazione 3A-5</li>
+                        <li>Monitoraggio continuo del livello di sedazione</li>
+                        <li>Valutare tachifilassi con dosaggi elevati</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- LORAZEPAM -->
+            <div class="drug-card" id="lorazepam">
+                <div class="drug-header benzodiazepine">
+                    <div class="drug-name">LORAZEPAM</div>
+                    <div class="drug-class">Benzodiazepina</div>
+                    <div class="drug-routes">Vie: IV, SC</div>
+                </div>
+                <div class="drug-description">
+                    Benzodiazepina con inizio azione più lento rispetto al midazolam. Buona maneggevolezza in boli refratti, bassa variabilità interindividuale.
+                </div>
+                <div class="warning-box">
+                    <span class="warning-icon">⚠️</span>
+                    Somministrazione EV: infondere 2 mg/minuto
+                </div>
+                <table class="dosage-table">
+                    <thead>
+                        <tr>
+                            <th>Modalità</th>
+                            <th>Dose</th>
+                            <th>Onset</th>
+                            <th>Note</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="phase-header">
+                            <td colspan="4"><strong>FASE DI INDUZIONE</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Bolo IV/SC</strong></td>
+                            <td>0,5-4 mg</td>
+                            <td>15-30 min</td>
+                            <td>Dose iniziale di induzione</td>
+                        </tr>
+                        <tr class="phase-header">
+                            <td colspan="4"><strong>FASE DI MANTENIMENTO</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Boli refratti</strong></td>
+                            <td>0,5-4 mg</td>
+                            <td>15-30 min</td>
+                            <td>Secondo necessità clinica</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="notes">
+                    <h4>Note Cliniche:</h4>
+                    <ul>
+                        <li>Onset più lento rispetto a midazolam</li>
+                        <li>Bassa variabilità interindividuale</li>
+                        <li>Buona maneggevolezza in boli refratti</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- DIAZEPAM -->
+            <div class="drug-card" id="diazepam">
+                <div class="drug-header benzodiazepine">
+                    <div class="drug-name">DIAZEPAM</div>
+                    <div class="drug-class">Benzodiazepina</div>
+                    <div class="drug-routes">Vie: IV, IM (NON SC)</div>
+                </div>
+                <div class="drug-description">
+                    Benzodiazepina a rapido effetto ma lunga emivita. Facilmente titolabile con ampia variabilità interindividuale.
+                </div>
+                <div class="warning-box">
+                    <span class="warning-icon">⚠️</span>
+                    Non indicato per via sottocutanea - Infondere 5 mg/minuto
+                </div>
+                <table class="dosage-table">
+                    <thead>
+                        <tr>
+                            <th>Modalità</th>
+                            <th>Dose</th>
+                            <th>Onset</th>
+                            <th>Note</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="phase-header">
+                            <td colspan="4"><strong>FASE DI INDUZIONE</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Bolo IV</strong></td>
+                            <td>5-10 mg</td>
+                            <td>1-5 min</td>
+                            <td>Rapido effetto</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Bolo IM</strong></td>
+                            <td>5-10 mg</td>
+                            <td>15-30 min</td>
+                            <td>Alternativa se accesso IV difficile</td>
+                        </tr>
+                        <tr class="phase-header">
+                            <td colspan="4"><strong>FASE DI MANTENIMENTO</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Boli refratti</strong></td>
+                            <td>5-10 mg</td>
+                            <td>Variable</td>
+                            <td>Secondo necessità</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="notes">
+                    <h4>Note Cliniche:</h4>
+                    <ul>
+                        <li>Lunga emivita - effetto prolungato</li>
+                        <li>Ampia variabilità interindividuale</li>
+                        <li>CONTROINDICATO per via sottocutanea</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- CLORPROMAZINA -->
+            <div class="drug-card" id="clorpromazina">
+                <div class="drug-header neurolettico">
+                    <div class="drug-name">CLORPROMAZINA</div>
+                    <div class="drug-class">Neurolettico Fenotiazinico</div>
+                    <div class="drug-routes">Vie: IV, IM</div>
+                </div>
+                <div class="drug-description">
+                    Neurolettico fenotiazinico utilizzabile in integrazione ad una benzodiazepina per controllo agitazione psicomotoria/delirium.
+                </div>
+                <div class="warning-box">
+                    <span class="warning-icon">⚠️</span>
+                    Somministrazione EV: infondere lentamente
+                </div>
+                <table class="dosage-table">
+                    <thead>
+                        <tr>
+                            <th>Modalità</th>
+                            <th>Dose</th>
+                            <th>Onset</th>
+                            <th>Note</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="phase-header">
+                            <td colspan="4"><strong>FASE DI INDUZIONE</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Bolo IV/IM</strong></td>
+                            <td>25-50 mg</td>
+                            <td>15-30 min</td>
+                            <td>In integrazione a benzodiazepina</td>
+                        </tr>
+                        <tr class="phase-header">
+                            <td colspan="4"><strong>FASE DI MANTENIMENTO</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Boli secondo necessità</strong></td>
+                            <td>25-50 mg</td>
+                            <td>15-30 min</td>
+                            <td>Per agitazione/delirium</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="notes">
+                    <h4>Note Cliniche:</h4>
+                    <ul>
+                        <li>Sempre in integrazione a benzodiazepina</li>
+                        <li>Indicato per agitazione psicomotoria/delirium</li>
+                        <li>Infusione EV lenta obbligatoria</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- ALOPERIDOLO -->
+            <div class="drug-card" id="aloperidolo">
+                <div class="drug-header neurolettico">
+                    <div class="drug-name">ALOPERIDOLO</div>
+                    <div class="drug-class">Neurolettico Butirrofenonico</div>
+                    <div class="drug-routes">Vie: IV, SC, IM</div>
+                </div>
+                <div class="drug-description">
+                    Neurolettico butirrofenonico da mantenere/aggiungere a benzodiazepina in caso di agitazione psicomotoria/delirium o nausea.
+                </div>
+                <div class="warning-box">
+                    <span class="warning-icon">⚠️</span>
+                    Controindicato EV in scheda tecnica per rischio aritmie ventricolari
+                </div>
+                <table class="dosage-table">
+                    <thead>
+                        <tr>
+                            <th>Modalità</th>
+                            <th>Dose</th>
+                            <th>Onset</th>
+                            <th>Note</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="phase-header">
+                            <td colspan="4"><strong>FASE DI INDUZIONE</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Bolo SC/IM</strong></td>
+                            <td>2-5 mg</td>
+                            <td>15-30 min</td>
+                            <td>EVITARE via EV</td>
+                        </tr>
+                        <tr class="phase-header">
+                            <td colspan="4"><strong>FASE DI MANTENIMENTO</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Boli refratti</strong></td>
+                            <td>2-5 mg</td>
+                            <td>15-30 min</td>
+                            <td>Per delirium/agitazione/nausea</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="notes">
+                    <h4>Note Cliniche:</h4>
+                    <ul>
+                        <li>Sempre aggiungere a benzodiazepina</li>
+                        <li>Efficace per delirium e nausea</li>
+                        <li>CONTROINDICATO per via endovenosa</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- MORFINA -->
+            <div class="drug-card" id="morfina">
+                <div class="drug-header oppiaceo">
+                    <div class="drug-name">MORFINA</div>
+                    <div class="drug-class">Oppiaceo</div>
+                    <div class="drug-routes">Vie: IV, SC, EV</div>
+                </div>
+                <div class="drug-description">
+                    Oppiaceo da mantenere o associare sempre a benzodiazepina/sedativo. Non esiste dose tetto predefinita.
+                </div>
+                <div class="warning-box">
+                    <span class="warning-icon">⚠️</span>
+                    Non utilizzare a scopo sedativo - Nei pazienti già in terapia: dose bolo 10-20% della dose/24h
+                </div>
+                <table class="dosage-table">
+                    <thead>
+                        <tr>
+                            <th>Modalità</th>
+                            <th>Dose</th>
+                            <th>Onset</th>
+                            <th>Note</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="phase-header">
+                            <td colspan="4"><strong>FASE DI INDUZIONE</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Bolo IV/EV</strong></td>
+                            <td>0,1-0,2 mg/kg</td>
+                            <td>5-10 min</td>
+                            <td>Sempre con benzodiazepina</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Bolo SC</strong></td>
+                            <td>0,1-0,2 mg/kg</td>
+                            <td>10-15 min</td>
+                            <td>Sempre con benzodiazepina</td>
+                        </tr>
+                        <tr class="phase-header">
+                            <td colspan="4"><strong>FASE DI MANTENIMENTO</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Infusione continua</strong></td>
+                            <td>Dose individualizzata</td>
+                            <td>-</td>
+                            <td>Secondo controllo sintomi</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Boli rescue</strong></td>
+                            <td>10-20% dose/24h</td>
+                            <td>Variable</td>
+                            <td>PRN per breakthrough</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="notes">
+                    <h4>Note Cliniche:</h4>
+                    <ul>
+                        <li>NON utilizzare a scopo sedativo</li>
+                        <li>Sempre associare a benzodiazepina/sedativo</li>
+                        <li>Non esiste dose tetto predefinita</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div style="background: white; padding: 30px; border-radius: 15px; box-shadow: 0 8px 32px rgba(0,0,0,0.1); margin-top: 20px;">
+            <h2 style="color: #2c3e50; margin-bottom: 20px; text-align: center;">Note Generali per Tutti i Farmaci</h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 20px;">
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
+                    <h3 style="color: #2c3e50; margin-bottom: 15px;">🎯 Principi Generali</h3>
+                    <ul style="color: #555; line-height: 1.8;">
+                        <li>I dosaggi sono indicativi e devono essere individualizzati</li>
+                        <li>Monitoraggio continuo del livello di sedazione</li>
+                        <li>Non esistono dosaggi massimali non superabili nella SP</li>
+                        <li>Valutare sempre compatibilità farmaci in miscela</li>
+                    </ul>
+                </div>
+                
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
+                    <h3 style="color: #2c3e50; margin-bottom: 15px;">⚕️ Modalità Somministrazione</h3>
+                    <ul style="color: #555; line-height: 1.8;">
+                        <li><strong>Bolo:</strong> Somministrazione unica rapida (secondi)</li>
+                        <li><strong>Boli refratti:</strong> Boli ripetuti a intervalli prestabiliti</li>
+                        <li><strong>Infusione continua:</strong> Preferibile con controllo velocità</li>
+                        <li><strong>Rescue:</strong> Dose estemporanea per controllo sintomi</li>
+                    </ul>
+                </div>
+                
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
+                    <h3 style="color: #2c3e50; margin-bottom: 15px;">📋 Documentazione</h3>
+                    <ul style="color: #555; line-height: 1.8;">
+                        <li>Registrare sempre indicazioni in cartella clinica</li>
+                        <li>Specificare prescrizioni anticipate e condizionate</li>
+                        <li>Documentare controllo medico anche a distanza</li>
+                        <li>Validazione sottoscritta delle indicazioni</li>
+                    </ul>
+                </div>
+                
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
+                    <h3 style="color: #2c3e50; margin-bottom: 15px;">🏥 Considerazioni Setting</h3>
+                    <ul style="color: #555; line-height: 1.8;">
+                        <li>Adattare via di somministrazione al contesto</li>
+                        <li>Valutare disponibilità farmaci nel setting</li>
+                        <li>Considerare competenza équipe assistenziale</li>
+                        <li>Garantire continuità assistenziale h24</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Link documento di riferimento -->
+            <div style="margin-top: 30px; padding: 20px; background: #e8f5e8; border-left: 4px solid #28a745; border-radius: 8px;">
+                <h3 style="color: #2c3e50; margin-bottom: 10px;">📄 Documento di Riferimento</h3>
+                <p style="margin: 0; color: #555;">
+                    <strong><a href="https://www.iss.it/documents/20126/8657013/LG+429+SIAARTI_SICP_Sedazione+Palliativa_v2.pdf/bf691c4c-bb39-2067-435e-cbc044fb82ff?t=1684925965384" target="_blank" style="color: #28a745; text-decoration: none;">
+                        Linee Guida SICP 2023 - Sedazione Palliativa 🔗
+                    </a></strong><br>
+                    <small>Sistema Nazionale Linee Guida - Istituto Superiore di Sanità</small>
+                </p>
+            </div>
+        </div>
+    </div>
+    <script>
+        // JavaScript per mostrare solo il farmaco specificato nell'URL
+        document.addEventListener('DOMContentLoaded', function() {
+            const hash = window.location.hash.substring(1);
+            
+            if (hash) {
+                // Nascondi tutti i farmaci
+                document.querySelectorAll('.drug-card').forEach(card => {
+                    card.style.display = 'none';
+                });
+                
+                // Mostra solo il farmaco richiesto
+                const targetCard = document.getElementById(hash);
+                if (targetCard) {
+                    targetCard.style.display = 'block';
+                    
+                    // Aggiorna il titolo della pagina
+                    const drugName = targetCard.querySelector('.drug-name').textContent;
+                    document.title = `Tabella ${drugName} - Sedazione Palliativa`;
+                    
+                    // Aggiorna l'header
+                    const header = document.querySelector('.header h1');
+                    header.textContent = `Tabella ${drugName}`;
+                    
+                    const headerDesc = document.querySelector('.header p');
+                    headerDesc.textContent = `Dosaggi e modalità di somministrazione per ${drugName} in sedazione palliativa`;
+                    
+                    // Aggiungi pulsante per tornare alla vista completa
+                    const backButton = document.createElement('div');
+                    backButton.innerHTML = `
+                        <div style="text-align: center; margin: 20px 0;">
+                            <a href="tabelle-farmaci-sedazione.html" style="
+                                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                                color: white;
+                                padding: 12px 24px;
+                                border-radius: 25px;
+                                text-decoration: none;
+                                font-weight: bold;
+                                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+                                transition: transform 0.3s ease;
+                            " onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+                                ← Visualizza Tutti i Farmaci
+                            </a>
+                        </div>
+                    `;
+                    
+                    const container = document.querySelector('.container');
+                    container.insertBefore(backButton, document.querySelector('.drug-grid'));
+                }
+            }
+            
+            // Listener per cambiamenti nell'URL
+            window.addEventListener('hashchange', function() {
+                location.reload();
+            });
+        });
+    </script>
+</body>
+</html>
