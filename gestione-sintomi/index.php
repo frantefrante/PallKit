@@ -321,8 +321,8 @@
               <select class="form-select route-select"></select>
             </div>
             <div class="col-md-2 text-nowrap">
-              <button class="btn btn-success add-drug me-1" type="button" data-bs-toggle="tooltip" data-bs-title="Aggiungi molecola">+</button>
-              <button class="btn btn-danger remove-drug" type="button">−</button>
+              <button class="btn btn-success add-drug me-1" type="button" data-bs-toggle="tooltip" data-bs-title="Aggiungi molecola" style="font-size:12px; padding:2px 8px; line-height:1.2;">+</button>
+              <button class="btn btn-danger remove-drug" type="button" style="font-size:12px; padding:2px 8px; line-height:1.2;">−</button>
             </div>
           </div>
         </div>
@@ -337,6 +337,18 @@
             <label class="form-label">Via</label>
             <select class="form-select" id="conversion-target-route"></select>
           </div>
+          <div class="col-md-5" id="fentanil-patient-type" style="display:none;">
+            <label class="form-label">
+              Profilo Paziente (solo Fentanil TTS)
+              <span class="ms-1 text-primary help-icon" role="button" data-bs-toggle="tooltip" data-bs-title="Stabile (100:1): dolore controllato da >1 settimana, senza breakthrough significativi. Rotazione/Fragile (150:1): anziani, compromissione organi, primo switch oppioidi forti">
+                <i class="fas fa-question-circle"></i>
+              </span>
+            </label>
+            <select class="form-select" id="patient-type">
+              <option value="stable">Stabile - Dolore ben controllato (100:1)</option>
+              <option value="unstable">Rotazione/Fragile - Approccio conservativo (150:1)</option>
+            </select>
+          </div>
         </div>
 
         <div class="mb-3">
@@ -346,7 +358,7 @@
           </label>
           <div class="d-flex align-items-center gap-2">
             <input type="range" id="tolleranza-home" class="form-range flex-grow-1" min="0" max="50" step="5" value="25">
-            <div class="input-group" style="width:120px">
+            <div class="input-group" style="width:140px; min-width:120px;">
               <input type="number" id="tolleranza-input" class="form-control" min="0" max="50" step="5" value="25">
               <span class="input-group-text">%</span>
             </div>
@@ -356,6 +368,120 @@
         <button class="btn btn-primary mb-3" type="button" onclick="calcolaEquianalgesiaHome()">Calcola</button>
 
         <div id="result-home"></div>
+
+        <!-- Tabelle di conversione espandibili -->
+        <div class="mb-3">
+          <button class="btn btn-outline-info btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#conversion-tables" aria-expanded="false">
+            <i class="fas fa-table me-2"></i>Visualizza Tabelle di Equianalgesia
+          </button>
+        </div>
+        
+        <div class="collapse" id="conversion-tables">
+          <div class="card">
+            <div class="card-header">
+              <h6 class="mb-0">Tabelle di Equianalgesia</h6>
+            </div>
+            <div class="card-body">
+              <!-- Tabella 1: Fattori di Conversione -->
+              <div class="mb-4">
+                <h6>Fattori di Conversione a Morfina OS</h6>
+                <small class="text-muted">Rapporti equianalgesici per il calcolo MED</small>
+                <div class="row">
+                  <div class="col-md-8">
+                    <table class="table table-sm table-striped">
+                      <thead>
+                        <tr><th>Oppioide</th><th>Via</th><th>Rapporto</th></tr>
+                      </thead>
+                      <tbody>
+                        <tr><td>Morfina</td><td>OS</td><td>1:1</td></tr>
+                        <tr><td>Morfina</td><td>EV/SC</td><td>3:1</td></tr>
+                        <tr><td>Ossicodone</td><td>OS</td><td>2:1</td></tr>
+                        <tr><td>Idromorfone</td><td>OS</td><td>5:1</td></tr>
+                        <tr><td>Codeina</td><td>OS</td><td>0.1:1</td></tr>
+                        <tr><td>Tramadolo</td><td>OS</td><td>0.2:1</td></tr>
+                        <tr><td>Tapentadolo</td><td>OS</td><td>0.4:1</td></tr>
+                        <tr><td>Buprenorfina</td><td>TTS</td><td>1.7:1</td></tr>
+                        <tr><td>Fentanil</td><td>TTS</td><td>Tabelle RCP*</td></tr>
+                        <tr><td>Metadone</td><td>OS</td><td>Algoritmo**</td></tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Tabella 2: Morfina → Altri Oppioidi -->
+              <div class="mb-4">
+                <h6>Conversione da Morfina OS ad Altri Oppioidi</h6>
+                <small class="text-muted">Tabella 13 - Linee Guida Ministero della Salute</small>
+                <div class="row">
+                  <div class="col-md-10">
+                    <table class="table table-sm table-striped">
+                      <thead>
+                        <tr><th>Morfina OS (mg)</th><th>Ossicodone OS (mg)</th><th>Idromorfone OS (mg)</th><th>Tramadolo OS (mg)</th><th>Tapentadolo OS (mg)</th><th>Metadone OS (mg)</th></tr>
+                      </thead>
+                      <tbody>
+                        <tr><td>30</td><td>15</td><td>6</td><td>150</td><td>75</td><td>7,5**</td></tr>
+                        <tr><td>60</td><td>30</td><td>12</td><td>300</td><td>150</td><td>15**</td></tr>
+                        <tr><td>120</td><td>60</td><td>24</td><td>600</td><td>300</td><td>30**</td></tr>
+                        <tr><td>180</td><td>90</td><td>36</td><td>900</td><td>450</td><td>22,5**</td></tr>
+                        <tr><td>240</td><td>120</td><td>48</td><td>1200</td><td>600</td><td>30**</td></tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Tabella 3: Fentanil TTS -->
+              <div class="mb-4">
+                <h6>Morfina Orale → Fentanil TTS</h6>
+                <small class="text-muted">Tabelle RCP - Due profili paziente</small>
+                <div class="row">
+                  <div class="col-md-6">
+                    <h6 class="small text-success">Pazienti Stabili (100:1)</h6>
+                    <table class="table table-sm table-striped">
+                      <thead>
+                        <tr><th>Morfina OS (mg/24h)</th><th>Fentanil TTS (mcg/h)</th></tr>
+                      </thead>
+                      <tbody>
+                        <tr><td>≤44</td><td>12</td></tr>
+                        <tr><td>45-89</td><td>25</td></tr>
+                        <tr><td>90-149</td><td>50</td></tr>
+                        <tr><td>150-209</td><td>75</td></tr>
+                        <tr><td>210-269</td><td>100</td></tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="col-md-6">
+                    <h6 class="small text-warning">Rotazione/Fragili (150:1)</h6>
+                    <table class="table table-sm table-striped">
+                      <thead>
+                        <tr><th>Morfina OS (mg/24h)</th><th>Fentanil TTS (mcg/h)</th></tr>
+                      </thead>
+                      <tbody>
+                        <tr><td>≤89</td><td>12</td></tr>
+                        <tr><td>90-134</td><td>25</td></tr>
+                        <tr><td>135-224</td><td>50</td></tr>
+                        <tr><td>225-314</td><td>75</td></tr>
+                        <tr><td>315-404</td><td>100</td></tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div class="mt-3">
+                <h6>Note Cliniche Importanti</h6>
+                <ul class="small">
+                  <li><strong>Tolleranza crociata:</strong> Riduzione 25-50% consigliata nel cambio di oppioide (escluso Fentanil TTS)</li>
+                  <li><strong>Dose rescue:</strong> 1/6 della dose totale giornaliera (morfina equivalente)</li>
+                  <li><strong>*Fentanil TTS:</strong> Le tabelle RCP forniscono già la dose iniziale raccomandata, non applicare ulteriori riduzioni</li>
+                  <li><strong>**Metadone:</strong> ≤100mg ÷4, 100-300mg ÷8, >300mg ÷12 (algoritmo non lineare)</li>
+                  <li><strong>Profili Fentanil:</strong> Stabile (100:1) vs Rotazione/Fragile (150:1)</li>
+                  <li><strong>Fonti:</strong> Linee Guida Ministero della Salute - Gestione del Dolore</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 

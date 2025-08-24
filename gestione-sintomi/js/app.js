@@ -667,6 +667,37 @@ if (exportPdfBtn) exportPdfBtn.addEventListener('click', exportPdfHome);
   // ──────────────────────────────
   // 9) EQUIANALGESIA
   // ──────────────────────────────
+  
+  // Tabelle di conversione Fentanil TTS (da RCP AIFA Durogesic)
+  const fentanilTables = {
+    stable: [  // Pazienti stabili (100:1)
+      [44, 12], [89, 25], [149, 50], [209, 75], [269, 100],
+      [329, 125], [389, 150], [449, 175], [509, 200], [569, 225],
+      [629, 250], [689, 275], [749, 300]
+    ],
+    unstable: [  // Rotazione/meno stabili (150:1)
+      [89, 12], [134, 25], [224, 50], [314, 75], [404, 100],
+      [494, 125], [584, 150], [674, 175], [764, 200], [854, 225],
+      [944, 250], [1034, 275], [1124, 300]
+    ]
+  };
+  
+  // Algoritmo metadone non lineare (da Ministero Salute)
+  function calculateMethadone(ome) {
+    if (ome <= 100) return ome / 4;
+    else if (ome <= 300) return ome / 8;
+    else return ome / 12;
+  }
+  
+  // Conversione Fentanil TTS con tabelle
+  function calculateFentanilTTS(ome, patientType = 'stable') {
+    const table = fentanilTables[patientType];
+    for (let [maxOme, mcgH] of table) {
+      if (ome <= maxOme) return mcgH;
+    }
+    return 300; // Max dose
+  }
+
   const oppioidi = {
     morfina: {
       label: 'Morfina',
@@ -674,23 +705,35 @@ if (exportPdfBtn) exportPdfBtn.addEventListener('click', exportPdfHome);
     },
     ossicodone: {
       label: 'Ossicodone',
-      forms: { OS:{unit:'mg/24h', coeff:1.5} }
+      forms: { OS:{unit:'mg/24h', coeff:2.0} }
     },
     fentanil: {
-      label: 'Fentanil TTS',
-      forms: { TTS:{unit:'mcg/h', coeff:0.03} }
+      label: 'Fentanil',
+      forms: { TTS:{unit:'mcg/h', coeff:'table'} }
     },
     buprenorfina: {
       label: 'Buprenorfina TTS',
-      forms: { TTS:{unit:'mcg/h', coeff:0.01} }
+      forms: { TTS:{unit:'mcg/h', coeff:1.714} }
     },
     tapentadolo: {
       label: 'Tapentadolo',
       forms: { OS:{unit:'mg/24h', coeff:0.4} }
     },
+    tramadolo: {
+      label: 'Tramadolo',
+      forms: { OS:{unit:'mg/24h', coeff:0.2} }
+    },
+    codeina: {
+      label: 'Codeina',
+      forms: { OS:{unit:'mg/24h', coeff:0.1} }
+    },
+    idromorfone: {
+      label: 'Idromorfone',
+      forms: { OS:{unit:'mg/24h', coeff:5} }
+    },
     metadone: {
       label: 'Metadone',
-      forms: { OS:{unit:'mg/24h', coeff:0.5} }
+      forms: { OS:{unit:'mg/24h', coeff:'nonlinear'} }
     }
   };
 
@@ -758,6 +801,48 @@ if (exportPdfBtn) exportPdfBtn.addEventListener('click', exportPdfHome);
     }
     if(e.target===targetDrugSel){
       populateRoute(targetRouteSel, e.target.value);
+      // Mostra opzione tipo paziente solo per Fentanil
+      const patientTypeDiv = document.getElementById('fentanil-patient-type');
+      if(patientTypeDiv) {
+        patientTypeDiv.style.display = e.target.value === 'fentanil' ? 'block' : 'none';
+      }
+      // Disabilita slider tolleranza per Fentanil
+      const toleranceSlider = document.getElementById('tolleranza-home');
+      const toleranceInput = document.getElementById('tolleranza-input');
+      if(toleranceSlider && toleranceInput) {
+        const isFentanyl = e.target.value === 'fentanil';
+        toleranceSlider.disabled = isFentanyl;
+        toleranceInput.disabled = isFentanyl;
+        if(isFentanyl) {
+          toleranceSlider.value = 0;
+          toleranceInput.value = 0;
+          syncTolerance(0);
+        }
+      }
+    }
+    if(e.target===targetRouteSel){
+      // Mostra opzione tipo paziente solo per Fentanil TTS
+      const patientTypeDiv = document.getElementById('fentanil-patient-type');
+      if(patientTypeDiv) {
+        const targetDrug = targetDrugSel.value;
+        const targetRoute = e.target.value;
+        patientTypeDiv.style.display = (targetDrug === 'fentanil' && targetRoute === 'TTS') ? 'block' : 'none';
+      }
+      // Disabilita slider tolleranza per Fentanil TTS
+      const toleranceSlider = document.getElementById('tolleranza-home');
+      const toleranceInput = document.getElementById('tolleranza-input');
+      if(toleranceSlider && toleranceInput) {
+        const targetDrug = targetDrugSel.value;
+        const targetRoute = e.target.value;
+        const isFentanylTTS = (targetDrug === 'fentanil' && targetRoute === 'TTS');
+        toleranceSlider.disabled = isFentanylTTS;
+        toleranceInput.disabled = isFentanylTTS;
+        if(isFentanylTTS) {
+          toleranceSlider.value = 0;
+          toleranceInput.value = 0;
+          syncTolerance(0);
+        }
+      }
     }
   });
 
@@ -802,12 +887,26 @@ if (exportPdfBtn) exportPdfBtn.addEventListener('click', exportPdfHome);
     let totaleMED = 0;
     const rows = [];
     const principi = new Set();
+    
     entries.forEach(entry=>{
       const drug = entry.querySelector('.drug-select').value;
       const route = entry.querySelector('.route-select').value;
       const dose = parseFloat(entry.querySelector('.dose-input').value) || 0;
       const coeff = oppioidi[drug].forms[route].coeff;
-      const med = dose * coeff;
+      
+      let med;
+      if (coeff === 'table') {
+        // Fentanil TTS: conversione inversa tramite tabella
+        med = dose * 2.4; // Usare il coefficiente del Ministero per il calcolo MED
+      } else if (coeff === 'nonlinear') {
+        // Metadone: conversione inversa non lineare (da Ministero Salute)
+        if (dose <= 25) med = dose * 4;
+        else if (dose <= 37.5) med = dose * 8;
+        else med = dose * 12;
+      } else {
+        med = dose * coeff;
+      }
+      
       totaleMED += med;
       principi.add(drug);
       rows.push({drug:oppioidi[drug].label, route, dose, med});
@@ -816,32 +915,106 @@ if (exportPdfBtn) exportPdfBtn.addEventListener('click', exportPdfHome);
     const targetDrug = targetDrugSel.value;
     const targetRoute = targetRouteSel.value;
     let rid = parseFloat(tolRange.value) || 0;
+    
     if(principi.size===1 && principi.has(targetDrug)){
       alert('Non è opportuno applicare una riduzione per tolleranza crociata usando lo stesso oppioide');
       rid = 0;
       syncTolerance(0);
     }
-    const totaleRidotto = totaleMED * (1 - rid/100);
+    
+    // Calcolo dose target con logica speciale
     const coeffTarget = oppioidi[targetDrug].forms[targetRoute].coeff;
-    const doseTarget = totaleRidotto / coeffTarget;
+    let doseTarget, totaleRidotto;
+    
+    if (coeffTarget === 'table') {
+      // Fentanil TTS: usa tabelle RCP SENZA riduzione cross-tolerance
+      // Le tabelle RCP forniscono già la dose iniziale raccomandata
+      const patientType = document.getElementById('patient-type')?.value || 'stable';
+      doseTarget = calculateFentanilTTS(totaleMED, patientType);
+      totaleRidotto = totaleMED; // Nessuna riduzione applicata
+    } else {
+      // Altri oppioidi: calcola dose senza riduzione, poi applica riduzione
+      let doseBaseTarget;
+      if (coeffTarget === 'nonlinear') {
+        // Metadone: algoritmo non lineare
+        doseBaseTarget = calculateMethadone(totaleMED);
+      } else {
+        doseBaseTarget = totaleMED / coeffTarget;
+      }
+      // Applica riduzione cross-tolerance alla dose target
+      doseTarget = doseBaseTarget * (1 - rid/100);
+      totaleRidotto = totaleMED; // MED rimane uguale
+    }
+    
+    // Formattazione risultato
+    const formatDose = (val) => val % 1 === 0 ? val.toString() : val.toFixed(2);
+    
+    // Calcola dosi rescue
     const rescueOS = totaleRidotto / 6;
     const rescueEV = rescueOS / 3;
-
+    
+    // Aggiorna display risultati
     let html = '<table class="table table-bordered table-sm">';
     html += '<thead><tr><th>Farmaco</th><th>Via</th><th>Dose</th><th><span class="text-success med-tooltip" data-bs-toggle="tooltip" data-bs-title="Dose equivalente di morfina per via orale">MED</span> mg OS</th></tr></thead><tbody>';
-    rows.forEach(r=>{ html += `<tr><td>${r.drug}</td><td>${r.route}</td><td>${r.dose}</td><td>${r.med.toFixed(2)}</td></tr>`; });
-    html += `<tr class="table-secondary"><td colspan="3"><strong>TOTALE MED</strong></td><td><strong>${totaleMED.toFixed(2)}</strong></td></tr>`;
+    
+    rows.forEach(r => {
+      const formattedDose = formatValue(r.dose);
+      const formattedMed = formatValue(r.med);
+      html += `<tr><td>${r.drug}</td><td>${r.route}</td><td>${formattedDose}</td><td>${formattedMed}</td></tr>`;
+    });
+    
+    html += `<tr class="table-secondary"><td colspan="3"><strong>TOTALE MED</strong></td><td><strong>${formatValue(totaleMED)}</strong></td></tr>`;
+    
     html += '</tbody></table>';
-    html += `<p><strong>Dose equivalente di ${oppioidi[targetDrug].label} (${targetRoute}):</strong> ${doseTarget.toFixed(2)} ${oppioidi[targetDrug].forms[targetRoute].unit}</p>`;
-    html += `<p><strong>Dose rescue (Morfina OS):</strong> ${rescueOS.toFixed(2)} mg</p>`;
-    html += `<p><strong>Dose rescue (Morfina EV/SC):</strong> ${rescueEV.toFixed(2)} mg</p>`;
+    
+    const targetUnit = oppioidi[targetDrug].forms[targetRoute].unit;
+    
+    if (coeffTarget === 'table') {
+      // Fentanil TTS: nessuna riduzione applicata
+      html += `<p><strong>Dose equivalente di ${oppioidi[targetDrug].label} (${targetRoute}):</strong> ${formatValue(doseTarget)} ${targetUnit}</p>`;
+      html += `<div class="alert alert-info mt-2"><small><i class="fas fa-info-circle"></i> Per Fentanil TTS: tabelle RCP forniscono già dose iniziale raccomandata (riduzione cross-tolerance non applicata)</small></div>`;
+    } else {
+      // Altri oppioidi: mostra dose base e riduzione se applicata
+      if (rid > 0) {
+        let doseBase;
+        if (coeffTarget === 'nonlinear') {
+          doseBase = calculateMethadone(totaleMED);
+        } else {
+          doseBase = totaleMED / coeffTarget;
+        }
+        html += `<p><strong>Dose base ${oppioidi[targetDrug].label}:</strong> ${formatValue(doseBase)} ${targetUnit}</p>`;
+        html += `<p><strong>Con riduzione cross-tolerance (${rid}%):</strong> <span class="text-success">${formatValue(doseTarget)} ${targetUnit}</span></p>`;
+      } else {
+        html += `<p><strong>Dose equivalente di ${oppioidi[targetDrug].label} (${targetRoute}):</strong> ${formatValue(doseTarget)} ${targetUnit}</p>`;
+      }
+    }
+    
+    // Note esplicative per Fentanil TTS
+    if (coeffTarget === 'table') {
+      const patientType = document.getElementById('patient-type')?.value || 'stable';
+      if (patientType === 'stable') {
+        html += `<div class="alert alert-info mt-2"><small><strong>Profilo Stabile (100:1):</strong> Per pazienti con dolore ben controllato, stabile da almeno 1 settimana, senza episodi di breakthrough pain significativi.</small></div>`;
+      } else {
+        html += `<div class="alert alert-warning mt-2"><small><strong>Profilo Rotazione/Instabile (150:1):</strong> Per rotazioni oppioidee, pazienti fragili, anziani, con funzione renale/epatica compromessa, o dolore instabile. Approccio più conservativo.</small></div>`;
+      }
+    }
+    html += `<p><strong>Dose rescue (Morfina OS):</strong> ${formatValue(rescueOS)} mg</p>`;
+    html += `<p><strong>Dose rescue (Morfina EV/SC):</strong> ${formatValue(rescueEV)} mg</p>`;
 
     const resultEl = document.getElementById('result-home');
-    resultEl.innerHTML = html;
-    if (window.bootstrap) {
-      resultEl.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => new bootstrap.Tooltip(el));
+    if (resultEl) {
+      resultEl.innerHTML = html;
+      if (window.bootstrap) {
+        resultEl.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => new bootstrap.Tooltip(el));
+      }
     }
   }
+  
+  // Formatta valori rimuovendo .00
+  function formatValue(val) {
+    return val % 1 === 0 ? val.toString() : val.toFixed(2);
+  }
+  
 
   window.calcolaEquianalgesiaHome = calcolaEquianalgesiaHome;
 
