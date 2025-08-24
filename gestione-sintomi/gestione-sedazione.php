@@ -1,102 +1,74 @@
 <?php
-// gestione-sedazione.php
+// gestione-sedazione.php - CALCOLATORE SEDAZIONE PALLIATIVA SICP 2023
 ?>
+<link href="css/sedazione-calculator.css" rel="stylesheet">
+
+<div class="sedazione-container">
+  <!-- Header Informativo -->
+  <div class="alert alert-info mb-4">
+    <div class="d-flex align-items-center">
+      <i class="fas fa-info-circle me-3 fs-4"></i>
+      <div>
+        <h5 class="mb-1">Calcolatore Sedazione Palliativa</h5>
+        <p class="mb-0">Strumento guidato per il calcolo personalizzato dei dosaggi in sedazione palliativa basato su evidenze cliniche validate.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Avviso Prima Scelta -->
+  <div class="alert alert-success mb-4">
+    <div class="d-flex align-items-center">
+      <i class="fas fa-star me-2"></i>
+      <strong>Midazolam è la prima scelta</strong> nelle linee guida internazionali per sedazione palliativa
+    </div>
+  </div>
+
+  <!-- Container principale calcolatore -->
   <div class="row">
-    <div class="col-lg-6">
-      <h4>Sedazione Palliativa</h4>
-      <!-- 1. Dropdown farmaci -->
-      <div class="mb-3">
-        <label for="select-drug" class="form-label">Seleziona Farmaco</label>
-        <select id="select-drug" class="form-select">
-          <option value="">-- Scegli --</option>
-        </select>
+    <!-- Placeholder per il calcolatore - sostituito da JavaScript -->
+    <div id="drug-schema">
+      <div class="text-center p-5">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Caricamento calcolatore...</span>
+        </div>
+        <p class="mt-3">Inizializzazione Calcolatore Sedazione Palliativa...</p>
       </div>
-
-      <!-- 2. Tabella schema farmaco: content loaded dynamically -->
-      <div id="drug-schema" style="display:none;"></div>
     </div>
+  </div>
 
-    <div class="col-lg-6">
-      <!-- 3. Calcolatore dose -->
-      <div id="dose-calculator" class="card mb-4" style="display:none;">
-        <div class="card-body">
-          <h5 class="card-title">Calcolatore Dose</h5>
-          <div class="row g-2 align-items-end">
-            <div class="col">
-              <label class="form-label">Posologia (mg/kg)</label>
-              <input type="number" id="calc-poso" class="form-control" placeholder="es. 0.03">
-            </div>
-            <div class="col">
-              <label class="form-label">Peso (kg)</label>
-              <input type="number" id="calc-weight" class="form-control" placeholder="es. 70">
-            </div>
-            <div class="col-auto">
-              <button id="btn-calc-dose" class="btn btn-primary">Calcola</button>
-            </div>
-            <div class="col-12">
-              <small id="calc-result" class="text-success"></small>
-            </div>
-          </div>
+  <!-- Sezione Informativa -->
+  <div class="mt-5">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="info-card">
+          <h6><i class="fas fa-book-medical me-2"></i>Evidenze Cliniche</h6>
+          <p class="small">Questo calcolatore implementa raccomandazioni basate su evidenze cliniche validate per la sedazione palliativa.</p>
         </div>
       </div>
-
-      <!-- 4. Aggiungi al piano cura -->
-      <div id="add-to-plan" class="card" style="display:none;">
-        <div class="card-body">
-          <h5 class="card-title">Aggiungi al Piano Cura</h5>
-          <form id="form-add-plan" class="row g-3">
-            <div class="col-md-6">
-              <label class="form-label">Farmaco</label>
-              <input type="text" id="plan-drug" class="form-control" readonly>
-            </div>
-            <div class="col-md-6">
-              <label class="form-label">Formulazione</label>
-              <input type="text" id="plan-formulazione" class="form-control">
-            </div>
-            <div class="col-md-6">
-              <label class="form-label">Via</label>
-              <input type="text" id="plan-via" class="form-control">
-            </div>
-            <div class="col-md-6">
-              <label class="form-label">Dosaggio</label>
-              <input type="text" id="plan-dose" class="form-control">
-            </div>
-            <div class="col-md-6">
-              <label class="form-label">Posologia</label>
-              <input type="text" id="plan-posologia" class="form-control">
-            </div>
-            <div class="col-md-6">
-              <label class="form-label">Frequenza</label>
-              <input type="text" id="plan-frequenza" class="form-control">
-            </div>
-            <div class="col-12">
-              <button id="btn-add-plan" class="btn btn-success w-100">+ Aggiungi</button>
-            </div>
-          </form>
+      <div class="col-md-6">
+        <div class="info-card">
+          <h6><i class="fas fa-exclamation-triangle me-2"></i>Uso Clinico</h6>
+          <p class="small">I dosaggi calcolati sono indicativi e devono sempre essere valutati dal medico in base al quadro clinico specifico del paziente.</p>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- 5. Elenco Terapie -->
-  <div class="mt-4 sedation-table-wrapper" id="sedation-table-wrapper">
-    <div class="bg-white p-3 rounded shadow-sm">
-      <h6>Elenco Sedazione</h6>
-      <table class="table table-striped mt-3" id="table-sedazione">
-        <thead>
-          <tr>
-            <th>Farmaco</th>
-            <th>Via</th>
-            <th>Dose</th>
-            <th>Posologia</th>
-            <th>Freq.</th>
-            <th>Azioni</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
+  
+  <!-- Nota finale con riferimenti -->
+  <div class="mt-4">
+    <div class="alert alert-light border">
+      <h6><i class="fas fa-file-alt me-2"></i>Documento di Riferimento</h6>
+      <p class="small mb-0">
+        Questo calcolatore è basato sulle raccomandazioni delle 
+        <strong><a href="https://www.iss.it/documents/20126/8657013/LG+429+SIAARTI_SICP_Sedazione+Palliativa_v2.pdf/bf691c4c-bb39-2067-435e-cbc044fb82ff?t=1684925965384" target="_blank" class="text-decoration-none">
+          Linee Guida SICP 2023 - Sedazione Palliativa <i class="fas fa-external-link-alt ms-1"></i>
+        </a></strong>
+        del Sistema Nazionale Linee Guida - Istituto Superiore di Sanità.
+      </p>
     </div>
   </div>
+</div>
 
 <!-- Script: dati + logica -->
 <script src="js/sedazione.data.js"></script>
@@ -104,4 +76,29 @@
 <script src="js/sedation-tooltips.js"></script>
 <script>
   document.addEventListener("DOMContentLoaded", function() {
-    console.log("⚙️ gestione-sedazione initialized");  });</script>
+    console.log("⚙️ gestione-sedazione initialized");
+  });
+  
+  
+  // Aggiungi stili per info-card
+  const style = document.createElement('style');
+  style.textContent = `
+    .info-card {
+      background: #f8f9fa;
+      border-left: 4px solid #007bff;
+      padding: 1rem;
+      border-radius: 0 6px 6px 0;
+      margin-bottom: 1rem;
+    }
+    .info-card h6 {
+      color: #495057;
+      margin-bottom: 0.5rem;
+    }
+    .info-card p {
+      color: #6c757d;
+      margin-bottom: 0;
+      line-height: 1.4;
+    }
+  `;
+  document.head.appendChild(style);
+</script>
