@@ -436,6 +436,12 @@ function animateStats() {
     const finalValue = stat.textContent;
     const isPercentage = finalValue.includes('%');
     const numericValue = parseInt(finalValue.replace('%', ''));
+    
+    // Skip animation for non-numeric values (like checkmarks)
+    if (isNaN(numericValue)) {
+      return;
+    }
+    
     let currentValue = 0;
     const increment = numericValue / 50;
     const timer = setInterval(() => {
