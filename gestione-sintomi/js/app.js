@@ -9,8 +9,32 @@ document.addEventListener("DOMContentLoaded", function() {
   // Gestione menu mobile
   const menuToggle = document.getElementById('menu-toggle');
   const sidebar = document.querySelector('.sidebar');
+  const mobileOverlay = document.getElementById('mobile-overlay');
+  
+  function closeMobileMenu() {
+    if (sidebar) sidebar.classList.remove('active');
+    if (mobileOverlay) mobileOverlay.classList.remove('active');
+  }
+  
+  function toggleMobileMenu() {
+    if (sidebar) sidebar.classList.toggle('active');
+    if (mobileOverlay) mobileOverlay.classList.toggle('active');
+  }
+  
   if (menuToggle && sidebar) {
-    menuToggle.addEventListener('click', () => sidebar.classList.toggle('active'));
+    menuToggle.addEventListener('click', toggleMobileMenu);
+    
+    // Chiudi menu cliccando sull'overlay
+    if (mobileOverlay) {
+      mobileOverlay.addEventListener('click', closeMobileMenu);
+    }
+    
+    // Chiudi menu su ridimensionamento finestra
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 768) {
+        closeMobileMenu();
+      }
+    });
   }
   // ──────────────────────────────
   // 1) NAVIGAZIONE TRA LE SEZIONI

@@ -23,6 +23,21 @@
     </div>
   </div>
 
+  <!-- Link rapido alle tabelle complete -->
+  <div class="mb-4">
+    <div class="alert alert-light border border-primary">
+      <div class="d-flex align-items-center justify-content-between">
+        <div>
+          <h6 class="mb-1"><i class="fas fa-table me-2"></i>Tabelle Complete Farmaci</h6>
+          <p class="mb-0 small text-muted">Consulta tutti i protocolli e dosaggi di sedazione palliativa</p>
+        </div>
+        <a href="tabelle-farmaci-sedazione.html" target="_blank" class="btn btn-primary btn-sm">
+          <i class="fas fa-external-link-alt me-1"></i>Visualizza Tabelle
+        </a>
+      </div>
+    </div>
+  </div>
+
   <!-- Container principale calcolatore -->
   <div class="row">
     <!-- Placeholder per il calcolatore - sostituito da JavaScript -->
@@ -80,7 +95,7 @@
   });
   
   
-  // Aggiungi stili per info-card
+  // Aggiungi stili per info-card e ottimizzazione mobile
   const style = document.createElement('style');
   style.textContent = `
     .info-card {
@@ -98,6 +113,20 @@
       color: #6c757d;
       margin-bottom: 0;
       line-height: 1.4;
+    }
+    
+    /* Ottimizzazione mobile per il box tabelle */
+    @media (max-width: 768px) {
+      .alert .d-flex {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        text-align: left;
+      }
+      .alert .btn {
+        margin-top: 0.75rem;
+        width: 100%;
+        justify-content: center;
+      }
     }
   `;
   document.head.appendChild(style);

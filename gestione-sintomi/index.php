@@ -28,6 +28,8 @@
   <span class="ms-2">Pallkit</span>
 </header>
 
+<div class="mobile-overlay d-md-none" id="mobile-overlay"></div>
+
 <div class="d-flex flex-wrap">
   <!-- Sidebar -->
   <nav class="sidebar p-3">
