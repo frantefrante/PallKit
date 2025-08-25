@@ -342,13 +342,13 @@
           <div class="col-md-5" id="fentanil-patient-type" style="display:none;">
             <label class="form-label">
               Profilo Paziente (solo Fentanil TTS)
-              <span class="ms-1 text-primary help-icon" role="button" data-bs-toggle="tooltip" data-bs-title="Stabile (100:1): dolore controllato da >1 settimana, senza breakthrough significativi. Rotazione/Fragile (150:1): anziani, compromissione organi, primo switch oppioidi forti">
+              <span class="ms-1 text-primary help-icon" role="button" data-bs-toggle="tooltip" data-bs-title="Per pazienti in terapia stabile e ben tollerata con oppioidi il rapporto di conversione è circa pari a 100:1. Per pazienti con necessità di rotazione dell'oppioide o clinicamente meno stabili il rapporto è circa pari a 150:1 (da RCP Fentanil)">
                 <i class="fas fa-question-circle"></i>
               </span>
             </label>
             <select class="form-select" id="patient-type">
-              <option value="stable">Stabile - Dolore ben controllato (100:1)</option>
-              <option value="unstable">Rotazione/Fragile - Approccio conservativo (150:1)</option>
+              <option value="stable">Terapia stabile e ben tollerata (100:1)</option>
+              <option value="unstable">Necessità di rotazione/meno stabili (150:1)</option>
             </select>
           </div>
         </div>
@@ -439,7 +439,7 @@
                 <small class="text-muted">Tabelle RCP - Due profili paziente</small>
                 <div class="row">
                   <div class="col-md-6">
-                    <h6 class="small text-success">Pazienti Stabili (100:1)</h6>
+                    <h6 class="small" style="color: #155724; background-color: #d4edda; padding: 4px 8px; border-radius: 4px; border: 1px solid #c3e6cb; font-weight: bold; display: inline-block;">Terapia stabile (100:1)</h6>
                     <table class="table table-sm table-striped">
                       <thead>
                         <tr><th>Morfina OS (mg/24h)</th><th>Fentanil TTS (mcg/h)</th></tr>
@@ -454,7 +454,7 @@
                     </table>
                   </div>
                   <div class="col-md-6">
-                    <h6 class="small text-warning">Rotazione/Fragili (150:1)</h6>
+                    <h6 class="small" style="color: #856404; background-color: #fff3cd; padding: 4px 8px; border-radius: 4px; border: 1px solid #ffeaa7; font-weight: bold; display: inline-block;">Rotazione/meno stabili (150:1)</h6>
                     <table class="table table-sm table-striped">
                       <thead>
                         <tr><th>Morfina OS (mg/24h)</th><th>Fentanil TTS (mcg/h)</th></tr>
@@ -484,6 +484,7 @@
             </div>
           </div>
         </div>
+        
       </div>
     </section>
 

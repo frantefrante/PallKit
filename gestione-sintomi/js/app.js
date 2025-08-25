@@ -705,6 +705,7 @@ if (exportPdfBtn) exportPdfBtn.addEventListener('click', exportPdfHome);
       [944, 250], [1034, 275], [1124, 300]
     ]
   };
+
   
   // Algoritmo metadone non lineare (da Ministero Salute)
   function calculateMethadone(ome) {
@@ -1017,9 +1018,9 @@ if (exportPdfBtn) exportPdfBtn.addEventListener('click', exportPdfHome);
     if (coeffTarget === 'table') {
       const patientType = document.getElementById('patient-type')?.value || 'stable';
       if (patientType === 'stable') {
-        html += `<div class="alert alert-info mt-2"><small><strong>Profilo Stabile (100:1):</strong> Per pazienti con dolore ben controllato, stabile da almeno 1 settimana, senza episodi di breakthrough pain significativi.</small></div>`;
+        html += `<div class="alert alert-info mt-2"><small><strong>Terapia stabile e ben tollerata (100:1):</strong> Per pazienti in terapia stabile e ben tollerata con oppioidi il rapporto di conversione da morfina orale a fentanil transdermico è circa pari a 100:1 (RCP Fentanil).</small></div>`;
       } else {
-        html += `<div class="alert alert-warning mt-2"><small><strong>Profilo Rotazione/Instabile (150:1):</strong> Per rotazioni oppioidee, pazienti fragili, anziani, con funzione renale/epatica compromessa, o dolore instabile. Approccio più conservativo.</small></div>`;
+        html += `<div class="alert alert-warning mt-2"><small><strong>Necessità di rotazione/meno stabili (150:1):</strong> Per pazienti con necessità di rotazione dell'oppioide o per i pazienti clinicamente meno stabili il rapporto di conversione da morfina orale a fentanil transdermico è circa pari a 150:1 (RCP Fentanil).</small></div>`;
       }
     }
     html += `<p><strong>Dose rescue (Morfina OS):</strong> ${formatValue(rescueOS)} mg</p>`;
