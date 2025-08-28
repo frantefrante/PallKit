@@ -730,7 +730,7 @@ if (exportPdfBtn) exportPdfBtn.addEventListener('click', exportPdfHome);
     },
     ossicodone: {
       label: 'Ossicodone',
-      forms: { OS:{unit:'mg/24h', coeff:2.0} }
+      forms: { OS:{unit:'mg/24h', coeff:1.5} }
     },
     fentanil: {
       label: 'Fentanil',
@@ -751,10 +751,6 @@ if (exportPdfBtn) exportPdfBtn.addEventListener('click', exportPdfHome);
     codeina: {
       label: 'Codeina',
       forms: { OS:{unit:'mg/24h', coeff:0.1} }
-    },
-    idromorfone: {
-      label: 'Idromorfone',
-      forms: { OS:{unit:'mg/24h', coeff:5} }
     },
     metadone: {
       label: 'Metadone',

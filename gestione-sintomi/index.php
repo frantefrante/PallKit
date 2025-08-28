@@ -397,8 +397,7 @@
                       <tbody>
                         <tr><td>Morfina</td><td>OS</td><td>1:1</td></tr>
                         <tr><td>Morfina</td><td>EV/SC</td><td>3:1</td></tr>
-                        <tr><td>Ossicodone</td><td>OS</td><td>2:1</td></tr>
-                        <tr><td>Idromorfone</td><td>OS</td><td>5:1</td></tr>
+                        <tr><td>Ossicodone</td><td>OS</td><td>1.5:1</td></tr>
                         <tr><td>Codeina</td><td>OS</td><td>0.1:1</td></tr>
                         <tr><td>Tramadolo</td><td>OS</td><td>0.2:1</td></tr>
                         <tr><td>Tapentadolo</td><td>OS</td><td>0.4:1</td></tr>
@@ -419,14 +418,14 @@
                   <div class="col-md-10">
                     <table class="table table-sm table-striped">
                       <thead>
-                        <tr><th>Morfina OS (mg)</th><th>Ossicodone OS (mg)</th><th>Idromorfone OS (mg)</th><th>Tramadolo OS (mg)</th><th>Tapentadolo OS (mg)</th><th>Metadone OS (mg)</th></tr>
+                        <tr><th>Morfina OS (mg)</th><th>Morfina cloridrato EV (mg)</th><th>Ossicodone OS (mg)</th><th>Tramadolo OS (mg)</th><th>Tapentadolo OS (mg)</th><th>Metadone OS (mg)</th></tr>
                       </thead>
                       <tbody>
-                        <tr><td>30</td><td>15</td><td>6</td><td>150</td><td>75</td><td>7,5**</td></tr>
-                        <tr><td>60</td><td>30</td><td>12</td><td>300</td><td>150</td><td>15**</td></tr>
-                        <tr><td>120</td><td>60</td><td>24</td><td>600</td><td>300</td><td>30**</td></tr>
-                        <tr><td>180</td><td>90</td><td>36</td><td>900</td><td>450</td><td>22,5**</td></tr>
-                        <tr><td>240</td><td>120</td><td>48</td><td>1200</td><td>600</td><td>30**</td></tr>
+                        <tr><td>30</td><td>10</td><td>20</td><td>150</td><td>75</td><td>7,5**</td></tr>
+                        <tr><td>60</td><td>20</td><td>40</td><td>300</td><td>150</td><td>15**</td></tr>
+                        <tr><td>120</td><td>40</td><td>80</td><td>600</td><td>300</td><td>30**</td></tr>
+                        <tr><td>180</td><td>60</td><td>120</td><td>900</td><td>450</td><td>22,5**</td></tr>
+                        <tr><td>240</td><td>80</td><td>160</td><td>1200</td><td>600</td><td>30**</td></tr>
                       </tbody>
                     </table>
                   </div>
