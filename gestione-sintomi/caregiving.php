@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Valutazione Caregiving</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" rel="stylesheet">
+  <link href="css/fontawesome-all.min.css" rel="stylesheet">
   <link href="css/strumenti-valutazione.css" rel="stylesheet">
   <link href="css/zcb7.css" rel="stylesheet">
   <link href="css/famcare2.css" rel="stylesheet">
@@ -73,7 +73,7 @@
     <?php include __DIR__ . '/strumenti-zcb7.php'; ?>
     <?php include __DIR__ . '/strumenti-famcare2.php'; ?>
   </div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/js/all.min.js"></script>
+  <script src="js/fontawesome-all.min.js"></script>
   <script src="/js/bootstrap.bundle.min.js"></script>
   <script src="/js/app.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>

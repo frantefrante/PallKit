@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CAM - Algoritmo Diagnostico</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" rel="stylesheet">
+    <link href="css/fontawesome-all.min.css" rel="stylesheet">
     <link href="css/delirium.css" rel="stylesheet">
     <style>
         .algorithm-box{background:linear-gradient(135deg,#e8f5e8,#d4edda);border:3px solid var(--success-color);border-radius:15px;padding:2rem;margin:2rem 0;text-align:center;}

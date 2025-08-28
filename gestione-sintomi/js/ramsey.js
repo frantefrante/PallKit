@@ -84,7 +84,7 @@ function printRamseyTemplate() {
   const template = ramseyContainer.querySelector('.print-template').cloneNode(true);
   template.querySelectorAll('.action-buttons').forEach(btn => btn.remove());
   const w = window.open('', '', 'width=900,height=700');
-  w.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><link rel="stylesheet" href="css/ramsey.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"></head><body>${template.outerHTML}</body></html>`);
+  w.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><link rel="stylesheet" href="css/ramsey.css"><link rel="stylesheet" href="css/fontawesome-all.min.css"></head><body>${template.outerHTML}</body></html>`);
   w.document.close();
   w.onload = () => {
     w.focus();
