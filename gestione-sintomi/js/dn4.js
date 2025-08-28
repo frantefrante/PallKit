@@ -140,16 +140,108 @@ function printDN4() {
     const birthDate = dn4Container.querySelector('#dn4-birth-date').value || 'Non specificata';
     const compileDate = dn4Container.querySelector('#dn4-compile-date').value || new Date().toISOString().split('T')[0];
     let score = 0;
+    const answeredQuestions = [];
+    
+    // Calcola il punteggio e raccoglie le risposte
     for (let key in dn4Data) {
-        if (dn4Data[key] !== null) score += dn4Data[key];
+        if (dn4Data[key] !== null) {
+            score += dn4Data[key];
+            const questionText = getQuestionText(key);
+            const answer = dn4Data[key] === 1 ? 'SÌ' : 'NO';
+            answeredQuestions.push(`<li><strong>${questionText}:</strong> ${answer}</li>`);
+        }
     }
+    
     const interpretation = score >= 4 ? 'Dolore di origine neuropatica molto probabile' : 'Dolore di origine neuropatica improbabile';
-    let report = `REPORT DN4 - DOULEUR NEUROPATHIQUE 4 QUESTIONS\n===============================================================\n\nDATI PAZIENTE\nPaziente: ${patientName}\nData di nascita: ${birthDate}\nData compilazione: ${compileDate}\n\nPUNTEGGIO TOTALE: ${score}/10\nINTERPRETAZIONE: ${interpretation}\n\nReport generato il: ${new Date().toLocaleString('it-IT')}\n===============================================================`;
-    const blob = new Blob([report], { type: 'text/plain;charset=utf-8' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = `DN4_Report_${patientName.replace(/\s+/g, '_')}_${compileDate}.txt`;
-    link.click();
+    const interpretationClass = score >= 4 ? 'positive' : 'negative';
+    
+    const win = window.open('', '_blank');
+    win.document.write(`
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>DN4 - Report Valutazione</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; color: #333; }
+        .header { text-align: center; margin-bottom: 30px; border-bottom: 3px solid #ffc107; padding-bottom: 20px; }
+        .header h1 { color: #ffc107; margin-bottom: 10px; font-size: 2rem; }
+        .header h2 { color: #666; font-size: 1.2rem; margin: 0; }
+        .patient-info { border: 2px solid #ffc107; padding: 20px; margin-bottom: 25px; border-radius: 8px; background: #fff3cd; }
+        .result-section { margin: 20px 0; padding: 20px; border: 2px solid #ffc107; border-radius: 8px; }
+        .score-display { font-size: 3rem; font-weight: bold; text-align: center; margin: 20px 0; }
+        .positive { color: #dc3545; }
+        .negative { color: #28a745; }
+        .interpretation { font-size: 1.3rem; font-weight: bold; text-align: center; margin: 20px 0; }
+        .form-row { display: flex; justify-content: space-between; margin-bottom: 15px; }
+        .form-field { flex: 1; margin-right: 20px; }
+        .form-field:last-child { margin-right: 0; }
+        ul { margin-top: 10px; padding-left: 20px; }
+        .footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd; font-size: 12px; color: #666; text-align: center; }
+        .reference { margin-top: 30px; padding: 15px; background: #f8f9fa; border-left: 4px solid #ffc107; font-size: 0.9em; }
+        @media print { body { margin: 15mm; } }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>DN4 - Douleur Neuropathique 4 Questions</h1>
+        <h2>Report di Valutazione</h2>
+    </div>
+    
+    <div class="patient-info">
+        <div class="form-row">
+            <div class="form-field"><strong>Paziente:</strong> ${patientName}</div>
+            <div class="form-field"><strong>Data di nascita:</strong> ${birthDate}</div>
+        </div>
+        <div class="form-row">
+            <div class="form-field"><strong>Data valutazione:</strong> ${compileDate}</div>
+        </div>
+    </div>
+    
+    <div class="result-section">
+        <div class="score-display ${interpretationClass}">${score}/10</div>
+        <div class="interpretation ${interpretationClass}">${interpretation}</div>
+        
+        <h4>Dettaglio Risposte:</h4>
+        <ul>${answeredQuestions.join('')}</ul>
+        
+        <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+            <strong>Interpretazione:</strong><br>
+            • ≥ 4/10: Dolore di origine neuropatica molto probabile<br>
+            • &lt; 4/10: Dolore di origine neuropatica improbabile<br><br>
+            <strong>Performance:</strong> Sensibilità 82.9% | Specificità 89.9%
+        </div>
+    </div>
+    
+    <div class="reference">
+        <strong>Riferimento:</strong> Bouhassira D, et al. Comparison of pain syndromes associated with nervous or somatic lesions and development of a new neuropathic pain diagnostic questionnaire (DN4). Pain 2005; 114: 29-36.
+    </div>
+    
+    <div class="footer">
+        <p>Report generato il: ${new Date().toLocaleString('it-IT')}</p>
+        <p>PallKit - Strumenti per le Cure Palliative</p>
+    </div>
+</body>
+</html>`);
+    win.document.close();
+    win.focus();
+    win.onload = function(){ win.print(); };
+}
+
+function getQuestionText(key) {
+    const questions = {
+        'q1a': '1a. Il dolore presenta una o più delle seguenti caratteristiche? - Bruciore',
+        'q1b': '1b. Il dolore presenta una o più delle seguenti caratteristiche? - Sensazione di freddo doloroso',
+        'q1c': '1c. Il dolore presenta una o più delle seguenti caratteristiche? - Scosse elettriche',
+        'q2a': '2a. Il dolore è associato a uno o più dei seguenti sintomi nella stessa area? - Formicolio',
+        'q2b': '2b. Il dolore è associato a uno o più dei seguenti sintomi nella stessa area? - Punture di spilli e aghi',
+        'q2c': '2c. Il dolore è associato a uno o più dei seguenti sintomi nella stessa area? - Intorpidimento',
+        'q2d': '2d. Il dolore è associato a uno o più dei seguenti sintomi nella stessa area? - Prurito',
+        'q3a': '3a. Il dolore è localizzato in un\'area dove l\'esame fisico può rivelare una o più delle seguenti caratteristiche? - Ipoestesia al tatto',
+        'q3b': '3b. Il dolore è localizzato in un\'area dove l\'esame fisico può rivelare una o più delle seguenti caratteristiche? - Ipoestesia alla puntura di spillo',
+        'q4': '4. Il dolore può essere causato o aumentato da un leggero sfioramento nell\'area dolorosa?'
+    };
+    return questions[key] || key;
 }
 
 function resetDN4() {
@@ -175,13 +267,216 @@ function printDN4Template() {
     if (!dn4Container) return;
     const template = dn4Container.querySelector('#visualize-section .template-section');
     if (!template) return;
-    const win = window.open('', '', 'width=800,height=600');
-    win.document.write(`<!DOCTYPE html><html><head><title>DN4 Template</title>`);
-    win.document.write(`<link rel="stylesheet" href="css/dn4.css">`);
-    win.document.write(`<style>@page { size: A4; margin: 15mm; } body { margin:0; } .action-buttons, .mode-selector { display: none; }</style>`);
-    win.document.write(`</head><body>${template.outerHTML}</body></html>`);
+    
+    const win = window.open('', '_blank');
+    win.document.write(`
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>DN4 - Template di Valutazione</title>
+    <style>
+        /* CSS ottimizzato per stampa A4 */
+        @page { 
+            size: A4; 
+            margin: 15mm; 
+        }
+        
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            font-size: 12px;
+            line-height: 1.4;
+            color: #333;
+        }
+        
+        .template-section {
+            background: white;
+            padding: 15px;
+            margin: 0;
+        }
+        
+        .template-header {
+            text-align: center;
+            border-bottom: 2px solid #ffc107;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .template-header h2 {
+            color: #ffc107;
+            font-size: 24px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        
+        .template-header p {
+            color: #666;
+            font-size: 14px;
+            margin: 5px 0;
+        }
+        
+        .patient-data {
+            border: 1px solid #ffc107;
+            padding: 12px;
+            margin-bottom: 15px;
+            background: #fff3cd;
+        }
+        
+        .patient-data h4 {
+            color: #ffc107;
+            font-size: 16px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        
+        .form-field {
+            flex: 1;
+            margin-right: 15px;
+        }
+        
+        .form-field:last-child {
+            margin-right: 0;
+        }
+        
+        .form-field label {
+            font-weight: bold;
+            font-size: 11px;
+            color: #555;
+        }
+        
+        .form-field input {
+            border-bottom: 1px solid #333;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            background: transparent;
+            width: 100%;
+            font-size: 12px;
+            padding: 2px 0;
+        }
+        
+        .question-section {
+            margin-bottom: 20px;
+        }
+        
+        .question-section h4 {
+            color: #ffc107;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 12px;
+            border-bottom: 1px solid #ffc107;
+            padding-bottom: 5px;
+        }
+        
+        .question-item {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+            padding: 10px;
+            margin-bottom: 8px;
+        }
+        
+        .question-text {
+            font-weight: 500;
+            margin-bottom: 8px;
+            font-size: 12px;
+        }
+        
+        .answer-options {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .answer-option {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 12px;
+        }
+        
+        .answer-option input[type="radio"] {
+            margin: 0;
+        }
+        
+        .scoring-info {
+            border: 2px solid #ffc107;
+            padding: 15px;
+            margin-top: 20px;
+            background: #fff3cd;
+        }
+        
+        .scoring-info h4 {
+            color: #ffc107;
+            font-size: 16px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .scoring-info ul {
+            margin: 8px 0;
+            padding-left: 20px;
+        }
+        
+        .scoring-info li {
+            margin-bottom: 4px;
+            font-size: 12px;
+        }
+        
+        .reference {
+            margin-top: 15px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-left: 3px solid #ffc107;
+            font-size: 10px;
+            color: #666;
+        }
+        
+        /* Nascondi elementi non necessari per stampa */
+        .action-buttons, 
+        .mode-selector,
+        .btn,
+        button {
+            display: none !important;
+        }
+        
+        /* Evita interruzioni di pagina inappropriate */
+        .question-section {
+            page-break-inside: avoid;
+        }
+        
+        .scoring-info {
+            page-break-before: avoid;
+        }
+        
+        /* Ottimizzazioni per stampa */
+        @media print {
+            body {
+                font-size: 11px;
+            }
+            
+            .template-header h2 {
+                font-size: 20px;
+            }
+            
+            .question-section h4 {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    ${template.innerHTML}
+</body>
+</html>`);
     win.document.close();
     win.focus();
-    win.print();
-    win.close();
+    win.onload = function(){ win.print(); };
 }
