@@ -163,23 +163,32 @@ function printDN4() {
     <meta charset="UTF-8">
     <title>DN4 - Report Valutazione</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; color: #333; }
-        .header { text-align: center; margin-bottom: 30px; border-bottom: 3px solid #ffc107; padding-bottom: 20px; }
-        .header h1 { color: #ffc107; margin-bottom: 10px; font-size: 2rem; }
-        .header h2 { color: #666; font-size: 1.2rem; margin: 0; }
-        .patient-info { border: 2px solid #ffc107; padding: 20px; margin-bottom: 25px; border-radius: 8px; background: #fff3cd; }
-        .result-section { margin: 20px 0; padding: 20px; border: 2px solid #ffc107; border-radius: 8px; }
-        .score-display { font-size: 3rem; font-weight: bold; text-align: center; margin: 20px 0; }
+        body { font-family: Arial, sans-serif; margin: 10mm; line-height: 1.3; color: #333; font-size: 11px; }
+        .header { text-align: center; margin-bottom: 15px; border-bottom: 2px solid #ffc107; padding-bottom: 10px; }
+        .header h1 { color: #ffc107; margin-bottom: 5px; font-size: 1.4rem; }
+        .header h2 { color: #666; font-size: 1rem; margin: 0; }
+        .patient-info { border: 1px solid #ffc107; padding: 12px; margin-bottom: 15px; border-radius: 4px; background: #fff3cd; }
+        .result-section { margin: 10px 0; padding: 15px; border: 2px solid #ffc107; border-radius: 4px; }
+        .score-display { font-size: 2rem; font-weight: bold; text-align: center; margin: 10px 0; }
         .positive { color: #dc3545; }
         .negative { color: #28a745; }
-        .interpretation { font-size: 1.3rem; font-weight: bold; text-align: center; margin: 20px 0; }
-        .form-row { display: flex; justify-content: space-between; margin-bottom: 15px; }
-        .form-field { flex: 1; margin-right: 20px; }
+        .interpretation { font-size: 1.1rem; font-weight: bold; text-align: center; margin: 10px 0; }
+        .form-row { display: flex; justify-content: space-between; margin-bottom: 8px; }
+        .form-field { flex: 1; margin-right: 15px; font-size: 11px; }
         .form-field:last-child { margin-right: 0; }
-        ul { margin-top: 10px; padding-left: 20px; }
-        .footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd; font-size: 12px; color: #666; text-align: center; }
-        .reference { margin-top: 30px; padding: 15px; background: #f8f9fa; border-left: 4px solid #ffc107; font-size: 0.9em; }
-        @media print { body { margin: 15mm; } }
+        ul { margin-top: 8px; padding-left: 15px; }
+        ul li { margin-bottom: 3px; font-size: 10px; line-height: 1.2; }
+        h4 { font-size: 12px; margin: 10px 0 8px 0; }
+        .footer { margin-top: 20px; padding-top: 10px; border-top: 1px solid #ddd; font-size: 10px; color: #666; text-align: center; }
+        .reference { margin-top: 15px; padding: 10px; background: #f8f9fa; border-left: 3px solid #ffc107; font-size: 9px; }
+        .compact-section { margin: 8px 0; padding: 10px; background: #f8f9fa; border-radius: 4px; }
+        @media print { 
+            body { margin: 12mm; font-size: 10px; } 
+            .header h1 { font-size: 1.3rem; }
+            .score-display { font-size: 1.8rem; }
+            .interpretation { font-size: 1rem; }
+            ul li { font-size: 9px; }
+        }
     </style>
 </head>
 <body>
@@ -202,13 +211,13 @@ function printDN4() {
         <div class="score-display ${interpretationClass}">${score}/10</div>
         <div class="interpretation ${interpretationClass}">${interpretation}</div>
         
-        <h4>Dettaglio Risposte:</h4>
-        <ul>${answeredQuestions.join('')}</ul>
+        <div class="compact-section">
+            <strong>Dettaglio Risposte:</strong>
+            <ul>${answeredQuestions.join('')}</ul>
+        </div>
         
-        <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px;">
-            <strong>Interpretazione:</strong><br>
-            • ≥ 4/10: Dolore di origine neuropatica molto probabile<br>
-            • &lt; 4/10: Dolore di origine neuropatica improbabile<br><br>
+        <div class="compact-section">
+            <strong>Interpretazione:</strong> ≥ 4/10 = Neuropatico probabile | &lt; 4/10 = Improbabile<br>
             <strong>Performance:</strong> Sensibilità 82.9% | Specificità 89.9%
         </div>
     </div>
@@ -445,6 +454,16 @@ function printDN4Template() {
         .btn,
         button {
             display: none !important;
+        }
+        
+        /* Forza dimensioni normali per icone Font Awesome */
+        i, .fas, .far, .fab, .fal, .fad {
+            font-size: 12px !important;
+        }
+        
+        /* Override per classi specifiche che potrebbero avere dimensioni grandi */
+        .fa-print, .fa-redo, .fa-question-circle, .fa-info-circle {
+            font-size: 12px !important;
         }
         
         /* Evita interruzioni di pagina inappropriate */
