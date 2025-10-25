@@ -150,6 +150,12 @@ p {
     font-size: 1rem;
 }
 
+.stamp-line {
+    margin: 0;
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+}
+
 .doc-container {
     /* Enough vertical space for the footer but short enough to avoid
        spilling onto a second page when exporting to PDF with 0.5in margins */

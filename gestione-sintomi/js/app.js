@@ -505,24 +505,28 @@ function buildPreviewContent() {
   const h1 = document.createElement('h5');
   h1.textContent = `${medicoData.titolo} ${medicoData.nome}`.trim();
   h1.style.color = '#000';
+  h1.classList.add('stamp-line');
   header.appendChild(h1);
   const h2 = document.createElement('h6');
   h2.textContent = 'Medico Chirurgo';
   h2.style.fontStyle = 'italic';
+  h2.style.fontWeight = 'normal';
   h2.style.color = '#000';
+  h2.classList.add('stamp-line');
   header.appendChild(h2);
   cont.appendChild(header);
-  medicoData.specializzazioni.forEach(sp => { const p = document.createElement('p'); p.textContent = sp; cont.appendChild(p); });
-  if (medicoData.studio) { const p = document.createElement('p'); p.textContent = medicoData.studio; cont.appendChild(p); }
-  if (medicoData.codice) { const p = document.createElement('p'); p.textContent = `Cod. Reg.: ${medicoData.codice}`; cont.appendChild(p); }
-  medicoData.indirizzi.forEach(a => { const p = document.createElement('p'); p.textContent = a; cont.appendChild(p); });
-  medicoData.telefoni.forEach(t => { const p = document.createElement('p'); p.textContent = `Tel. ${t}`; cont.appendChild(p); });
-  medicoData.mails.forEach(m => { const p = document.createElement('p'); p.textContent = m; cont.appendChild(p); });
+  medicoData.specializzazioni.forEach(sp => { const p = document.createElement('p'); p.textContent = sp; p.classList.add('stamp-line'); cont.appendChild(p); });
+  if (medicoData.studio) { const p = document.createElement('p'); p.textContent = medicoData.studio; p.classList.add('stamp-line'); cont.appendChild(p); }
+  if (medicoData.codice) { const p = document.createElement('p'); p.textContent = `Cod. Reg.: ${medicoData.codice}`; p.classList.add('stamp-line'); cont.appendChild(p); }
+  medicoData.indirizzi.forEach(a => { const p = document.createElement('p'); p.textContent = a; p.classList.add('stamp-line'); cont.appendChild(p); });
+  medicoData.telefoni.forEach(t => { const p = document.createElement('p'); p.textContent = `Tel. ${t}`; p.classList.add('stamp-line'); cont.appendChild(p); });
+  medicoData.mails.forEach(m => { const p = document.createElement('p'); p.textContent = m; p.classList.add('stamp-line'); cont.appendChild(p); });
   const pDate = document.createElement('p');
   const loc = medicoData.luogo ? medicoData.luogo + ', ' : '';
   pDate.textContent = loc + formatDateIt(medicoData.data);
   pDate.classList.add('text-end');
   pDate.style.fontStyle = 'italic';
+  pDate.classList.add('stamp-line');
   cont.appendChild(pDate);
   const tbl = document.createElement('table'); tbl.className = 'summary-table';
   tbl.style.marginTop = '4rem';
@@ -562,7 +566,7 @@ window.showPreviewHome = showPreviewHome;
     if (medicoData.nome || medicoData.titolo) {
       header.push(new Paragraph({ alignment: AlignmentType.LEFT, children:[new TextRun({ text:`${medicoData.titolo} ${medicoData.nome}`.trim(), bold:true, size:26 })] }));
     }
-    header.push(new Paragraph({ alignment: AlignmentType.LEFT, children:[new TextRun({ text:'Medico Chirurgo', italics:true, size:22 })] }));
+    header.push(new Paragraph({ alignment: AlignmentType.LEFT, children:[new TextRun({ text:'Medico Chirurgo', italics:true, size:20 })] }));
     medicoData.specializzazioni.forEach(sp => header.push(new Paragraph({ text: sp }))); 
     if (medicoData.studio) header.push(new Paragraph({ text: medicoData.studio }));
     if (medicoData.codice) header.push(new Paragraph({ text:`Cod. Reg.: ${medicoData.codice}` }));
