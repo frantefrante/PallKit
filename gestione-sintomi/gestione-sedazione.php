@@ -86,7 +86,6 @@
 </div>
 
 <!-- Script: dati + logica -->
-<script src="js/sedazione.data.js"></script>
 <script src="js/sedazione-ui.js"></script>
 <script src="js/sedation-tooltips.js"></script>
 <script>
