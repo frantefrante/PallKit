@@ -150,6 +150,13 @@ p {
     font-size: 1rem;
 }
 
+.doc-container h5,
+.doc-container h6 {
+    margin-top: 0;
+    margin-bottom: 0.25rem;
+    line-height: 1.3;
+}
+
 .doc-container {
     /* Enough vertical space for the footer but short enough to avoid
        spilling onto a second page when exporting to PDF with 0.5in margins */
